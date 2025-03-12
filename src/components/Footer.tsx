@@ -36,7 +36,7 @@ const Footer = () => {
         </div>
         
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-primary/70 border-t border-black/10 pt-8">
-          <div>© {new Date().getFullYear()} Hanzo.io. All rights reserved.</div>
+          <div>© {new Date().getFullYear()} Hanzo Inc. All rights reserved.</div>
           <div className="flex flex-wrap justify-center gap-6 mt-4 md:mt-0">
             <Link to="/" className="hover:text-primary transition">Index</Link>
             <Link to="/projects" className="hover:text-primary transition">Projects</Link>

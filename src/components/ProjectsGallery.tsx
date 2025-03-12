@@ -6,7 +6,7 @@ interface ProjectsGalleryProps {
 }
 
 const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ selectedCategory }) => {
-  // Project data with uploaded images
+  // Project data with corrected image paths
   const projects = [
     {
       id: 1,
@@ -91,7 +91,10 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ selectedCategory }) =
               src={displayProjects[0].image} 
               alt={displayProjects[0].title} 
               className="w-full h-full object-cover"
-              onError={(e) => console.log("Image loading error:", e)}
+              onError={(e) => {
+                console.error("Image loading error for:", displayProjects[0].image);
+                e.currentTarget.src = "/placeholder.svg"; // Fallback to placeholder
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
               <span className="text-sm font-medium text-white/70 mb-1">{displayProjects[0].category}</span>
@@ -110,7 +113,10 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ selectedCategory }) =
               src={project.image} 
               alt={project.title} 
               className="w-full h-full object-cover"
-              onError={(e) => console.log("Image loading error:", e)}
+              onError={(e) => {
+                console.error("Image loading error for:", project.image);
+                e.currentTarget.src = "/placeholder.svg"; // Fallback to placeholder
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
               <span className="text-sm font-medium text-white/70 mb-1">{project.category}</span>

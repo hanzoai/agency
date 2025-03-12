@@ -1,7 +1,11 @@
 
 import React from 'react';
 
-const ProjectsGallery = () => {
+interface ProjectsGalleryProps {
+  selectedCategory: string;
+}
+
+const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ selectedCategory }) => {
   // Project data with uploaded images
   const projects = [
     {
@@ -69,32 +73,44 @@ const ProjectsGallery = () => {
     }
   ];
 
+  // Filter projects based on selected category
+  const filteredProjects = selectedCategory === 'All' 
+    ? projects 
+    : projects.filter(project => project.category === selectedCategory);
+
+  // If no projects found in selected category, show all projects
+  const displayProjects = filteredProjects.length > 0 ? filteredProjects : projects;
+
   return (
     <div className="mb-20">
       {/* Mobile display (single column, show first project only) */}
       <div className="block md:hidden">
-        <div className="relative aspect-[3/4] overflow-hidden rounded-lg mb-4 reveal">
-          <img 
-            src={projects[0].image} 
-            alt={projects[0].title} 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
-            <span className="text-sm font-medium text-white/70 mb-1">{projects[0].category}</span>
-            <h3 className="text-xl font-bold text-white">{projects[0].title}</h3>
-            <p className="text-white/80 mt-1">{projects[0].description}</p>
+        {displayProjects.length > 0 && (
+          <div className="relative aspect-[3/4] overflow-hidden rounded-lg mb-4 reveal">
+            <img 
+              src={displayProjects[0].image} 
+              alt={displayProjects[0].title} 
+              className="w-full h-full object-cover"
+              onError={(e) => console.log("Image loading error:", e)}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
+              <span className="text-sm font-medium text-white/70 mb-1">{displayProjects[0].category}</span>
+              <h3 className="text-xl font-bold text-white">{displayProjects[0].title}</h3>
+              <p className="text-white/80 mt-1">{displayProjects[0].description}</p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Desktop display (grid layout with all projects) */}
       <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {projects.map((project) => (
+        {displayProjects.map((project) => (
           <div key={project.id} className="relative aspect-[3/4] overflow-hidden rounded-lg reveal">
             <img 
               src={project.image} 
               alt={project.title} 
               className="w-full h-full object-cover"
+              onError={(e) => console.log("Image loading error:", e)}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
               <span className="text-sm font-medium text-white/70 mb-1">{project.category}</span>

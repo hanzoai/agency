@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
 import { CreditCard, Mail, Lock, Tag, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -38,6 +39,7 @@ const DISCOUNT_CODES = {
 
 const Subscribe = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
@@ -128,6 +130,12 @@ const Subscribe = () => {
         title: "Subscription successful!",
         description: "Thank you for subscribing to our service",
       });
+
+      // Set a session storage item to indicate successful subscription
+      sessionStorage.setItem('onboardingComplete', 'false');
+      
+      // Redirect to the onboarding form
+      navigate('/onboarding');
     }, 2000);
   };
 

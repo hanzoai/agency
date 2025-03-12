@@ -1,3 +1,4 @@
+
 import { Check } from 'lucide-react';
 
 const features = [
@@ -23,7 +24,7 @@ const Pricing = () => {
               
               <div className="p-8">
                 <div className="flex justify-center items-baseline mb-6">
-                  <span className="text-5xl font-bold">$650</span>
+                  <span className="text-5xl font-bold">$1200</span>
                   <span className="ml-2 text-primary/70">/month</span>
                 </div>
                 
@@ -37,12 +38,10 @@ const Pricing = () => {
                 </ul>
                 
                 <a 
-                  href="https://calendar.app.google/dHbVXQP6g7GvB6fj9" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                  href="/subscribe" 
                   className="btn-primary w-full"
                 >
-                  Book Your Call Today
+                  Subscribe Today
                 </a>
                 
                 <p className="text-center text-sm text-primary/70 mt-4">
@@ -57,7 +56,7 @@ const Pricing = () => {
               Pricing
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Unlimited Graphic Design & Web Development for just $650/Month
+              Unlimited Graphic Design & Web Development for just $1200/Month
             </h2>
             <p className="text-lg text-primary/80 mb-6">
               Fast turnarounds. Reliable and affordable. Unlimited graphic design & landing page builds every month. Save $1000's on graphic design and web development.

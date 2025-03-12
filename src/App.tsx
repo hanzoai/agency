@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CaseStudyTrillerFest from "./pages/CaseStudyTrillerFest";
+import Subscribe from "./pages/Subscribe";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/case-study-trillerfest" element={<CaseStudyTrillerFest />} />
+          <Route path="/subscribe" element={<Subscribe />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

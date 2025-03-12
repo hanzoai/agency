@@ -52,7 +52,7 @@ const Projects = () => {
               </div>
             </div>
             
-            <ProjectsGallery />
+            <ProjectsGallery selectedCategory={category} />
           </div>
         </main>
         

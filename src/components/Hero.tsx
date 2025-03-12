@@ -20,7 +20,7 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 reveal-slide-up">
-            <a href="#get-started" className="lets-talk-btn text-lg py-3 px-6">
+            <a href="https://calendar.app.google/dHbVXQP6g7GvB6fj9" className="lets-talk-btn text-lg py-3 px-6">
               Let's talk
               <ArrowUpRight size={20} className="ml-2" />
             </a>

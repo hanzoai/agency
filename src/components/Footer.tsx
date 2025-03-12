@@ -1,61 +1,47 @@
 
+import { ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
 const Footer = () => {
   return (
-    <footer className="bg-white py-10 md:py-16 border-t border-gray-100">
+    <footer className="bg-beige-50 py-16 md:py-20 border-t border-black/10">
       <div className="container-custom">
-        <div className="flex flex-col md:flex-row justify-between mb-10">
-          <div className="mb-8 md:mb-0">
-            <h3 className="text-xl font-bold mb-4">Hanzo.io</h3>
-            <p className="text-primary/70 max-w-xs">
-              Unlimited designs from a dedicated full-stack designer. All in one monthly subscription.
-            </p>
-            <div className="mt-4">
-              <a href="mailto:sales@Hanzo.io" className="text-accent hover:underline">
-                sales@Hanzo.io
-              </a>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16">
+          <div>
+            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6">CONTACT</h2>
+            <div className="space-y-3 mb-8">
+              <p className="text-primary/80">
+                Obra Technologies Inc.<br/>
+                500 Market Street, Suite 800<br/>
+                San Francisco, CA 94105<br/>
+                United States
+              </p>
+              <p className="text-primary/80">
+                hello.verywell@gmail.com<br/>
+                (+65) 13370-9976
+              </p>
             </div>
+            <a href="#contact" className="lets-talk-btn">
+              Let's talk
+              <ArrowUpRight size={16} className="ml-1" />
+            </a>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
-            <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-primary/70 hover:text-primary transition">About Us</a></li>
-                <li><a href="#" className="text-primary/70 hover:text-primary transition">Careers</a></li>
-                <li><a href="#" className="text-primary/70 hover:text-primary transition">Contact Us</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Services</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-primary/70 hover:text-primary transition">App Design</a></li>
-                <li><a href="#" className="text-primary/70 hover:text-primary transition">Brand Design</a></li>
-                <li><a href="#" className="text-primary/70 hover:text-primary transition">Website Design</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-primary/70 hover:text-primary transition">Blog</a></li>
-                <li><a href="#" className="text-primary/70 hover:text-primary transition">Case Studies</a></li>
-                <li><a href="#" className="text-primary/70 hover:text-primary transition">FAQ</a></li>
-              </ul>
-            </div>
+          <div className="grid grid-cols-4 gap-4">
+            <div className="geometric-circle border border-black/20 aspect-square flex items-center justify-center">IG</div>
+            <div className="geometric-circle border border-black/20 aspect-square flex items-center justify-center">FB</div>
+            <div className="geometric-circle border border-black/20 aspect-square flex items-center justify-center">X</div>
+            <div className="geometric-circle border border-black/20 aspect-square flex items-center justify-center">LI</div>
           </div>
         </div>
         
-        <div className="border-t border-gray-100 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-primary/70">
+        <div className="flex flex-col md:flex-row justify-between items-center text-sm text-primary/70 border-t border-black/10 pt-8">
           <div>© {new Date().getFullYear()} Hanzo.io. All rights reserved.</div>
-          <div className="flex flex-wrap justify-center gap-4 mt-4 md:mt-0">
-            <a href="#" className="hover:text-primary transition">Pricing</a>
-            <a href="#" className="hover:text-primary transition">How It Works</a>
-            <a href="#" className="hover:text-primary transition">Contact Us</a>
-            <a href="#" className="hover:text-primary transition">Demo</a>
-            <a href="#" className="hover:text-primary transition">Client Login</a>
-            <a href="#" className="hover:text-primary transition">Terms of Service</a>
-            <a href="#" className="hover:text-primary transition">Privacy Policy</a>
+          <div className="flex flex-wrap justify-center gap-6 mt-4 md:mt-0">
+            <Link to="/" className="hover:text-primary transition">Index</Link>
+            <Link to="/projects" className="hover:text-primary transition">Projects</Link>
+            <Link to="/rent" className="hover:text-primary transition">Rent</Link>
+            <Link to="/contact" className="hover:text-primary transition">Contact</Link>
           </div>
         </div>
       </div>

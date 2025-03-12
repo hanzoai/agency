@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -29,13 +30,13 @@ export default {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         beige: {
-          50: '#fdf8f2',
-          100: '#f6ede1',
-          200: '#efe0cf',
-          300: '#e6d0b8',
-          400: '#d4b08e',
-          500: '#c7956e',
-          600: '#ba7c5a',
+          50: '#f5f0e9',
+          100: '#ebe4da',
+          200: '#d7c9b8',
+          300: '#c2af96',
+          400: '#ad9678',
+          500: '#967c5e',
+          600: '#7c644c',
         },
         accent: {
           DEFAULT: '#34a853',
@@ -111,8 +112,8 @@ export default {
         'scale-in': 'scaleIn 0.3s ease-out forwards',
       },
       fontFamily: {
-        sans: ['"Inter"', 'sans-serif'],
-        display: ['"Manrope"', 'sans-serif'],
+        sans: ['"Libre Franklin"', 'sans-serif'],
+        display: ['"Libre Franklin"', 'sans-serif'],
       },
     }
   },

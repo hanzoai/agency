@@ -11,13 +11,13 @@ const Projects = () => {
 
   return (
     <ScrollReveal>
-      <div className="min-h-screen flex flex-col bg-black text-white">
+      <div className="min-h-screen flex flex-col bg-beige-50 text-black">
         <Navbar />
         
         <main className="flex-grow pt-24">
           <div className="container-custom">
-            <h1 className="text-[90px] md:text-[150px] font-bold tracking-tighter text-[#F97316] leading-none mb-6">
-              PROJECTS
+            <h1 className="text-6xl md:text-9xl font-black tracking-tighter uppercase text-black leading-none mb-12 pt-12">
+              PRO<br />JECTS
             </h1>
             
             {/* Project category filter */}
@@ -27,10 +27,10 @@ const Projects = () => {
                   <button
                     key={cat}
                     onClick={() => setCategory(cat)}
-                    className={`py-2 px-4 rounded-full text-sm font-medium transition-colors ${
+                    className={`py-2 px-4 text-sm font-medium transition-colors ${
                       category === cat 
-                        ? 'bg-[#F97316] text-white' 
-                        : 'bg-white/10 text-white/70 hover:bg-white/20'
+                        ? 'bg-black text-white' 
+                        : 'bg-transparent text-black hover:bg-black/10'
                     }`}
                   >
                     {cat}

@@ -12,7 +12,7 @@ const CTA = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center md:text-left">
             <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-12 reveal">
-              GET<br/>PERSONALIZED<br/>QUOTE
+              UNLIMITED<br/>FULL-STACK APP<br/>DEVELOPMENT
             </h2>
             <p className="text-lg md:text-xl text-white/80 mb-10 max-w-xl reveal">
               Our mission is to change the current landscape of logistics real estate, one destination at a time. We do so by developing logistics projects with a focus on Architecture, Technology, and Functionality.

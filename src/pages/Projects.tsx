@@ -4,23 +4,10 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProjectsGallery from '@/components/ProjectsGallery';
 import ScrollReveal from '@/utils/ScrollReveal';
+import { projectCategories } from '@/data/projectsData';
 
 const Projects = () => {
   const [category, setCategory] = useState<string>('All');
-  
-  // Project categories
-  const categories = [
-    'All', 
-    'Branding', 
-    'UI/UX', 
-    'Web Design', 
-    'App Design',
-    'Digital Art', 
-    'Blockchain', 
-    'Fintech', 
-    'E-commerce', 
-    'Product'
-  ];
 
   return (
     <ScrollReveal>
@@ -36,7 +23,7 @@ const Projects = () => {
             {/* Project category filter */}
             <div className="overflow-x-auto pb-6 mb-8 reveal">
               <div className="flex space-x-4 min-w-max">
-                {categories.map((cat) => (
+                {projectCategories.map((cat) => (
                   <button
                     key={cat}
                     onClick={() => setCategory(cat)}

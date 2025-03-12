@@ -1,10 +1,18 @@
-
 import { useState } from 'react';
 import { useToast } from "@/hooks/use-toast";
 import { CreditCard, Mail, Lock, Tag, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+
+const features = [
+  "Unlimited Project Requests Every Month",
+  "Quick Response & Delivery",
+  "No contracts. Cancel Anytime.",
+  "One Rate For All Your Funnel Building Needs",
+  "All the skills you need to start, grow, and scale your online business",
+  "Professional graphic designers & funnel building experts",
+];
 
 interface FormData {
   fullName: string;
@@ -19,7 +27,6 @@ interface FormData {
   discountCode: string;
 }
 
-// Available discount codes
 const DISCOUNT_CODES = {
   'HANZO50': 50,
   'NEW200': 200,
@@ -44,7 +51,7 @@ const Subscribe = () => {
   const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
   const [isDiscountApplied, setIsDiscountApplied] = useState<boolean>(false);
 
-  const basePrice = 1200;
+  const basePrice = 1250;
   const finalPrice = basePrice - appliedDiscount;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,14 +91,12 @@ const Subscribe = () => {
     e.preventDefault();
     setIsProcessing(true);
 
-    // Simulate payment processing
     setTimeout(() => {
       setIsProcessing(false);
       toast({
         title: "Subscription successful!",
         description: "Thank you for subscribing to our service",
       });
-      // In a real app, you would redirect to a success page or dashboard
     }, 2000);
   };
 

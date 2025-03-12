@@ -24,7 +24,7 @@ const Pricing = () => {
               
               <div className="p-8">
                 <div className="flex justify-center items-baseline mb-6">
-                  <span className="text-5xl font-bold">$1200</span>
+                  <span className="text-5xl font-bold">$1250</span>
                   <span className="ml-2 text-primary/70">/month</span>
                 </div>
                 
@@ -56,7 +56,7 @@ const Pricing = () => {
               Pricing
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Unlimited Graphic Design & Web Development for just $1200/Month
+              Unlimited Graphic Design & Web Development for just $1250/Month
             </h2>
             <p className="text-lg text-primary/80 mb-6">
               Fast turnarounds. Reliable and affordable. Unlimited graphic design & landing page builds every month. Save $1000's on graphic design and web development.

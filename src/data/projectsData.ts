@@ -3,66 +3,59 @@
 export const projects = [
   {
     id: 1,
-    title: 'Luxury Automotive',
-    description: 'Brand identity for premium vehicle experience',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'OMNY HOUSE',
+    description: 'A SNAZZY HOUSE NEAR QUEBEC, CANADA',
+    image: '/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png', 
     category: 'Branding',
   },
   {
     id: 2,
-    title: 'Crypto Trading Platform',
-    description: 'User interface design for digital asset exchange',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'KROTE VILLA',
+    description: 'A NIFTY DUPLEX NEAR FLORIDA, USA',
+    image: '/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png', 
     category: 'UI/UX',
   },
   {
     id: 3,
-    title: 'Resort Website',
-    description: 'Luxury hospitality digital experience design',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'MODERNIST RETREAT',
+    description: 'LUXURY VACATION HOME IN CALIFORNIA',
+    image: '/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png', 
     category: 'Web Design',
   },
   {
     id: 4,
-    title: 'Real Estate Platform',
-    description: 'Mobile-first property listing application',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'URBAN LOFT',
+    description: 'CONTEMPORARY APARTMENT IN NEW YORK',
+    image: '/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png', 
     category: 'App Design',
   },
   {
     id: 5,
-    title: 'Gaming NFT',
-    description: 'Blockchain gaming character development',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'COASTAL VILLA',
+    description: 'OCEANFRONT PROPERTY WITH SCENIC VIEWS',
+    image: '/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png', 
     category: 'Digital Art',
   },
   {
     id: 6,
-    title: 'DuckCoin Tokenomics',
-    description: 'Visual presentation of cryptocurrency mechanics',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'MOUNTAIN CABIN',
+    description: 'COZY RETREAT IN THE ALPINE WILDERNESS',
+    image: '/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png', 
     category: 'Blockchain',
   },
   {
     id: 7,
-    title: 'Investment Platform',
-    description: 'Financial technology dashboard and landing page design',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'DESERT OASIS',
+    description: 'SUSTAINABLE LIVING IN ARID LANDSCAPES',
+    image: '/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png', 
     category: 'Fintech',
   },
   {
     id: 8,
-    title: 'Skincare Brand',
-    description: 'Premium beauty product digital marketing website',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'FOREST HIDEAWAY',
+    description: 'SECLUDED WOODEN HOME AMONG ANCIENT TREES',
+    image: '/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png', 
     category: 'E-commerce',
-  },
-  {
-    id: 9,
-    title: 'Electric Bicycle',
-    description: 'Sustainable transportation product showcase',
-    image: '/placeholder.svg', // Fallback image path
-    category: 'Product',
   }
 ];
 
@@ -76,6 +69,5 @@ export const projectCategories = [
   'Digital Art', 
   'Blockchain', 
   'Fintech', 
-  'E-commerce', 
-  'Product'
+  'E-commerce'
 ];

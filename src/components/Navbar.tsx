@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -48,10 +48,10 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm' : 'bg-transparent'}`} style={{ top: isBannerVisible ? '40px' : '0' }}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-beige-50/95 backdrop-blur-sm' : 'bg-transparent'}`} style={{ top: isBannerVisible ? '40px' : '0' }}>
       <div className="container-custom">
         <div className="flex items-center justify-between py-4">
-          <Link to="/" className="text-xl font-display font-bold">Hanzo.io</Link>
+          <Link to="/" className="text-xl font-bold">HANZO.IO</Link>
           
           <nav className="hidden lg:flex items-center space-x-8">
             <a href="#services" className="text-primary/80 hover:text-primary font-medium transition">Services</a>
@@ -64,7 +64,10 @@ const Navbar = () => {
           </nav>
           
           <div className="hidden lg:block">
-            <a href="#get-started" className="btn-primary">Book a Call</a>
+            <a href="#get-started" className="lets-talk-btn">
+              Let's talk
+              <ArrowUpRight size={16} className="ml-1" />
+            </a>
           </div>
           
           <button 
@@ -76,7 +79,7 @@ const Navbar = () => {
         </div>
       </div>
       
-      <div className={`lg:hidden bg-white overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-screen shadow-md' : 'max-h-0'}`}>
+      <div className={`lg:hidden bg-beige-50 overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-screen shadow-md' : 'max-h-0'}`}>
         <div className="container-custom py-4">
           <nav className="flex flex-col space-y-4">
             <a href="#services" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Services</a>
@@ -86,7 +89,10 @@ const Navbar = () => {
             <a href="#testimonials" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Testimonials</a>
             <a href="#pricing" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Pricing</a>
             <a href="#faq" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>FAQ</a>
-            <a href="#get-started" className="btn-primary inline-block text-center" onClick={() => setIsMenuOpen(false)}>Book a Call</a>
+            <a href="#get-started" className="lets-talk-btn inline-flex w-fit" onClick={() => setIsMenuOpen(false)}>
+              Let's talk
+              <ArrowUpRight size={16} className="ml-1" />
+            </a>
           </nav>
         </div>
       </div>

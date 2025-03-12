@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Libre+Franklin:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,26 +7,26 @@
 
 @layer base {
   :root {
-    --background: 40 33% 98%;
+    --background: 30 25% 93%;
     --foreground: 20 10% 5%;
 
-    --card: 40 33% 98%;
+    --card: 30 25% 93%;
     --card-foreground: 20 10% 5%;
 
-    --popover: 40 33% 98%;
+    --popover: 30 25% 93%;
     --popover-foreground: 20 10% 5%;
 
     --primary: 20 10% 5%;
-    --primary-foreground: 40 33% 98%;
+    --primary-foreground: 30 25% 93%;
 
-    --secondary: 40 20% 92%;
+    --secondary: 30 15% 86%;
     --secondary-foreground: 20 10% 5%;
 
-    --muted: 40 20% 92%;
+    --muted: 30 15% 86%;
     --muted-foreground: 20 5% 40%;
 
     --accent: 142 54% 43%;
-    --accent-foreground: 40 33% 98%;
+    --accent-foreground: 30 25% 93%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -35,7 +35,7 @@
     --input: 20 10% 85%;
     --ring: 20 10% 70%;
 
-    --radius: 0.5rem;
+    --radius: 0.25rem;
   }
 
   * {
@@ -44,6 +44,8 @@
 
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
@@ -85,15 +87,11 @@
   }
 
   .btn-secondary {
-    @apply bg-white hover:bg-gray-50 text-primary border border-gray-200 font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
+    @apply bg-black hover:bg-black/90 text-white border border-black font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
   }
 
   .btn-outline {
     @apply bg-transparent hover:bg-primary/5 text-primary border border-primary/20 font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
-  }
-
-  .circle-accent {
-    @apply w-12 h-12 bg-accent-light rounded-full flex items-center justify-center text-accent;
   }
 
   .container-custom {
@@ -105,14 +103,22 @@
   }
 
   .testimonial-card {
-    @apply bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100;
+    @apply bg-white p-6 md:p-8 rounded-lg shadow-sm border border-gray-100;
   }
 
   .service-card {
-    @apply bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300;
+    @apply bg-white p-6 md:p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300;
   }
 
   .faq-item {
     @apply border-b border-gray-200 py-6;
+  }
+
+  .geometric-circle {
+    @apply rounded-full aspect-square;
+  }
+  
+  .lets-talk-btn {
+    @apply bg-accent text-white rounded-full py-2 px-4 inline-flex items-center font-medium;
   }
 }

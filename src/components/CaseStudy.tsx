@@ -16,20 +16,11 @@ const CaseStudy = () => {
           <div className="grid md:grid-cols-2 items-center">
             {/* Image side */}
             <div className="h-full bg-beige-100 min-h-[300px] md:min-h-[500px] flex items-center justify-center p-10 reveal">
-              <div className="rounded-2xl bg-white shadow-lg p-4 w-full max-w-md transform rotate-2">
-                <div className="flex justify-between items-center mb-4">
-                  <div className="flex">
-                    <div className="w-3 h-3 rounded-full bg-red-400 mr-2"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-400 mr-2"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                  </div>
-                  <div className="text-xs text-gray-400">triller.co</div>
-                </div>
-                <div className="h-48 bg-beige-50 rounded-lg mb-4 flex items-center justify-center">
-                  <span className="text-sm text-primary/40">TrillerFest Preview</span>
-                </div>
-                <div className="h-12 bg-beige-50 rounded-lg w-4/5"></div>
-              </div>
+              <img 
+                src="/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png" 
+                alt="Marshmello DJ TrillerFest" 
+                className="max-w-full max-h-[400px] object-contain"
+              />
             </div>
             
             {/* Text side */}

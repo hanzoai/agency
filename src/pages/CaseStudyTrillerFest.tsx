@@ -1,8 +1,8 @@
-
 import { ArrowLeft, ChevronRight, Users, DollarSign, Youtube, Activity, Target, TrendingUp, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import ScrollReveal from '@/utils/ScrollReveal';
+import TrillerFestGallery from '@/components/TrillerFestGallery';
 
 const CaseStudyTrillerFest = () => {
   useEffect(() => {
@@ -12,11 +12,15 @@ const CaseStudyTrillerFest = () => {
   return (
     <ScrollReveal>
       <div className="min-h-screen bg-beige-50">
-        {/* Hero Section */}
+        {/* Hero Section with first image */}
         <div className="bg-primary text-white py-20 md:py-32 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-64 h-64 rounded-full bg-accent -translate-x-1/2 -translate-y-1/2"></div>
-            <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-accent translate-x-1/2 translate-y-1/2"></div>
+            <img 
+              src="/lovable-uploads/6f11fa66-23b1-4967-aab8-1fa841066ef6.png"
+              alt="TrillerFest Background"
+              className="absolute inset-0 w-full h-full object-cover opacity-20"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary/80"></div>
           </div>
           <div className="container-custom relative z-10">
             <Link to="/" className="inline-flex items-center text-white/80 hover:text-white mb-8 transition-colors">
@@ -53,6 +57,9 @@ const CaseStudyTrillerFest = () => {
         </div>
 
         <div className="container-custom py-16 md:py-24">
+          {/* Image Gallery */}
+          <TrillerFestGallery />
+          
           {/* Key Metrics */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 reveal-slide-up">
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 transition-transform hover:scale-[1.02] hover:shadow-md">
@@ -297,3 +304,4 @@ const CaseStudyTrillerFest = () => {
 };
 
 export default CaseStudyTrillerFest;
+

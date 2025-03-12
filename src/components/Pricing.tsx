@@ -1,4 +1,3 @@
-
 import { Check } from 'lucide-react';
 
 const features = [
@@ -37,7 +36,12 @@ const Pricing = () => {
                   ))}
                 </ul>
                 
-                <a href="#get-started" className="btn-primary w-full">
+                <a 
+                  href="https://calendar.app.google/dHbVXQP6g7GvB6fj9" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="btn-primary w-full"
+                >
                   Book Your Call Today
                 </a>
                 

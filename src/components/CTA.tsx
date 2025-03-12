@@ -21,7 +21,12 @@ const CTA = () => {
           </p>
           
           <div className="flex justify-center reveal">
-            <a href="#" className="bg-white text-accent hover:bg-white/90 font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center">
+            <a 
+              href="https://calendar.app.google/dHbVXQP6g7GvB6fj9" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="bg-white text-accent hover:bg-white/90 font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center"
+            >
               Book Your Call Today
               <ArrowRight size={18} className="ml-2" />
             </a>

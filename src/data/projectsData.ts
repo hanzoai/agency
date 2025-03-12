@@ -3,65 +3,65 @@
 export const projects = [
   {
     id: 1,
-    title: 'Luxury Automotive',
-    description: 'Brand identity for premium vehicle experience',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'Skincare Collection',
+    description: 'Premium beauty products with natural ingredients',
+    image: '/lovable-uploads/21b7d262-3e64-48ea-b852-d4dba0c62778.png', 
     category: 'Branding',
   },
   {
     id: 2,
-    title: 'Crypto Trading Platform',
-    description: 'User interface design for digital asset exchange',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'Luxury Beauty',
+    description: 'High-end cosmetics and skincare solutions',
+    image: '/lovable-uploads/21b7d262-3e64-48ea-b852-d4dba0c62778.png',
     category: 'UI/UX',
   },
   {
     id: 3,
-    title: 'Resort Website',
-    description: 'Luxury hospitality digital experience design',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'Natural Organics',
+    description: 'Eco-friendly beauty products website',
+    image: '/lovable-uploads/21b7d262-3e64-48ea-b852-d4dba0c62778.png',
     category: 'Web Design',
   },
   {
     id: 4,
-    title: 'Real Estate Platform',
-    description: 'Mobile-first property listing application',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'Dermatology App',
+    description: 'Mobile skincare consultation platform',
+    image: '/lovable-uploads/21b7d262-3e64-48ea-b852-d4dba0c62778.png',
     category: 'App Design',
   },
   {
     id: 5,
-    title: 'Gaming NFT',
-    description: 'Blockchain gaming character development',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'Beauty Artwork',
+    description: 'Digital illustrations for cosmetic brands',
+    image: '/placeholder.svg',
     category: 'Digital Art',
   },
   {
     id: 6,
-    title: 'DuckCoin Tokenomics',
-    description: 'Visual presentation of cryptocurrency mechanics',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'BeautyCoin',
+    description: 'Blockchain rewards for beauty products',
+    image: '/placeholder.svg',
     category: 'Blockchain',
   },
   {
     id: 7,
-    title: 'Investment Platform',
-    description: 'Financial technology dashboard and landing page design',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'Beauty Banking',
+    description: 'Financial solutions for beauty entrepreneurs',
+    image: '/placeholder.svg',
     category: 'Fintech',
   },
   {
     id: 8,
-    title: 'Skincare Brand',
-    description: 'Premium beauty product digital marketing website',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'Premium Cosmetics',
+    description: 'E-commerce platform for luxury beauty products',
+    image: '/placeholder.svg',
     category: 'E-commerce',
   },
   {
     id: 9,
-    title: 'Electric Bicycle',
-    description: 'Sustainable transportation product showcase',
-    image: '/placeholder.svg', // Fallback image path
+    title: 'Skincare Device',
+    description: 'Smart beauty tech product design showcase',
+    image: '/placeholder.svg',
     category: 'Product',
   }
 ];

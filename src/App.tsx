@@ -11,6 +11,7 @@ import Subscribe from "./pages/Subscribe";
 import OnboardingForm from "./pages/Onboarding";
 import OnboardingSuccess from "./pages/OnboardingSuccess";
 import Projects from "./pages/Projects";
+import Contact from "./pages/Contact";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/onboarding" element={<OnboardingForm />} />
           <Route path="/onboarding-success" element={<OnboardingSuccess />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

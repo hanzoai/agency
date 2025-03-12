@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
@@ -53,20 +54,20 @@ const Navbar = () => {
           <Link to="/" className="text-xl font-bold">HANZO</Link>
           
           <nav className="hidden lg:flex items-center space-x-8">
-            <a href="#services" className="text-primary/80 hover:text-primary font-medium transition">Services</a>
-            <a href="#why-hanzo" className="text-primary/80 hover:text-primary font-medium transition">Why Hanzo</a>
+            <Link to="/#services" className="text-primary/80 hover:text-primary font-medium transition">Services</Link>
+            <Link to="/#why-hanzo" className="text-primary/80 hover:text-primary font-medium transition">Why Hanzo</Link>
             <Link to="/projects" className="text-primary/80 hover:text-primary font-medium transition">Projects</Link>
-            <a href="#case-studies" className="text-primary/80 hover:text-primary font-medium transition">Case Studies</a>
-            <a href="#testimonials" className="text-primary/80 hover:text-primary font-medium transition">Testimonials</a>
-            <a href="#pricing" className="text-primary/80 hover:text-primary font-medium transition">Pricing</a>
-            <a href="#faq" className="text-primary/80 hover:text-primary font-medium transition">FAQ</a>
+            <Link to="/#case-studies" className="text-primary/80 hover:text-primary font-medium transition">Case Studies</Link>
+            <Link to="/#testimonials" className="text-primary/80 hover:text-primary font-medium transition">Testimonials</Link>
+            <Link to="/#pricing" className="text-primary/80 hover:text-primary font-medium transition">Pricing</Link>
+            <Link to="/#faq" className="text-primary/80 hover:text-primary font-medium transition">FAQ</Link>
           </nav>
           
           <div className="hidden lg:block">
-            <a href="#get-started" className="lets-talk-btn">
+            <Link to="/#get-started" className="lets-talk-btn">
               Let's talk
               <ArrowUpRight size={16} className="ml-1" />
-            </a>
+            </Link>
           </div>
           
           <button 
@@ -81,17 +82,17 @@ const Navbar = () => {
       <div className={`lg:hidden bg-beige-50 overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-screen shadow-md' : 'max-h-0'}`}>
         <div className="container-custom py-4">
           <nav className="flex flex-col space-y-4">
-            <a href="#services" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Services</a>
-            <a href="#why-hanzo" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Why Hanzo</a>
+            <Link to="/#services" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Services</Link>
+            <Link to="/#why-hanzo" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Why Hanzo</Link>
             <Link to="/projects" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Projects</Link>
-            <a href="#case-studies" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Case Studies</a>
-            <a href="#testimonials" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Testimonials</a>
-            <a href="#pricing" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Pricing</a>
-            <a href="#faq" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>FAQ</a>
-            <a href="#get-started" className="lets-talk-btn inline-flex w-fit" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/#case-studies" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Case Studies</Link>
+            <Link to="/#testimonials" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Testimonials</Link>
+            <Link to="/#pricing" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
+            <Link to="/#faq" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>FAQ</Link>
+            <Link to="/#get-started" className="lets-talk-btn inline-flex w-fit" onClick={() => setIsMenuOpen(false)}>
               Let's talk
               <ArrowUpRight size={16} className="ml-1" />
-            </a>
+            </Link>
           </nav>
         </div>
       </div>

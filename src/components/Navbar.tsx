@@ -1,6 +1,8 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,11 +51,12 @@ const Navbar = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm' : 'bg-transparent'}`} style={{ top: isBannerVisible ? '40px' : '0' }}>
       <div className="container-custom">
         <div className="flex items-center justify-between py-4">
-          <a href="#" className="text-xl font-display font-bold">Hanzo.io</a>
+          <Link to="/" className="text-xl font-display font-bold">Hanzo.io</Link>
           
           <nav className="hidden lg:flex items-center space-x-8">
             <a href="#services" className="text-primary/80 hover:text-primary font-medium transition">Services</a>
             <a href="#why-hanzo" className="text-primary/80 hover:text-primary font-medium transition">Why Hanzo</a>
+            <Link to="/projects" className="text-primary/80 hover:text-primary font-medium transition">Projects</Link>
             <a href="#case-studies" className="text-primary/80 hover:text-primary font-medium transition">Case Studies</a>
             <a href="#testimonials" className="text-primary/80 hover:text-primary font-medium transition">Testimonials</a>
             <a href="#pricing" className="text-primary/80 hover:text-primary font-medium transition">Pricing</a>
@@ -78,6 +81,7 @@ const Navbar = () => {
           <nav className="flex flex-col space-y-4">
             <a href="#services" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Services</a>
             <a href="#why-hanzo" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Why Hanzo</a>
+            <Link to="/projects" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Projects</Link>
             <a href="#case-studies" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Case Studies</a>
             <a href="#testimonials" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Testimonials</a>
             <a href="#pricing" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Pricing</a>

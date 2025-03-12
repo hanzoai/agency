@@ -4,7 +4,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const faqs = [
   {
-    question: "What do I get for the $650/month package?",
+    question: "What do I get for the $1250/month package?",
     answer: "You get unlimited graphic design and web development services. This includes UI/UX design, brand design, website & landing page design, and implementation. You'll have a dedicated team of designers, funnel builders, and project managers to help realize your vision."
   },
   {

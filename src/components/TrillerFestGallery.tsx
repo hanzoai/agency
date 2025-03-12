@@ -38,7 +38,7 @@ const TrillerFestGallery = () => {
 
   return (
     <div className="relative w-full max-w-4xl mx-auto mt-8 reveal">
-      <div className="aspect-w-16 aspect-h-12 relative overflow-hidden rounded-2xl shadow-lg">
+      <div className="relative overflow-hidden rounded-2xl shadow-lg" style={{ aspectRatio: '16/9' }}>
         <img
           src={images[currentIndex].src}
           alt={images[currentIndex].alt}

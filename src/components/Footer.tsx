@@ -21,10 +21,10 @@ const Footer = () => {
                 (+65) 13370-9976
               </p>
             </div>
-            <a href="#contact" className="lets-talk-btn">
+            <Link to="/#contact" className="lets-talk-btn">
               Let's talk
               <ArrowUpRight size={16} className="ml-1" />
-            </a>
+            </Link>
           </div>
           
           <div className="grid grid-cols-4 gap-4">
@@ -40,7 +40,6 @@ const Footer = () => {
           <div className="flex flex-wrap justify-center gap-6 mt-4 md:mt-0">
             <Link to="/" className="hover:text-primary transition">Index</Link>
             <Link to="/projects" className="hover:text-primary transition">Projects</Link>
-            <Link to="/rent" className="hover:text-primary transition">Rent</Link>
             <Link to="/contact" className="hover:text-primary transition">Contact</Link>
           </div>
         </div>

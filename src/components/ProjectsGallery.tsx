@@ -28,15 +28,15 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ selectedCategory }) =
       {/* Mobile display (single column, show first project only) */}
       <div className="block md:hidden">
         {displayProjects.length > 0 && (
-          <div className="relative aspect-[3/4] overflow-hidden rounded-xl mb-4 reveal">
+          <div className="relative aspect-[3/4] overflow-hidden rounded-lg mb-4 reveal">
             <img 
               src={imageErrors[displayProjects[0].id] ? "/placeholder.svg" : displayProjects[0].image} 
               alt={displayProjects[0].title} 
               className="w-full h-full object-cover"
               onError={() => handleImageError(displayProjects[0].id)}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#8a6551]/90 to-[#d5c3b0]/30 flex flex-col justify-end p-6">
-              <span className="text-sm font-medium text-white/80 mb-1">{displayProjects[0].category}</span>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
+              <span className="text-sm font-medium text-white/70 mb-1">{displayProjects[0].category}</span>
               <h3 className="text-xl font-bold text-white">{displayProjects[0].title}</h3>
               <p className="text-white/80 mt-1">{displayProjects[0].description}</p>
             </div>
@@ -44,18 +44,18 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ selectedCategory }) =
         )}
       </div>
 
-      {/* Desktop display (grid layout with all projects) - 2x2 grid */}
-      <div className="hidden md:grid md:grid-cols-2 gap-6">
+      {/* Desktop display (grid layout with all projects) - Changed to max 2x2 grid */}
+      <div className="hidden md:grid md:grid-cols-2 gap-4">
         {displayProjects.map((project) => (
-          <div key={project.id} className="relative aspect-[3/4] overflow-hidden rounded-xl reveal group">
+          <div key={project.id} className="relative aspect-[3/4] overflow-hidden rounded-lg reveal">
             <img 
               src={imageErrors[project.id] ? "/placeholder.svg" : project.image} 
               alt={project.title} 
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="w-full h-full object-cover"
               onError={() => handleImageError(project.id)}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#8a6551]/80 to-[#d5c3b0]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-              <span className="text-sm font-medium text-white/80 mb-1">{project.category}</span>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <span className="text-sm font-medium text-white/70 mb-1">{project.category}</span>
               <h3 className="text-xl font-bold text-white">{project.title}</h3>
               <p className="text-white/80 mt-1">{project.description}</p>
             </div>

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import { useToast } from "@/hooks/use-toast";
 import { CreditCard, Mail, Lock, Tag, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -27,6 +28,8 @@ interface FormData {
   discountCode: string;
 }
 
+// Define the discount codes
+// Note: we're adding support for the new user generated codes
 const DISCOUNT_CODES = {
   'HANZO50': 50,
   'NEW200': 200,
@@ -54,6 +57,14 @@ const Subscribe = () => {
   const basePrice = 1250;
   const finalPrice = basePrice - appliedDiscount;
 
+  // Check if there's a discount code from the banner when page loads
+  useEffect(() => {
+    const savedCode = localStorage.getItem('discountCode');
+    if (savedCode && !isDiscountApplied) {
+      setFormData(prev => ({ ...prev, discountCode: savedCode }));
+    }
+  }, [isDiscountApplied]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -70,6 +81,7 @@ const Subscribe = () => {
       return;
     }
 
+    // Check if it's one of the predefined codes
     if (code in DISCOUNT_CODES) {
       const discountAmount = DISCOUNT_CODES[code as keyof typeof DISCOUNT_CODES];
       setAppliedDiscount(discountAmount);
@@ -78,13 +90,26 @@ const Subscribe = () => {
         title: "Discount applied!",
         description: `$${discountAmount} discount has been applied to your order`
       });
-    } else {
-      toast({
-        title: "Invalid discount code",
-        description: "The discount code you entered is not valid",
-        variant: "destructive"
-      });
+      return;
     }
+    
+    // Check if it's a generated new user code (starting with NEW)
+    if (code.startsWith('NEW') && code.length >= 8) {
+      // For new user codes, apply a $50 discount
+      setAppliedDiscount(50);
+      setIsDiscountApplied(true);
+      toast({
+        title: "New user discount applied!",
+        description: "$50 discount has been applied to your order"
+      });
+      return;
+    }
+
+    toast({
+      title: "Invalid discount code",
+      description: "The discount code you entered is not valid",
+      variant: "destructive"
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -93,6 +118,12 @@ const Subscribe = () => {
 
     setTimeout(() => {
       setIsProcessing(false);
+      
+      // Mark the discount code as used if one was applied
+      if (isDiscountApplied) {
+        localStorage.setItem('discountUsed', 'true');
+      }
+      
       toast({
         title: "Subscription successful!",
         description: "Thank you for subscribing to our service",

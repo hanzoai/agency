@@ -12,6 +12,7 @@ import FAQ from '@/components/FAQ';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
+import NewUserBanner from '@/components/NewUserBanner';
 
 const Index = () => {
   useEffect(() => {
@@ -37,6 +38,7 @@ const Index = () => {
   return (
     <ScrollReveal>
       <div className="min-h-screen flex flex-col">
+        <NewUserBanner />
         <Navbar />
         <Hero />
         <Services />

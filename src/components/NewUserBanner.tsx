@@ -4,11 +4,11 @@ import { Copy, CheckCheck, X } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from 'react-router-dom';
 
-// Generate a random discount code
+// Generate a discount code in the EZds8n format with random characters at the end
 const generateDiscountCode = (): string => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let result = 'NEW';
-  for (let i = 0; i < 5; i++) {
+  let result = 'EZds8n';
+  for (let i = 0; i < 2; i++) {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return result;
@@ -106,7 +106,7 @@ const NewUserBanner = () => {
     setCopied(true);
     toast({
       title: "Discount code copied!",
-      description: "Use this code during checkout for a $50 discount.",
+      description: "Use this code during checkout for your first month at $650.",
     });
     
     setTimeout(() => setCopied(false), 2000);
@@ -142,7 +142,7 @@ const NewUserBanner = () => {
       
       <div className="container-custom">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-          <div className="font-bold">🎉 New Customer Offer!</div>
+          <div className="font-bold">🎉 Get your first month for $650!</div>
           <div className="flex items-center gap-2">
             <span>Use code:</span>
             <span className="font-mono bg-white/20 px-2 py-1 rounded font-semibold">{discountCode}</span>
@@ -166,7 +166,7 @@ const NewUserBanner = () => {
               handleUseNow();
             }}
           >
-            Use Now & Save $50
+            Subscribe
           </button>
         </div>
       </div>

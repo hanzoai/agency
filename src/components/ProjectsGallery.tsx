@@ -44,8 +44,8 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ selectedCategory }) =
         )}
       </div>
 
-      {/* Desktop display (grid layout with all projects) */}
-      <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Desktop display (grid layout with all projects) - Changed to max 2x2 grid */}
+      <div className="hidden md:grid md:grid-cols-2 gap-4">
         {displayProjects.map((project) => (
           <div key={project.id} className="relative aspect-[3/4] overflow-hidden rounded-lg reveal">
             <img 

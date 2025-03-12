@@ -11,7 +11,7 @@ const Footer = () => {
             <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6">CONTACT</h2>
             <div className="space-y-3 mb-8">
               <p className="text-primary/80">
-                Obra Technologies Inc.<br/>
+                Hanzo Industries, Inc.<br/>
                 500 Market Street, Suite 800<br/>
                 San Francisco, CA 94105<br/>
                 United States

@@ -24,15 +24,15 @@ const Pricing = () => {
               
               <div className="p-8">
                 <div className="flex justify-center items-baseline mb-6">
-                  <span className="text-5xl font-bold text-white">$1250</span>
-                  <span className="ml-2 text-white/70">/month</span>
+                  <span className="text-5xl font-bold text-black">$1250</span>
+                  <span className="ml-2 text-black/70">/month</span>
                 </div>
                 
                 <ul className="space-y-4 mb-8">
                   {features.map((feature, index) => (
                     <li key={index} className="flex items-start">
                       <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
-                      <span className="text-white">{feature}</span>
+                      <span className="text-black">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -45,7 +45,7 @@ const Pricing = () => {
                   <ArrowUpRight size={20} className="ml-2" />
                 </a>
                 
-                <p className="text-center text-sm text-white/70 mt-4">
+                <p className="text-center text-sm text-black/70 mt-4">
                   Try us risk-free with our 15-day money-back guarantee!
                 </p>
               </div>
@@ -61,8 +61,8 @@ const Pricing = () => {
             </p>
             
             <div className="bg-white p-6 border border-black/10 mb-6">
-              <h3 className="font-bold mb-2 uppercase text-white">For Teams of All Sizes</h3>
-              <p className="text-white/80">
+              <h3 className="font-bold mb-2 uppercase text-black">For Teams of All Sizes</h3>
+              <p className="text-black/80">
                 All prices include our widely acclaimed team of graphic designers, experienced funnel building experts, and project managers.
               </p>
             </div>

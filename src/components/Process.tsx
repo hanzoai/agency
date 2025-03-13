@@ -55,7 +55,7 @@ const Process = () => {
         </div>
         
         <div className="mt-16 p-8 md:p-12 bg-beige-50 rounded-3xl max-w-4xl mx-auto">
-          <h3 className="text-xl font-bold mb-4 text-center text-black reveal">We work with all the leading funnel-building platforms...</h3>
+          <h3 className="text-xl font-bold mb-4 text-center text-white reveal">We work with all the leading funnel-building platforms...</h3>
           
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-6">
             {['Clickfunnels', 'Kajabi', 'Webflow', 'WordPress', 'Shopify', 'Wix', 'Unbounce', 'Leadpages'].map((platform, index) => (

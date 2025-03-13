@@ -83,7 +83,7 @@ const NewUserBanner = () => {
   }
   
   return (
-    <div className="bg-accent text-white py-3 px-4 sm:px-6 fixed top-0 left-0 right-0 z-[60] shadow-md">
+    <div className="bg-accent text-white py-3 px-4 sm:px-6 fixed top-0 left-0 right-0 z-[100] shadow-md">
       <button 
         className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-white/20 rounded-full"
         onClick={closeBanner}

@@ -7,33 +7,33 @@
 
 @layer base {
   :root {
-    --background: 30 25% 93%;
-    --foreground: 20 10% 5%;
+    --background: 0 0% 0%;
+    --foreground: 30 25% 93%;
 
-    --card: 30 25% 93%;
-    --card-foreground: 20 10% 5%;
+    --card: 0 0% 5%;
+    --card-foreground: 30 25% 93%;
 
-    --popover: 30 25% 93%;
-    --popover-foreground: 20 10% 5%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 30 25% 93%;
 
-    --primary: 20 10% 5%;
-    --primary-foreground: 30 25% 93%;
+    --primary: 30 25% 93%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 30 15% 86%;
-    --secondary-foreground: 20 10% 5%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 30 25% 93%;
 
-    --muted: 30 15% 86%;
-    --muted-foreground: 20 5% 40%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 30 15% 70%;
 
     --accent: 142 54% 43%;
-    --accent-foreground: 30 25% 93%;
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 0%;
 
-    --border: 20 10% 85%;
-    --input: 20 10% 85%;
-    --ring: 20 10% 70%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 30%;
 
     --radius: 0.25rem;
   }
@@ -49,7 +49,7 @@
   }
 
   body {
-    @apply bg-beige-50 text-primary font-sans antialiased;
+    @apply bg-black text-primary font-sans antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -83,15 +83,15 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-accent hover:bg-accent/90 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
+    @apply bg-accent hover:bg-accent/90 text-black font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
   }
 
   .btn-secondary {
-    @apply bg-black hover:bg-black/90 text-white border border-black font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
+    @apply bg-white hover:bg-white/90 text-black border border-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
   }
 
   .btn-outline {
-    @apply bg-transparent hover:bg-primary/5 text-primary border border-primary/20 font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
+    @apply bg-transparent hover:bg-primary/10 text-primary border border-primary/20 font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
   }
 
   .container-custom {
@@ -103,15 +103,15 @@
   }
 
   .testimonial-card {
-    @apply bg-white p-6 md:p-8 rounded-lg shadow-sm border border-gray-100;
+    @apply bg-card p-6 md:p-8 rounded-lg shadow-sm border border-border;
   }
 
   .service-card {
-    @apply bg-white p-6 md:p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300;
+    @apply bg-card p-6 md:p-8 rounded-lg shadow-sm border border-border hover:shadow-md transition-all duration-300;
   }
 
   .faq-item {
-    @apply border-b border-gray-200 py-6;
+    @apply border-b border-border py-6;
   }
 
   .geometric-circle {
@@ -119,6 +119,6 @@
   }
   
   .lets-talk-btn {
-    @apply bg-accent text-white rounded-full py-2 px-4 inline-flex items-center font-medium;
+    @apply bg-accent text-black rounded-full py-2 px-4 inline-flex items-center font-medium;
   }
 }

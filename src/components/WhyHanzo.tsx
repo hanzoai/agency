@@ -7,12 +7,12 @@ const features = [
     description: "Skip the 3-month hire process and high costs. Get on board in 1 business day with Hanzo for less, with greater output than agencies."
   },
   {
-    title: "100% Control. 0 Headaches",
-    description: "No lengthy contracts or unexpected fees. Enjoy a flat monthly rate. Start or pause at any time and appreciate the simplicity of clear terms."
+    title: "100% Reliability. 0 Headaches",
+    description: "No lengthy contracts or unexpected fees. Enjoy a flat monthly rate with dependable results. Start or pause at any time with clear terms."
   },
   {
-    title: "Design Freedom",
-    description: "Skip the limits of agencies and full-time designers. Our team focuses on designs that boost your growth—be it landing pages, pitch decks, or UI/UX."
+    title: "Affordable Quality",
+    description: "Get premium designs at budget-friendly prices. Our team focuses on delivering cost-effective solutions that elevate your brand without the premium price tag."
   },
 ];
 
@@ -24,10 +24,10 @@ const WhyHanzo = () => {
       <div className="container-custom">
         <div className="text-center md:text-left max-w-3xl mb-16">
           <h2 className="text-3xl md:text-6xl font-black uppercase tracking-tighter mb-8 reveal">
-            EXCLUSIVITY<br/>WITH US
+            RELIABLE &<br/>AFFORDABLE
           </h2>
           <p className="text-lg text-primary/80 reveal">
-            Homes that are designed to blend into the natural landscape. Explore premium properties with personalized browsing and expert guidance.
+            Quality design solutions that prioritize consistency and value. We deliver premium results without the premium price tag.
           </p>
         </div>
         

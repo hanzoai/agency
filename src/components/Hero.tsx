@@ -11,12 +11,12 @@ const Hero = () => {
       <div className="container-custom">
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-5xl md:text-8xl font-black leading-tight uppercase mb-8 tracking-tighter reveal-slide-up">
-            EXCLUSIVITY<br/>WITH US
+            RELIABLE &<br/>AFFORDABLE
           </h1>
           
           <p className="text-lg md:text-xl text-primary/80 max-w-2xl mx-auto mb-12 reveal-slide-up">
-            Unlimited designs (UI/UX, graphics, landing pages) from a dedicated full-stack designer. 
-            All in one monthly subscription.
+            Quality design solutions that won't break your budget. Get unlimited designs 
+            and development from our dedicated team, all at a predictable monthly rate.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 reveal-slide-up">

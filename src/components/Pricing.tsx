@@ -1,45 +1,12 @@
-
 import { Check, ArrowUpRight, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-
-const starterFeatures = [
-  "Web design (UI/UX)",
-  "Front End Engineer",
-  "Dedicated Designer",
-  "Print design",
-  "AI-enhanced creative",
-  "Logo Creation",
-  "Branding services",
-];
-
-const growthFeatures = [
-  "Illustration design",
-  "eBooks & report design",
-  "Packaging & merchandise design",
-  "Video production (up to 2 videos/month)",
-  "Motion design",
-  "Ad creative",
-  "Social media creative",
-  "Presentation design",
-  "Email creation",
-];
-
-const enterpriseFeatures = [
-  "Unlimited Web design & landing pages",
-  "3D & AR design",
-  "Specialized concept creation",
-  "Dedicated Project Manager",
-  "Priority delivery & unlimited revisions",
-  "AI consulting",
-  "Marketing strategy",
-  "Video Production",
-];
-
+const starterFeatures = ["Web design (UI/UX)", "Front End Engineer", "Dedicated Designer", "Print design", "AI-enhanced creative", "Logo Creation", "Branding services"];
+const growthFeatures = ["Illustration design", "eBooks & report design", "Packaging & merchandise design", "Video production (up to 2 videos/month)", "Motion design", "Ad creative", "Social media creative", "Presentation design", "Email creation"];
+const enterpriseFeatures = ["Unlimited Web design & landing pages", "3D & AR design", "Specialized concept creation", "Dedicated Project Manager", "Priority delivery & unlimited revisions", "AI consulting", "Marketing strategy", "Video Production"];
 const Pricing = () => {
-  return (
-    <section id="pricing" className="section-padding bg-beige-50">
+  return <section id="pricing" className="section-padding bg-beige-50">
       <div className="container-custom">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-6 reveal">
@@ -69,20 +36,15 @@ const Pricing = () => {
               </div>
               
               <ul className="space-y-4 mb-8">
-                {starterFeatures.map((feature, index) => (
-                  <li key={index} className="flex items-start">
+                {starterFeatures.map((feature, index) => <li key={index} className="flex items-start">
                     <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
                     <span className="text-white">{feature}</span>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </CardContent>
             
             <CardFooter className="p-6 pt-0">
-              <Link 
-                to="/subscribe" 
-                className="lets-talk-btn w-full justify-center text-lg py-3"
-              >
+              <Link to="/subscribe" className="lets-talk-btn w-full justify-center text-lg py-3">
                 Start free trial
                 <ArrowUpRight size={20} className="ml-2" />
               </Link>
@@ -95,7 +57,7 @@ const Pricing = () => {
               POPULAR
             </div>
             <CardHeader className="bg-accent p-8 text-white text-center">
-              <h3 className="text-2xl font-bold mb-2 uppercase">Growth</h3>
+              <h3 className="text-2xl font-bold mb-2 uppercase">UNLIMITED</h3>
               <p className="opacity-90">Advanced design solutions</p>
             </CardHeader>
             
@@ -108,20 +70,15 @@ const Pricing = () => {
               <p className="text-sm text-white/70 mb-4 font-medium">Everything in Starter, plus:</p>
               
               <ul className="space-y-4 mb-8">
-                {growthFeatures.map((feature, index) => (
-                  <li key={index} className="flex items-start">
+                {growthFeatures.map((feature, index) => <li key={index} className="flex items-start">
                     <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
                     <span className="text-white">{feature}</span>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </CardContent>
             
             <CardFooter className="p-6 pt-0">
-              <Link 
-                to="/subscribe" 
-                className="lets-talk-btn w-full justify-center text-lg py-3 bg-accent hover:bg-accent/90"
-              >
+              <Link to="/subscribe" className="lets-talk-btn w-full justify-center text-lg py-3 bg-accent hover:bg-accent/90">
                 Start free trial
                 <ArrowUpRight size={20} className="ml-2" />
               </Link>
@@ -143,20 +100,15 @@ const Pricing = () => {
               <p className="text-sm text-white/70 mb-4 font-medium">Everything in Growth, plus:</p>
               
               <ul className="space-y-4 mb-8">
-                {enterpriseFeatures.map((feature, index) => (
-                  <li key={index} className="flex items-start">
+                {enterpriseFeatures.map((feature, index) => <li key={index} className="flex items-start">
                     <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
                     <span className="text-white">{feature}</span>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </CardContent>
             
             <CardFooter className="p-6 pt-0">
-              <Link 
-                to="/contact" 
-                className="lets-talk-btn w-full justify-center text-lg py-3 bg-primary/10 text-primary hover:bg-primary/20"
-              >
+              <Link to="/contact" className="lets-talk-btn w-full justify-center text-lg py-3 bg-primary/10 text-primary hover:bg-primary/20">
                 Talk to Sales
                 <ArrowUpRight size={20} className="ml-2" />
               </Link>
@@ -174,8 +126,6 @@ const Pricing = () => {
           </Link>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Pricing;

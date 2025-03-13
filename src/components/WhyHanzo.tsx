@@ -1,5 +1,5 @@
 
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Mail } from 'lucide-react';
 
 const features = [
   {
@@ -44,10 +44,14 @@ const WhyHanzo = () => {
           ))}
         </div>
         
-        <div className="mt-14 text-center md:text-left reveal">
-          <a href="#get-started" className="lets-talk-btn">
+        <div className="mt-14 text-center md:text-left reveal flex flex-wrap gap-4">
+          <a href="https://calendar.app.google/dHbVXQP6g7GvB6fj9" className="lets-talk-btn">
             Let's talk
             <ArrowUpRight size={16} className="ml-1" />
+          </a>
+          <a href="/subscribe" className="lets-talk-btn bg-accent hover:bg-accent/90">
+            Subscribe
+            <Mail size={16} className="ml-1" />
           </a>
         </div>
       </div>

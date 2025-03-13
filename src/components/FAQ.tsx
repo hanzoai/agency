@@ -44,10 +44,10 @@ const FAQ = () => {
     <section id="faq" className="section-padding bg-white">
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="mb-4 text-primary/70 font-medium uppercase tracking-wide reveal">
+          <div className="mb-4 text-black/70 font-medium uppercase tracking-wide reveal">
             FAQ
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 reveal">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black reveal">
             Frequently Asked Questions
           </h2>
         </div>
@@ -59,14 +59,14 @@ const FAQ = () => {
                 className="w-full flex justify-between items-center text-left"
                 onClick={() => toggleFAQ(index)}
               >
-                <h3 className="text-xl font-bold">{faq.question}</h3>
+                <h3 className="text-xl font-bold text-black">{faq.question}</h3>
                 {openIndex === index ? 
-                  <ChevronUp size={20} className="text-primary/70 flex-shrink-0 ml-4" /> : 
-                  <ChevronDown size={20} className="text-primary/70 flex-shrink-0 ml-4" />
+                  <ChevronUp size={20} className="text-black/70 flex-shrink-0 ml-4" /> : 
+                  <ChevronDown size={20} className="text-black/70 flex-shrink-0 ml-4" />
                 }
               </button>
               <div 
-                className={`mt-4 text-primary/80 overflow-hidden transition-all duration-300 ${openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+                className={`mt-4 text-black/80 overflow-hidden transition-all duration-300 ${openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
               >
                 <p>{faq.answer}</p>
               </div>

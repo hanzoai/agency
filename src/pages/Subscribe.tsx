@@ -26,11 +26,7 @@ interface FormData {
   city: string;
   state: string;
   zipCode: string;
-  trialCode: string;
 }
-
-// Define the trial codes that can be used
-const validTrialPrefixes = ['FREE7'];
 
 const Subscribe = () => {
   const { toast } = useToast();
@@ -46,9 +42,10 @@ const Subscribe = () => {
     city: '',
     state: '',
     zipCode: '',
-    trialCode: ''
   });
-  const [isTrialApplied, setIsTrialApplied] = useState<boolean>(false);
+  
+  // Always assume trial is applied for new implementation
+  const [isTrialApplied, setIsTrialApplied] = useState<boolean>(true);
   const [selectedPlan, setSelectedPlan] = useState<string>('growth');
 
   const plans = {
@@ -71,45 +68,9 @@ const Subscribe = () => {
     ? 'Custom (Talk to Sales)' 
     : `$${plans[selectedPlan as keyof typeof plans].price}/month`;
 
-  // Check if there's a trial code from the banner when page loads
-  useEffect(() => {
-    const savedCode = localStorage.getItem('trialCode');
-    if (savedCode && !isTrialApplied) {
-      setFormData(prev => ({ ...prev, trialCode: savedCode }));
-    }
-  }, [isTrialApplied]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const applyTrial = () => {
-    const code = formData.trialCode.trim().toUpperCase();
-    if (!code) {
-      toast({
-        title: "No trial code entered",
-        description: "Please enter a trial code to apply",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // Check if it's a valid trial code (starting with FREE7)
-    if (validTrialPrefixes.some(prefix => code.startsWith(prefix)) && code.length >= 8) {
-      setIsTrialApplied(true);
-      toast({
-        title: "Free trial applied!",
-        description: "You'll have 7 days to try our services before your card is charged."
-      });
-      return;
-    }
-
-    toast({
-      title: "Invalid trial code",
-      description: "The trial code you entered is not valid",
-      variant: "destructive"
-    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -119,22 +80,18 @@ const Subscribe = () => {
     setTimeout(() => {
       setIsProcessing(false);
       
-      // Mark the trial code as used if one was applied
-      if (isTrialApplied) {
-        localStorage.setItem('trialUsed', 'true');
-        
-        // Calculate the trial end date (7 days from now)
-        const trialEndDate = new Date();
-        trialEndDate.setDate(trialEndDate.getDate() + 7);
-        localStorage.setItem('trialEndDate', trialEndDate.toISOString());
-        localStorage.setItem('selectedPlan', selectedPlan);
-      }
+      // Mark the trial as used
+      localStorage.setItem('trialUsed', 'true');
+      
+      // Calculate the trial end date (7 days from now)
+      const trialEndDate = new Date();
+      trialEndDate.setDate(trialEndDate.getDate() + 7);
+      localStorage.setItem('trialEndDate', trialEndDate.toISOString());
+      localStorage.setItem('selectedPlan', selectedPlan);
       
       toast({
-        title: isTrialApplied ? "Free trial started!" : "Subscription successful!",
-        description: isTrialApplied 
-          ? `Your 7-day free trial has begun. Your card will be charged on ${new Date(new Date().setDate(new Date().getDate() + 7)).toLocaleDateString()}.`
-          : "Thank you for subscribing to our service",
+        title: "Free trial started!",
+        description: `Your 7-day free trial has begun. Your card will be charged on ${new Date(new Date().setDate(new Date().getDate() + 7)).toLocaleDateString()}.`,
       });
 
       // Set a session storage item to indicate successful subscription
@@ -152,11 +109,9 @@ const Subscribe = () => {
       <main className="flex-grow bg-beige-50 py-16">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center">Subscribe Today</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center">Start Your Free Trial</h1>
             <p className="text-center text-lg text-primary/70 mb-10">
-              {isTrialApplied 
-                ? "Complete your details to start your 7-day free trial" 
-                : "Complete your subscription to get started with unlimited design support"}
+              Complete your details to start your 7-day free trial
             </p>
             
             {/* Plan Selection */}
@@ -174,17 +129,22 @@ const Subscribe = () => {
                     }`}
                   >
                     <h3 className="font-semibold">{plan.name}</h3>
-                    <p className="text-lg font-bold">
-                      {typeof plan.price === 'number' ? `$${plan.price}/month` : plan.price}
-                    </p>
-                    {isTrialApplied && (
-                      <p className="text-sm text-accent mt-2">
-                        <span className="flex items-center gap-1">
-                          <Info size={14} />
-                          7-day free trial
-                        </span>
-                      </p>
+                    {typeof plan.price === 'number' ? (
+                      <div>
+                        <div className="flex items-center">
+                          <span className="text-lg font-bold line-through text-gray-400">${plan.price}/month</span>
+                        </div>
+                        <p className="text-accent font-bold">$0 with free trial</p>
+                      </div>
+                    ) : (
+                      <p className="text-lg font-bold">{plan.price}</p>
                     )}
+                    <p className="text-sm text-accent mt-2">
+                      <span className="flex items-center gap-1">
+                        <Info size={14} />
+                        7-day free trial
+                      </span>
+                    </p>
                   </div>
                 ))}
               </div>
@@ -238,12 +198,10 @@ const Subscribe = () => {
                     
                     <div className="space-y-4">
                       <h3 className="font-medium">Credit Card Details</h3>
-                      {isTrialApplied && (
-                        <div className="p-3 bg-blue-50 text-blue-700 rounded-md flex items-start gap-2 text-sm mb-2">
-                          <Info size={16} className="flex-shrink-0 mt-0.5" />
-                          <span>Your card will not be charged until after your 7-day free trial ends.</span>
-                        </div>
-                      )}
+                      <div className="p-3 bg-blue-50 text-blue-700 rounded-md flex items-start gap-2 text-sm mb-2">
+                        <Info size={16} className="flex-shrink-0 mt-0.5" />
+                        <span>Your card will not be charged until after your 7-day free trial ends.</span>
+                      </div>
                       
                       {/* Credit Card Fields */}
                       <div>
@@ -374,52 +332,17 @@ const Subscribe = () => {
                       </div>
                     </div>
                     
-                    <div className="space-y-4">
-                      <h3 className="font-medium">Free Trial Code</h3>
-                      
-                      <div className="flex items-center gap-2">
-                        <div className="relative flex-grow">
-                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <Tag size={18} className="text-gray-400" />
-                          </div>
-                          <input
-                            id="trialCode"
-                            name="trialCode"
-                            type="text"
-                            placeholder="Enter trial code"
-                            className="w-full border border-gray-300 rounded-md pl-10 p-3 focus:ring-2 focus:ring-accent focus:border-accent"
-                            value={formData.trialCode}
-                            onChange={handleChange}
-                            disabled={isTrialApplied}
-                          />
-                        </div>
-                        <Button 
-                          type="button" 
-                          onClick={applyTrial}
-                          disabled={isTrialApplied}
-                          variant="outline"
-                        >
-                          Apply
-                        </Button>
-                      </div>
-                      
-                      {isTrialApplied && (
-                        <div className="flex items-center text-accent">
-                          <Check size={16} className="mr-1" />
-                          <span className="text-sm">7-day free trial applied!</span>
-                        </div>
-                      )}
-                    </div>
-                    
                     <Button 
                       type="submit" 
-                      className="w-full bg-accent hover:bg-accent/90 text-white p-3 rounded-md font-medium"
+                      className="w-full bg-accent hover:bg-accent/90 text-white p-4 rounded-md font-medium text-lg"
                       disabled={isProcessing}
                     >
-                      {isProcessing ? 'Processing...' : isTrialApplied 
-                        ? `Start Free Trial • ${selectedPrice} after 7 days` 
-                        : `Subscribe Now • ${selectedPrice}`}
+                      {isProcessing ? 'Processing...' : 'Start Free Trial'}
                     </Button>
+                    
+                    <p className="text-center text-sm text-gray-500">
+                      By starting your free trial, you agree to our Terms of Service and Privacy Policy
+                    </p>
                   </div>
                 </form>
               </div>
@@ -436,23 +359,21 @@ const Subscribe = () => {
                     
                     <div className="flex justify-between">
                       <span className="text-primary/70">Monthly Rate</span>
-                      <span>{selectedPrice}</span>
-                    </div>
-                    
-                    {isTrialApplied && (
-                      <div className="flex justify-between text-accent">
-                        <span>Free Trial</span>
-                        <span>7 days</span>
-                      </div>
-                    )}
-                    
-                    <div className="border-t pt-3 flex justify-between font-semibold">
-                      <span>{isTrialApplied ? 'First Payment' : 'Total'}</span>
-                      {isTrialApplied ? (
-                        <span>Due in 7 days</span>
+                      {typeof plans[selectedPlan as keyof typeof plans].price === 'number' ? (
+                        <span className="line-through text-gray-400">{selectedPrice}</span>
                       ) : (
                         <span>{selectedPrice}</span>
                       )}
+                    </div>
+                    
+                    <div className="flex justify-between text-accent font-bold">
+                      <span>Free Trial</span>
+                      <span>7 days</span>
+                    </div>
+                    
+                    <div className="border-t pt-3 flex justify-between font-semibold">
+                      <span>First Payment</span>
+                      <span>Due in 7 days</span>
                     </div>
                   </div>
                   

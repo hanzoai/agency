@@ -127,7 +127,7 @@ const NewUserBanner = () => {
   }
   
   return (
-    <div className="bg-accent text-white py-2 px-4 sm:px-6 relative" 
+    <div className="bg-accent text-white py-2 px-4 sm:px-6 relative fixed top-0 left-0 right-0 z-[60] shadow-md" 
       onTouchStart={handleCopyCode}
       onClick={handleCopyCode}>
       <button 

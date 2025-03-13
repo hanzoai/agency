@@ -18,12 +18,20 @@ const CTA = () => {
               Our mission is to change the current landscape of logistics real estate, one destination at a time. We do so by developing logistics projects with a focus on Architecture, Technology, and Functionality.
             </p>
             
-            <div className="flex justify-center md:justify-start reveal">
+            <div className="flex justify-center md:justify-start reveal gap-4">
               <a 
                 href="/subscribe" 
                 className="lets-talk-btn text-lg py-3 px-6"
               >
                 Let's talk
+                <ArrowUpRight size={20} className="ml-2" />
+              </a>
+              
+              <a 
+                href="/subscribe" 
+                className="bg-transparent text-white border border-white hover:bg-white hover:text-black transition-colors duration-300 flex items-center text-lg py-3 px-6"
+              >
+                Get Started
                 <ArrowUpRight size={20} className="ml-2" />
               </a>
             </div>

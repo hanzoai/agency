@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 
 const Hero = () => {
   const [displayedText, setDisplayedText] = useState('');
-  const [showCheckmark, setShowCheckmark] = useState(false);
   const fullText = 'RELIABLE & AFFORDABLE';
   
   useEffect(() => {
@@ -15,7 +14,6 @@ const Hero = () => {
         currentIndex++;
       } else {
         clearInterval(textInterval);
-        setShowCheckmark(true);
       }
     }, 40); // Faster speed for smoother animation
 
@@ -31,9 +29,6 @@ const Hero = () => {
       <div className="container-custom">
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-5xl md:text-8xl font-black leading-tight uppercase mb-8 tracking-tighter">
-            {showCheckmark && (
-              <span className="mr-1 animate-scale-in inline-flex items-center">✅</span>
-            )}
             <span className="inline-block min-h-[1.2em]">{displayedText}</span>
           </h1>
           

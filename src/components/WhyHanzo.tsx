@@ -24,7 +24,7 @@ const WhyHanzo = () => {
       <div className="container-custom">
         <div className="text-center md:text-left max-w-3xl mb-16">
           <h2 className="text-3xl md:text-6xl font-black uppercase tracking-tighter mb-8 reveal">
-            RELIABLE &<br/>AFFORDABLE
+            SPEEDY, CUTTING EDGE<br/>& NEXT LEVEL 🔥
           </h2>
           <p className="text-lg text-primary/80 reveal">
             Quality design solutions that prioritize consistency and value. We deliver premium results without the premium price tag.

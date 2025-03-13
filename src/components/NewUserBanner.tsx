@@ -35,6 +35,9 @@ const NewUserBanner = () => {
     
     // Always mark as shown
     localStorage.setItem('bannerShown', 'true');
+    
+    // Dispatch a custom event to notify other components that banner visibility changed
+    window.dispatchEvent(new CustomEvent('bannerVisibilityChanged', { detail: { visible: true } }));
   }, []);
   
   useEffect(() => {
@@ -76,6 +79,8 @@ const NewUserBanner = () => {
   const closeBanner = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsVisible(false);
+    // Dispatch event to notify other components when banner is closed
+    window.dispatchEvent(new CustomEvent('bannerVisibilityChanged', { detail: { visible: false } }));
   };
   
   if (!isVisible || timeLeft === 0) {
@@ -83,7 +88,7 @@ const NewUserBanner = () => {
   }
   
   return (
-    <div className="bg-accent text-white py-3 px-4 sm:px-6 fixed top-0 left-0 right-0 z-[100] shadow-md">
+    <div className="bg-accent text-white py-3 px-4 sm:px-6 fixed top-0 left-0 right-0 z-[200] shadow-md">
       <button 
         className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-white/20 rounded-full"
         onClick={closeBanner}

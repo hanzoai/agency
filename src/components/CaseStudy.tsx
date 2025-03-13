@@ -11,20 +11,20 @@ const CaseStudy = () => {
             FEATURED<br/>PROJECTS
           </h2>
           <p className="text-lg text-primary/80 reveal">
-            Premium beauty and skincare brands that delight customers worldwide.
+            Designs used by your favorite startups and industry leaders.
           </p>
         </div>
         
         <div className="grid md:grid-cols-2 gap-6">
           <div className="relative aspect-[4/3] overflow-hidden group reveal">
             <img 
-              src="/lovable-uploads/544b28ac-2882-449e-a592-656385b9f4a7.png" 
-              alt="Epidermis skincare" 
+              src="/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png" 
+              alt="Property example" 
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-              <h3 className="text-xl font-bold text-white uppercase">EPIDERMIS</h3>
-              <p className="text-white/80 mt-1 text-sm uppercase font-medium">PREMIUM SKINCARE BRAND BASED IN QUEBEC, CANADA</p>
+              <h3 className="text-xl font-bold text-white uppercase">OMNY HOUSE</h3>
+              <p className="text-white/80 mt-1 text-sm uppercase font-medium">A SNAZZY HOUSE NEAR QUEBEC, CANADA</p>
               <button className="mt-4 lets-talk-btn w-fit">
                 Explore
                 <ArrowUpRight size={16} className="ml-1" />
@@ -34,13 +34,13 @@ const CaseStudy = () => {
           
           <div className="relative aspect-[4/3] overflow-hidden group reveal">
             <img 
-              src="/lovable-uploads/544b28ac-2882-449e-a592-656385b9f4a7.png" 
-              alt="Lumina Beauty" 
+              src="/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png" 
+              alt="Property example" 
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-              <h3 className="text-xl font-bold text-white uppercase">LUMINA BEAUTY</h3>
-              <p className="text-white/80 mt-1 text-sm uppercase font-medium">LUXURY COSMETICS LINE FROM MONTREAL</p>
+              <h3 className="text-xl font-bold text-white uppercase">KROTE VILLA</h3>
+              <p className="text-white/80 mt-1 text-sm uppercase font-medium">A NIFTY DUPLEX NEAR FLORIDA, USA</p>
               <button className="mt-4 lets-talk-btn w-fit">
                 Explore
                 <ArrowUpRight size={16} className="ml-1" />

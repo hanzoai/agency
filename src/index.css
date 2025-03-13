@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Libre+Franklin:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -123,5 +124,43 @@
 
   .lets-talk-btn.bg-black {
     @apply text-white;
+  }
+  
+  .rainbow-gradient-btn {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  .rainbow-gradient-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, #8B5CF6, #D946EF, #F97316, #0EA5E9, #34a853);
+    background-size: 400% 400%;
+    z-index: -1;
+    border-radius: 9999px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .rainbow-gradient-btn:hover::before {
+    opacity: 1;
+    animation: rainbow-shift 3s ease infinite;
+  }
+  
+  @keyframes rainbow-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 }

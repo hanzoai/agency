@@ -15,33 +15,21 @@ import ScrollReveal from '@/utils/ScrollReveal';
 import NewUserBanner from '@/components/NewUserBanner';
 
 const Index = () => {
-  const [isBannerVisible, setIsBannerVisible] = useState(false);
+  const [isBannerVisible, setIsBannerVisible] = useState(true); // Set to true by default
   
   useEffect(() => {
-    // Check if banner is visible
-    const checkBannerVisible = () => {
-      const bannerShown = localStorage.getItem('bannerShown');
-      const bannerExpiry = localStorage.getItem('bannerExpiry');
-      const discountUsed = localStorage.getItem('discountUsed');
-      
-      if (discountUsed === 'true') {
-        setIsBannerVisible(false);
-        return;
-      }
-      
-      if (bannerShown === 'true' && bannerExpiry) {
-        const expiryTime = parseInt(bannerExpiry, 10);
-        const currentTime = new Date().getTime();
-        
-        setIsBannerVisible(expiryTime > currentTime);
-      }
-    };
-    
-    checkBannerVisible();
+    // Check if trial was used - in that case don't show the banner
+    const trialUsed = localStorage.getItem('trialUsed');
+    if (trialUsed === 'true') {
+      setIsBannerVisible(false);
+    }
     
     // Listen for storage changes to update banner visibility
     const handleStorageChange = () => {
-      checkBannerVisible();
+      const trialUsed = localStorage.getItem('trialUsed');
+      if (trialUsed === 'true') {
+        setIsBannerVisible(false);
+      }
     };
     
     window.addEventListener('storage', handleStorageChange);
@@ -71,7 +59,7 @@ const Index = () => {
   
   return (
     <ScrollReveal>
-      <div className="min-h-screen flex flex-col" style={{ paddingTop: isBannerVisible ? '40px' : '0' }}>
+      <div className="min-h-screen flex flex-col" style={{ paddingTop: isBannerVisible ? '60px' : '0' }}>
         <NewUserBanner />
         <Navbar />
         <Hero />

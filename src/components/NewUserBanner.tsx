@@ -20,56 +20,43 @@ const NewUserBanner = () => {
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [trialCode, setTrialCode] = useState<string>('');
   const [copied, setCopied] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true); // Set to true by default to show the banner
 
   useEffect(() => {
-    // Check if this is a new user
-    const checkNewUser = () => {
-      const bannerShown = localStorage.getItem('bannerShown');
-      const bannerExpiry = localStorage.getItem('bannerExpiry');
-      const trialUsed = localStorage.getItem('trialUsed');
-      
-      // If trial was used or banner was explicitly closed, don't show
-      if (trialUsed === 'true') {
-        return;
-      }
-      
-      // Check if this is a returning user within 24 hours
-      if (bannerShown === 'true' && bannerExpiry) {
-        const expiryTime = parseInt(bannerExpiry, 10);
-        const currentTime = new Date().getTime();
-        
-        // If less than 24 hours have passed, show the banner with remaining time
-        if (expiryTime > currentTime) {
-          const savedCode = localStorage.getItem('trialCode');
-          if (savedCode) {
-            setTrialCode(savedCode);
-          } else {
-            const newCode = generateTrialCode();
-            setTrialCode(newCode);
-            localStorage.setItem('trialCode', newCode);
-          }
-          setTimeLeft(Math.floor((expiryTime - currentTime) / 1000));
-          setIsVisible(true);
-        }
-      } 
-      // New user - first visit
-      else if (!bannerShown) {
-        const newCode = generateTrialCode();
-        setTrialCode(newCode);
-        
-        const expiryTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 24 hours from now
-        
-        localStorage.setItem('bannerShown', 'true');
-        localStorage.setItem('bannerExpiry', expiryTime.toString());
-        localStorage.setItem('trialCode', newCode);
-        
-        setTimeLeft(24 * 60 * 60); // 24 hours in seconds
-        setIsVisible(true);
-      }
-    };
+    // Generate trial code on first render
+    const savedCode = localStorage.getItem('trialCode');
+    if (savedCode) {
+      setTrialCode(savedCode);
+    } else {
+      const newCode = generateTrialCode();
+      setTrialCode(newCode);
+      localStorage.setItem('trialCode', newCode);
+    }
     
-    checkNewUser();
+    // Set initial timer to 24 hours
+    const bannerExpiry = localStorage.getItem('bannerExpiry');
+    if (bannerExpiry) {
+      const expiryTime = parseInt(bannerExpiry, 10);
+      const currentTime = new Date().getTime();
+      
+      // If less than 24 hours have passed
+      if (expiryTime > currentTime) {
+        setTimeLeft(Math.floor((expiryTime - currentTime) / 1000));
+      } else {
+        // Expired - set new expiry time
+        const newExpiryTime = new Date().getTime() + 24 * 60 * 60 * 1000;
+        localStorage.setItem('bannerExpiry', newExpiryTime.toString());
+        setTimeLeft(24 * 60 * 60);
+      }
+    } else {
+      // First visit - set expiry time
+      const expiryTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 24 hours from now
+      localStorage.setItem('bannerExpiry', expiryTime.toString());
+      setTimeLeft(24 * 60 * 60); // 24 hours in seconds
+    }
+    
+    // Always mark as shown
+    localStorage.setItem('bannerShown', 'true');
   }, []);
   
   useEffect(() => {
@@ -79,7 +66,6 @@ const NewUserBanner = () => {
         setTimeLeft(prevTime => {
           if (prevTime === null || prevTime <= 1) {
             clearInterval(timerInterval);
-            setIsVisible(false);
             return 0;
           }
           return prevTime - 1;
@@ -120,12 +106,6 @@ const NewUserBanner = () => {
   const closeBanner = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsVisible(false);
-    
-    // Note: We don't set bannerShown to false, just hide the banner temporarily for this session
-    // This allows the banner to reappear on page refresh if the trial hasn't been used yet
-    
-    // Dispatch a storage event to update other components
-    window.dispatchEvent(new Event('storage'));
   };
   
   if (!isVisible || timeLeft === 0) {

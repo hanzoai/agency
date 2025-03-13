@@ -52,7 +52,7 @@ const Pricing = () => {
         
         <div className="grid md:grid-cols-3 gap-8 reveal-slide-up">
           {/* Starter Plan */}
-          <Card className="border border-black/10 overflow-hidden flex flex-col h-full bg-beige-200">
+          <Card className="border border-black/10 overflow-hidden flex flex-col h-full">
             <CardHeader className="bg-black p-8 text-white text-center">
               <h3 className="text-2xl font-bold mb-2 uppercase">Starter</h3>
               <p className="opacity-90">Essential design services</p>
@@ -60,15 +60,15 @@ const Pricing = () => {
             
             <CardContent className="p-8 flex-grow">
               <div className="flex justify-center items-baseline mb-6">
-                <span className="text-4xl font-bold text-white">$3,500</span>
-                <span className="ml-2 text-white/70">/month</span>
+                <span className="text-4xl font-bold text-black">$3,500</span>
+                <span className="ml-2 text-black/70">/month</span>
               </div>
               
               <ul className="space-y-4 mb-8">
                 {starterFeatures.map((feature, index) => (
                   <li key={index} className="flex items-start">
                     <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
-                    <span className="text-white">{feature}</span>
+                    <span className="text-black">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -86,7 +86,7 @@ const Pricing = () => {
           </Card>
           
           {/* Growth Plan */}
-          <Card className="border-2 border-accent overflow-hidden flex flex-col h-full shadow-lg relative bg-beige-200">
+          <Card className="border-2 border-accent overflow-hidden flex flex-col h-full shadow-lg relative">
             <div className="absolute top-0 right-0 bg-accent text-white px-4 py-1 text-sm font-bold">
               POPULAR
             </div>
@@ -97,17 +97,17 @@ const Pricing = () => {
             
             <CardContent className="p-8 flex-grow">
               <div className="flex justify-center items-baseline mb-6">
-                <span className="text-4xl font-bold text-white">$5,500</span>
-                <span className="ml-2 text-white/70">/month</span>
+                <span className="text-4xl font-bold text-black">$5,500</span>
+                <span className="ml-2 text-black/70">/month</span>
               </div>
               
-              <p className="text-sm text-white/70 mb-4 font-medium">Everything in Starter, plus:</p>
+              <p className="text-sm text-black/70 mb-4 font-medium">Everything in Starter, plus:</p>
               
               <ul className="space-y-4 mb-8">
                 {growthFeatures.map((feature, index) => (
                   <li key={index} className="flex items-start">
                     <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
-                    <span className="text-white">{feature}</span>
+                    <span className="text-black">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -125,7 +125,7 @@ const Pricing = () => {
           </Card>
           
           {/* Enterprise Plan */}
-          <Card className="border border-black/10 overflow-hidden flex flex-col h-full bg-beige-200">
+          <Card className="border border-black/10 overflow-hidden flex flex-col h-full">
             <CardHeader className="bg-black p-8 text-white text-center">
               <h3 className="text-2xl font-bold mb-2 uppercase">Enterprise</h3>
               <p className="opacity-90">Comprehensive solutions</p>
@@ -133,16 +133,16 @@ const Pricing = () => {
             
             <CardContent className="p-8 flex-grow">
               <div className="flex justify-center items-baseline mb-6">
-                <span className="text-4xl font-bold text-white">Custom</span>
+                <span className="text-4xl font-bold text-black">Custom</span>
               </div>
               
-              <p className="text-sm text-white/70 mb-4 font-medium">Everything in Growth, plus:</p>
+              <p className="text-sm text-black/70 mb-4 font-medium">Everything in Growth, plus:</p>
               
               <ul className="space-y-4 mb-8">
                 {enterpriseFeatures.map((feature, index) => (
                   <li key={index} className="flex items-start">
                     <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
-                    <span className="text-white">{feature}</span>
+                    <span className="text-black">{feature}</span>
                   </li>
                 ))}
               </ul>

@@ -3,20 +3,20 @@ import { Circle } from 'lucide-react';
 
 const services = [
   {
-    title: "App Design",
-    description: "Web apps, mobile apps, SaaS apps (UI/UX)."
+    title: "Cost-Effective App Design",
+    description: "Web apps, mobile apps, SaaS apps (UI/UX) at budget-friendly rates."
   },
   {
-    title: "Brand Design",
-    description: "Logos, brandkits, slide decks, templates."
+    title: "Reliable Brand Design",
+    description: "Consistent logos, brandkits, slide decks, and templates you can depend on."
   },
   {
-    title: "Website & Landing Page",
-    description: "Full websites, splash pages, sales pages."
+    title: "Affordable Websites",
+    description: "Full websites, splash pages, sales pages without breaking the bank."
   },
   {
     title: "And so much more...",
-    description: "Anything you can think of, we can design it."
+    description: "Quality solutions for all your design needs at predictable prices."
   }
 ];
 
@@ -29,7 +29,7 @@ const Services = () => {
             WHAT WE<br/>OFFER
           </h2>
           <p className="text-lg text-primary/80 reveal">
-            Homes that are designed to blend into the natural landscape. Explore premium properties with personalized browsing and expert guidance.
+            Reliable design solutions that deliver consistent value. Quality services at affordable prices, tailored to fit your budget and exceed your expectations.
           </p>
         </div>
         
@@ -48,11 +48,11 @@ const Services = () => {
               <div className="inline-flex items-center text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
                 <span>TEN+</span>
                 <div className="ml-4 text-base uppercase text-primary/70 normal-case font-normal">
-                  Years in the<br/>business
+                  Years of<br/>reliability
                 </div>
               </div>
               <p className="text-lg text-primary/80">
-                We look beyond existing possibilities.
+                Consistently delivering value to our clients.
               </p>
             </div>
             
@@ -60,11 +60,11 @@ const Services = () => {
               <div className="inline-flex items-center text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
                 <span>0.8K</span>
                 <div className="ml-4 text-base uppercase text-primary/70 normal-case font-normal">
-                  Serving<br/>customers
+                  Satisfied<br/>customers
                 </div>
               </div>
               <p className="text-lg text-primary/80">
-                Our business is B CORP certified.
+                Our business is built on trust and affordability.
               </p>
             </div>
           </div>

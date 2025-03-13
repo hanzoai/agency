@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
@@ -12,6 +11,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const starterFeatures = [
   "Web design (UI/UX)",
@@ -89,6 +96,8 @@ const Subscribe = () => {
   
   const [isTrialApplied, setIsTrialApplied] = useState<boolean>(true);
   const [selectedPlan, setSelectedPlan] = useState<string>('growth');
+  const [agreementOpen, setAgreementOpen] = useState(false);
+  const [agreementAccepted, setAgreementAccepted] = useState(false);
 
   const plans = {
     starter: {
@@ -116,6 +125,16 @@ const Subscribe = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!agreementAccepted) {
+      toast({
+        title: "Agreement Required",
+        description: "You must accept the free trial agreement to continue.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     setIsProcessing(true);
 
     setTimeout(() => {
@@ -395,6 +414,33 @@ const Subscribe = () => {
                       </div>
                     </div>
                     
+                    <div className="border-t border-white/20 pt-4 mt-6">
+                      <button 
+                        type="button" 
+                        onClick={() => setAgreementOpen(true)}
+                        className="text-white underline hover:text-accent transition-colors text-sm"
+                      >
+                        View Free Trial Agreement
+                      </button>
+                      
+                      <div className="flex items-start space-x-2 mt-2">
+                        <Checkbox 
+                          id="agreement" 
+                          checked={agreementAccepted}
+                          onCheckedChange={(checked) => {
+                            setAgreementAccepted(checked === true);
+                          }}
+                          className="border-white data-[state=checked]:bg-accent data-[state=checked]:border-accent mt-1"
+                        />
+                        <label 
+                          htmlFor="agreement" 
+                          className="text-sm text-white/90"
+                        >
+                          I agree that by initiating the free trial, I fully acknowledges, understands, and accepts all conditions outlined in the above without reservation.
+                        </label>
+                      </div>
+                    </div>
+                    
                     <Button 
                       type="submit" 
                       className="w-full bg-accent hover:bg-accent/90 text-black p-4 rounded-md font-medium text-lg"
@@ -457,6 +503,75 @@ const Subscribe = () => {
           </div>
         </div>
       </main>
+      
+      <Dialog open={agreementOpen} onOpenChange={setAgreementOpen}>
+        <DialogContent className="bg-black border border-white/20 text-white max-w-3xl max-h-[80vh] overflow-auto">
+          <DialogHeader>
+            <DialogTitle className="text-xl text-white">Hanzo Free Trial Terms of Service Agreement</DialogTitle>
+            <DialogDescription className="text-white/70">
+              This Terms of Service Agreement ("Agreement") governs the relationship between you ("Subscriber") and Hanzo.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 mt-2 text-white">
+            <div>
+              <h3 className="font-semibold">Selected Plan and Payment Terms</h3>
+              <p>Plan: {plans[selectedPlan as keyof typeof plans].name}</p>
+              <p>Monthly Rate: ${typeof plans[selectedPlan as keyof typeof plans].price === 'number' ? plans[selectedPlan as keyof typeof plans].price : 'Custom'}/month</p>
+              <p>Free Trial Period: 7 days</p>
+              <p>First Payment Due: In 7 days</p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold">What's Included:</h3>
+              <ul className="list-disc pl-5 space-y-1">
+                {getFeaturesByPlan().map((feature, index) => (
+                  <li key={index}>{feature}</li>
+                ))}
+              </ul>
+            </div>
+            
+            <p>
+              Subscriber authorizes Hanzo to automatically charge the provided payment method for the monthly subscription fee immediately upon completion of the free trial unless the subscription is explicitly canceled during the trial.
+            </p>
+            
+            <div>
+              <h3 className="font-semibold">Payment Authorization & Ownership of Funds</h3>
+              <p>
+                Subscriber warrants that the payment method provided belongs to them and that funds are legally theirs to use. Subscriber agrees explicitly not to initiate any chargebacks or payment disputes once the trial period concludes and subscription charges commence.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold">Cancellation Policy</h3>
+              <p>
+                Subscriber agrees to proactively cancel the subscription before the end of the free trial period to avoid automatic billing. Cancellations after this period will apply to the subsequent billing cycle. Subscriber must communicate intent to cancel clearly and explicitly to Hanzo.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold">Project Workflow</h3>
+              <p>
+                Subscriber will submit requests clearly. Hanzo will deliver designs sequentially, offering unlimited revisions. Subscriber receives full rights and ownership of completed designs and source files upon project completion.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold">Limitation of Liability</h3>
+              <p>
+                Hanzo shall not be held liable for any indirect, incidental, special, consequential, or punitive damages resulting from service usage or project outcomes.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold">Indemnification</h3>
+              <p>
+                Subscriber agrees to indemnify Hanzo against claims or liabilities arising from their use of the services, ensuring Hanzo is free from legal repercussions related to subscriber's project content or intended use.
+              </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
       
       <Footer />
     </div>

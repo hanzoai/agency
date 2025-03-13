@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
-import { CreditCard, Mail, Lock, Tag, Check, Info } from 'lucide-react';
+import { CreditCard, Mail, Lock, Tag, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -26,11 +26,16 @@ interface FormData {
   city: string;
   state: string;
   zipCode: string;
-  trialCode: string;
+  discountCode: string;
 }
 
-// Define the trial codes that can be used
-const validTrialPrefixes = ['FREE7'];
+// Define the discount codes
+// Note: we're adding support for the new user generated codes
+const DISCOUNT_CODES = {
+  'HANZO50': 50,
+  'NEW200': 200,
+  'WELCOME100': 100
+};
 
 const Subscribe = () => {
   const { toast } = useToast();
@@ -46,68 +51,65 @@ const Subscribe = () => {
     city: '',
     state: '',
     zipCode: '',
-    trialCode: ''
+    discountCode: ''
   });
-  const [isTrialApplied, setIsTrialApplied] = useState<boolean>(false);
-  const [selectedPlan, setSelectedPlan] = useState<string>('growth');
+  const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
+  const [isDiscountApplied, setIsDiscountApplied] = useState<boolean>(false);
 
-  const plans = {
-    starter: {
-      name: 'Starter',
-      price: 3500
-    },
-    growth: {
-      name: 'Growth',
-      price: 5500
-    },
-    enterprise: {
-      name: 'Enterprise',
-      price: 'Custom'
-    }
-  };
+  const basePrice = 1250;
+  const finalPrice = basePrice - appliedDiscount;
 
-  // Determine the selected plan price
-  const selectedPrice = selectedPlan === 'enterprise' 
-    ? 'Custom (Talk to Sales)' 
-    : `$${plans[selectedPlan as keyof typeof plans].price}/month`;
-
-  // Check if there's a trial code from the banner when page loads
+  // Check if there's a discount code from the banner when page loads
   useEffect(() => {
-    const savedCode = localStorage.getItem('trialCode');
-    if (savedCode && !isTrialApplied) {
-      setFormData(prev => ({ ...prev, trialCode: savedCode }));
+    const savedCode = localStorage.getItem('discountCode');
+    if (savedCode && !isDiscountApplied) {
+      setFormData(prev => ({ ...prev, discountCode: savedCode }));
     }
-  }, [isTrialApplied]);
+  }, [isDiscountApplied]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const applyTrial = () => {
-    const code = formData.trialCode.trim().toUpperCase();
+  const applyDiscount = () => {
+    const code = formData.discountCode.trim().toUpperCase();
     if (!code) {
       toast({
-        title: "No trial code entered",
-        description: "Please enter a trial code to apply",
+        title: "No discount code entered",
+        description: "Please enter a discount code to apply",
         variant: "destructive"
       });
       return;
     }
 
-    // Check if it's a valid trial code (starting with FREE7)
-    if (validTrialPrefixes.some(prefix => code.startsWith(prefix)) && code.length >= 8) {
-      setIsTrialApplied(true);
+    // Check if it's one of the predefined codes
+    if (code in DISCOUNT_CODES) {
+      const discountAmount = DISCOUNT_CODES[code as keyof typeof DISCOUNT_CODES];
+      setAppliedDiscount(discountAmount);
+      setIsDiscountApplied(true);
       toast({
-        title: "Free trial applied!",
-        description: "You'll have 7 days to try our services before your card is charged."
+        title: "Discount applied!",
+        description: `$${discountAmount} discount has been applied to your order`
+      });
+      return;
+    }
+    
+    // Check if it's a generated new user code (starting with NEW)
+    if (code.startsWith('NEW') && code.length >= 8) {
+      // For new user codes, apply a $50 discount
+      setAppliedDiscount(50);
+      setIsDiscountApplied(true);
+      toast({
+        title: "New user discount applied!",
+        description: "$50 discount has been applied to your order"
       });
       return;
     }
 
     toast({
-      title: "Invalid trial code",
-      description: "The trial code you entered is not valid",
+      title: "Invalid discount code",
+      description: "The discount code you entered is not valid",
       variant: "destructive"
     });
   };
@@ -119,22 +121,14 @@ const Subscribe = () => {
     setTimeout(() => {
       setIsProcessing(false);
       
-      // Mark the trial code as used if one was applied
-      if (isTrialApplied) {
-        localStorage.setItem('trialUsed', 'true');
-        
-        // Calculate the trial end date (7 days from now)
-        const trialEndDate = new Date();
-        trialEndDate.setDate(trialEndDate.getDate() + 7);
-        localStorage.setItem('trialEndDate', trialEndDate.toISOString());
-        localStorage.setItem('selectedPlan', selectedPlan);
+      // Mark the discount code as used if one was applied
+      if (isDiscountApplied) {
+        localStorage.setItem('discountUsed', 'true');
       }
       
       toast({
-        title: isTrialApplied ? "Free trial started!" : "Subscription successful!",
-        description: isTrialApplied 
-          ? `Your 7-day free trial has begun. Your card will be charged on ${new Date(new Date().setDate(new Date().getDate() + 7)).toLocaleDateString()}.`
-          : "Thank you for subscribing to our service",
+        title: "Subscription successful!",
+        description: "Thank you for subscribing to our service",
       });
 
       // Set a session storage item to indicate successful subscription
@@ -154,41 +148,8 @@ const Subscribe = () => {
           <div className="max-w-4xl mx-auto">
             <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center">Subscribe Today</h1>
             <p className="text-center text-lg text-primary/70 mb-10">
-              {isTrialApplied 
-                ? "Complete your details to start your 7-day free trial" 
-                : "Complete your subscription to get started with unlimited design support"}
+              Complete your subscription to get started with unlimited design support
             </p>
-            
-            {/* Plan Selection */}
-            <div className="bg-white p-6 rounded-xl shadow-sm mb-8">
-              <h2 className="text-xl font-semibold mb-4">Select Your Plan</h2>
-              <div className="grid md:grid-cols-3 gap-4">
-                {Object.entries(plans).map(([key, plan]) => (
-                  <div 
-                    key={key}
-                    onClick={() => setSelectedPlan(key)}
-                    className={`border p-4 rounded-lg cursor-pointer transition-all ${
-                      selectedPlan === key 
-                        ? 'border-accent bg-accent/10' 
-                        : 'border-gray-200 hover:border-accent/50'
-                    }`}
-                  >
-                    <h3 className="font-semibold">{plan.name}</h3>
-                    <p className="text-lg font-bold">
-                      {typeof plan.price === 'number' ? `$${plan.price}/month` : plan.price}
-                    </p>
-                    {isTrialApplied && (
-                      <p className="text-sm text-accent mt-2">
-                        <span className="flex items-center gap-1">
-                          <Info size={14} />
-                          7-day free trial
-                        </span>
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
             
             <div className="grid md:grid-cols-3 gap-8">
               <div className="md:col-span-2 bg-white p-8 rounded-xl shadow-sm">
@@ -199,7 +160,6 @@ const Subscribe = () => {
                     <div className="space-y-4">
                       <h3 className="font-medium">Personal Information</h3>
                       
-                      {/* Personal Info Fields */}
                       <div>
                         <label htmlFor="fullName" className="block text-sm font-medium text-primary/70 mb-1">
                           Full Name
@@ -238,14 +198,7 @@ const Subscribe = () => {
                     
                     <div className="space-y-4">
                       <h3 className="font-medium">Credit Card Details</h3>
-                      {isTrialApplied && (
-                        <div className="p-3 bg-blue-50 text-blue-700 rounded-md flex items-start gap-2 text-sm mb-2">
-                          <Info size={16} className="flex-shrink-0 mt-0.5" />
-                          <span>Your card will not be charged until after your 7-day free trial ends.</span>
-                        </div>
-                      )}
                       
-                      {/* Credit Card Fields */}
                       <div>
                         <label htmlFor="cardNumber" className="block text-sm font-medium text-primary/70 mb-1">
                           Card Number
@@ -310,7 +263,6 @@ const Subscribe = () => {
                     <div className="space-y-4">
                       <h3 className="font-medium">Billing Address</h3>
                       
-                      {/* Billing Address Fields */}
                       <div>
                         <label htmlFor="address" className="block text-sm font-medium text-primary/70 mb-1">
                           Street Address
@@ -375,7 +327,7 @@ const Subscribe = () => {
                     </div>
                     
                     <div className="space-y-4">
-                      <h3 className="font-medium">Free Trial Code</h3>
+                      <h3 className="font-medium">Discount Code</h3>
                       
                       <div className="flex items-center gap-2">
                         <div className="relative flex-grow">
@@ -383,30 +335,30 @@ const Subscribe = () => {
                             <Tag size={18} className="text-gray-400" />
                           </div>
                           <input
-                            id="trialCode"
-                            name="trialCode"
+                            id="discountCode"
+                            name="discountCode"
                             type="text"
-                            placeholder="Enter trial code"
+                            placeholder="Enter discount code"
                             className="w-full border border-gray-300 rounded-md pl-10 p-3 focus:ring-2 focus:ring-accent focus:border-accent"
-                            value={formData.trialCode}
+                            value={formData.discountCode}
                             onChange={handleChange}
-                            disabled={isTrialApplied}
+                            disabled={isDiscountApplied}
                           />
                         </div>
                         <Button 
                           type="button" 
-                          onClick={applyTrial}
-                          disabled={isTrialApplied}
+                          onClick={applyDiscount}
+                          disabled={isDiscountApplied}
                           variant="outline"
                         >
                           Apply
                         </Button>
                       </div>
                       
-                      {isTrialApplied && (
+                      {isDiscountApplied && (
                         <div className="flex items-center text-accent">
                           <Check size={16} className="mr-1" />
-                          <span className="text-sm">7-day free trial applied!</span>
+                          <span className="text-sm">Discount of ${appliedDiscount} applied!</span>
                         </div>
                       )}
                     </div>
@@ -416,9 +368,7 @@ const Subscribe = () => {
                       className="w-full bg-accent hover:bg-accent/90 text-white p-3 rounded-md font-medium"
                       disabled={isProcessing}
                     >
-                      {isProcessing ? 'Processing...' : isTrialApplied 
-                        ? `Start Free Trial • ${selectedPrice} after 7 days` 
-                        : `Subscribe Now • ${selectedPrice}`}
+                      {isProcessing ? 'Processing...' : `Subscribe Now • $${finalPrice}/month`}
                     </Button>
                   </div>
                 </form>
@@ -430,29 +380,20 @@ const Subscribe = () => {
                   
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between">
-                      <span className="text-primary/70">Selected Plan</span>
-                      <span>{plans[selectedPlan as keyof typeof plans].name}</span>
+                      <span className="text-primary/70">Monthly Subscription</span>
+                      <span>${basePrice}</span>
                     </div>
                     
-                    <div className="flex justify-between">
-                      <span className="text-primary/70">Monthly Rate</span>
-                      <span>{selectedPrice}</span>
-                    </div>
-                    
-                    {isTrialApplied && (
+                    {appliedDiscount > 0 && (
                       <div className="flex justify-between text-accent">
-                        <span>Free Trial</span>
-                        <span>7 days</span>
+                        <span>Discount</span>
+                        <span>-${appliedDiscount}</span>
                       </div>
                     )}
                     
                     <div className="border-t pt-3 flex justify-between font-semibold">
-                      <span>{isTrialApplied ? 'First Payment' : 'Total'}</span>
-                      {isTrialApplied ? (
-                        <span>Due in 7 days</span>
-                      ) : (
-                        <span>{selectedPrice}</span>
-                      )}
+                      <span>Total</span>
+                      <span>${finalPrice}/month</span>
                     </div>
                   </div>
                   

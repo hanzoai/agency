@@ -4,11 +4,11 @@ import { Copy, CheckCheck, X } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from 'react-router-dom';
 
-// Generate a trial code for new and unique customers
-const generateTrialCode = (): string => {
+// Generate a discount code in the EZds8n format with random characters at the end
+const generateDiscountCode = (): string => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let result = 'FREE7';
-  for (let i = 0; i < 3; i++) {
+  let result = 'EZds8n';
+  for (let i = 0; i < 2; i++) {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return result;
@@ -18,7 +18,7 @@ const NewUserBanner = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
-  const [trialCode, setTrialCode] = useState<string>('');
+  const [discountCode, setDiscountCode] = useState<string>('');
   const [copied, setCopied] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -27,10 +27,10 @@ const NewUserBanner = () => {
     const checkNewUser = () => {
       const bannerShown = localStorage.getItem('bannerShown');
       const bannerExpiry = localStorage.getItem('bannerExpiry');
-      const trialUsed = localStorage.getItem('trialUsed');
+      const discountUsed = localStorage.getItem('discountUsed');
       
-      // If trial was used or banner was explicitly closed, don't show
-      if (trialUsed === 'true') {
+      // If discount was used or banner was explicitly closed, don't show
+      if (discountUsed === 'true') {
         return;
       }
       
@@ -41,13 +41,13 @@ const NewUserBanner = () => {
         
         // If less than 24 hours have passed, show the banner with remaining time
         if (expiryTime > currentTime) {
-          const savedCode = localStorage.getItem('trialCode');
+          const savedCode = localStorage.getItem('discountCode');
           if (savedCode) {
-            setTrialCode(savedCode);
+            setDiscountCode(savedCode);
           } else {
-            const newCode = generateTrialCode();
-            setTrialCode(newCode);
-            localStorage.setItem('trialCode', newCode);
+            const newCode = generateDiscountCode();
+            setDiscountCode(newCode);
+            localStorage.setItem('discountCode', newCode);
           }
           setTimeLeft(Math.floor((expiryTime - currentTime) / 1000));
           setIsVisible(true);
@@ -55,14 +55,14 @@ const NewUserBanner = () => {
       } 
       // New user - first visit
       else if (!bannerShown) {
-        const newCode = generateTrialCode();
-        setTrialCode(newCode);
+        const newCode = generateDiscountCode();
+        setDiscountCode(newCode);
         
         const expiryTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 24 hours from now
         
         localStorage.setItem('bannerShown', 'true');
         localStorage.setItem('bannerExpiry', expiryTime.toString());
-        localStorage.setItem('trialCode', newCode);
+        localStorage.setItem('discountCode', newCode);
         
         setTimeLeft(24 * 60 * 60); // 24 hours in seconds
         setIsVisible(true);
@@ -102,17 +102,17 @@ const NewUserBanner = () => {
   };
   
   const handleCopyCode = () => {
-    navigator.clipboard.writeText(trialCode);
+    navigator.clipboard.writeText(discountCode);
     setCopied(true);
     toast({
-      title: "Trial code copied!",
-      description: "Use this code during checkout to start your 7-day free trial.",
+      title: "Discount code copied!",
+      description: "Use this code during checkout for your first month at $650.",
     });
     
     setTimeout(() => setCopied(false), 2000);
   };
   
-  const handleStartTrial = () => {
+  const handleUseNow = () => {
     handleCopyCode();
     navigate('/subscribe');
   };
@@ -122,7 +122,7 @@ const NewUserBanner = () => {
     setIsVisible(false);
     
     // Note: We don't set bannerShown to false, just hide the banner temporarily for this session
-    // This allows the banner to reappear on page refresh if the trial hasn't been used yet
+    // This allows the banner to reappear on page refresh if the discount hasn't been used yet
     
     // Dispatch a storage event to update other components
     window.dispatchEvent(new Event('storage'));
@@ -145,10 +145,10 @@ const NewUserBanner = () => {
       
       <div className="container-custom">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-          <div className="font-bold">🎉 New & Unique Customers Only!</div>
+          <div className="font-bold">🎉 Get your first month for $650!</div>
           <div className="flex items-center gap-2">
-            <span>Try Today with our 7-Day Free Trial!</span>
-            <span className="font-mono bg-white/20 px-2 py-1 rounded font-semibold">{trialCode}</span>
+            <span>Use code:</span>
+            <span className="font-mono bg-white/20 px-2 py-1 rounded font-semibold">{discountCode}</span>
             <button 
               className="p-1 hover:bg-white/20 rounded-full flex items-center justify-center"
               onClick={(e) => {
@@ -160,16 +160,16 @@ const NewUserBanner = () => {
             </button>
           </div>
           <div className="text-sm whitespace-nowrap">
-            Offer expires in: <span className="font-mono">{formatTimeLeft()}</span>
+            Expires in: <span className="font-mono">{formatTimeLeft()}</span>
           </div>
           <button 
             className="text-xs sm:text-sm whitespace-nowrap bg-white text-accent px-3 py-1 rounded-full font-semibold hover:bg-white/90 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
-              handleStartTrial();
+              handleUseNow();
             }}
           >
-            Start Free Trial
+            Subscribe
           </button>
         </div>
       </div>

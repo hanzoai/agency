@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, ArrowUpRight, Mail } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -75,9 +75,9 @@ const Navbar = () => {
           </nav>
           
           <div className="hidden lg:block">
-            <Link to="/subscribe" className="rainbow-gradient-btn bg-black hover:bg-white text-white hover:text-black rounded-full py-2 px-4 inline-flex items-center font-medium transition-all duration-300">
+            <Link to="/subscribe" className="rainbow-gradient-btn bg-white text-black hover:bg-black hover:text-white rounded-full py-2 px-4 inline-flex items-center font-medium transition-all duration-300">
               Sign Up
-              <Mail size={16} className="ml-1" />
+              <ArrowUpRight size={16} className="ml-1" />
             </Link>
           </div>
           
@@ -100,9 +100,9 @@ const Navbar = () => {
             <Link to="/#testimonials" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Testimonials</Link>
             <Link to="/#pricing" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
             <Link to="/#faq" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>FAQ</Link>
-            <Link to="/subscribe" className="rainbow-gradient-btn bg-black hover:bg-white text-white hover:text-black rounded-full py-2 px-4 inline-flex items-center w-fit transition-all duration-300" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/subscribe" className="rainbow-gradient-btn bg-white text-black hover:bg-black hover:text-white rounded-full py-2 px-4 inline-flex items-center w-fit transition-all duration-300" onClick={() => setIsMenuOpen(false)}>
               Sign Up
-              <Mail size={16} className="ml-1" />
+              <ArrowUpRight size={16} className="ml-1" />
             </Link>
           </nav>
         </div>

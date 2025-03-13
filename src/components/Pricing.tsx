@@ -1,5 +1,7 @@
 
 import { Check, ArrowUpRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const features = [
   "Unlimited Project Requests Every Month",
@@ -10,7 +12,45 @@ const features = [
   "Professional graphic designers & funnel building experts",
 ];
 
+// Generate a unique discount code
+const generateUniqueCode = () => {
+  const prefix = "150R";
+  const randomChars = Math.random().toString(36).substring(2, 6).toUpperCase();
+  return `${prefix}${randomChars}`;
+};
+
 const Pricing = () => {
+  const navigate = useNavigate();
+  const [showDiscount, setShowDiscount] = useState(true);
+  const [uniqueCode, setUniqueCode] = useState("");
+
+  useEffect(() => {
+    // Check if user has already used a discount code
+    const hasUsedDiscount = localStorage.getItem('discountUsed') === 'true';
+    
+    // Check if user is already a customer
+    const isCustomer = sessionStorage.getItem('onboardingComplete') === 'true';
+    
+    // Don't show the discount if either condition is true
+    if (hasUsedDiscount || isCustomer) {
+      setShowDiscount(false);
+    } else {
+      // Generate a unique code for this user if they haven't used a discount
+      const code = generateUniqueCode();
+      setUniqueCode(code);
+      // Store the code temporarily in case they navigate away
+      localStorage.setItem('tempDiscountCode', code);
+    }
+  }, []);
+
+  const handleDiscountClick = () => {
+    // Store the discount code for use in checkout
+    localStorage.setItem('discountCode', uniqueCode);
+    localStorage.setItem('discountAmount', '150');
+    // Navigate to subscribe page
+    navigate('/subscribe');
+  };
+
   return (
     <section id="pricing" className="section-padding bg-beige-50">
       <div className="container-custom">
@@ -56,7 +96,7 @@ const Pricing = () => {
             <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-8">
               Get<br/>Personalized<br/>Quote
             </h2>
-            <p className="text-lg text-primary/80 mb-6">
+            <p className="text-lg text-black/80 mb-6">
               Fast turnarounds. Reliable and affordable. Unlimited graphic design & landing page builds every month. Save $1000's on graphic design and web development.
             </p>
             
@@ -67,15 +107,20 @@ const Pricing = () => {
               </p>
             </div>
             
-            <div className="bg-accent/10 p-6 border border-accent/20">
-              <div className="flex items-center mb-2">
-                <span className="font-bold bg-accent text-white px-3 py-1 text-sm mr-3">$50 OFF</span>
-                <h3 className="font-bold uppercase">Hanzo</h3>
+            {showDiscount && (
+              <div 
+                className="bg-accent/10 p-6 border border-accent/20 cursor-pointer hover:bg-accent/20 transition-colors"
+                onClick={handleDiscountClick}
+              >
+                <div className="flex items-center mb-2">
+                  <span className="font-bold bg-accent text-white px-3 py-1 text-sm mr-3">$150 OFF</span>
+                  <h3 className="font-bold uppercase text-black">Hanzo</h3>
+                </div>
+                <p className="text-black/80">
+                  Limited time offer! Click to apply your exclusive $150 discount.
+                </p>
               </div>
-              <p className="text-primary/80">
-                Try us risk-free with our 15-day money-back guarantee!
-              </p>
-            </div>
+            )}
           </div>
         </div>
       </div>

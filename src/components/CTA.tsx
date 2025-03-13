@@ -15,7 +15,7 @@ const CTA = () => {
               UNLIMITED<br/>FULL-STACK APP<br/>DEVELOPMENT
             </h2>
             <p className="text-lg md:text-xl text-white/80 mb-10 max-w-xl reveal">
-              Our mission is to change the current landscape of logistics real estate, one destination at a time. We do so by developing logistics projects with a focus on Architecture, Technology, and Functionality.
+              Expand your in-house creative team with top global talent and cutting-edge AI workflows, bringing any vision to life quickly and cost-effectively.
             </p>
             
             <div className="flex justify-center md:justify-start reveal gap-4">

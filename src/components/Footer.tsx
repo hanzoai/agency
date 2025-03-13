@@ -1,5 +1,5 @@
 
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -28,10 +28,18 @@ const Footer = () => {
           </div>
           
           <div className="grid grid-cols-4 gap-4">
-            <div className="geometric-circle border border-black/20 aspect-square flex items-center justify-center">IG</div>
-            <div className="geometric-circle border border-black/20 aspect-square flex items-center justify-center">FB</div>
-            <div className="geometric-circle border border-black/20 aspect-square flex items-center justify-center">X</div>
-            <div className="geometric-circle border border-black/20 aspect-square flex items-center justify-center">LI</div>
+            <a href="#" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
+              <Instagram size={24} />
+            </a>
+            <a href="#" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
+              <Facebook size={24} />
+            </a>
+            <a href="#" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
+              <Twitter size={24} />
+            </a>
+            <a href="#" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
+              <Linkedin size={24} />
+            </a>
           </div>
         </div>
         

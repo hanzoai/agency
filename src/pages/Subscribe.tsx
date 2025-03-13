@@ -436,7 +436,7 @@ const Subscribe = () => {
                           htmlFor="agreement" 
                           className="text-sm text-white/90"
                         >
-                          I agree that by initiating the free trial, I fully acknowledges, understands, and accepts all conditions outlined in the above without reservation.
+                          I agree that by initiating the free trial, I fully acknowledge, understand, and accept all conditions outlined in the above without reservation.
                         </label>
                       </div>
                     </div>

@@ -51,7 +51,7 @@ const Navbar = () => {
     <header className={`fixed left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-sm' : 'bg-transparent'}`} 
       style={{ top: isBannerVisible ? '40px' : '0' }}>
       <div className="container-custom">
-        <div className="flex items-center justify-between py-4">
+        <div className="flex items-center justify-between py-2">
           <Link to="/" className="text-xl font-bold">HANZO</Link>
           
           <nav className="hidden lg:flex items-center space-x-8">

@@ -8,7 +8,7 @@ const features = [
   },
   {
     title: "100% Reliability. 0 Headaches",
-    description: "No lengthy contracts or unexpected fees. Enjoy a flat monthly rate with dependable results. Start or pause at any time with clear terms."
+    description: "No lengthy contracts or unexpected fees. Enjoy a flat monthly rate with dependable results. Start or pause at any time."
   },
   {
     title: "Affordable Quality",

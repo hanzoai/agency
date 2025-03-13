@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
@@ -15,7 +15,37 @@ import ScrollReveal from '@/utils/ScrollReveal';
 import NewUserBanner from '@/components/NewUserBanner';
 
 const Index = () => {
+  const [isBannerVisible, setIsBannerVisible] = useState(false);
+  
   useEffect(() => {
+    // Check if banner is visible
+    const checkBannerVisible = () => {
+      const bannerShown = localStorage.getItem('bannerShown');
+      const bannerExpiry = localStorage.getItem('bannerExpiry');
+      const discountUsed = localStorage.getItem('discountUsed');
+      
+      if (discountUsed === 'true') {
+        setIsBannerVisible(false);
+        return;
+      }
+      
+      if (bannerShown === 'true' && bannerExpiry) {
+        const expiryTime = parseInt(bannerExpiry, 10);
+        const currentTime = new Date().getTime();
+        
+        setIsBannerVisible(expiryTime > currentTime);
+      }
+    };
+    
+    checkBannerVisible();
+    
+    // Listen for storage changes to update banner visibility
+    const handleStorageChange = () => {
+      checkBannerVisible();
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -33,11 +63,15 @@ const Index = () => {
         });
       });
     });
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
   
   return (
     <ScrollReveal>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col" style={{ paddingTop: isBannerVisible ? '40px' : '0' }}>
         <NewUserBanner />
         <Navbar />
         <Hero />

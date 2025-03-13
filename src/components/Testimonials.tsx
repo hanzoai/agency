@@ -1,5 +1,6 @@
 
 import { Star } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const testimonials = [
   {
@@ -80,9 +81,13 @@ const Testimonials = () => {
         </div>
         
         <div className="mt-14 text-center reveal">
-          <a href="#get-started" className="btn-primary">
-            Apply Now
-          </a>
+          <Button 
+            asChild 
+            variant="default" 
+            className="bg-black hover:bg-black/90 font-medium py-6 px-8 text-base"
+          >
+            <a href="/subscribe">Get Unlimited</a>
+          </Button>
         </div>
       </div>
     </section>

@@ -1,37 +1,16 @@
+
 import { useState, useEffect } from 'react';
-import { Copy, CheckCheck, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from 'react-router-dom';
-
-// Generate a trial code for new and unique customers
-const generateTrialCode = (): string => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let result = 'FREE7';
-  for (let i = 0; i < 3; i++) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return result;
-};
 
 const NewUserBanner = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
-  const [trialCode, setTrialCode] = useState<string>('');
-  const [copied, setCopied] = useState(false);
   const [isVisible, setIsVisible] = useState(true); // Set to true by default to show the banner
 
   useEffect(() => {
-    // Generate trial code on first render
-    const savedCode = localStorage.getItem('trialCode');
-    if (savedCode) {
-      setTrialCode(savedCode);
-    } else {
-      const newCode = generateTrialCode();
-      setTrialCode(newCode);
-      localStorage.setItem('trialCode', newCode);
-    }
-    
     // Set initial timer to 24 hours
     const bannerExpiry = localStorage.getItem('bannerExpiry');
     if (bannerExpiry) {
@@ -86,19 +65,11 @@ const NewUserBanner = () => {
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
   
-  const handleCopyCode = () => {
-    navigator.clipboard.writeText(trialCode);
-    setCopied(true);
-    toast({
-      title: "Trial code copied!",
-      description: "Use this code during checkout to start your 7-day free trial.",
-    });
-    
-    setTimeout(() => setCopied(false), 2000);
-  };
-  
   const handleStartTrial = () => {
-    handleCopyCode();
+    toast({
+      title: "Free trial activated!",
+      description: "You're being redirected to complete your subscription details.",
+    });
     navigate('/subscribe');
   };
   
@@ -112,9 +83,7 @@ const NewUserBanner = () => {
   }
   
   return (
-    <div className="bg-accent text-white py-2 px-4 sm:px-6 fixed top-0 left-0 right-0 z-[60] shadow-md" 
-      onTouchStart={handleCopyCode}
-      onClick={handleCopyCode}>
+    <div className="bg-accent text-white py-3 px-4 sm:px-6 fixed top-0 left-0 right-0 z-[60] shadow-md">
       <button 
         className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-white/20 rounded-full"
         onClick={closeBanner}
@@ -123,29 +92,16 @@ const NewUserBanner = () => {
       </button>
       
       <div className="container-custom">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-          <div className="flex items-center gap-2">
-            <span>Try Today with our 7-Day Free Trial!</span>
-            <span className="font-mono bg-white/20 px-2 py-1 rounded font-semibold">{trialCode}</span>
-            <button 
-              className="p-1 hover:bg-white/20 rounded-full flex items-center justify-center"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleCopyCode();
-              }}
-            >
-              {copied ? <CheckCheck size={16} /> : <Copy size={16} />}
-            </button>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
+          <div className="flex items-center">
+            <span className="text-base font-medium">Try Today with our 7-Day Free Trial!</span>
           </div>
           <div className="text-sm whitespace-nowrap">
             Offer expires in: <span className="font-mono">{formatTimeLeft()}</span>
           </div>
           <button 
-            className="text-xs sm:text-sm whitespace-nowrap bg-white text-accent px-3 py-1 rounded-full font-semibold hover:bg-white/90 transition-colors"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleStartTrial();
-            }}
+            className="text-sm sm:text-base whitespace-nowrap bg-white text-accent px-6 py-2 rounded-full font-semibold hover:bg-white/90 transition-colors"
+            onClick={handleStartTrial}
           >
             Start Free Trial
           </button>

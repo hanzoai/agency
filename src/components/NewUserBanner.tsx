@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Copy, CheckCheck, X } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
@@ -125,7 +124,6 @@ const NewUserBanner = () => {
       
       <div className="container-custom">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-          <div className="font-bold">🎉 New & Unique Customers Only!</div>
           <div className="flex items-center gap-2">
             <span>Try Today with our 7-Day Free Trial!</span>
             <span className="font-mono bg-white/20 px-2 py-1 rounded font-semibold">{trialCode}</span>

@@ -20,9 +20,9 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 reveal-slide-up">
-            <a href="https://calendar.app.google/dHbVXQP6g7GvB6fj9" className="lets-talk-btn text-lg py-3 px-6">
+            <a href="https://calendar.app.google/dHbVXQP6g7GvB6fj9" className="bg-transparent text-white border border-white rounded-full py-3 px-6 text-lg inline-flex items-center hover:bg-white/10 transition-all duration-300">
               Let's talk
-              <ArrowUpRight size={20} className="ml-2" />
+              <ArrowUpRight size={20} className="ml-2 text-white" />
             </a>
             <a href="#services" className="btn-secondary">
               See What We Offer

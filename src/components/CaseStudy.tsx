@@ -11,7 +11,7 @@ const CaseStudy = () => {
             FEATURED<br/>PROJECTS
           </h2>
           <p className="text-lg text-primary/80 reveal">
-            Designs used by your favorite startups and industry leaders.
+            Some of our best work to date.
           </p>
         </div>
         

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
@@ -6,6 +5,43 @@ import { CreditCard, Mail, Lock, Tag, Check, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+
+const starterFeatures = [
+  "Web design (UI/UX)",
+  "Front End Engineer",
+  "Dedicated Designer",
+  "Print design",
+  "AI-enhanced creative",
+  "Logo Creation",
+  "Branding services",
+];
+
+const growthFeatures = [
+  "Illustration design",
+  "eBooks & report design",
+  "Packaging & merchandise design",
+  "Video production (up to 2 videos/month)",
+  "Motion design",
+  "Ad creative",
+  "Social media creative",
+  "Presentation design",
+  "Email creation",
+];
+
+const enterpriseFeatures = [
+  "Unlimited Web design & landing pages",
+  "3D & AR design",
+  "Specialized concept creation",
+  "Dedicated Project Manager",
+  "Priority delivery & unlimited revisions",
+  "AI consulting",
+  "Marketing strategy",
+  "Video Production",
+];
+
+const allGrowthFeatures = [...starterFeatures, ...growthFeatures];
+
+const allEnterpriseFeatures = [...starterFeatures, ...growthFeatures, ...enterpriseFeatures];
 
 const features = [
   "Unlimited Project Requests Every Month",
@@ -44,7 +80,6 @@ const Subscribe = () => {
     zipCode: '',
   });
   
-  // Always assume trial is applied for new implementation
   const [isTrialApplied, setIsTrialApplied] = useState<boolean>(true);
   const [selectedPlan, setSelectedPlan] = useState<string>('growth');
 
@@ -63,7 +98,6 @@ const Subscribe = () => {
     }
   };
 
-  // Determine the selected plan price
   const selectedPrice = selectedPlan === 'enterprise' 
     ? 'Custom (Talk to Sales)' 
     : `$${plans[selectedPlan as keyof typeof plans].price}/month`;
@@ -80,10 +114,8 @@ const Subscribe = () => {
     setTimeout(() => {
       setIsProcessing(false);
       
-      // Mark the trial as used
       localStorage.setItem('trialUsed', 'true');
       
-      // Calculate the trial end date (7 days from now)
       const trialEndDate = new Date();
       trialEndDate.setDate(trialEndDate.getDate() + 7);
       localStorage.setItem('trialEndDate', trialEndDate.toISOString());
@@ -94,12 +126,23 @@ const Subscribe = () => {
         description: `Your 7-day free trial has begun. Your card will be charged on ${new Date(new Date().setDate(new Date().getDate() + 7)).toLocaleDateString()}.`,
       });
 
-      // Set a session storage item to indicate successful subscription
       sessionStorage.setItem('onboardingComplete', 'false');
       
-      // Redirect to the onboarding form
       navigate('/onboarding');
     }, 2000);
+  };
+
+  const getFeaturesByPlan = () => {
+    switch(selectedPlan) {
+      case 'starter':
+        return starterFeatures;
+      case 'growth':
+        return allGrowthFeatures;
+      case 'enterprise':
+        return allEnterpriseFeatures;
+      default:
+        return starterFeatures;
+    }
   };
 
   return (
@@ -114,7 +157,6 @@ const Subscribe = () => {
               Complete your details to start your 7-day free trial
             </p>
             
-            {/* Plan Selection */}
             <div className="bg-transparent border border-white/20 p-6 rounded-xl mb-8">
               <h2 className="text-xl font-semibold mb-4 text-white">Select Your Plan</h2>
               <div className="grid md:grid-cols-3 gap-4">
@@ -159,7 +201,6 @@ const Subscribe = () => {
                     <div className="space-y-4">
                       <h3 className="font-medium text-white">Personal Information</h3>
                       
-                      {/* Personal Info Fields */}
                       <div>
                         <label htmlFor="fullName" className="block text-sm font-medium text-white/70 mb-1">
                           Full Name
@@ -203,7 +244,6 @@ const Subscribe = () => {
                         <span>Your card will not be charged until after your 7-day free trial ends.</span>
                       </div>
                       
-                      {/* Credit Card Fields */}
                       <div>
                         <label htmlFor="cardNumber" className="block text-sm font-medium text-white/70 mb-1">
                           Card Number
@@ -268,7 +308,6 @@ const Subscribe = () => {
                     <div className="space-y-4">
                       <h3 className="font-medium text-white">Billing Address</h3>
                       
-                      {/* Billing Address Fields */}
                       <div>
                         <label htmlFor="address" className="block text-sm font-medium text-white/70 mb-1">
                           Street Address
@@ -380,7 +419,7 @@ const Subscribe = () => {
                   <div className="bg-transparent border border-white/20 p-4 rounded-lg text-sm">
                     <p className="font-medium mb-2 text-white">What's included:</p>
                     <ul className="space-y-2">
-                      {features.map((feature, index) => (
+                      {getFeaturesByPlan().map((feature, index) => (
                         <li key={index} className="flex items-start">
                           <Check size={16} className="text-accent mr-2 mt-1 flex-shrink-0" />
                           <span className="text-white">{feature}</span>

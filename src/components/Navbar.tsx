@@ -75,9 +75,9 @@ const Navbar = () => {
           </nav>
           
           <div className="hidden lg:block">
-            <Link to="/#get-started" className="lets-talk-btn">
+            <Link to="/#get-started" className="bg-transparent text-white border border-white rounded-full py-2 px-4 inline-flex items-center font-medium hover:bg-white/10 transition-all duration-300">
               Let's talk
-              <ArrowUpRight size={16} className="ml-1" />
+              <ArrowUpRight size={16} className="ml-1 text-white" />
             </Link>
           </div>
           
@@ -100,9 +100,9 @@ const Navbar = () => {
             <Link to="/#testimonials" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Testimonials</Link>
             <Link to="/#pricing" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
             <Link to="/#faq" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>FAQ</Link>
-            <Link to="/#get-started" className="lets-talk-btn inline-flex w-fit" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/#get-started" className="bg-transparent text-white border border-white rounded-full py-2 px-4 inline-flex items-center w-fit hover:bg-white/10 transition-all duration-300" onClick={() => setIsMenuOpen(false)}>
               Let's talk
-              <ArrowUpRight size={16} className="ml-1" />
+              <ArrowUpRight size={16} className="ml-1 text-white" />
             </Link>
           </nav>
         </div>

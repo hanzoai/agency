@@ -45,18 +45,14 @@ const Pricing = () => {
           <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-6 reveal">
             Subscription Plans
           </h2>
-          <p className="text-lg text-primary/80 max-w-2xl mx-auto reveal mb-2">
+          <p className="text-lg text-primary/80 max-w-2xl mx-auto reveal">
             Choose the plan that fits your needs. All plans include our widely acclaimed team of design experts.
-          </p>
-          <p className="text-md text-accent font-medium max-w-2xl mx-auto reveal flex items-center justify-center gap-1">
-            <Info size={18} />
-            New customers get a 7-day free trial!
           </p>
         </div>
         
         <div className="grid md:grid-cols-3 gap-8 reveal-slide-up">
           {/* Starter Plan */}
-          <Card className="border border-black/10 overflow-hidden flex flex-col h-full bg-[#282828]">
+          <Card className="border border-black/10 overflow-hidden flex flex-col h-full bg-beige-200">
             <CardHeader className="bg-black p-8 text-white text-center">
               <h3 className="text-2xl font-bold mb-2 uppercase">Starter</h3>
               <p className="opacity-90">Essential design services</p>
@@ -83,14 +79,14 @@ const Pricing = () => {
                 to="/subscribe" 
                 className="lets-talk-btn w-full justify-center text-lg py-3"
               >
-                Start free trial
+                Get started
                 <ArrowUpRight size={20} className="ml-2" />
               </Link>
             </CardFooter>
           </Card>
           
           {/* Growth Plan */}
-          <Card className="border-2 border-accent overflow-hidden flex flex-col h-full shadow-lg relative bg-[#282828]">
+          <Card className="border-2 border-accent overflow-hidden flex flex-col h-full shadow-lg relative bg-beige-200">
             <div className="absolute top-0 right-0 bg-accent text-white px-4 py-1 text-sm font-bold">
               POPULAR
             </div>
@@ -122,14 +118,14 @@ const Pricing = () => {
                 to="/subscribe" 
                 className="lets-talk-btn w-full justify-center text-lg py-3 bg-accent hover:bg-accent/90"
               >
-                Start free trial
+                Get started
                 <ArrowUpRight size={20} className="ml-2" />
               </Link>
             </CardFooter>
           </Card>
           
           {/* Enterprise Plan */}
-          <Card className="border border-black/10 overflow-hidden flex flex-col h-full bg-[#282828]">
+          <Card className="border border-black/10 overflow-hidden flex flex-col h-full bg-beige-200">
             <CardHeader className="bg-black p-8 text-white text-center">
               <h3 className="text-2xl font-bold mb-2 uppercase">Enterprise</h3>
               <p className="opacity-90">Comprehensive solutions</p>

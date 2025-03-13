@@ -1,7 +1,27 @@
 
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const Hero = () => {
+  const [displayedText, setDisplayedText] = useState('');
+  const [showCheckmark, setShowCheckmark] = useState(false);
+  const fullText = 'RELIABLE & AFFORDABLE';
+  
+  useEffect(() => {
+    let currentIndex = 0;
+    const textInterval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setDisplayedText(fullText.substring(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(textInterval);
+        setShowCheckmark(true);
+      }
+    }, 100); // Speed of the animation
+
+    return () => clearInterval(textInterval);
+  }, []);
+
   return (
     <section className="pt-32 pb-20 md:pt-36 md:pb-28 bg-black relative overflow-hidden">
       {/* Decorative circles */}
@@ -10,8 +30,11 @@ const Hero = () => {
       
       <div className="container-custom">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-5xl md:text-8xl font-black leading-tight uppercase mb-8 tracking-tighter reveal-slide-up">
-            RELIABLE &<br/>AFFORDABLE
+          <h1 className="text-5xl md:text-8xl font-black leading-tight uppercase mb-8 tracking-tighter">
+            {showCheckmark && (
+              <Check size={40} className="inline-block mr-2 text-accent animate-scale-in" />
+            )}
+            <span className="inline-block min-h-[1.2em]">{displayedText}</span>
           </h1>
           
           <p className="text-lg md:text-xl text-primary/80 max-w-2xl mx-auto mb-12 reveal-slide-up">

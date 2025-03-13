@@ -103,41 +103,41 @@ const Subscribe = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-black text-white">
       <Navbar />
       
-      <main className="flex-grow bg-beige-50 py-16">
+      <main className="flex-grow py-16">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center">Start Your Free Trial</h1>
-            <p className="text-center text-lg text-primary/70 mb-10">
+            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center text-white">Start Your Free Trial</h1>
+            <p className="text-center text-lg text-white/70 mb-10">
               Complete your details to start your 7-day free trial
             </p>
             
             {/* Plan Selection */}
-            <div className="bg-white p-6 rounded-xl shadow-sm mb-8">
-              <h2 className="text-xl font-semibold mb-4">Select Your Plan</h2>
+            <div className="bg-transparent border border-white/20 p-6 rounded-xl mb-8">
+              <h2 className="text-xl font-semibold mb-4 text-white">Select Your Plan</h2>
               <div className="grid md:grid-cols-3 gap-4">
                 {Object.entries(plans).map(([key, plan]) => (
                   <div 
                     key={key}
                     onClick={() => setSelectedPlan(key)}
-                    className={`border p-4 rounded-lg cursor-pointer transition-all ${
+                    className={`border p-4 rounded-lg cursor-pointer transition-all bg-transparent ${
                       selectedPlan === key 
                         ? 'border-accent bg-accent/10' 
-                        : 'border-gray-200 hover:border-accent/50'
+                        : 'border-white/20 hover:border-white/50'
                     }`}
                   >
-                    <h3 className="font-semibold">{plan.name}</h3>
+                    <h3 className="font-semibold text-white">{plan.name}</h3>
                     {typeof plan.price === 'number' ? (
                       <div>
                         <div className="flex items-center">
-                          <span className="text-lg font-bold line-through text-gray-400">${plan.price}/month</span>
+                          <span className="text-lg font-bold line-through text-white/40">${plan.price}/month</span>
                         </div>
                         <p className="text-accent font-bold">$0 with free trial</p>
                       </div>
                     ) : (
-                      <p className="text-lg font-bold">{plan.price}</p>
+                      <p className="text-lg font-bold text-white">{plan.price}</p>
                     )}
                     <p className="text-sm text-accent mt-2">
                       <span className="flex items-center gap-1">
@@ -151,17 +151,17 @@ const Subscribe = () => {
             </div>
             
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="md:col-span-2 bg-white p-8 rounded-xl shadow-sm">
-                <h2 className="text-xl font-semibold mb-6">Payment Information</h2>
+              <div className="md:col-span-2 bg-transparent border border-white/20 p-8 rounded-xl">
+                <h2 className="text-xl font-semibold mb-6 text-white">Payment Information</h2>
                 
                 <form onSubmit={handleSubmit}>
                   <div className="space-y-6">
                     <div className="space-y-4">
-                      <h3 className="font-medium">Personal Information</h3>
+                      <h3 className="font-medium text-white">Personal Information</h3>
                       
                       {/* Personal Info Fields */}
                       <div>
-                        <label htmlFor="fullName" className="block text-sm font-medium text-primary/70 mb-1">
+                        <label htmlFor="fullName" className="block text-sm font-medium text-white/70 mb-1">
                           Full Name
                         </label>
                         <input
@@ -169,26 +169,26 @@ const Subscribe = () => {
                           name="fullName"
                           type="text"
                           required
-                          className="w-full border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-accent focus:border-accent"
+                          className="w-full border border-white/20 rounded-md p-3 focus:ring-2 focus:ring-accent focus:border-accent bg-transparent text-white"
                           value={formData.fullName}
                           onChange={handleChange}
                         />
                       </div>
                       
                       <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-primary/70 mb-1">
+                        <label htmlFor="email" className="block text-sm font-medium text-white/70 mb-1">
                           Email Address
                         </label>
                         <div className="relative">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <Mail size={18} className="text-gray-400" />
+                            <Mail size={18} className="text-white/40" />
                           </div>
                           <input
                             id="email"
                             name="email"
                             type="email"
                             required
-                            className="w-full border border-gray-300 rounded-md pl-10 p-3 focus:ring-2 focus:ring-accent focus:border-accent"
+                            className="w-full border border-white/20 rounded-md pl-10 p-3 focus:ring-2 focus:ring-accent focus:border-accent bg-transparent text-white"
                             value={formData.email}
                             onChange={handleChange}
                           />
@@ -197,20 +197,20 @@ const Subscribe = () => {
                     </div>
                     
                     <div className="space-y-4">
-                      <h3 className="font-medium">Credit Card Details</h3>
-                      <div className="p-3 bg-blue-50 text-blue-700 rounded-md flex items-start gap-2 text-sm mb-2">
+                      <h3 className="font-medium text-white">Credit Card Details</h3>
+                      <div className="p-3 bg-blue-500/10 text-blue-300 rounded-md flex items-start gap-2 text-sm mb-2 border border-blue-500/20">
                         <Info size={16} className="flex-shrink-0 mt-0.5" />
                         <span>Your card will not be charged until after your 7-day free trial ends.</span>
                       </div>
                       
                       {/* Credit Card Fields */}
                       <div>
-                        <label htmlFor="cardNumber" className="block text-sm font-medium text-primary/70 mb-1">
+                        <label htmlFor="cardNumber" className="block text-sm font-medium text-white/70 mb-1">
                           Card Number
                         </label>
                         <div className="relative">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <CreditCard size={18} className="text-gray-400" />
+                            <CreditCard size={18} className="text-white/40" />
                           </div>
                           <input
                             id="cardNumber"
@@ -218,7 +218,7 @@ const Subscribe = () => {
                             type="text"
                             placeholder="XXXX XXXX XXXX XXXX"
                             required
-                            className="w-full border border-gray-300 rounded-md pl-10 p-3 focus:ring-2 focus:ring-accent focus:border-accent"
+                            className="w-full border border-white/20 rounded-md pl-10 p-3 focus:ring-2 focus:ring-accent focus:border-accent bg-transparent text-white placeholder:text-white/30"
                             value={formData.cardNumber}
                             onChange={handleChange}
                           />
@@ -227,7 +227,7 @@ const Subscribe = () => {
                       
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <label htmlFor="expiryDate" className="block text-sm font-medium text-primary/70 mb-1">
+                          <label htmlFor="expiryDate" className="block text-sm font-medium text-white/70 mb-1">
                             Expiry Date
                           </label>
                           <input
@@ -236,19 +236,19 @@ const Subscribe = () => {
                             type="text"
                             placeholder="MM/YY"
                             required
-                            className="w-full border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-accent focus:border-accent"
+                            className="w-full border border-white/20 rounded-md p-3 focus:ring-2 focus:ring-accent focus:border-accent bg-transparent text-white placeholder:text-white/30"
                             value={formData.expiryDate}
                             onChange={handleChange}
                           />
                         </div>
                         
                         <div>
-                          <label htmlFor="cvv" className="block text-sm font-medium text-primary/70 mb-1">
+                          <label htmlFor="cvv" className="block text-sm font-medium text-white/70 mb-1">
                             CVV
                           </label>
                           <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                              <Lock size={18} className="text-gray-400" />
+                              <Lock size={18} className="text-white/40" />
                             </div>
                             <input
                               id="cvv"
@@ -256,7 +256,7 @@ const Subscribe = () => {
                               type="text"
                               placeholder="123"
                               required
-                              className="w-full border border-gray-300 rounded-md pl-10 p-3 focus:ring-2 focus:ring-accent focus:border-accent"
+                              className="w-full border border-white/20 rounded-md pl-10 p-3 focus:ring-2 focus:ring-accent focus:border-accent bg-transparent text-white placeholder:text-white/30"
                               value={formData.cvv}
                               onChange={handleChange}
                             />
@@ -266,11 +266,11 @@ const Subscribe = () => {
                     </div>
                     
                     <div className="space-y-4">
-                      <h3 className="font-medium">Billing Address</h3>
+                      <h3 className="font-medium text-white">Billing Address</h3>
                       
                       {/* Billing Address Fields */}
                       <div>
-                        <label htmlFor="address" className="block text-sm font-medium text-primary/70 mb-1">
+                        <label htmlFor="address" className="block text-sm font-medium text-white/70 mb-1">
                           Street Address
                         </label>
                         <input
@@ -278,7 +278,7 @@ const Subscribe = () => {
                           name="address"
                           type="text"
                           required
-                          className="w-full border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-accent focus:border-accent"
+                          className="w-full border border-white/20 rounded-md p-3 focus:ring-2 focus:ring-accent focus:border-accent bg-transparent text-white"
                           value={formData.address}
                           onChange={handleChange}
                         />
@@ -286,7 +286,7 @@ const Subscribe = () => {
                       
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <label htmlFor="city" className="block text-sm font-medium text-primary/70 mb-1">
+                          <label htmlFor="city" className="block text-sm font-medium text-white/70 mb-1">
                             City
                           </label>
                           <input
@@ -294,14 +294,14 @@ const Subscribe = () => {
                             name="city"
                             type="text"
                             required
-                            className="w-full border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-accent focus:border-accent"
+                            className="w-full border border-white/20 rounded-md p-3 focus:ring-2 focus:ring-accent focus:border-accent bg-transparent text-white"
                             value={formData.city}
                             onChange={handleChange}
                           />
                         </div>
                         
                         <div>
-                          <label htmlFor="state" className="block text-sm font-medium text-primary/70 mb-1">
+                          <label htmlFor="state" className="block text-sm font-medium text-white/70 mb-1">
                             State/Province
                           </label>
                           <input
@@ -309,7 +309,7 @@ const Subscribe = () => {
                             name="state"
                             type="text"
                             required
-                            className="w-full border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-accent focus:border-accent"
+                            className="w-full border border-white/20 rounded-md p-3 focus:ring-2 focus:ring-accent focus:border-accent bg-transparent text-white"
                             value={formData.state}
                             onChange={handleChange}
                           />
@@ -317,7 +317,7 @@ const Subscribe = () => {
                       </div>
                       
                       <div>
-                        <label htmlFor="zipCode" className="block text-sm font-medium text-primary/70 mb-1">
+                        <label htmlFor="zipCode" className="block text-sm font-medium text-white/70 mb-1">
                           ZIP/Postal Code
                         </label>
                         <input
@@ -325,7 +325,7 @@ const Subscribe = () => {
                           name="zipCode"
                           type="text"
                           required
-                          className="w-full border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-accent focus:border-accent"
+                          className="w-full border border-white/20 rounded-md p-3 focus:ring-2 focus:ring-accent focus:border-accent bg-transparent text-white"
                           value={formData.zipCode}
                           onChange={handleChange}
                         />
@@ -334,13 +334,13 @@ const Subscribe = () => {
                     
                     <Button 
                       type="submit" 
-                      className="w-full bg-accent hover:bg-accent/90 text-white p-4 rounded-md font-medium text-lg"
+                      className="w-full bg-accent hover:bg-accent/90 text-black p-4 rounded-md font-medium text-lg"
                       disabled={isProcessing}
                     >
                       {isProcessing ? 'Processing...' : 'Start Free Trial'}
                     </Button>
                     
-                    <p className="text-center text-sm text-gray-500">
+                    <p className="text-center text-sm text-white/50">
                       By starting your free trial, you agree to our Terms of Service and Privacy Policy
                     </p>
                   </div>
@@ -348,21 +348,21 @@ const Subscribe = () => {
               </div>
               
               <div className="md:col-span-1">
-                <div className="bg-white p-6 rounded-xl shadow-sm sticky top-8">
-                  <h3 className="text-lg font-semibold mb-4">Order Summary</h3>
+                <div className="bg-transparent border border-white/20 p-6 rounded-xl sticky top-8">
+                  <h3 className="text-lg font-semibold mb-4 text-white">Order Summary</h3>
                   
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between">
-                      <span className="text-primary/70">Selected Plan</span>
-                      <span>{plans[selectedPlan as keyof typeof plans].name}</span>
+                      <span className="text-white/70">Selected Plan</span>
+                      <span className="text-white">{plans[selectedPlan as keyof typeof plans].name}</span>
                     </div>
                     
                     <div className="flex justify-between">
-                      <span className="text-primary/70">Monthly Rate</span>
+                      <span className="text-white/70">Monthly Rate</span>
                       {typeof plans[selectedPlan as keyof typeof plans].price === 'number' ? (
-                        <span className="line-through text-gray-400">{selectedPrice}</span>
+                        <span className="line-through text-white/40">{selectedPrice}</span>
                       ) : (
-                        <span>{selectedPrice}</span>
+                        <span className="text-white">{selectedPrice}</span>
                       )}
                     </div>
                     
@@ -371,19 +371,19 @@ const Subscribe = () => {
                       <span>7 days</span>
                     </div>
                     
-                    <div className="border-t pt-3 flex justify-between font-semibold">
+                    <div className="border-t border-white/20 pt-3 flex justify-between font-semibold text-white">
                       <span>First Payment</span>
                       <span>Due in 7 days</span>
                     </div>
                   </div>
                   
-                  <div className="bg-beige-100 p-4 rounded-lg text-sm">
-                    <p className="font-medium mb-2">What's included:</p>
+                  <div className="bg-transparent border border-white/20 p-4 rounded-lg text-sm">
+                    <p className="font-medium mb-2 text-white">What's included:</p>
                     <ul className="space-y-2">
                       {features.map((feature, index) => (
                         <li key={index} className="flex items-start">
                           <Check size={16} className="text-accent mr-2 mt-1 flex-shrink-0" />
-                          <span>{feature}</span>
+                          <span className="text-white">{feature}</span>
                         </li>
                       ))}
                     </ul>

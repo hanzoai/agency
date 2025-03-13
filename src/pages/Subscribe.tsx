@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
@@ -5,6 +6,12 @@ import { CreditCard, Mail, Lock, Tag, Check, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const starterFeatures = [
   "Web design (UI/UX)",
@@ -163,8 +170,8 @@ const Subscribe = () => {
                 {Object.entries(plans).map(([key, plan]) => (
                   <div 
                     key={key}
-                    onClick={() => setSelectedPlan(key)}
-                    className={`border p-4 rounded-lg cursor-pointer transition-all bg-transparent ${
+                    onClick={() => key !== 'enterprise' && setSelectedPlan(key)}
+                    className={`border p-4 rounded-lg ${key !== 'enterprise' ? 'cursor-pointer' : 'cursor-default'} transition-all bg-transparent ${
                       selectedPlan === key 
                         ? 'border-accent bg-accent/10' 
                         : 'border-white/20 hover:border-white/50'
@@ -181,11 +188,28 @@ const Subscribe = () => {
                     ) : (
                       <p className="text-lg font-bold text-white">{plan.price}</p>
                     )}
-                    <p className="text-sm text-accent mt-2">
-                      <span className="flex items-center gap-1">
-                        <Info size={14} />
-                        7-day free trial
-                      </span>
+                    <p className="text-sm mt-2">
+                      {key !== 'enterprise' ? (
+                        <span className="flex items-center gap-1 text-accent">
+                          <Info size={14} />
+                          7-day free trial
+                        </span>
+                      ) : (
+                        <>
+                          <span className="flex items-center gap-1 text-white">
+                            <Info size={14} />
+                            Free trial not available
+                          </span>
+                          <a 
+                            href="https://calendar.app.google/dHbVXQP6g7GvB6fj9" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="text-white underline mt-1 block hover:text-accent transition-colors"
+                          >
+                            Contact our sales team to discuss pricing.
+                          </a>
+                        </>
+                      )}
                     </p>
                   </div>
                 ))}

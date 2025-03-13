@@ -3,9 +3,9 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <section className="pt-32 pb-20 md:pt-36 md:pb-28 bg-beige-50 relative overflow-hidden">
+    <section className="pt-32 pb-20 md:pt-36 md:pb-28 bg-black relative overflow-hidden">
       {/* Decorative circles */}
-      <div className="absolute top-[10%] right-[10%] w-64 h-64 rounded-full bg-black/5 -z-10"></div>
+      <div className="absolute top-[10%] right-[10%] w-64 h-64 rounded-full bg-white/5 -z-10"></div>
       <div className="absolute bottom-[15%] left-[5%] w-40 h-40 rounded-full bg-beige-100 -z-10"></div>
       
       <div className="container-custom">

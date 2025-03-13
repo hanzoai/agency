@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
@@ -175,10 +176,10 @@ const Subscribe = () => {
     <div className="min-h-screen flex flex-col bg-black text-white">
       <Navbar />
       
-      <main className="flex-grow py-24">
+      <main className="flex-grow py-16">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center text-white">Start Your Free Trial</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center text-white mt-10">Start Your Free Trial</h1>
             <p className="text-center text-lg text-white/70 mb-10">
               Complete your details to start your 7-day free trial
             </p>

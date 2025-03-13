@@ -47,7 +47,7 @@ const Services = () => {
             <div className="text-center md:text-left">
               <div className="inline-flex items-center text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
                 <span>TEN+</span>
-                <div className="ml-4 text-base uppercase text-primary/70 normal-case font-normal">
+                <div className="ml-4 text-base uppercase text-primary/70 normal-case font-normal tracking-normal leading-tight">
                   Years of<br/>reliability
                 </div>
               </div>
@@ -59,7 +59,7 @@ const Services = () => {
             <div className="text-center md:text-left">
               <div className="inline-flex items-center text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
                 <span>0.8K</span>
-                <div className="ml-4 text-base uppercase text-primary/70 normal-case font-normal">
+                <div className="ml-4 text-base uppercase text-primary/70 normal-case font-normal tracking-normal leading-tight">
                   Satisfied<br/>customers
                 </div>
               </div>

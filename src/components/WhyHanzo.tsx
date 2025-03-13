@@ -49,7 +49,7 @@ const WhyHanzo = () => {
             Let's talk
             <ArrowUpRight size={16} className="ml-1" />
           </a>
-          <a href="/subscribe" className="lets-talk-btn bg-accent hover:bg-accent/90">
+          <a href="/subscribe" className="lets-talk-btn bg-black hover:bg-black/90">
             Subscribe
             <Mail size={16} className="ml-1" />
           </a>

@@ -68,7 +68,7 @@ const Index = () => {
   
   return (
     <ScrollReveal>
-      <div className="min-h-screen flex flex-col" style={{ paddingTop: isBannerVisible ? '60px' : '0' }}>
+      <div className="min-h-screen flex flex-col" style={{ paddingTop: isBannerVisible ? '100px' : '40px' }}>
         <NewUserBanner />
         <Navbar />
         <Hero />

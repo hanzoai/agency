@@ -4,18 +4,22 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react';
 const Hero = () => {
   return (
     <section 
-      className="pt-32 pb-20 md:pt-36 md:pb-28 relative overflow-hidden"
+      className="pt-32 pb-20 md:pt-36 md:pb-28 relative overflow-hidden bg-black"
       style={{
         backgroundImage: "url('/lovable-uploads/07f1f27c-7620-415b-9f5a-98f6b3191110.png')",
         backgroundSize: "cover",
-        backgroundPosition: "center"
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat"
       }}
     >
+      {/* Dark overlay to improve text readability */}
+      <div className="absolute inset-0 bg-black/50 -z-5"></div>
+      
       {/* Decorative circles with increased opacity for visibility against image */}
       <div className="absolute top-[10%] right-[10%] w-64 h-64 rounded-full bg-white/10 -z-10"></div>
       <div className="absolute bottom-[15%] left-[5%] w-40 h-40 rounded-full bg-beige-100/20 -z-10"></div>
       
-      <div className="container-custom">
+      <div className="container-custom relative z-10">
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-5xl md:text-8xl font-black leading-tight uppercase mb-8 tracking-tighter reveal-slide-up">
             RELIABLE &<br/>AFFORDABLE

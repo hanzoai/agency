@@ -117,9 +117,15 @@ const NewUserBanner = () => {
     navigate('/subscribe');
   };
   
-  const closeBanner = () => {
+  const closeBanner = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setIsVisible(false);
-    localStorage.setItem('bannerShown', 'false');
+    
+    // Note: We don't set bannerShown to false, just hide the banner temporarily for this session
+    // This allows the banner to reappear on page refresh if the discount hasn't been used yet
+    
+    // Dispatch a storage event to update other components
+    window.dispatchEvent(new Event('storage'));
   };
   
   if (!isVisible || timeLeft === 0) {
@@ -127,15 +133,12 @@ const NewUserBanner = () => {
   }
   
   return (
-    <div className="bg-accent text-white py-2 px-4 sm:px-6 relative fixed top-0 left-0 right-0 z-[60] shadow-md" 
+    <div className="bg-accent text-white py-2 px-4 sm:px-6 fixed top-0 left-0 right-0 z-[60] shadow-md" 
       onTouchStart={handleCopyCode}
       onClick={handleCopyCode}>
       <button 
         className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-white/20 rounded-full"
-        onClick={(e) => {
-          e.stopPropagation();
-          closeBanner();
-        }}
+        onClick={closeBanner}
       >
         <X size={16} />
       </button>

@@ -41,7 +41,7 @@ const Pricing = () => {
                   href="/subscribe" 
                   className="lets-talk-btn w-full justify-center text-lg py-3"
                 >
-                  Let's talk
+                  Get started
                   <ArrowUpRight size={20} className="ml-2" />
                 </a>
                 

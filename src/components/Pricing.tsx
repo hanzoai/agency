@@ -1,82 +1,173 @@
 
-import { Check, ArrowUpRight } from 'lucide-react';
+import { Check, ArrowUpRight, Info } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
-const features = [
-  "Unlimited Project Requests Every Month",
-  "Quick Response & Delivery",
-  "No contracts. Cancel Anytime.",
-  "One Rate For All Your Funnel Building Needs",
-  "All the skills you need to start, grow, and scale your online business",
-  "Professional graphic designers & funnel building experts",
+const starterFeatures = [
+  "Web design (UI/UX)",
+  "Front End Engineer",
+  "Dedicated Designer",
+  "Print design",
+  "AI-enhanced creative",
+  "Logo Creation",
+  "Branding services",
+];
+
+const growthFeatures = [
+  "Illustration design",
+  "eBooks & report design",
+  "Packaging & merchandise design",
+  "Video production (up to 2 videos/month)",
+  "Motion design",
+  "Ad creative",
+  "Social media creative",
+  "Presentation design",
+  "Email creation",
+];
+
+const enterpriseFeatures = [
+  "Unlimited Web design & landing pages",
+  "3D & AR design",
+  "Specialized concept creation",
+  "Dedicated Project Manager",
+  "Priority delivery & unlimited revisions",
+  "AI consulting",
+  "Marketing strategy",
+  "Video Production",
 ];
 
 const Pricing = () => {
   return (
     <section id="pricing" className="section-padding bg-beige-50">
       <div className="container-custom">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="order-2 md:order-1 reveal-slide-up">
-            <div className="bg-white overflow-hidden border border-black/10">
-              <div className="bg-black p-8 text-white text-center">
-                <h3 className="text-3xl font-bold mb-2 uppercase">Get Started</h3>
-                <p className="opacity-90">Unlimited Graphic Design & Web Development</p>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-6 reveal">
+            Subscription Plans
+          </h2>
+          <p className="text-lg text-primary/80 max-w-2xl mx-auto reveal">
+            Choose the plan that fits your needs. All plans include our widely acclaimed team of design experts.
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-8 reveal-slide-up">
+          {/* Starter Plan */}
+          <Card className="border border-black/10 overflow-hidden flex flex-col h-full">
+            <CardHeader className="bg-black p-8 text-white text-center">
+              <h3 className="text-2xl font-bold mb-2 uppercase">Starter</h3>
+              <p className="opacity-90">Essential design services</p>
+            </CardHeader>
+            
+            <CardContent className="p-8 flex-grow">
+              <div className="flex justify-center items-baseline mb-6">
+                <span className="text-4xl font-bold text-black">$3,500</span>
+                <span className="ml-2 text-black/70">/month</span>
               </div>
               
-              <div className="p-8">
-                <div className="flex justify-center items-baseline mb-6">
-                  <span className="text-5xl font-bold text-black">$1250</span>
-                  <span className="ml-2 text-black/70">/month</span>
-                </div>
-                
-                <ul className="space-y-4 mb-8">
-                  {features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
-                      <span className="text-black">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <a 
-                  href="/subscribe" 
-                  className="lets-talk-btn w-full justify-center text-lg py-3"
-                >
-                  Get started
-                  <ArrowUpRight size={20} className="ml-2" />
-                </a>
-                
-                <p className="text-center text-sm text-black/70 mt-4">
-                  Try us risk-free with our 15-day money-back guarantee!
-                </p>
-              </div>
-            </div>
-          </div>
+              <ul className="space-y-4 mb-8">
+                {starterFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start">
+                    <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
+                    <span className="text-black">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+            
+            <CardFooter className="p-6 pt-0">
+              <Link 
+                to="/subscribe" 
+                className="lets-talk-btn w-full justify-center text-lg py-3"
+              >
+                Get started
+                <ArrowUpRight size={20} className="ml-2" />
+              </Link>
+            </CardFooter>
+          </Card>
           
-          <div className="order-1 md:order-2 reveal-slide-right">
-            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-8">
-              Get<br/>Personalized<br/>Quote
-            </h2>
-            <p className="text-lg text-primary/80 mb-6">
-              Fast turnarounds. Reliable and affordable. Unlimited graphic design & landing page builds every month. Save $1000's on graphic design and web development.
-            </p>
-            
-            <div className="bg-white p-6 border border-black/10 mb-6">
-              <h3 className="font-bold mb-2 uppercase text-black">For Teams of All Sizes</h3>
-              <p className="text-black/80">
-                All prices include our widely acclaimed team of graphic designers, experienced funnel building experts, and project managers.
-              </p>
+          {/* Growth Plan */}
+          <Card className="border-2 border-accent overflow-hidden flex flex-col h-full shadow-lg relative">
+            <div className="absolute top-0 right-0 bg-accent text-white px-4 py-1 text-sm font-bold">
+              POPULAR
             </div>
+            <CardHeader className="bg-accent p-8 text-white text-center">
+              <h3 className="text-2xl font-bold mb-2 uppercase">Growth</h3>
+              <p className="opacity-90">Advanced design solutions</p>
+            </CardHeader>
             
-            <div className="bg-accent/10 p-6 border border-accent/20">
-              <div className="flex items-center mb-2">
-                <span className="font-bold bg-accent text-white px-3 py-1 text-sm mr-3">$50 OFF</span>
-                <h3 className="font-bold uppercase">Hanzo</h3>
+            <CardContent className="p-8 flex-grow">
+              <div className="flex justify-center items-baseline mb-6">
+                <span className="text-4xl font-bold text-black">$5,500</span>
+                <span className="ml-2 text-black/70">/month</span>
               </div>
-              <p className="text-primary/80">
-                Try us risk-free with our 15-day money-back guarantee!
-              </p>
-            </div>
-          </div>
+              
+              <p className="text-sm text-black/70 mb-4 font-medium">Everything in Starter, plus:</p>
+              
+              <ul className="space-y-4 mb-8">
+                {growthFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start">
+                    <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
+                    <span className="text-black">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+            
+            <CardFooter className="p-6 pt-0">
+              <Link 
+                to="/subscribe" 
+                className="lets-talk-btn w-full justify-center text-lg py-3 bg-accent hover:bg-accent/90"
+              >
+                Get started
+                <ArrowUpRight size={20} className="ml-2" />
+              </Link>
+            </CardFooter>
+          </Card>
+          
+          {/* Enterprise Plan */}
+          <Card className="border border-black/10 overflow-hidden flex flex-col h-full">
+            <CardHeader className="bg-black p-8 text-white text-center">
+              <h3 className="text-2xl font-bold mb-2 uppercase">Enterprise</h3>
+              <p className="opacity-90">Comprehensive solutions</p>
+            </CardHeader>
+            
+            <CardContent className="p-8 flex-grow">
+              <div className="flex justify-center items-baseline mb-6">
+                <span className="text-4xl font-bold text-black">Custom</span>
+              </div>
+              
+              <p className="text-sm text-black/70 mb-4 font-medium">Everything in Growth, plus:</p>
+              
+              <ul className="space-y-4 mb-8">
+                {enterpriseFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start">
+                    <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
+                    <span className="text-black">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+            
+            <CardFooter className="p-6 pt-0">
+              <Link 
+                to="/contact" 
+                className="lets-talk-btn w-full justify-center text-lg py-3 bg-primary/10 text-primary hover:bg-primary/20"
+              >
+                Talk to Sales
+                <ArrowUpRight size={20} className="ml-2" />
+              </Link>
+            </CardFooter>
+          </Card>
+        </div>
+        
+        <div className="mt-12 text-center">
+          <p className="text-sm text-primary/70 mb-4">
+            Not sure which plan is right for you? Contact us for a personalized quote.
+          </p>
+          <Link to="/contact" className="lets-talk-btn">
+            Contact us
+            <ArrowUpRight size={16} className="ml-1" />
+          </Link>
         </div>
       </div>
     </section>

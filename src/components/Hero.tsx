@@ -1,5 +1,5 @@
 
-import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const Hero = () => {
@@ -17,7 +17,7 @@ const Hero = () => {
         clearInterval(textInterval);
         setShowCheckmark(true);
       }
-    }, 100); // Speed of the animation
+    }, 40); // Faster speed for smoother animation
 
     return () => clearInterval(textInterval);
   }, []);
@@ -32,7 +32,7 @@ const Hero = () => {
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-5xl md:text-8xl font-black leading-tight uppercase mb-8 tracking-tighter">
             {showCheckmark && (
-              <Check size={40} className="inline-block mr-2 text-accent animate-scale-in" />
+              <span className="mr-1 animate-scale-in">✅</span>
             )}
             <span className="inline-block min-h-[1.2em]">{displayedText}</span>
           </h1>

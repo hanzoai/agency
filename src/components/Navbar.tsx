@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
@@ -31,7 +32,14 @@ const Navbar = () => {
       }
     };
     
+    // Listen for banner visibility changes
+    const handleBannerVisibilityChanged = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      setIsBannerVisible(customEvent.detail.visible);
+    };
+    
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('bannerVisibilityChanged', handleBannerVisibilityChanged);
     checkBannerVisible();
     
     const handleStorageChange = () => {
@@ -43,12 +51,15 @@ const Navbar = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('bannerVisibilityChanged', handleBannerVisibilityChanged);
     };
   }, []);
 
   return (
-    <header className={`fixed left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-sm' : 'bg-transparent'}`} 
-      style={{ top: isBannerVisible ? '49px' : '0' }}>
+    <header 
+      className={`fixed left-0 right-0 z-[100] transition-all duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-sm' : 'bg-transparent'}`} 
+      style={{ top: isBannerVisible ? '49px' : '0' }}
+    >
       <div className="container-custom">
         <div className="flex items-center justify-between py-1">
           <Link to="/" className="text-xl font-bold">HANZO</Link>

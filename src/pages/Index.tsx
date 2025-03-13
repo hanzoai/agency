@@ -24,6 +24,14 @@ const Index = () => {
       setIsBannerVisible(false);
     }
     
+    // Listen for banner visibility changes
+    const handleBannerVisibilityChanged = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      setIsBannerVisible(customEvent.detail.visible);
+    };
+    
+    window.addEventListener('bannerVisibilityChanged', handleBannerVisibilityChanged);
+    
     // Listen for storage changes to update banner visibility
     const handleStorageChange = () => {
       const trialUsed = localStorage.getItem('trialUsed');
@@ -54,6 +62,7 @@ const Index = () => {
     
     return () => {
       window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('bannerVisibilityChanged', handleBannerVisibilityChanged);
     };
   }, []);
   

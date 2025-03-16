@@ -38,7 +38,7 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 reveal-slide-up">
-            <a href="https://calendar.app.google/dHbVXQP6g7GvB6fj9" className="bg-transparent text-white border border-white rounded-full py-3 px-6 text-lg inline-flex items-center hover:bg-white/10 transition-all duration-300">
+            <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="bg-transparent text-white border border-white rounded-full py-3 px-6 text-lg inline-flex items-center hover:bg-white/10 transition-all duration-300">
               Let's talk
               <ArrowUpRight size={20} className="ml-2 text-white" />
             </a>

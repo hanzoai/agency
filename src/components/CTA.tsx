@@ -20,7 +20,7 @@ const CTA = () => {
             
             <div className="flex justify-center md:justify-start reveal gap-4">
               <a 
-                href="/subscribe" 
+                href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" 
                 className="lets-talk-btn text-lg py-3 px-6"
               >
                 Let's talk

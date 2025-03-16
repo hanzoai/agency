@@ -45,7 +45,7 @@ const WhyHanzo = () => {
         </div>
         
         <div className="mt-14 text-center md:text-left reveal flex flex-wrap gap-4">
-          <a href="https://calendar.app.google/dHbVXQP6g7GvB6fj9" className="lets-talk-btn">
+          <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="lets-talk-btn">
             Let's talk
             <ArrowUpRight size={16} className="ml-1" />
           </a>

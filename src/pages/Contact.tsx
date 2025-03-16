@@ -27,7 +27,7 @@ const Contact = () => {
                   (+65) 13370-9976
                 </p>
               </div>
-              <a href="mailto:hello.verywell@gmail.com" className="lets-talk-btn">
+              <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="lets-talk-btn">
                 Send an email
                 <ArrowUpRight size={16} className="ml-1" />
               </a>

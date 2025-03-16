@@ -21,10 +21,10 @@ const Footer = () => {
                 (+65) 13370-9976
               </p>
             </div>
-            <Link to="/#contact" className="lets-talk-btn">
+            <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="lets-talk-btn">
               Let's talk
               <ArrowUpRight size={16} className="ml-1" />
-            </Link>
+            </a>
           </div>
           
           <div className="grid grid-cols-4 gap-4">

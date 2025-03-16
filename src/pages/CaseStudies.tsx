@@ -45,8 +45,8 @@ const CaseStudies = () => {
                 
                 <div className="relative aspect-[4/3] overflow-hidden group reveal">
                   <img 
-                    src="/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png" 
-                    alt="Property example" 
+                    src="/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png" 
+                    alt="KROTE Motorcycle" 
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">

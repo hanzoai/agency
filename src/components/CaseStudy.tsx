@@ -50,8 +50,8 @@ const CaseStudy = () => {
         </div>
         
         <div className="mt-12 text-center md:text-left">
-          <Link to="/projects" className="lets-talk-btn">
-            View All Projects
+          <Link to="/case-studies" className="lets-talk-btn">
+            View All Case Studies
             <ArrowUpRight size={16} className="ml-1" />
           </Link>
         </div>

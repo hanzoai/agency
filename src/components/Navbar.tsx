@@ -67,8 +67,7 @@ const Navbar = () => {
           <nav className="hidden lg:flex items-center space-x-8">
             <Link to="/#services" className="text-primary/80 hover:text-primary font-medium transition">Services</Link>
             <Link to="/#why-hanzo" className="text-primary/80 hover:text-primary font-medium transition">Why Hanzo</Link>
-            <Link to="/projects" className="text-primary/80 hover:text-primary font-medium transition">Projects</Link>
-            <Link to="/#case-studies" className="text-primary/80 hover:text-primary font-medium transition">Case Studies</Link>
+            <Link to="/case-studies" className="text-primary/80 hover:text-primary font-medium transition">Case Studies</Link>
             <Link to="/#testimonials" className="text-primary/80 hover:text-primary font-medium transition">Testimonials</Link>
             <Link to="/#pricing" className="text-primary/80 hover:text-primary font-medium transition">Pricing</Link>
             <Link to="/#faq" className="text-primary/80 hover:text-primary font-medium transition">FAQ</Link>
@@ -95,8 +94,7 @@ const Navbar = () => {
           <nav className="flex flex-col space-y-4">
             <Link to="/#services" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Services</Link>
             <Link to="/#why-hanzo" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Why Hanzo</Link>
-            <Link to="/projects" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Projects</Link>
-            <Link to="/#case-studies" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Case Studies</Link>
+            <Link to="/case-studies" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Case Studies</Link>
             <Link to="/#testimonials" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Testimonials</Link>
             <Link to="/#pricing" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
             <Link to="/#faq" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>FAQ</Link>

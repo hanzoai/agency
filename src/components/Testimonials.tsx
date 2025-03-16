@@ -80,10 +80,10 @@ const Testimonials = () => {
         </div>
         
         <div className="mt-14 text-center reveal flex justify-center gap-4">
-          <a href="#get-started" className="btn-primary">
+          <a href="#pricing" className="btn-primary">
             Apply Now
           </a>
-          <a href="/subscribe" className="btn-secondary">
+          <a href="/case-studies" className="btn-secondary">
             Get Unlimited
           </a>
         </div>

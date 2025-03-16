@@ -51,7 +51,7 @@ const CaseStudies = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
                     <h3 className="text-xl font-bold text-white uppercase">KROTE VILLA</h3>
-                    <p className="text-white/80 mt-1 text-sm uppercase font-medium">A NIFTY DUPLEX NEAR FLORIDA, USA</p>
+                    <p className="text-white/80 mt-1 text-sm uppercase font-medium">HIGHLY CONVERTING 500X ROI CAMPAIGN</p>
                     <button className="mt-4 lets-talk-btn w-fit">
                       Explore
                       <ArrowUpRight size={16} className="ml-1" />
@@ -63,7 +63,7 @@ const CaseStudies = () => {
             
             {/* Project category filter */}
             <div className="overflow-x-auto pb-6 mb-8 reveal">
-              <h2 className="text-2xl md:text-4xl font-bold mb-4">All Projects</h2>
+              <h2 className="text-2xl md:text-4xl font-bold mb-8">All Projects</h2>
               <div className="flex space-x-4 min-w-max">
                 {projectCategories.map(cat => (
                   <button 

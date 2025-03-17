@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CaseStudyTrillerFest from "./pages/CaseStudyTrillerFest";
+import CaseStudyDamonMotorcycles from "./pages/CaseStudyDamonMotorcycles";
 import Subscribe from "./pages/Subscribe";
 import OnboardingForm from "./pages/Onboarding";
 import OnboardingSuccess from "./pages/OnboardingSuccess";
@@ -24,6 +25,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/case-study-trillerfest" element={<CaseStudyTrillerFest />} />
+          <Route path="/case-study-damon-motorcycles" element={<CaseStudyDamonMotorcycles />} />
           <Route path="/subscribe" element={<Subscribe />} />
           <Route path="/onboarding" element={<OnboardingForm />} />
           <Route path="/onboarding-success" element={<OnboardingSuccess />} />

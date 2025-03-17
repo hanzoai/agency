@@ -23,7 +23,7 @@ const CaseStudyDamonMotorcycles = () => {
             
             {/* Hero section */}
             <div className="mb-16">
-              <h1 className="text-6xl md:text-9xl font-black tracking-tighter uppercase leading-none mb-6">
+              <h1 className="text-6xl md:text-9xl font-black tracking-tighter uppercase leading-none mb-6 text-white">
                 DAMON<br />MOTORCYCLES
               </h1>
               <div className="flex flex-col md:flex-row gap-6 md:gap-12 mt-8">

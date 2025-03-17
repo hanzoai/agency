@@ -50,12 +50,12 @@ const CaseStudies = () => {
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-                    <h3 className="text-xl font-bold text-white uppercase">KROTE VILLA</h3>
+                    <h3 className="text-xl font-bold text-white uppercase">DAMON MOTORCYCLES</h3>
                     <p className="text-white/80 mt-1 text-sm uppercase font-medium">HIGHLY CONVERTING 500X ROI CAMPAIGN</p>
-                    <button className="mt-4 lets-talk-btn w-fit">
+                    <Link to="/case-study-damon-motorcycles" className="mt-4 lets-talk-btn w-fit">
                       Explore
                       <ArrowUpRight size={16} className="ml-1" />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

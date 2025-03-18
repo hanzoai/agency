@@ -10,13 +10,13 @@ import { Button } from '@/components/ui/button';
 const CaseStudyDamonMotorcycles = () => {
   return (
     <ScrollReveal>
-      <div className="min-h-screen flex flex-col bg-beige-50 text-black">
+      <div className="min-h-screen flex flex-col bg-beige-50 text-white">
         <Navbar />
         
         <main className="flex-grow pt-24">
           <div className="container-custom">
             {/* Back to case studies link */}
-            <Link to="/case-studies" className="inline-flex items-center mb-8 text-sm font-medium hover:underline">
+            <Link to="/case-studies" className="inline-flex items-center mb-8 text-sm font-medium hover:underline text-white">
               <ArrowLeft size={16} className="mr-2" />
               Back to Case Studies
             </Link>

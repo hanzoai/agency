@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -10,14 +10,50 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const CaseStudyDamonMotorcycles = () => {
+  const [isBannerVisible, setIsBannerVisible] = useState(false);
+
+  useEffect(() => {
+    // Check banner visibility on mount
+    const checkBannerVisible = () => {
+      const bannerShown = localStorage.getItem('bannerShown');
+      const bannerExpiry = localStorage.getItem('bannerExpiry');
+      const discountUsed = localStorage.getItem('discountUsed');
+      
+      if (discountUsed === 'true') {
+        setIsBannerVisible(false);
+        return;
+      }
+      
+      if (bannerShown === 'true' && bannerExpiry) {
+        const expiryTime = parseInt(bannerExpiry, 10);
+        const currentTime = new Date().getTime();
+        
+        setIsBannerVisible(expiryTime > currentTime);
+      }
+    };
+    
+    // Listen for banner visibility changes
+    const handleBannerVisibilityChanged = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      setIsBannerVisible(customEvent.detail.visible);
+    };
+    
+    window.addEventListener('bannerVisibilityChanged', handleBannerVisibilityChanged);
+    checkBannerVisible();
+    
+    return () => {
+      window.removeEventListener('bannerVisibilityChanged', handleBannerVisibilityChanged);
+    };
+  }, []);
+
   return <ScrollReveal>
       <div className="min-h-screen flex flex-col bg-beige-50 text-white">
         <Navbar />
         
-        <main className="flex-grow pt-24">
+        <main className={`flex-grow ${isBannerVisible ? 'pt-24' : 'pt-16'}`}>
           <div className="container-custom">
             {/* All Case Studies link with improved positioning */}
-            <div className="sticky top-24 z-10 mb-8 w-full">
+            <div className={`sticky ${isBannerVisible ? 'top-24' : 'top-16'} z-10 mb-8 w-full`}>
               <Link to="/case-studies" className="inline-flex items-center text-sm font-medium hover:underline text-white bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
                 <ArrowLeft size={16} className="mr-2" />
                 All Case Studies

@@ -16,11 +16,13 @@ const CaseStudyDamonMotorcycles = () => {
         
         <main className="flex-grow pt-24">
           <div className="container-custom">
-            {/* Back to case studies link */}
-            <Link to="/case-studies" className="inline-flex items-center mb-8 text-sm font-medium hover:underline text-white">
-              <ArrowLeft size={16} className="mr-2" />
-              Back to Case Studies
-            </Link>
+            {/* All Case Studies link with improved positioning */}
+            <div className="sticky top-24 z-10 mb-8 w-full">
+              <Link to="/case-studies" className="inline-flex items-center text-sm font-medium hover:underline text-white bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
+                <ArrowLeft size={16} className="mr-2" />
+                All Case Studies
+              </Link>
+            </div>
             
             {/* Hero section */}
             <div className="mb-16">

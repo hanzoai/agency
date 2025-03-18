@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ArrowUpRight, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -6,10 +5,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
 import { Button } from '@/components/ui/button';
-
 const CaseStudyDamonMotorcycles = () => {
-  return (
-    <ScrollReveal>
+  return <ScrollReveal>
       <div className="min-h-screen flex flex-col bg-beige-50 text-white">
         <Navbar />
         
@@ -33,7 +30,7 @@ const CaseStudyDamonMotorcycles = () => {
                 </div>
                 <div className="md:w-1/3">
                   <h3 className="text-xl font-bold mb-2">SERVICES</h3>
-                  <p>Digital Marketing, Brand Strategy, Content Production</p>
+                  <p>Digital Marketing, Brand Strategy, Content Production, Web Design and Development</p>
                 </div>
                 <div className="md:w-1/3">
                   <h3 className="text-xl font-bold mb-2">RESULTS</h3>
@@ -44,11 +41,7 @@ const CaseStudyDamonMotorcycles = () => {
             
             {/* Featured image */}
             <div className="mb-16 reveal">
-              <img 
-                src="/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png" 
-                alt="Damon Motorcycles" 
-                className="w-full h-auto aspect-video object-cover rounded-lg"
-              />
+              <img src="/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png" alt="Damon Motorcycles" className="w-full h-auto aspect-video object-cover rounded-lg" />
             </div>
             
             {/* Project overview */}
@@ -98,16 +91,8 @@ const CaseStudyDamonMotorcycles = () => {
             
             {/* Additional images */}
             <div className="grid md:grid-cols-2 gap-6 mb-16 reveal">
-              <img 
-                src="/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png" 
-                alt="Damon Motorcycles Campaign" 
-                className="w-full h-auto aspect-square object-cover rounded-lg"
-              />
-              <img 
-                src="/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png" 
-                alt="Damon Motorcycles Result" 
-                className="w-full h-auto aspect-square object-cover rounded-lg"
-              />
+              <img alt="Damon Motorcycles Campaign" className="w-full h-auto aspect-square object-cover rounded-lg" src="/lovable-uploads/f1c3cbd8-053c-47d1-a5ae-db2661fea19c.jpg" />
+              <img src="/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png" alt="Damon Motorcycles Result" className="w-full h-auto aspect-square object-cover rounded-lg" />
             </div>
             
             {/* Testimonial */}
@@ -132,11 +117,7 @@ const CaseStudyDamonMotorcycles = () => {
               <h2 className="text-2xl md:text-3xl font-bold mb-8">Related Case Studies</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="relative aspect-[4/3] overflow-hidden group">
-                  <img 
-                    src="/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png" 
-                    alt="TrillerFest Music Festival" 
-                    className="w-full h-full object-cover"
-                  />
+                  <img src="/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png" alt="TrillerFest Music Festival" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
                     <h3 className="text-xl font-bold text-white uppercase">TRILLERFEST</h3>
                     <p className="text-white/80 mt-1 text-sm uppercase font-medium">LARGEST VIRTUAL MUSIC FESTIVAL IN HISTORY</p>
@@ -153,8 +134,6 @@ const CaseStudyDamonMotorcycles = () => {
         
         <Footer />
       </div>
-    </ScrollReveal>
-  );
+    </ScrollReveal>;
 };
-
 export default CaseStudyDamonMotorcycles;

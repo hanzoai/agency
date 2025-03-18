@@ -91,7 +91,7 @@ const CaseStudyDamonMotorcycles = () => {
             
             {/* Additional images */}
             <div className="grid md:grid-cols-2 gap-6 mb-16 reveal">
-              <img alt="Damon Motorcycles Campaign" className="w-full h-auto aspect-square object-cover rounded-lg" src="/lovable-uploads/f1c3cbd8-053c-47d1-a5ae-db2661fea19c.jpg" />
+              <img src="/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png" alt="Damon Motorcycles Campaign" className="w-full h-auto aspect-square object-cover rounded-lg" />
               <img src="/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png" alt="Damon Motorcycles Result" className="w-full h-auto aspect-square object-cover rounded-lg" />
             </div>
             

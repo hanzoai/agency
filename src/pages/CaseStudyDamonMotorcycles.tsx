@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ArrowUpRight, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -5,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
 import { Button } from '@/components/ui/button';
+
 const CaseStudyDamonMotorcycles = () => {
   return <ScrollReveal>
       <div className="min-h-screen flex flex-col bg-beige-50 text-white">
@@ -91,7 +93,7 @@ const CaseStudyDamonMotorcycles = () => {
             
             {/* Additional images */}
             <div className="grid md:grid-cols-2 gap-6 mb-16 reveal">
-              <img src="/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png" alt="Damon Motorcycles Campaign" className="w-full h-auto aspect-square object-cover rounded-lg" />
+              <img src="/lovable-uploads/3e0ed6d6-8d6d-4b77-a6c1-aa1c7df4f868.png" alt="Damon Motorcycles Campaign" className="w-full h-auto aspect-square object-cover rounded-lg" />
               <img src="/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png" alt="Damon Motorcycles Result" className="w-full h-auto aspect-square object-cover rounded-lg" />
             </div>
             
@@ -136,4 +138,5 @@ const CaseStudyDamonMotorcycles = () => {
       </div>
     </ScrollReveal>;
 };
+
 export default CaseStudyDamonMotorcycles;

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ArrowUpRight, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -6,8 +5,6 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const CaseStudyDamonMotorcycles = () => {
   return <ScrollReveal>
@@ -43,37 +40,9 @@ const CaseStudyDamonMotorcycles = () => {
               </div>
             </div>
             
-            {/* Featured video - replacing the image */}
+            {/* Featured image */}
             <div className="mb-16 reveal">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <div className="cursor-pointer relative rounded-lg overflow-hidden">
-                    <AspectRatio ratio={16/9} className="bg-black">
-                      <iframe
-                        src="https://www.youtube.com/embed/TVExxxHKqF8?autoplay=1&mute=1&loop=1&playlist=TVExxxHKqF8&controls=0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        className="w-full h-full object-cover rounded-lg"
-                        title="Damon Motorcycles"
-                      ></iframe>
-                    </AspectRatio>
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                      <Button variant="outline" className="bg-black/60 text-white border-white">
-                        Watch in Fullscreen
-                      </Button>
-                    </div>
-                  </div>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-4xl">
-                  <AspectRatio ratio={16/9}>
-                    <iframe
-                      src="https://www.youtube.com/embed/TVExxxHKqF8?autoplay=1&loop=1&playlist=TVExxxHKqF8"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      className="w-full h-full"
-                      title="Damon Motorcycles"
-                    ></iframe>
-                  </AspectRatio>
-                </DialogContent>
-              </Dialog>
+              <img src="/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png" alt="Damon Motorcycles" className="w-full h-auto aspect-video object-cover rounded-lg" />
             </div>
             
             {/* Project overview */}

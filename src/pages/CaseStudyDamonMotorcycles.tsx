@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -29,6 +28,8 @@ const CaseStudyDamonMotorcycles = () => {
         const currentTime = new Date().getTime();
         
         setIsBannerVisible(expiryTime > currentTime);
+      } else {
+        setIsBannerVisible(false);
       }
     };
     
@@ -50,10 +51,10 @@ const CaseStudyDamonMotorcycles = () => {
       <div className="min-h-screen flex flex-col bg-beige-50 text-white">
         <Navbar />
         
-        <main className="flex-grow mt-24">
+        <main className={`flex-grow ${isBannerVisible ? 'mt-32' : 'mt-24'}`}>
           <div className="container-custom">
             {/* All Case Studies link with improved positioning */}
-            <div className={`sticky ${isBannerVisible ? 'top-24' : 'top-16'} z-10 mb-8 w-full`}>
+            <div className={`sticky ${isBannerVisible ? 'top-28' : 'top-20'} z-10 mb-8 w-full`}>
               <Link to="/case-studies" className="inline-flex items-center text-sm font-medium hover:underline text-white bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
                 <ArrowLeft size={16} className="mr-2" />
                 All Case Studies

@@ -50,7 +50,7 @@ const CaseStudyDamonMotorcycles = () => {
       <div className="min-h-screen flex flex-col bg-beige-50 text-white">
         <Navbar />
         
-        <main className={`flex-grow ${isBannerVisible ? 'pt-24' : 'pt-16'}`}>
+        <main className="flex-grow mt-24">
           <div className="container-custom">
             {/* All Case Studies link with improved positioning */}
             <div className={`sticky ${isBannerVisible ? 'top-24' : 'top-16'} z-10 mb-8 w-full`}>

@@ -37,7 +37,7 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ selectedCategory }) =
               onError={() => handleImageError(displayProjects[0].id)}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
-              <h3 className="text-xl font-bold text-white uppercase">{displayProjects[0].title}</h3>
+              <h3 className="text-xl font-bold text-white uppercase">Bella Beat</h3>
               <p className="text-white/80 mt-1 text-sm uppercase font-medium">{displayProjects[0].description}</p>
               <button className="mt-4 lets-talk-btn w-fit">
                 Explore
@@ -59,7 +59,7 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ selectedCategory }) =
               onError={() => handleImageError(project.id)}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-              <h3 className="text-xl font-bold text-white uppercase">{project.title}</h3>
+              <h3 className="text-xl font-bold text-white uppercase">Bella Beat</h3>
               <p className="text-white/80 mt-1 text-sm uppercase font-medium">{project.description}</p>
               <button className="mt-4 lets-talk-btn w-fit">
                 Explore

@@ -38,7 +38,7 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ selectedCategory }) =
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
               <h3 className="text-xl font-bold text-white uppercase">Bella Beat</h3>
-              <p className="text-white/80 mt-1 text-sm uppercase font-medium">{displayProjects[0].description}</p>
+              <p className="text-white/80 mt-1 text-sm uppercase font-medium">How we transformed wellness wearables for women and made company millions.</p>
               <button className="mt-4 lets-talk-btn w-fit">
                 Explore
                 <ArrowUpRight size={16} className="ml-1" />
@@ -60,7 +60,7 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ selectedCategory }) =
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
               <h3 className="text-xl font-bold text-white uppercase">Bella Beat</h3>
-              <p className="text-white/80 mt-1 text-sm uppercase font-medium">{project.description}</p>
+              <p className="text-white/80 mt-1 text-sm uppercase font-medium">How we transformed wellness wearables for women and made company millions.</p>
               <button className="mt-4 lets-talk-btn w-fit">
                 Explore
                 <ArrowUpRight size={16} className="ml-1" />

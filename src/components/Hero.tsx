@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 const Hero = () => {
   const [displayedText, setDisplayedText] = useState('');
-  const fullText = 'RELIABLE & AFFORDABLE';
+  const fullText = 'Reliable & Affordable';
   
   useEffect(() => {
     let currentIndex = 0;
@@ -28,7 +28,7 @@ const Hero = () => {
       
       <div className="container-custom">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-5xl md:text-8xl font-black leading-tight uppercase mb-8 tracking-tighter">
+          <h1 className="text-5xl md:text-8xl font-black leading-tight mb-8 tracking-tighter">
             <span className="inline-block min-h-[1.2em]">{displayedText}</span>
           </h1>
           

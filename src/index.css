@@ -5,39 +5,64 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS Variables moved outside of layer to follow new approach */
+:root {
+  --background: hsl(0 0% 0%);
+  --foreground: hsl(30 25% 93%);
+
+  --card: hsl(0 0% 5%);
+  --card-foreground: hsl(30 25% 93%);
+
+  --popover: hsl(0 0% 5%);
+  --popover-foreground: hsl(30 25% 93%);
+
+  --primary: hsl(30 25% 93%);
+  --primary-foreground: hsl(0 0% 0%);
+
+  --secondary: hsl(0 0% 10%);
+  --secondary-foreground: hsl(30 25% 93%);
+
+  --muted: hsl(0 0% 15%);
+  --muted-foreground: hsl(30 15% 70%);
+
+  --accent: hsl(0 0% 20%); /* Changed from green to dark gray */
+  --accent-foreground: hsl(0 0% 0%);
+
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(0 0% 0%);
+
+  --border: hsl(0 0% 20%);
+  --input: hsl(0 0% 20%);
+  --ring: hsl(0 0% 30%);
+
+  --radius: 0.25rem;
+}
+
+/* Now using @theme inline directive for v4 compatibility */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-radius: var(--radius);
+}
+
 @layer base {
-  :root {
-    --background: 0 0% 0%;
-    --foreground: 30 25% 93%;
-
-    --card: 0 0% 5%;
-    --card-foreground: 30 25% 93%;
-
-    --popover: 0 0% 5%;
-    --popover-foreground: 30 25% 93%;
-
-    --primary: 30 25% 93%;
-    --primary-foreground: 0 0% 0%;
-
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 30 25% 93%;
-
-    --muted: 0 0% 15%;
-    --muted-foreground: 30 15% 70%;
-
-    --accent: 142 54% 43%;
-    --accent-foreground: 0 0% 0%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 0%;
-
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 0 0% 30%;
-
-    --radius: 0.25rem;
-  }
-
   * {
     @apply border-border;
   }
@@ -83,7 +108,7 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-accent hover:bg-accent/90 text-black font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
+    @apply bg-accent hover:bg-accent/90 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
   }
 
   .btn-secondary {
@@ -119,7 +144,7 @@
   }
   
   .lets-talk-btn {
-    @apply bg-accent text-black rounded-full py-2 px-4 inline-flex items-center font-medium;
+    @apply bg-accent text-white rounded-full py-2 px-4 inline-flex items-center font-medium;
   }
 
   .lets-talk-btn.bg-black {
@@ -139,7 +164,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, #8B5CF6, #D946EF, #F97316, #0EA5E9, #34a853);
+    background: linear-gradient(45deg, #8B5CF6, #D946EF, #F97316, #0EA5E9, #333);
     background-size: 400% 400%;
     z-index: -1;
     border-radius: 9999px;

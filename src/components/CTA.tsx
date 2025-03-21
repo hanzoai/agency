@@ -29,7 +29,7 @@ const CTA = () => {
               
               <a 
                 href="/subscribe" 
-                className="bg-transparent text-white border border-white hover:bg-white hover:text-black transition-colors duration-300 flex items-center text-lg py-3 px-6"
+                className="bg-transparent text-white border border-white hover:bg-white hover:text-black transition-colors duration-300 flex items-center text-lg py-3 px-6 rounded-xl"
               >
                 Get Started
                 <ArrowUpRight size={20} className="ml-2" />

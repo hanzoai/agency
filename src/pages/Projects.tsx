@@ -11,12 +11,12 @@ const Projects = () => {
 
   return (
     <ScrollReveal>
-      <div className="min-h-screen flex flex-col bg-beige-50 text-black">
+      <div className="min-h-screen flex flex-col bg-beige-50 text-white">
         <Navbar />
         
         <main className="flex-grow pt-24">
           <div className="container-custom">
-            <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-none mb-12 pt-12 text-[#ffffff]">
+            <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-none mb-12 pt-12 text-white">
               Projects
             </h1>
             
@@ -27,8 +27,8 @@ const Projects = () => {
                   <button 
                     key={cat} 
                     onClick={() => setCategory(cat)} 
-                    className={`py-2 px-4 text-sm font-medium transition-colors ${
-                      category === cat ? 'bg-black text-white' : 'bg-transparent text-black hover:bg-black/10'
+                    className={`py-2 px-4 text-sm font-medium transition-colors rounded-lg ${
+                      category === cat ? 'bg-black text-white' : 'bg-transparent text-white/80 hover:bg-black/10'
                     }`}
                     data-slot="filter-button"
                   >

@@ -28,21 +28,21 @@ const Hero = () => {
       
       <div className="container-custom">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-5xl md:text-8xl font-black leading-tight mb-8 tracking-tighter">
+          <h1 className="text-5xl md:text-8xl font-black leading-tight mb-8 tracking-tighter text-white">
             <span className="inline-block min-h-[1.2em]">{displayedText}</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-primary/80 max-w-2xl mx-auto mb-12 reveal-slide-up">
+          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-12 reveal-slide-up">
             Quality design solutions that won't break your budget. Get unlimited designs 
             and development from our dedicated team, all at a predictable monthly rate.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 reveal-slide-up">
-            <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="bg-transparent text-white border border-white rounded-full py-3 px-6 text-lg inline-flex items-center hover:bg-white/10 transition-all duration-300">
+            <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="bg-transparent text-white border border-white rounded-xl py-3 px-6 text-lg inline-flex items-center hover:bg-white/10 transition-all duration-300">
               Let's talk
               <ArrowUpRight size={20} className="ml-2 text-white" />
             </a>
-            <a href="#services" className="btn-secondary">
+            <a href="#services" className="btn-secondary rounded-xl">
               See What We Offer
             </a>
           </div>

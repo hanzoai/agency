@@ -7,8 +7,8 @@ const CaseStudy = () => {
     <section id="case-studies" className="section-padding bg-beige-50 relative overflow-hidden">
       <div className="container-custom">
         <div className="text-center md:text-left max-w-3xl mb-16">
-          <h2 className="text-3xl md:text-6xl font-black uppercase tracking-tighter mb-8 reveal">
-            FEATURED<br/>PROJECTS
+          <h2 className="text-3xl md:text-6xl font-black tracking-tighter mb-8 reveal">
+            Featured<br/>Projects
           </h2>
           <p className="text-lg text-primary/80 reveal">
             Some of our best work to date.
@@ -21,10 +21,11 @@ const CaseStudy = () => {
               src="/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png" 
               alt="TrillerFest Music Festival" 
               className="w-full h-full object-cover"
+              data-slot="image"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-              <h3 className="text-xl font-bold text-white uppercase">TRILLERFEST</h3>
-              <p className="text-white/80 mt-1 text-sm uppercase font-medium">LARGEST VIRTUAL MUSIC FESTIVAL IN HISTORY</p>
+              <h3 className="text-xl font-bold text-white">TrillerFest</h3>
+              <p className="text-white/80 mt-1 text-sm font-medium">Largest virtual music festival in history</p>
               <Link to="/case-study-trillerfest" className="mt-4 lets-talk-btn w-fit">
                 Explore
                 <ArrowUpRight size={16} className="ml-1" />
@@ -37,10 +38,11 @@ const CaseStudy = () => {
               src="/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png" 
               alt="KROTE Motorcycle" 
               className="w-full h-full object-cover"
+              data-slot="image"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-              <h3 className="text-xl font-bold text-white uppercase">DAMON MOTORCYCLES</h3>
-              <p className="text-white/80 mt-1 text-sm uppercase font-medium">HIGHLY CONVERTING 500X ROI CAMPAIGN</p>
+              <h3 className="text-xl font-bold text-white">Damon Motorcycles</h3>
+              <p className="text-white/80 mt-1 text-sm font-medium">Highly converting 500x ROI campaign</p>
               <Link to="/case-study-damon-motorcycles" className="mt-4 lets-talk-btn w-fit">
                 Explore
                 <ArrowUpRight size={16} className="ml-1" />

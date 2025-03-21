@@ -41,8 +41,8 @@ export default {
         black: '#000000',
         white: '#ffffff',
         accent: {
-          DEFAULT: '#34a853',
-          light: '#293329',
+          DEFAULT: '#333333', // Changed from green to dark gray
+          light: '#3d3d3d',
         },
         primary: {
           DEFAULT: 'hsl(var(--primary))',

@@ -40,10 +40,11 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({
                 alt={displayProjects[0].title} 
                 className="w-full h-full object-cover" 
                 onError={() => handleImageError(displayProjects[0].id)}
+                data-slot="image"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
-                <h3 className="text-xl font-bold text-white uppercase">{displayProjects[0].title}</h3>
-                <p className="text-white/80 mt-1 text-sm uppercase font-medium">{displayProjects[0].description}</p>
+                <h3 className="text-xl font-bold text-white">{displayProjects[0].title}</h3>
+                <p className="text-white/80 mt-1 text-sm font-medium">{displayProjects[0].description}</p>
                 <button className="mt-4 lets-talk-btn w-fit">
                   Explore
                   <ArrowUpRight size={16} className="ml-1" />
@@ -64,10 +65,11 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({
                 alt={project.title} 
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
                 onError={() => handleImageError(project.id)} 
+                data-slot="image"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-                <h3 className="text-xl font-bold text-white uppercase">{project.title}</h3>
-                <p className="text-white/80 mt-1 text-sm uppercase font-medium">{project.description}</p>
+                <h3 className="text-xl font-bold text-white">{project.title}</h3>
+                <p className="text-white/80 mt-1 text-sm font-medium">{project.description}</p>
                 <button className="mt-4 lets-talk-btn w-fit">
                   Explore
                   <ArrowUpRight size={16} className="ml-1" />

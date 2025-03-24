@@ -45,17 +45,17 @@ const CaseStudies = () => {
                 
                 <div className="relative aspect-[4/3] overflow-hidden group reveal">
                   <img 
-                    src="/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png" 
-                    alt="Property example" 
+                    src="/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png" 
+                    alt="KROTE Motorcycle" 
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-                    <h3 className="text-xl font-bold text-white uppercase">KROTE VILLA</h3>
-                    <p className="text-white/80 mt-1 text-sm uppercase font-medium">A NIFTY DUPLEX NEAR FLORIDA, USA</p>
-                    <button className="mt-4 lets-talk-btn w-fit">
+                    <h3 className="text-xl font-bold text-white uppercase">DAMON MOTORCYCLES</h3>
+                    <p className="text-white/80 mt-1 text-sm uppercase font-medium">HIGHLY CONVERTING 500X ROI CAMPAIGN</p>
+                    <Link to="/case-study-damon-motorcycles" className="mt-4 lets-talk-btn w-fit">
                       Explore
                       <ArrowUpRight size={16} className="ml-1" />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -63,7 +63,7 @@ const CaseStudies = () => {
             
             {/* Project category filter */}
             <div className="overflow-x-auto pb-6 mb-8 reveal">
-              <h2 className="text-2xl md:text-4xl font-bold mb-4">All Projects</h2>
+              <h2 className="text-2xl md:text-4xl font-bold mb-8">All Projects</h2>
               <div className="flex space-x-4 min-w-max">
                 {projectCategories.map(cat => (
                   <button 

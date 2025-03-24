@@ -20,7 +20,7 @@ const CaseStudyTrillerFest = () => {
               alt="TrillerFest Background"
               className="absolute inset-0 w-full h-full object-cover opacity-20"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary/80"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/80"></div>
           </div>
           <div className="container-custom relative z-10">
             <Link to="/" className="inline-flex items-center text-white/80 hover:text-white mb-8 transition-colors">

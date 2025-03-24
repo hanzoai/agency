@@ -3,17 +3,19 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import ScrollReveal from '@/utils/ScrollReveal';
 import TrillerFestGallery from '@/components/TrillerFestGallery';
+
 const CaseStudyTrillerFest = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  
   return <ScrollReveal>
       <div className="min-h-screen bg-beige-50">
         {/* Hero Section with first image */}
         <div className="bg-primary text-white py-20 md:py-32 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <img src="/lovable-uploads/6f11fa66-23b1-4967-aab8-1fa841066ef6.png" alt="TrillerFest Background" className="absolute inset-0 w-full h-full object-cover opacity-20" />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary/80 bg-neutral-950"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/80"></div>
           </div>
           <div className="container-custom relative z-10">
             <Link to="/" className="inline-flex items-center text-white/80 hover:text-white mb-8 transition-colors">
@@ -302,4 +304,5 @@ const CaseStudyTrillerFest = () => {
       </div>
     </ScrollReveal>;
 };
+
 export default CaseStudyTrillerFest;

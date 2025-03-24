@@ -1,3 +1,4 @@
+
 import { ArrowUpRight, Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -7,7 +8,7 @@ const Footer = () => {
       <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16">
           <div>
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6 text-white">CONTACT</h2>
+            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6">CONTACT</h2>
             <div className="space-y-3 mb-8">
               <p className="text-primary/80">
                 Hanzo Industries, Inc.<br/>

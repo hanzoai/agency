@@ -266,7 +266,7 @@ const CaseStudyTrillerFest = () => {
                   <p className="text-primary/80 mb-4">
                     Learn how Hanzo can help your business achieve unprecedented growth with AI-driven marketing strategies.
                   </p>
-                  <a href="#book-call" className="btn-primary w-full">Book a Call Today</a>
+                  <a href="#book-call" className="btn-primary w-full bg-primary text-accent hover:bg-primary/90">Book a Call Today</a>
                 </div>
               </div>
             </div>
@@ -304,4 +304,3 @@ const CaseStudyTrillerFest = () => {
 };
 
 export default CaseStudyTrillerFest;
-

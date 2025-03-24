@@ -3,24 +3,17 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import ScrollReveal from '@/utils/ScrollReveal';
 import TrillerFestGallery from '@/components/TrillerFestGallery';
-
 const CaseStudyTrillerFest = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  return (
-    <ScrollReveal>
+  return <ScrollReveal>
       <div className="min-h-screen bg-beige-50">
         {/* Hero Section with first image */}
         <div className="bg-primary text-white py-20 md:py-32 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
-            <img 
-              src="/lovable-uploads/6f11fa66-23b1-4967-aab8-1fa841066ef6.png"
-              alt="TrillerFest Background"
-              className="absolute inset-0 w-full h-full object-cover opacity-20"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/80"></div>
+            <img src="/lovable-uploads/6f11fa66-23b1-4967-aab8-1fa841066ef6.png" alt="TrillerFest Background" className="absolute inset-0 w-full h-full object-cover opacity-20" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary/80 bg-gray-950"></div>
           </div>
           <div className="container-custom relative z-10">
             <Link to="/" className="inline-flex items-center text-white/80 hover:text-white mb-8 transition-colors">
@@ -73,7 +66,9 @@ const CaseStudyTrillerFest = () => {
                 </div>
               </div>
               <div className="h-2 w-full bg-beige-100 rounded-full overflow-hidden">
-                <div className="h-full bg-accent rounded-full" style={{ width: '95%' }}></div>
+                <div className="h-full bg-accent rounded-full" style={{
+                width: '95%'
+              }}></div>
               </div>
             </div>
             
@@ -88,7 +83,9 @@ const CaseStudyTrillerFest = () => {
                 </div>
               </div>
               <div className="h-2 w-full bg-beige-100 rounded-full overflow-hidden">
-                <div className="h-full bg-accent rounded-full" style={{ width: '40%' }}></div>
+                <div className="h-full bg-accent rounded-full" style={{
+                width: '40%'
+              }}></div>
               </div>
             </div>
             
@@ -103,7 +100,9 @@ const CaseStudyTrillerFest = () => {
                 </div>
               </div>
               <div className="h-2 w-full bg-beige-100 rounded-full overflow-hidden">
-                <div className="h-full bg-accent rounded-full" style={{ width: '65%' }}></div>
+                <div className="h-full bg-accent rounded-full" style={{
+                width: '65%'
+              }}></div>
               </div>
             </div>
             
@@ -118,7 +117,9 @@ const CaseStudyTrillerFest = () => {
                 </div>
               </div>
               <div className="h-2 w-full bg-beige-100 rounded-full overflow-hidden">
-                <div className="h-full bg-accent rounded-full" style={{ width: '80%' }}></div>
+                <div className="h-full bg-accent rounded-full" style={{
+                width: '80%'
+              }}></div>
               </div>
             </div>
           </div>
@@ -266,7 +267,7 @@ const CaseStudyTrillerFest = () => {
                   <p className="text-primary/80 mb-4">
                     Learn how Hanzo can help your business achieve unprecedented growth with AI-driven marketing strategies.
                   </p>
-                  <a href="#book-call" className="btn-primary w-full bg-primary text-accent hover:bg-primary/90">Book a Call Today</a>
+                  <a href="#book-call" className="btn-primary w-full">Book a Call Today</a>
                 </div>
               </div>
             </div>
@@ -299,8 +300,6 @@ const CaseStudyTrillerFest = () => {
           </div>
         </div>
       </div>
-    </ScrollReveal>
-  );
+    </ScrollReveal>;
 };
-
 export default CaseStudyTrillerFest;

@@ -11,8 +11,8 @@ const CTA = () => {
       <div className="container-custom relative z-10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center md:text-left">
-            <h2 className="text-4xl md:text-7xl font-black tracking-tighter mb-12 reveal">
-              Unlimited<br/>Full-Stack App<br/>Development
+            <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-12 reveal">
+              UNLIMITED<br/>FULL-STACK APP<br/>DEVELOPMENT
             </h2>
             <p className="text-lg md:text-xl text-white/80 mb-10 max-w-xl reveal">
               Expand your in-house creative team with top global talent and cutting-edge AI workflows, bringing any vision to life quickly and cost-effectively.
@@ -29,7 +29,7 @@ const CTA = () => {
               
               <a 
                 href="/subscribe" 
-                className="bg-transparent text-white border border-white hover:bg-white hover:text-black transition-colors duration-300 flex items-center text-lg py-3 px-6 rounded-xl"
+                className="bg-transparent text-white border border-white hover:bg-white hover:text-black transition-colors duration-300 flex items-center text-lg py-3 px-6"
               >
                 Get Started
                 <ArrowUpRight size={20} className="ml-2" />

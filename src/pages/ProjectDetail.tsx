@@ -98,14 +98,17 @@ const ProjectDetail = () => {
       
       <main className="pt-24">
         {/* Hero Video */}
-        <div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden">
-          <iframe
-            className="w-full h-full object-cover"
-            src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${project.youtubeId}&controls=0&showinfo=0&rel=0&modestbranding=1`}
-            title={project.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+        <div className="relative w-full h-[35vh] md:h-[49vh] overflow-hidden flex justify-center">
+          <div className="w-full md:w-[70%] h-full">
+            <iframe
+              className="w-full h-full object-cover"
+              src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${project.youtubeId}&controls=0&showinfo=0&rel=0&modestbranding=1&origin=http://localhost:8080&iv_load_policy=3`}
+              title={project.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              frameBorder="0"
+            ></iframe>
+          </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
         </div>
         

@@ -6,12 +6,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import CaseStudyTrillerFest from "./pages/CaseStudyTrillerFest";
-import CaseStudyDamonMotorcycles from "./pages/CaseStudyDamonMotorcycles";
 import Subscribe from "./pages/Subscribe";
 import OnboardingForm from "./pages/Onboarding";
 import OnboardingSuccess from "./pages/OnboardingSuccess";
 import CaseStudies from "./pages/CaseStudies";
+import ProjectDetail from "./pages/ProjectDetail";
 import Contact from "./pages/Contact";
 
 const queryClient = new QueryClient();
@@ -24,8 +23,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/case-study-trillerfest" element={<CaseStudyTrillerFest />} />
-          <Route path="/case-study-damon-motorcycles" element={<CaseStudyDamonMotorcycles />} />
+          <Route path="/project/:projectId" element={<ProjectDetail />} />
           <Route path="/subscribe" element={<Subscribe />} />
           <Route path="/onboarding" element={<OnboardingForm />} />
           <Route path="/onboarding-success" element={<OnboardingSuccess />} />

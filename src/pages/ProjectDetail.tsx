@@ -53,7 +53,12 @@ const ProjectDetail = () => {
         challenge: 'The electric motorcycle market was crowded with competitors, and Damon needed to differentiate their product while convincing traditional motorcycle enthusiasts to consider an electric alternative. The campaign needed to generate tangible ROI through pre-orders.',
         solution: 'We created a multi-channel digital campaign centered around high-quality visual content that demonstrated the motorcycle\'s features in action. The campaign included targeted social media ads, an interactive landing page with 3D visualization, and retargeting strategies to maximize conversion.',
         results: 'The campaign achieved a remarkable 500X ROI, generating over $2M in pre-orders from an investment of $4,000. Additionally, it helped secure Series A funding by demonstrating market demand.',
-        technologies: ['Three.js', 'WebGL', 'Facebook Ads', 'Google Analytics', 'Hubspot']
+        technologies: ['Three.js', 'WebGL', 'Facebook Ads', 'Google Analytics', 'Hubspot'],
+        galleryImages: [
+          '/images/damon/damon-1.jpg',    // White/gold and black models
+          '/images/damon/damon-2.jpg',    // Black model in studio
+          '/images/damon/damon-3.jpg'     // Black model on road
+        ]
       },
       'cover-build': {
         id: 'cover-build',

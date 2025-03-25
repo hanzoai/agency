@@ -184,4 +184,13 @@
   body.dark {
     @apply bg-black text-white;
   }
+  
+  /* Video player styles */
+  .video-container iframe {
+    transition: opacity 0.3s ease;
+  }
+  
+  .video-container:hover iframe {
+    opacity: 1;
+  }
 }

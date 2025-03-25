@@ -167,12 +167,12 @@ const ProjectDetail = () => {
             <div className="mb-16">
               <h2 className="text-2xl font-bold mb-6">Gallery</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {/* Add video to gallery for Damon Motorcycles */}
-                {project.id === 'damon' && (
-                  <div className="rounded-lg overflow-hidden col-span-1 md:col-span-2 lg:col-span-3 mb-4">
-                    <div className="aspect-video">
+                {/* Display images with video in place of second image for Damon */}
+                {project.galleryImages.map((image, index) => (
+                  project.id === 'damon' && index === 1 ? (
+                    <div key={index} className="rounded-lg overflow-hidden">
                       <iframe
-                        className="w-full h-full object-cover"
+                        className="w-full h-64 object-cover"
                         src={`https://www.youtube.com/embed/${project.youtubeId}?controls=1&showinfo=0&rel=0&modestbranding=1&origin=http://localhost:8080&iv_load_policy=3`}
                         title={`${project.title} - Campaign Video`}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -180,16 +180,15 @@ const ProjectDetail = () => {
                         frameBorder="0"
                       ></iframe>
                     </div>
-                  </div>
-                )}
-                {project.galleryImages.map((image, index) => (
-                  <div key={index} className="rounded-lg overflow-hidden">
-                    <img 
-                      src={image} 
-                      alt={`${project.title} - Image ${index + 1}`} 
-                      className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
+                  ) : (
+                    <div key={index} className="rounded-lg overflow-hidden">
+                      <img 
+                        src={image} 
+                        alt={`${project.title} - Image ${index + 1}`} 
+                        className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )
                 ))}
               </div>
             </div>

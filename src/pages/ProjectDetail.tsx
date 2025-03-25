@@ -98,7 +98,7 @@ const ProjectDetail = () => {
       
       <main className="pt-36">
         {/* Hero Video */}
-        <div className="relative w-full h-[35vh] md:h-[49vh] overflow-hidden flex justify-center">
+        <div className="relative w-full h-[35vh] md:h-[49vh] overflow-hidden flex justify-center pt-12 mb-8">
           <div className="w-full md:w-[70%] h-full">
             <iframe
               className="w-full h-full object-cover"

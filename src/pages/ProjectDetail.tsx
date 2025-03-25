@@ -39,10 +39,9 @@ const ProjectDetail = () => {
         results: 'TrillerFest became the largest virtual music festival in history with over 5 million concurrent viewers and 20+ million total views. The event generated significant media coverage and established a new benchmark for virtual music experiences.',
         technologies: ['React', 'WebRTC', 'Node.js', 'AWS Media Services', 'WebGL'],
             galleryImages: [
-              '/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png', // First image - keep as is
-              '/images/trillerfest/pitbull-promo.jpg',      // Pitbull promo image
-              '/images/trillerfest/migos-promo.jpg',        // Migos promo image
-              '/images/trillerfest/main-promo.jpg'          // Main promotional image
+              '/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png',  // Main poster (Image 1) 
+              '/lovable-uploads/3e0ed6d6-8d6d-4b77-a6c1-aa1c7df4f868.png',  // Migos image (Image 2)
+              '/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png'   // Pitbull image (Image 3)
             ]
       },
       'damon': {

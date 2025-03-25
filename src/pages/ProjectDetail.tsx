@@ -102,20 +102,33 @@ const ProjectDetail = () => {
       <Navbar />
       
       <main className="pt-36">
-        {/* Hero Video */}
-        <div className="relative w-full h-[35vh] md:h-[49vh] overflow-hidden flex justify-center pt-12 mb-8">
-          <div className="w-full md:w-[70%] h-full">
-            <iframe
-              className="w-full h-full object-cover"
-              src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${project.youtubeId}&controls=0&showinfo=0&rel=0&modestbranding=1&origin=http://localhost:8080&iv_load_policy=3`}
-              title={project.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              frameBorder="0"
-            ></iframe>
+        {/* Hero Section - Video for TrillerFest, Image for Damon */}
+        {project.id === 'damon' ? (
+          <div className="relative w-full h-[35vh] md:h-[49vh] overflow-hidden flex justify-center pt-12 mb-8">
+            <div className="w-full md:w-[70%] h-full">
+              <img
+                src="/images/damon/hero-image.jpg"
+                alt="Damon Motorcycles - White and black electric motorcycles"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
-        </div>
+        ) : (
+          <div className="relative w-full h-[35vh] md:h-[49vh] overflow-hidden flex justify-center pt-12 mb-8">
+            <div className="w-full md:w-[70%] h-full">
+              <iframe
+                className="w-full h-full object-cover"
+                src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${project.youtubeId}&controls=0&showinfo=0&rel=0&modestbranding=1&origin=http://localhost:8080&iv_load_policy=3`}
+                title={project.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                frameBorder="0"
+              ></iframe>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+          </div>
+        )}
         
         {/* Content */}
         <div className="container-custom py-16">
@@ -154,6 +167,21 @@ const ProjectDetail = () => {
             <div className="mb-16">
               <h2 className="text-2xl font-bold mb-6">Gallery</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Add video to gallery for Damon Motorcycles */}
+                {project.id === 'damon' && (
+                  <div className="rounded-lg overflow-hidden col-span-1 md:col-span-2 lg:col-span-3 mb-4">
+                    <div className="aspect-video">
+                      <iframe
+                        className="w-full h-full object-cover"
+                        src={`https://www.youtube.com/embed/${project.youtubeId}?controls=1&showinfo=0&rel=0&modestbranding=1&origin=http://localhost:8080&iv_load_policy=3`}
+                        title={`${project.title} - Campaign Video`}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        frameBorder="0"
+                      ></iframe>
+                    </div>
+                  </div>
+                )}
                 {project.galleryImages.map((image, index) => (
                   <div key={index} className="rounded-lg overflow-hidden">
                     <img 

@@ -49,18 +49,19 @@ const VideoCard: React.FC<VideoCardProps> = ({ title, youtubeId, description, in
       className={`video-container rounded-xl overflow-hidden h-full ${isVisible ? 'animate-scale-up' : 'opacity-0'}`}
       style={{ animationDelay: `${index * 0.1}s` }}
     >
-      <div className="relative w-full h-full">
-        <div className="absolute inset-0 bg-black/20 z-10"></div>
-        <iframe
-          className="w-full h-full aspect-video object-cover"
-          src={getYouTubeEmbedUrl(youtubeId)}
-          title={title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          loading="lazy"
-        ></iframe>
+      <div className="flex flex-col h-full">
+        <div className="relative w-full flex-grow">
+          <iframe
+            className="w-full h-full aspect-video object-cover"
+            src={getYouTubeEmbedUrl(youtubeId)}
+            title={title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            loading="lazy"
+          ></iframe>
+        </div>
         
-        <div className="absolute inset-0 flex flex-col justify-end p-8 z-20">
+        <div className="p-8 bg-gray-900 flex-shrink-0">
           <div className="text-left">
             <h2 className="text-white text-2xl md:text-3xl font-bold uppercase tracking-tight mb-2">
               {title}

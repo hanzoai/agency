@@ -38,12 +38,12 @@ const ProjectDetail = () => {
         solution: 'We developed a custom streaming platform with adaptive bitrate technology, created virtual stages with unique visual identities for each artist, and implemented real-time interaction features to connect artists with fans. The solution included a responsive design that worked across all devices and integrated social media sharing to maximize reach.',
         results: 'TrillerFest became the largest virtual music festival in history with over 5 million concurrent viewers and 20+ million total views. The event generated significant media coverage and established a new benchmark for virtual music experiences.',
         technologies: ['React', 'WebRTC', 'Node.js', 'AWS Media Services', 'WebGL'],
-        galleryImages: [
-          '/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png',
-          '/images/trillerfest/trillerfest-1.jpg',
-          '/images/trillerfest/trillerfest-2.jpg',
-          '/images/trillerfest/trillerfest-3.jpg'
-        ]
+            galleryImages: [
+              '/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png', // TrillerFest logo on red bg
+              '/lovable-uploads/050894ef-9663-4050-b4f3-703025fef28a.png', // Image 2
+              '/lovable-uploads/3e0ed6d6-8d6d-4b77-a6c1-aa1c7df4f868.png', // Image 3
+              '/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png'  // Damon motorcycles image
+            ]
       },
       'damon': {
         id: 'damon',

@@ -96,7 +96,7 @@ const ProjectDetail = () => {
     <div className="min-h-screen bg-black text-white">
       <Navbar />
       
-      <main className="pt-24">
+      <main className="pt-36">
         {/* Hero Video */}
         <div className="relative w-full h-[35vh] md:h-[49vh] overflow-hidden flex justify-center">
           <div className="w-full md:w-[70%] h-full">

@@ -163,4 +163,25 @@
       background-position: 0% 50%;
     }
   }
+  
+  /* Animation for case studies page */
+  @keyframes scale-up {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .animate-scale-up {
+    animation: scale-up 0.5s ease-out forwards;
+  }
+  
+  /* Dark theme for case studies */
+  body.dark {
+    @apply bg-black text-white;
+  }
 }

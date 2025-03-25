@@ -1,5 +1,6 @@
 
 import { Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const testimonials = [
   {
@@ -83,9 +84,9 @@ const Testimonials = () => {
           <a href="#pricing" className="btn-primary">
             Apply Now
           </a>
-          <a href="/case-studies" className="btn-secondary">
+          <Link to="/case-studies" className="btn-secondary">
             Get Unlimited
-          </a>
+          </Link>
         </div>
       </div>
     </section>

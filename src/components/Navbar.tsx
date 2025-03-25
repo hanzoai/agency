@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -88,7 +90,7 @@ const Navbar = () => {
           <nav className="hidden lg:flex items-center space-x-8">
             <a href="/#services" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#services')}>Services</a>
             <a href="/#why-hanzo" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#why-hanzo')}>Why Hanzo</a>
-            <Link to="/case-studies" className="text-primary/80 hover:text-primary font-medium transition">Case Studies</Link>
+             <Link to="/case-studies" className="text-primary/80 hover:text-primary font-medium transition">Case Studies</Link>
             <a href="/#testimonials" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#testimonials')}>Testimonials</a>
             <a href="/#pricing" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#pricing')}>Pricing</a>
             <a href="/#faq" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#faq')}>FAQ</a>

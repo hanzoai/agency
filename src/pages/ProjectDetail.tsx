@@ -14,6 +14,7 @@ interface Project {
   solution?: string;
   results?: string;
   technologies?: string[];
+  galleryImages?: string[];
 }
 
 const ProjectDetail = () => {
@@ -36,7 +37,13 @@ const ProjectDetail = () => {
         challenge: 'The challenge was to create a seamless streaming experience for millions of concurrent viewers, integrate multiple artist performances from different locations, and build an engaging platform that would keep viewers engaged throughout the multi-day event.',
         solution: 'We developed a custom streaming platform with adaptive bitrate technology, created virtual stages with unique visual identities for each artist, and implemented real-time interaction features to connect artists with fans. The solution included a responsive design that worked across all devices and integrated social media sharing to maximize reach.',
         results: 'TrillerFest became the largest virtual music festival in history with over 5 million concurrent viewers and 20+ million total views. The event generated significant media coverage and established a new benchmark for virtual music experiences.',
-        technologies: ['React', 'WebRTC', 'Node.js', 'AWS Media Services', 'WebGL']
+        technologies: ['React', 'WebRTC', 'Node.js', 'AWS Media Services', 'WebGL'],
+        galleryImages: [
+          '/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png',
+          '/images/trillerfest/trillerfest-1.jpg',
+          '/images/trillerfest/trillerfest-2.jpg',
+          '/images/trillerfest/trillerfest-3.jpg'
+        ]
       },
       'damon': {
         id: 'damon',
@@ -134,6 +141,24 @@ const ProjectDetail = () => {
               </div>
             )}
           </div>
+          
+          {/* Gallery Section */}
+          {project.galleryImages && project.galleryImages.length > 0 && (
+            <div className="mb-16">
+              <h2 className="text-2xl font-bold mb-6">Gallery</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {project.galleryImages.map((image, index) => (
+                  <div key={index} className="rounded-lg overflow-hidden">
+                    <img 
+                      src={image} 
+                      alt={`${project.title} - Image ${index + 1}`} 
+                      className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             {project.challenge && (

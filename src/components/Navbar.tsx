@@ -97,7 +97,7 @@ const Navbar = () => {
           </nav>
           
           <div className="hidden lg:block">
-            <Link to="/subscribe" className="rainbow-gradient-btn bg-white text-black hover:bg-black hover:text-white rounded-full py-2 px-4 inline-flex items-center font-medium transition-all duration-300">
+            <Link to="/subscribe" className="rounded-full bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 inline-flex items-center font-medium transition-all duration-300">
               Sign Up
               <ArrowUpRight size={16} className="ml-1" />
             </Link>
@@ -121,7 +121,7 @@ const Navbar = () => {
             <a href="/#testimonials" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#testimonials')}>Testimonials</a>
             <a href="/#pricing" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#pricing')}>Pricing</a>
             <a href="/#faq" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#faq')}>FAQ</a>
-            <Link to="/subscribe" className="rainbow-gradient-btn bg-white text-black hover:bg-black hover:text-white rounded-full py-2 px-4 inline-flex items-center w-fit transition-all duration-300" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/subscribe" className="rounded-full bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 inline-flex items-center w-fit transition-all duration-300" onClick={() => setIsMenuOpen(false)}>
               Sign Up
               <ArrowUpRight size={16} className="ml-1" />
             </Link>

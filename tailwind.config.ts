@@ -116,6 +116,7 @@ export default {
       fontFamily: {
         sans: ['"Libre Franklin"', 'sans-serif'],
         display: ['"Libre Franklin"', 'sans-serif'],
+        inter: ['"Inter"', 'sans-serif'],
       },
     }
   },

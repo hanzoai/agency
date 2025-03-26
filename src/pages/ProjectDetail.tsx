@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ArrowLeft } from 'lucide-react';
+import GlobalMuteButton from '@/components/GlobalMuteButton';
 
 interface Project {
   id: string;
@@ -38,11 +39,27 @@ const ProjectDetail = () => {
         solution: 'We developed a custom streaming platform with adaptive bitrate technology, created virtual stages with unique visual identities for each artist, and implemented real-time interaction features to connect artists with fans. The solution included a responsive design that worked across all devices and integrated social media sharing to maximize reach.',
         results: 'TrillerFest became the largest virtual music festival in history with over 5 million concurrent viewers and 20+ million total views. The event generated significant media coverage and established a new benchmark for virtual music experiences.',
         technologies: ['React', 'WebRTC', 'Node.js', 'AWS Media Services', 'WebGL'],
-            galleryImages: [
-              '/images/trillerfest/main-promo.jpg',    // Image 1 - Main poster with red background
-              '/images/trillerfest/migos-promo.jpg',    // Image 2 - Migos promo image
-              '/images/trillerfest/pitbull-promo.jpg'   // Image 3 - Pitbull promo image
-            ]
+        galleryImages: [
+          '/images/trillerfest/main-promo.jpg',    // Image 1 - Main poster with red background
+          '/images/trillerfest/migos-promo.jpg',    // Image 2 - Migos promo image
+          '/images/trillerfest/pitbull-promo.jpg'   // Image 3 - Pitbull promo image
+        ]
+      },
+      'bella-beat': {
+        id: 'bella-beat',
+        title: 'Bellabeat',
+        youtubeId: 'rsda3VIuRxM',
+        description: 'WOMEN\'S HEALTH WEARABLE TECH PLATFORM',
+        fullDescription: 'Bellabeat, established in 2014 by Urška Sršen and Sandro Mur, is a pioneering fem-tech company dedicated to women\'s health and wellness. The company specializes in wearable technology that enables women to monitor their health metrics, including menstrual cycles, sleep patterns, and stress levels.',
+        challenge: 'In its early years, Bellabeat faced significant challenges in scaling its operations and reaching a broader audience. The competitive landscape of health tech demanded innovative marketing strategies and robust technological infrastructure to support growth. Data management and personalization at scale were key obstacles to overcome.',
+        solution: 'Hanzo AI implemented advanced AI algorithms to analyze consumer behavior and preferences, enabling Bellabeat to tailor its marketing campaigns effectively. We overhauled Bellabeat\'s data management systems, introducing scalable solutions that could handle increased user data volumes and created personalized data visualization tools that improved user engagement with health metrics.',
+        results: 'The strategic partnership between Bellabeat and Hanzo AI yielded substantial results. Bellabeat experienced a significant surge in sales, with revenue estimates reaching up to $35 million by May 2024. User retention increased by 45%, and overall engagement with the platform improved by 67%.',
+        technologies: ['AI Algorithms', 'Data Analytics', 'Wearable Tech', 'Health Metrics', 'Cloud Infrastructure', 'Marketing Automation', 'User Experience', 'Data Visualization'],
+        galleryImages: [
+          '/images/bellabeat/hero.jpg',    // Placeholder image
+          '/images/bellabeat/app.jpg',     // Placeholder image
+          '/images/bellabeat/product.jpg'  // Placeholder image
+        ]
       },
       'damon': {
         id: 'damon',
@@ -55,8 +72,8 @@ const ProjectDetail = () => {
         results: 'The campaign achieved a remarkable 500X ROI, generating over $2M in pre-orders from an investment of $4,000. Additionally, it helped secure Series A funding by demonstrating market demand.',
         technologies: ['Three.js', 'WebGL', 'Facebook Ads', 'Google Analytics', 'Hubspot'],
         galleryImages: [
-          '/images/damon/damon-1.jpg',    // White/gold and black models
           '/images/damon/damon-2.jpg',    // Black model in studio
+          '/images/damon/damon-1.jpg',    // White/gold and black models
           '/images/damon/damon-3.jpg'     // Black model on road
         ]
       },
@@ -70,8 +87,39 @@ const ProjectDetail = () => {
         solution: 'We developed an immersive website featuring 3D visualization tools that allowed users to explore and customize their potential homes. The site incorporated detailed animations explaining the engineering process and showcased completed projects through virtual tours.',
         results: 'The new digital platform increased qualified leads by 300% and reduced the sales cycle by 40%. The visualization tools proved particularly effective, with 70% of customers using them before making purchase decisions.',
         technologies: ['React', 'Three.js', 'WebGL', 'Gatsby', 'Contentful']
+      },
+      'unikoin-gold': {
+        id: 'unikoin-gold',
+        title: 'UnikoinGold',
+        youtubeId: '8TbWsxiyKUE',
+        description: 'BLOCKCHAIN-BASED ESPORTS BETTING PLATFORM',
+        fullDescription: 'Unikrn, established in 2014, is a leading esports entertainment and betting platform. To enhance its offerings, Unikrn introduced UnikoinGold (UKG), an ERC20 token on the Ethereum blockchain, aiming to create a decentralized, community-driven virtual economy for esports enthusiasts.',
+        challenge: 'The integration of blockchain technology into Unikrn\'s platform presented several challenges including regulatory compliance across various jurisdictions, technological integration of blockchain systems, and developing features that would drive adoption among the esports community.',
+        solution: 'Hanzo AI collaborated with Unikrn to develop a compliance framework, assisted in designing and implementing Ethereum smart contracts, and helped develop user-centric features such as tipping for esports participants and a new skill-based betting platform powered by UnikoinGold.',
+        results: 'The collaboration led to enhanced compliance allowing Unikrn to operate within legal frameworks across jurisdictions, successful integration of blockchain technology establishing a transparent transaction system, and increased user engagement through new interactive features for the esports community.',
+        technologies: ['Blockchain', 'Ethereum', 'Smart Contracts', 'ERC20 Tokens', 'API Integration', 'AI Algorithms', 'Web3', 'Decentralized Finance'],
+        galleryImages: [
+          '/images/unikoin/hero.jpg',    // Placeholder image
+          '/images/unikoin/platform.jpg',     // Placeholder image
+          '/images/unikoin/token.jpg'  // Placeholder image
+        ]
+      },
+      'casper-blockchain': {
+        id: 'casper-blockchain',
+        title: 'Casper Blockchain',
+        youtubeId: '7zQZmovxRNs',
+        description: 'Foundational partnership creating the first enterprise-ready blockchain from inception',
+        fullDescription: 'Hanzo AI began collaborating with Casper Labs in 2018, significantly shaping the direction and technology underpinning what would become the Casper Blockchain, an innovative proof-of-stake network designed specifically for enterprise adoption.',
+        challenge: 'The blockchain industry faced significant barriers to enterprise adoption, including performance limitations, security concerns, and lack of enterprise-grade features. Casper Labs needed strategic guidance and technical expertise to develop a solution that could effectively serve complex commercial demands.',
+        solution: 'Hanzo AI secured Casper Labs\'s first-ever development grant, establishing early financial support. We advocated for and executed a strategic pivot to the Rust programming language, ensuring enhanced security and scalability. Our team co-designed Casper\'s architecture from inception and led initial deployment, being among the first entities to launch and run validator nodes before the official mainnet launch.',
+        results: 'Through Hanzo AI\'s direct involvement, Casper Labs evolved from a conceptual project into a fully operational blockchain platform with a successful mainnet launch in 2021. We co-founded the DEVxDAO, the first Swiss-based blockchain association dedicated to funding cutting-edge blockchain research, which has become instrumental in attracting global blockchain talent and fostering innovation in decentralized technologies.',
+        technologies: ['Blockchain', 'Rust', 'Proof of Stake', 'Smart Contracts', 'Validator Nodes', 'Enterprise Architecture', 'Decentralized Finance'],
+        galleryImages: [
+          '/images/casper/hero.jpg',
+          '/images/casper/platform.jpg',
+          '/images/casper/node.jpg'
+        ]
       }
-      // Additional projects would be defined here
     };
     
     const foundProject = projectsData[projectId || ''];
@@ -100,6 +148,7 @@ const ProjectDetail = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <Navbar />
+      <GlobalMuteButton />
       
       <main className="pt-36">
         {/* Hero Section - Video for TrillerFest, Image for Damon */}
@@ -107,8 +156,8 @@ const ProjectDetail = () => {
           <div className="relative w-full h-[35vh] md:h-[49vh] overflow-hidden flex justify-center pt-12 mb-8">
             <div className="w-full md:w-[70%] h-full">
               <img
-                src="/images/damon/hero-image.jpg"
-                alt="Damon Motorcycles - White and black electric motorcycles"
+                src="/images/damon/damon-2.jpg"
+                alt="Damon Motorcycles - Black model in studio"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -119,7 +168,7 @@ const ProjectDetail = () => {
             <div className="w-full md:w-[70%] h-full">
               <iframe
                 className="w-full h-full object-cover"
-                src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${project.youtubeId}&controls=0&showinfo=0&rel=0&modestbranding=1&origin=http://localhost:8080&iv_load_policy=3`}
+                src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&loop=1&playlist=${project.youtubeId}&controls=1&showinfo=0&rel=0&modestbranding=1&origin=http://localhost:8080&iv_load_policy=3`}
                 title={project.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -173,7 +222,7 @@ const ProjectDetail = () => {
                     <div key={index} className="rounded-lg overflow-hidden">
                       <iframe
                         className="w-full h-64 object-cover"
-                        src={`https://www.youtube.com/embed/${project.youtubeId}?controls=1&showinfo=0&rel=0&modestbranding=1&origin=http://localhost:8080&iv_load_policy=3`}
+                        src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&controls=1&showinfo=0&rel=0&modestbranding=1&origin=http://localhost:8080&iv_load_policy=3`}
                         title={`${project.title} - Campaign Video`}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen

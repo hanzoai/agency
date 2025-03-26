@@ -5,6 +5,7 @@ import VideoCard from '@/components/VideoCard';
 import { BentoGrid, BentoCard } from '@/components/BentoGrid';
 import ParallaxItem from '@/components/ParallaxItem';
 import ScrollReveal from '@/utils/ScrollReveal';
+import GlobalMuteButton from '@/components/GlobalMuteButton';
 
 interface Project {
   id: string;
@@ -12,6 +13,8 @@ interface Project {
   youtubeId: string;
   description: string;
   size: "small" | "medium" | "large";
+  thumbnailUrl?: string;
+  className?: string;
 }
 
 const CaseStudies = () => {
@@ -20,50 +23,55 @@ const CaseStudies = () => {
       id: 'triller', 
       title: 'Trillerfest', 
       youtubeId: 'QEQpdYYYlhc',
-      description: 'LARGEST VIRTUAL MUSIC FESTIVAL IN HISTORY',
+      description: 'Largest music festival in human history during COVID with 169M+ audience.',
       size: "large" 
     },
     { 
       id: 'damon', 
       title: 'Damon Motorcycles', 
       youtubeId: 'T6FyMkSAf7w',
-      description: 'HIGHLY CONVERTING 500X ROI CAMPAIGN',
+      description: 'The "Tesla" of the motor-bike industry with advanced AI safety features & 500x ROI.',
       size: "large" 
     },
     { 
       id: 'cover-build', 
       title: 'Cover Build', 
       youtubeId: 'zZwdjRw3w2w',
-      description: 'REVOLUTIONARY PREFAB HOUSING SOLUTION',
-      size: "medium"
+      description: 'Luxurious prefab housing, a one-stop shop solution and building partner.',
+      size: "medium",
+      className: "h-full"
     },
     { 
       id: 'bella-beat', 
       title: 'Bella Beat', 
       youtubeId: 'rsda3VIuRxM',
-      description: 'WOMEN\'S HEALTH WEARABLE TECH PLATFORM',
-      size: "medium" 
+      description: 'A revolutionized women\'s health industry & surpassed $100M revenue with Hanzo.',
+      size: "medium",
+      className: "h-full" 
     },
     { 
       id: 'esports-coin', 
       title: 'E-Sports Coin', 
       youtubeId: '8TbWsxiyKUE',
-      description: 'BLOCKCHAIN SOLUTION FOR GAMING COMMUNITY',
-      size: "medium" 
+      description: 'Hanzo worked alongside Unikoin Gold to raise 120,000 ETH in 1 month.',
+      size: "medium",
+      className: "h-full" 
     },
     { 
       id: 'casper-blockchain', 
       title: 'Casper Blockchain', 
       youtubeId: '7zQZmovxRNs',
-      description: 'ENTERPRISE-GRADE SECURE BLOCKCHAIN PLATFORM',
-      size: "medium" 
+      description: 'Foundational partnership creating the first enterprise-ready blockchain from inception',
+      size: "medium",
+      className: "h-full" 
     },
     { 
       id: 'myle-tap', 
-      title: 'Myle.Tap', 
+      title: 'Myle Tap', 
       youtubeId: 'A43eWc8vddg',
-      description: 'INNOVATIVE WEARABLE INTERACTION TECHNOLOGY',
-      size: "medium" 
+      description: 'Innovative wearable interaction technology, Hanzo launched first AI wearable.',
+      size: "medium",
+      className: "h-full" 
     }
   ];
 
@@ -80,6 +88,7 @@ const CaseStudies = () => {
     <ScrollReveal>
       <div className="min-h-screen bg-black text-white">
         <Navbar />
+        <GlobalMuteButton />
         
         <main className="pt-24">
           <header className="pt-16 md:pt-24 pb-12 container mx-auto px-6">
@@ -99,11 +108,12 @@ const CaseStudies = () => {
                 {projects.map((project, index) => (
                   <ParallaxItem 
                     key={project.id} 
-                    speed={0.03 * (index % 3 + 1)} 
+                    speed={project.id === 'cover-build' ? 0 : 0.03 * (index % 3 + 1)} 
                     className="h-full"
                   >
                     <BentoCard 
                       size={project.size}
+                      className={project.className}
                     >
                       <VideoCard 
                         title={project.title} 
@@ -111,6 +121,7 @@ const CaseStudies = () => {
                         description={project.description}
                         index={index} 
                         projectId={project.id}
+                        thumbnailUrl={project.thumbnailUrl}
                       />
                     </BentoCard>
                   </ParallaxItem>

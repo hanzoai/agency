@@ -12,6 +12,7 @@ import OnboardingSuccess from "./pages/OnboardingSuccess";
 import CaseStudies from "./pages/CaseStudies";
 import ProjectDetail from "./pages/ProjectDetail";
 import Contact from "./pages/Contact";
+import CaseStudyBellabeat from "./pages/CaseStudyBellabeat";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/onboarding" element={<OnboardingForm />} />
           <Route path="/onboarding-success" element={<OnboardingSuccess />} />
           <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/case-study-bellabeat" element={<CaseStudyBellabeat />} />
           <Route path="/projects" element={<Navigate to="/case-studies" replace />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />

@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
+import GlobalMuteButton from '@/components/GlobalMuteButton';
+import VideoMuteButton from '@/components/VideoMuteButton';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 
@@ -19,6 +21,7 @@ const CaseStudyUnikoinGold = () => {
     <ScrollReveal>
       <div className="min-h-screen flex flex-col bg-black text-white">
         <Navbar />
+        <GlobalMuteButton />
         
         <main className="flex-grow pt-36">
           <div className="container-custom">
@@ -34,15 +37,16 @@ const CaseStudyUnikoinGold = () => {
             </div>
             
             {/* Hero Image */}
-            <div className="w-full aspect-video bg-gray-800 mb-16 overflow-hidden rounded-lg">
+            <div className="w-full aspect-video bg-gray-800 mb-16 overflow-hidden rounded-lg relative">
               <iframe
                 className="w-full h-full object-cover"
-                src="https://www.youtube.com/embed/8TbWsxiyKUE?autoplay=1&mute=1&loop=1&playlist=8TbWsxiyKUE&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3"
+                src="https://www.youtube.com/embed/8TbWsxiyKUE?autoplay=1&mute=1&loop=1&playlist=8TbWsxiyKUE&controls=1&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3"
                 title="UnikoinGold - Blockchain-based Esports Betting Platform"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 frameBorder="0"
               ></iframe>
+              <VideoMuteButton videoId="unikoingold-hero" />
             </div>
             
             {/* Overview Section */}
@@ -121,6 +125,24 @@ const CaseStudyUnikoinGold = () => {
                   <div className="text-3xl font-bold text-accent mb-2">$30M+</div>
                   <p className="text-white/80">Token value within ecosystem</p>
                 </div>
+              </div>
+              
+              <h2 className="text-2xl font-bold mb-6">ICO Success Story</h2>
+              <div className="bg-white/5 p-6 rounded-lg mb-8">
+                <h3 className="text-xl font-bold mb-4">Strategic Partnership</h3>
+                <p className="text-lg text-white/80 mb-6">
+                  Hanzo AI was engaged as an outsourced Chief Marketing Officer (CMO) and Chief Technology Officer (CTO) to oversee the strategic development and execution of UnikoinGold's Initial Coin Offering (ICO). Our team developed comprehensive marketing strategies targeting both the esports community and cryptocurrency investors while simultaneously managing the technical aspects of the ICO, including token creation, smart contract development, and platform security.
+                </p>
+                
+                <h3 className="text-xl font-bold mb-4">Remarkable Results</h3>
+                <p className="text-lg text-white/80 mb-6">
+                  The ICO, launched in September 2017, was a remarkable success, raising over 120,000 Ether (approximately $34.9 million at the time). This achievement was bolstered by strategic partnerships with high-profile investors, including Ethereum co-founder Anthony Di Iorio and entrepreneur Mark Cuban, who had previously invested in Unikrn.
+                </p>
+                
+                <h3 className="text-xl font-bold mb-4">Token Innovation</h3>
+                <p className="text-lg text-white/80">
+                  UnikoinGold was designed with innovative utility as a medium of exchange within the Unikrn platform, allowing users to bet on esports matches and participate in other platform activities. This practical application of blockchain technology created real value for users and contributed significantly to the token's adoption and success.
+                </p>
               </div>
               
               <h2 className="text-2xl font-bold mb-6">Conclusion</h2>

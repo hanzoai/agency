@@ -8,6 +8,9 @@ import CaseStudyContent from '@/components/case-studies/triller-fest/CaseStudyCo
 import SidebarContent from '@/components/case-studies/triller-fest/SidebarContent';
 import TestimonialSection from '@/components/case-studies/triller-fest/TestimonialSection';
 import CTASection from '@/components/case-studies/triller-fest/CTASection';
+import Navbar from '@/components/Navbar';
+import GlobalMuteButton from '@/components/GlobalMuteButton';
+import VideoMuteButton from '@/components/VideoMuteButton';
 
 const CaseStudyTrillerFest = () => {
   useEffect(() => {
@@ -17,10 +20,28 @@ const CaseStudyTrillerFest = () => {
   return (
     <ScrollReveal>
       <div className="min-h-screen bg-beige-50">
+        <Navbar />
+        <GlobalMuteButton />
         {/* Hero Section */}
         <HeroSection />
 
         <div className="container-custom py-16 md:py-24">
+          {/* Video Showcase */}
+          <div className="mb-16 mt-8 max-w-4xl mx-auto relative">
+            <h2 className="text-2xl font-bold mb-6 text-center">Campaign Video</h2>
+            <div className="aspect-video w-full overflow-hidden rounded-lg relative">
+              <iframe
+                className="w-full h-full object-cover"
+                src="https://www.youtube.com/embed/QEQpdYYYlhc?autoplay=1&mute=1&loop=1&playlist=QEQpdYYYlhc&controls=1&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3"
+                title="TrillerFest Campaign Video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                frameBorder="0"
+              ></iframe>
+              <VideoMuteButton videoId="trillerfest-main" />
+            </div>
+          </div>
+
           {/* Image Gallery */}
           <TrillerFestGallery />
           

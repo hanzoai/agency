@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
+import GlobalMuteButton from '@/components/GlobalMuteButton';
+import VideoMuteButton from '@/components/VideoMuteButton';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
@@ -50,6 +52,7 @@ const CaseStudyDamonMotorcycles = () => {
   return <ScrollReveal>
       <div className="min-h-screen flex flex-col bg-beige-50 text-white">
         <Navbar />
+        <GlobalMuteButton />
         
         <main className={`flex-grow ${isBannerVisible ? 'mt-32' : 'mt-24'}`}>
           <div className="container-custom">
@@ -139,20 +142,21 @@ const CaseStudyDamonMotorcycles = () => {
                   <DialogTrigger asChild>
                     <div className="relative w-full h-full cursor-pointer group">
                       <iframe 
-                        src="https://www.youtube.com/embed/TVExxxHKqF8?autoplay=1&loop=1&playlist=TVExxxHKqF8&mute=1&controls=0&showinfo=0" 
+                        src="https://www.youtube.com/embed/TVExxxHKqF8?autoplay=1&loop=1&playlist=TVExxxHKqF8&mute=1&controls=1&showinfo=0" 
                         title="Damon Motorcycles Video"
                         className="w-full h-full object-cover"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         frameBorder="0"
                       ></iframe>
+                      <VideoMuteButton videoId="damon-thumbnail" className="bottom-12 right-12" />
                       <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                         <span className="bg-white/90 text-black px-4 py-2 rounded-full font-medium">Watch Video</span>
                       </div>
                     </div>
                   </DialogTrigger>
                   <DialogContent className="max-w-4xl bg-black p-0 border-none">
-                    <AspectRatio ratio={16/9} className="bg-black">
+                    <AspectRatio ratio={16/9} className="bg-black relative">
                       <iframe 
                         src="https://www.youtube.com/embed/TVExxxHKqF8?autoplay=1&loop=1&playlist=TVExxxHKqF8" 
                         title="Damon Motorcycles Video"
@@ -161,6 +165,7 @@ const CaseStudyDamonMotorcycles = () => {
                         allowFullScreen
                         frameBorder="0"
                       ></iframe>
+                      <VideoMuteButton videoId="damon-modal" />
                     </AspectRatio>
                   </DialogContent>
                 </Dialog>

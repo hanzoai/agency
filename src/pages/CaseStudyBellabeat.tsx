@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
+import GlobalMuteButton from '@/components/GlobalMuteButton';
+import VideoMuteButton from '@/components/VideoMuteButton';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 
@@ -19,6 +21,7 @@ const CaseStudyBellabeat = () => {
     <ScrollReveal>
       <div className="min-h-screen flex flex-col bg-black text-white">
         <Navbar />
+        <GlobalMuteButton />
         
         <main className="flex-grow pt-36">
           <div className="container-custom">
@@ -34,15 +37,16 @@ const CaseStudyBellabeat = () => {
             </div>
             
             {/* Hero Image */}
-            <div className="w-full aspect-video bg-gray-800 mb-16 overflow-hidden rounded-lg">
+            <div className="w-full aspect-video bg-gray-800 mb-16 overflow-hidden rounded-lg relative">
               <iframe
                 className="w-full h-full object-cover"
-                src="https://www.youtube.com/embed/rsda3VIuRxM?autoplay=1&mute=1&loop=1&playlist=rsda3VIuRxM&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3"
+                src="https://www.youtube.com/embed/rsda3VIuRxM?autoplay=1&mute=1&loop=1&playlist=rsda3VIuRxM&controls=1&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3"
                 title="Bellabeat - Women's Health Wearable Tech"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 frameBorder="0"
               ></iframe>
+              <VideoMuteButton videoId="bellabeat-hero" />
             </div>
             
             {/* Overview Section */}

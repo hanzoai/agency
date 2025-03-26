@@ -50,10 +50,10 @@ const CaseStudies = () => {
       className: "h-full" 
     },
     { 
-      id: 'esports-coin', 
-      title: 'E-Sports Coin', 
+      id: 'unikoin-gold', 
+      title: 'UnikoinGold', 
       youtubeId: '8TbWsxiyKUE',
-      description: 'Hanzo worked alongside Unikoin Gold to raise 120,000 ETH in 1 month.',
+      description: 'Blockchain-based esports betting platform that raised $34.9M in ICO.',
       size: "medium",
       className: "h-full" 
     },
@@ -94,7 +94,7 @@ const CaseStudies = () => {
           <header className="pt-16 md:pt-24 pb-12 container mx-auto px-6">
             <ParallaxItem speed={0.1}>
               <h1 className="text-6xl md:text-9xl font-black tracking-tighter uppercase leading-none mb-12 pt-12 text-white text-center md:text-left">
-                CASE<br />STUDIES
+                CASE STUDIES
               </h1>
               <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto md:mx-0">
                 Showcasing our most impactful digital campaigns and creative work

@@ -2,57 +2,57 @@ import React, { useState, useEffect } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 
 interface VideoMuteButtonProps {
-  className?: string;
   videoId: string;
+  className?: string;
 }
 
-const VideoMuteButton: React.FC<VideoMuteButtonProps> = ({ className, videoId }) => {
+const VideoMuteButton: React.FC<VideoMuteButtonProps> = ({ videoId, className = '' }) => {
   const [isMuted, setIsMuted] = useState(true);
+  const storageKey = `video_mute_state_${videoId}`;
 
-  // Use video-specific state with global fallback
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Initialize from global state if not set locally
-      const storedState = localStorage.getItem(`video-muted-${videoId}`);
-      if (storedState !== null) {
-        setIsMuted(storedState === 'true');
-      } else if (window.globalMuteState !== undefined) {
-        setIsMuted(window.globalMuteState);
-      }
-      
-      // Listen for global mute changes
-      const handleGlobalMuteChange = () => {
-        setIsMuted(window.globalMuteState);
-        localStorage.setItem(`video-muted-${videoId}`, String(window.globalMuteState));
-      };
-      
-      window.addEventListener('globalMuteChange', handleGlobalMuteChange);
-      return () => {
-        window.removeEventListener('globalMuteChange', handleGlobalMuteChange);
-      };
+    // Initialize from local storage if available
+    const savedState = localStorage.getItem(storageKey);
+    if (savedState !== null) {
+      setIsMuted(savedState === 'true');
     }
-  }, [videoId]);
+  }, [storageKey]);
   
-  // Toggle mute for this specific video and update global state
-  const toggleMute = () => {
-    if (typeof window !== 'undefined') {
-      const newMutedState = !isMuted;
-      // Update local state
-      setIsMuted(newMutedState);
-      // Store preference for this video
-      localStorage.setItem(`video-muted-${videoId}`, String(newMutedState));
-      // Update global mute state
-      window.globalMuteState = newMutedState;
-      // Notify other components
-      window.dispatchEvent(new Event('globalMuteChange'));
-    }
+  const toggleMute = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const newMuteState = !isMuted;
+    setIsMuted(newMuteState);
+    
+    // Store state in local storage for persistence
+    localStorage.setItem(storageKey, newMuteState.toString());
+    
+    // Attempt to find the video iframe and update its mute state
+    const iframes = document.querySelectorAll('iframe');
+    iframes.forEach(iframe => {
+      // Only try to update iframes that are YouTube embeds
+      if (iframe.src && iframe.src.includes('youtube.com/embed')) {
+        const currentSrc = new URL(iframe.src);
+        
+        // Update the mute parameter
+        if (newMuteState) {
+          currentSrc.searchParams.set('mute', '1');
+        } else {
+          currentSrc.searchParams.set('mute', '0');
+        }
+        
+        // Update the iframe source
+        iframe.src = currentSrc.toString();
+      }
+    });
   };
 
   return (
     <button 
       onClick={toggleMute}
-      className={`absolute bottom-6 right-6 p-3 rounded-full bg-black/60 text-white z-50 transition-all duration-300 shadow-lg hover:bg-black/80 border ${isMuted ? 'border-gray-400' : 'border-white'} ${className}`}
-      aria-label={isMuted ? "Unmute video" : "Mute video"}
+      className={`absolute z-20 p-2 rounded-full bg-black/50 text-white transition-all duration-300 hover:bg-black/70 border ${isMuted ? 'border-gray-400' : 'border-white'} ${className}`}
+      aria-label={isMuted ? "Unmute" : "Mute"}
     >
       {isMuted ? 
         <div className="relative">

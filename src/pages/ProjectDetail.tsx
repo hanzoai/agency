@@ -184,6 +184,20 @@ const ProjectDetail = () => {
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
           </div>
+        ) : project.id === 'casper-blockchain' ? (
+          <div className="relative w-full h-[35vh] md:h-[49vh] overflow-hidden flex justify-center pt-12 mb-8">
+            <div className="w-full md:w-[49%] h-full">  {/* 30% smaller than the 70% default */}
+              <iframe
+                className="w-full h-full object-cover"
+                src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&loop=1&playlist=${project.youtubeId}&controls=1&showinfo=0&rel=0&modestbranding=1&origin=http://localhost:8080&iv_load_policy=3`}
+                title={project.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                frameBorder="0"
+              ></iframe>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+          </div>
         ) : (
           <div className="relative w-full h-[35vh] md:h-[49vh] overflow-hidden flex justify-center pt-12 mb-8">
             <div className="w-full md:w-[70%] h-full">

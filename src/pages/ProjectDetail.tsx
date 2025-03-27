@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Globe, Linkedin, Instagram, Facebook, Twitter, Youtube } from 'lucide-react';
 import GlobalMuteButton from '@/components/GlobalMuteButton';
 
 interface Project {
@@ -222,7 +222,109 @@ const ProjectDetail = () => {
           </Link>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6">{project.title}</h1>
-          <p className="text-xl md:text-2xl text-white/80 mb-12">{project.description}</p>
+          <p className="text-xl md:text-2xl text-white/80 mb-6">{project.description}</p>
+          
+          {/* Social Media Icons - Only for specific projects */}
+          {(project.id === 'cover-build' || project.id === 'myle-tap' || project.id === 'damon') && (
+            <div className="flex gap-4 mb-12">
+              {/* Website */}
+              {project.id === 'cover-build' && (
+                <a href="https://www.cover.build" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <Globe size={20} className="text-white" />
+                </a>
+              )}
+              {project.id === 'myle-tap' && (
+                <a href="https://www.myle.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <Globe size={20} className="text-white" />
+                </a>
+              )}
+
+              {project.id === 'damon' && (
+                <a href="https://www.damon.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <Globe size={20} className="text-white" />
+                </a>
+              )}
+              
+              {/* LinkedIn */}
+              {(project.id === 'cover-build' || project.id === 'myle-tap' || project.id === 'damon') && (
+                <a 
+                  href={
+                    project.id === 'cover-build' ? "https://www.linkedin.com/company/coverbuild" :
+                    project.id === 'myle-tap' ? "https://www.linkedin.com/company/myle" :
+
+                    "https://www.linkedin.com/company/damonmotorcycles"
+                  } 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                >
+                  <Linkedin size={20} className="text-white" />
+                </a>
+              )}
+              
+              {/* Instagram */}
+              {(project.id === 'cover-build' || project.id === 'myle-tap' || project.id === 'damon') && (
+                <a 
+                  href={
+                    project.id === 'cover-build' ? "https://www.instagram.com/coverbuild" :
+                    project.id === 'myle-tap' ? "https://www.instagram.com/myle" :
+                    "https://www.instagram.com/damonmotorcycles"
+                  } 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                >
+                  <Instagram size={20} className="text-white" />
+                </a>
+              )}
+              
+              {/* Facebook */}
+              {(project.id === 'cover-build' || project.id === 'myle-tap' || project.id === 'damon') && (
+                <a 
+                  href={
+                    project.id === 'cover-build' ? "https://www.facebook.com/coverbuild" :
+                    project.id === 'myle-tap' ? "https://www.facebook.com/myle" :
+
+                    "https://www.facebook.com/damonmotorcycles"
+                  } 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                >
+                  <Facebook size={20} className="text-white" />
+                </a>
+              )}
+              
+              {/* Twitter */}
+              {(project.id === 'cover-build' || project.id === 'myle-tap' || project.id === 'damon') && (
+                <a 
+                  href={
+                    project.id === 'cover-build' ? "https://twitter.com/coverbuild" :
+                    project.id === 'myle-tap' ? "https://twitter.com/myle" :
+
+                    "https://twitter.com/damonmotorcycles"
+                  } 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                >
+                  <Twitter size={20} className="text-white" />
+                </a>
+              )}
+              
+              {/* YouTube - Only for Damon */}
+              {project.id === 'damon' && (
+                <a 
+                  href="https://www.youtube.com/channel/UCX8u0w3VwZQk0jG5vH1V9zQ" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                >
+                  <Youtube size={20} className="text-white" />
+                </a>
+              )}
+            </div>
+          )}
           
           <div className="grid md:grid-cols-2 gap-12 mb-16">
             {project.fullDescription && (

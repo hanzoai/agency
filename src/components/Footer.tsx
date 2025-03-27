@@ -20,7 +20,7 @@ const Footer = () => {
                 (+65) 13370-9976
               </p>
             </div>
-            <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="let-talk-btn bg-gray-700 hover:bg-gray-800 text-white font-medium rounded-full px-6 py-2 transition-all duration-300 inline-flex items-center">
+            <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="lets-talk-btn bg-gray-700 hover:bg-gray-800 text-white font-medium rounded-full px-6 py-2 transition-all duration-300 inline-flex items-center">
               Let's talk
               <ArrowUpRight size={16} className="ml-1" />
             </a>

@@ -51,7 +51,7 @@ const CaseStudies = () => {
     },
     { 
       id: 'unikoin-gold', 
-      title: 'UnikoinGold', 
+      title: 'Unikoin Gold', 
       youtubeId: '8TbWsxiyKUE',
       description: 'Blockchain-based esports betting platform that raised $34.9M in ICO.',
       size: "medium",

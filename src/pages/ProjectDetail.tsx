@@ -56,9 +56,9 @@ const ProjectDetail = () => {
         results: 'The strategic partnership between Bellabeat and Hanzo AI yielded substantial results. Bellabeat experienced a significant surge in sales, with revenue estimates reaching up to $35 million by May 2024. User retention increased by 45%, and overall engagement with the platform improved by 67%.',
         technologies: ['AI Algorithms', 'Data Analytics', 'Wearable Tech', 'Health Metrics', 'Cloud Infrastructure', 'Marketing Automation', 'User Experience', 'Data Visualization'],
         galleryImages: [
-          '/images/bellabeat/hero.jpg',    // Placeholder image
-          '/images/bellabeat/app.jpg',     // Placeholder image
-          '/images/bellabeat/product.jpg'  // Placeholder image
+          '/images/bellabeat/bella-1.jpg',
+          '/images/bellabeat/bella-2.jpg',
+          '/images/bellabeat/bella-3.jpeg'
         ]
       },
       'damon': {
@@ -86,7 +86,12 @@ const ProjectDetail = () => {
         challenge: 'We needed to communicate the value of prefabricated housing to a market that often associates it with lower quality. The website needed to highlight the precision engineering while making the customization process intuitive for potential buyers.',
         solution: 'We developed an immersive website featuring 3D visualization tools that allowed users to explore and customize their potential homes. The site incorporated detailed animations explaining the engineering process and showcased completed projects through virtual tours.',
         results: 'The new digital platform increased qualified leads by 300% and reduced the sales cycle by 40%. The visualization tools proved particularly effective, with 70% of customers using them before making purchase decisions.',
-        technologies: ['React', 'Three.js', 'WebGL', 'Gatsby', 'Contentful']
+        technologies: ['React', 'Three.js', 'WebGL', 'Gatsby', 'Contentful'],
+        galleryImages: [
+          '/images/cover-build/cover-1.jpg',
+          '/images/cover-build/cover-2.jpeg',
+          '/images/cover-build/cover-3.jpeg'
+        ]
       },
       'unikoin-gold': {
         id: 'unikoin-gold',
@@ -99,9 +104,9 @@ const ProjectDetail = () => {
         results: 'The collaboration led to enhanced compliance allowing Unikrn to operate within legal frameworks across jurisdictions, successful integration of blockchain technology establishing a transparent transaction system, and increased user engagement through new interactive features for the esports community.',
         technologies: ['Blockchain', 'Ethereum', 'Smart Contracts', 'ERC20 Tokens', 'API Integration', 'AI Algorithms', 'Web3', 'Decentralized Finance'],
         galleryImages: [
-          '/images/unikoin/hero.jpg',    // Placeholder image
-          '/images/unikoin/platform.jpg',     // Placeholder image
-          '/images/unikoin/token.jpg'  // Placeholder image
+          '/images/unikoin/unikoin-1.jpeg',
+          '/images/unikoin/unikoin-2.jpeg',
+          '/images/unikoin/unikoin-3.jpeg'
         ]
       },
       'casper-blockchain': {
@@ -115,9 +120,25 @@ const ProjectDetail = () => {
         results: 'Through Hanzo AI\'s direct involvement, Casper Labs evolved from a conceptual project into a fully operational blockchain platform with a successful mainnet launch in 2021. We co-founded the DEVxDAO, the first Swiss-based blockchain association dedicated to funding cutting-edge blockchain research, which has become instrumental in attracting global blockchain talent and fostering innovation in decentralized technologies.',
         technologies: ['Blockchain', 'Rust', 'Proof of Stake', 'Smart Contracts', 'Validator Nodes', 'Enterprise Architecture', 'Decentralized Finance'],
         galleryImages: [
-          '/images/casper/hero.jpg',
-          '/images/casper/platform.jpg',
-          '/images/casper/node.jpg'
+          '/images/casper/casper-1.jpg',
+          '/images/casper/casper-2.png',
+          '/images/casper/casper-3.png'
+        ]
+      },
+      'myle-tap': {
+        id: 'myle-tap',
+        title: 'Myle Tap',
+        youtubeId: 'A43eWc8vddg',
+        description: 'Innovative wearable interaction technology',
+        fullDescription: 'Myle Tap is the world\'s first truly hands-free, voice-activated, wearable shortcut to your apps. Our collaboration with Myle Tap helped launch this groundbreaking wearable technology that allows users to interact with their smart devices through simple, intuitive voice commands.',
+        challenge: 'The wearable technology market was already crowded with established players. Myle Tap needed to differentiate itself with a unique value proposition while ensuring the user experience was seamless across different platforms and devices.',
+        solution: 'We developed a comprehensive marketing and launch strategy, designing an intuitive mobile app interface that complemented the physical device. Our team created demonstration videos and interactive web experiences to showcase the product\'s capabilities and ease of use.',
+        results: 'The campaign helped Myle Tap secure significant media coverage in major tech publications, leading to a successful product launch with 200% of their crowdfunding goal achieved. The app design received praise for its intuitive interface and seamless integration with the physical device.',
+        technologies: ['Mobile App Development', 'UX/UI Design', 'API Integration', 'Bluetooth Technology', 'Voice Recognition', 'Video Production', 'Digital Marketing'],
+        galleryImages: [
+          '/images/myle-tap/myle-1.jpg',
+          '/images/myle-tap/myle-2.jpg',
+          '/images/myle-tap/myle-3.jpeg'
         ]
       }
     };

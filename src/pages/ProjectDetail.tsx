@@ -95,7 +95,7 @@ const ProjectDetail = () => {
       },
       'unikoin-gold': {
         id: 'unikoin-gold',
-        title: 'UnikoinGold',
+        title: 'Unikoin Gold',
         youtubeId: '8TbWsxiyKUE',
         description: 'BLOCKCHAIN-BASED ESPORTS BETTING PLATFORM',
         fullDescription: 'Unikrn, established in 2014, is a leading esports entertainment and betting platform. To enhance its offerings, Unikrn introduced UnikoinGold (UKG), an ERC20 token on the Ethereum blockchain, aiming to create a decentralized, community-driven virtual economy for esports enthusiasts.',

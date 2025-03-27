@@ -295,32 +295,18 @@ const ProjectDetail = () => {
                 </a>
               )}
               
-              {/* Twitter */}
-              {(project.id === 'cover-build' || project.id === 'myle-tap' || project.id === 'damon') && (
+              {/* Twitter - Only for Cover Build and Myle Tap */}
+              {(project.id === 'cover-build' || project.id === 'myle-tap') && (
                 <a 
                   href={
                     project.id === 'cover-build' ? "https://twitter.com/coverbuild" :
-                    project.id === 'myle-tap' ? "https://twitter.com/myle" :
-
-                    "https://twitter.com/damonmotorcycles"
+                    "https://twitter.com/myle"
                   } 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
                 >
                   <Twitter size={20} className="text-white" />
-                </a>
-              )}
-              
-              {/* YouTube - Only for Damon */}
-              {project.id === 'damon' && (
-                <a 
-                  href="https://www.youtube.com/channel/UCX8u0w3VwZQk0jG5vH1V9zQ" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-                >
-                  <Youtube size={20} className="text-white" />
                 </a>
               )}
             </div>
@@ -401,6 +387,63 @@ const ProjectDetail = () => {
                 <p className="text-white/80">{project.results}</p>
               </div>
             )}
+          </div>
+
+          {/* Social Media Gallery - Only for Damon */}
+          {project.id === 'damon' && (
+            <div className="mt-16 mb-20">
+              <h2 className="text-2xl font-bold mb-8">Latest From Damon Social Media</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Instagram Post 1 */}
+                <div className="bg-white/5 rounded-lg overflow-hidden hover:bg-white/10 transition-colors">
+                  <img 
+                    src="/images/damon/social-1.jpg" 
+                    alt="Damon Electric Motorcycle" 
+                    className="w-full aspect-square object-cover"
+                  />
+                  <div className="p-4">
+                    <p className="text-sm text-white/80">Experience the future of motorcycling with our revolutionary HyperSport model. Zero emissions, maximum performance.</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <Instagram size={16} className="text-accent" />
+                      <span className="text-xs text-white/60">2 days ago • 1.2K likes</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Instagram Post 2 */}
+                <div className="bg-white/5 rounded-lg overflow-hidden hover:bg-white/10 transition-colors">
+                  <img 
+                    src="/images/damon/social-2.jpg" 
+                    alt="Damon Motorcycle Technology" 
+                    className="w-full aspect-square object-cover"
+                  />
+                  <div className="p-4">
+                    <p className="text-sm text-white/80">Our CoPilot™ 360° advanced warning system uses radar, cameras and sensors to track the speed, direction and velocity of moving objects around you.</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <Instagram size={16} className="text-accent" />
+                      <span className="text-xs text-white/60">5 days ago • 3.4K likes</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Facebook Post */}
+                <div className="bg-white/5 rounded-lg overflow-hidden hover:bg-white/10 transition-colors">
+                  <img 
+                    src="/images/damon/social-3.jpg" 
+                    alt="Damon Team at Motorcycle Show" 
+                    className="w-full aspect-square object-cover"
+                  />
+                  <div className="p-4">
+                    <p className="text-sm text-white/80">Excited to announce our new partnership with leading battery technology provider to enhance range and charging speed across our entire lineup.</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <Facebook size={16} className="text-accent" />
+                      <span className="text-xs text-white/60">1 week ago • 5.7K engagement</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
           </div>
         </div>
       </main>

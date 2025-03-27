@@ -30,7 +30,7 @@ const CaseStudyUnikoinGold = () => {
               Back to all projects
             </Link>
             
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">UnikoinGold</h1>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">Unikoin Gold</h1>
             <p className="text-xl md:text-2xl text-white/80 mb-12">BLOCKCHAIN-BASED ESPORTS BETTING PLATFORM</p>
             <div className="inline-block px-4 py-1 rounded-full text-accent-light text-sm font-medium mb-6 bg-neutral-50">
               Blockchain Success
@@ -41,7 +41,7 @@ const CaseStudyUnikoinGold = () => {
               <iframe
                 className="w-full h-full object-cover"
                 src="https://www.youtube.com/embed/8TbWsxiyKUE?autoplay=1&mute=1&loop=1&playlist=8TbWsxiyKUE&controls=1&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3"
-                title="UnikoinGold - Blockchain-based Esports Betting Platform"
+                title="Unikoin Gold - Blockchain-based Esports Betting Platform"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 frameBorder="0"

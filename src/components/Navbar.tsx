@@ -1,7 +1,6 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 
@@ -90,7 +89,20 @@ const Navbar = () => {
           <nav className="hidden lg:flex items-center space-x-8">
             <a href="/#services" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#services')}>Services</a>
             <a href="/#why-hanzo" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#why-hanzo')}>Why Hanzo</a>
-             <Link to="/case-studies" className="text-primary/80 hover:text-primary font-medium transition">Case Studies</Link>
+            <div className="relative group">
+              <Link to="/case-studies" className="text-primary/80 hover:text-primary font-medium transition">
+                Case Studies
+              </Link>
+              <div className="absolute left-0 top-full mt-2 bg-black/90 backdrop-blur-sm rounded-lg shadow-lg p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 w-48">
+                <Link to="/case-studies" className="block px-4 py-2 text-white hover:bg-white/10 rounded-md transition-all">
+                  Default View
+                </Link>
+                <Link to="/case-studies-alt" className="block px-4 py-2 text-white hover:bg-white/10 rounded-md transition-all flex items-center">
+                  <span>Alternative View</span>
+                  <ExternalLink size={14} className="ml-2" />
+                </Link>
+              </div>
+            </div>
             <a href="/#testimonials" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#testimonials')}>Testimonials</a>
             <a href="/#pricing" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#pricing')}>Pricing</a>
             <a href="/#faq" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#faq')}>FAQ</a>
@@ -118,6 +130,10 @@ const Navbar = () => {
             <a href="/#services" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#services')}>Services</a>
             <a href="/#why-hanzo" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#why-hanzo')}>Why Hanzo</a>
             <Link to="/case-studies" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Case Studies</Link>
+            <Link to="/case-studies-alt" className="text-primary/80 hover:text-primary py-2 font-medium transition ml-4 flex items-center" onClick={() => setIsMenuOpen(false)}>
+              <span>- Alternative View</span>
+              <ExternalLink size={14} className="ml-2" />
+            </Link>
             <a href="/#testimonials" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#testimonials')}>Testimonials</a>
             <a href="/#pricing" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#pricing')}>Pricing</a>
             <a href="/#faq" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#faq')}>FAQ</a>

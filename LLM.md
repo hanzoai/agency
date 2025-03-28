@@ -25,7 +25,9 @@ The application uses react-router-dom for routing. The main routes are defined i
 Case studies are a key part of the website and follow a consistent pattern:
 
 1. **Data Source**:
-   - All case study data is stored in `src/data/caseStudiesData.ts`
+   - Main case study data is stored in `src/data/caseStudiesData.ts`
+   - Additional case studies in `src/data/additionalCaseStudies.ts` (imported into caseStudiesData.ts)
+   - The complete set includes: Damon Motorcycles, Bellabeat, TrillerFest, Unikoin Gold, Cover Build, Casper Blockchain, and Myle Tap
    
 2. **Rendering Components**:
    - `src/pages/CaseStudy.tsx`: Dynamic page component that renders any case study based on the URL parameter
@@ -66,9 +68,17 @@ Case studies are a key part of the website and follow a consistent pattern:
   - `src/components/CaseStudy.tsx`: Updated link to use 'damon-motorcycles' instead of 'damon'
   - `src/components/VideoCard.tsx`: Updated thumbnail map to include both 'damon' and 'damon-motorcycles'
 
+### Complete Case Studies
+- **Issue**: Missing case studies (Cover Build, Casper Blockchain, and Myle Tap) that were referenced but not fully implemented
+- **Resolution**: Added all missing case studies to ensure complete portfolio
+- **Files Updated**:
+  - Created `src/data/additionalCaseStudies.ts` with detailed information for missing case studies
+  - Updated `src/data/caseStudiesData.ts` to include all case studies
+  - Ensured all case studies are available for display on the case studies page
+
 ## Best Practices for Development
 
-1. **Single Data Source**: All case study data must be maintained exclusively in `caseStudiesData.ts`.
+1. **Single Data Source**: All case study data must be maintained exclusively in `caseStudiesData.ts` and its imports.
 
 2. **ID Consistency**: When working with case studies, always use the ID as defined in `caseStudiesData.ts`.
 
@@ -77,10 +87,14 @@ Case studies are a key part of the website and follow a consistent pattern:
    - For displaying featured case studies on homepage: Use `components/CaseStudy.tsx`
 
 4. **Adding New Case Studies**:
-   - Add new case study data to `caseStudiesData.ts`
+   - Add new case study data to `caseStudiesData.ts` directly, or to `additionalCaseStudies.ts` which is then imported
    - Follow the existing structure and include all required fields
    - No need to create individual page components - the dynamic CaseStudy.tsx will handle rendering
 
 5. **Routing Pattern**:
    - Always use `/case-study/:id` for linking to case studies
    - Ensure the ID in the link matches the ID in `caseStudiesData.ts`
+
+6. **Special ID Handling**:
+   - Use consistent mapping between display IDs and data IDs (e.g., 'damon' → 'damon-motorcycles')
+   - Make sure any ID mappings are documented and consistently applied across components

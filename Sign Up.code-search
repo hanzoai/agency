@@ -1,0 +1,22 @@
+# Query: Sign Up
+# ContextLines: 1
+
+4 results - 3 files
+
+src/components/FAQ.tsx:
+  27      question: "How often do you bill your clients?",
+  28:     answer: "Billing occurs monthly, starting from the day you sign up. You'll be charged the same date each month for continued service."
+  29    }
+
+src/components/Navbar.tsx:
+   99              <Link to="/subscribe" className="rounded-full bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 inline-flex items-center font-medium transition-all duration-300">
+  100:               Sign Up
+  101                <ArrowUpRight size={16} className="ml-1" />
+
+  123              <Link to="/subscribe" className="rounded-full bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 inline-flex items-center w-fit transition-all duration-300" onClick={() => setIsMenuOpen(false)}>
+  124:               Sign Up
+  125                <ArrowUpRight size={16} className="ml-1" />
+
+src/components/WhyHanzo.tsx:
+  55            >
+  56:             Case Studies

@@ -10,7 +10,7 @@ import Subscribe from "./pages/Subscribe";
 import OnboardingForm from "./pages/Onboarding";
 import OnboardingSuccess from "./pages/OnboardingSuccess";
 import CaseStudies from "./pages/CaseStudies";
-import CaseStudy from "./pages/CaseStudyV3";
+import CaseStudy from "./pages/CaseStudy";
 
 import Contact from "./pages/Contact";
 

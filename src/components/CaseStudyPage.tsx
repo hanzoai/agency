@@ -7,6 +7,7 @@ import ScrollReveal from '@/utils/ScrollReveal';
 import GlobalMuteButton from '@/components/GlobalMuteButton';
 import VideoMuteButton from '@/components/VideoMuteButton';
 import { CaseStudyData } from '@/types/caseStudy';
+import { getRelatedProjects } from '@/utils/projectUtils';
 
 interface CaseStudyPageProps {
   data: CaseStudyData;
@@ -14,7 +15,7 @@ interface CaseStudyPageProps {
 
 const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ data }) => {
   const [isBannerVisible, setIsBannerVisible] = useState(false);
-
+  
   useEffect(() => {
     // Check banner visibility on mount
     const checkBannerVisible = () => {
@@ -78,6 +79,9 @@ const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ data }) => {
       </div>
     );
   };
+  
+  // Get dynamically generated related projects
+  const relatedProjects = getRelatedProjects(data.id, 2);
 
   return (
     <ScrollReveal>
@@ -205,11 +209,11 @@ const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ data }) => {
               </Link>
             </div>
             
-            {/* Related case studies */}
+            {/* Related case studies - Using dynamically generated related projects */}
             <div className="mb-16 reveal">
               <h2 className="text-2xl md:text-3xl font-bold mb-8">Related Case Studies</h2>
               <div className="grid md:grid-cols-2 gap-6">
-                {data.relatedProjects.map((project, index) => (
+                {relatedProjects.map((project, index) => (
                   <div key={`related-${index}`} className="relative aspect-[4/3] overflow-hidden group">
                     <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">

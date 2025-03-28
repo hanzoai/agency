@@ -69,13 +69,13 @@ const VideoCard: React.FC<VideoCardProps> = ({ title, youtubeId, description, in
     // Map project IDs to thumbnail images
     const thumbnailMap: Record<string, string> = {
       'damon': '/images/thumbnails/damon-thumbnail.jpg',
-      'bella-beat': '/images/thumbnails/bella_beat_thumbnail.jpg',
+      'damon-motorcycles': '/images/thumbnails/damon-thumbnail.jpg',
+      'bellabeat': '/images/thumbnails/bella_beat_thumbnail.jpg',
       'cover-build': '/images/thumbnails/cover-thumbnail.png',
       'casper-blockchain': '/images/thumbnails/Casper-Labs-Thumbnail.jpg',
       'myle-tap': '/images/thumbnails/myle-tap-thumbnail.jpg',
       'unikoin-gold': '/images/thumbnails/unikoin-thumbnail.jpg',
-      'esports-coin': '/images/thumbnails/unikoin-thumbnail.jpg',
-      'triller': '/images/thumbnails/trillerfest-thumbnail.jpg'
+      'trillerfest': '/images/thumbnails/trillerfest-thumbnail.jpg'
     };
     
     return thumbnailMap[projectId] || 'https://img.youtube.com/vi/' + youtubeId + '/maxresdefault.jpg';
@@ -189,7 +189,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ title, youtubeId, description, in
               )}
             </div>
             <div className="mb-4">
-              <Link to={`/project/${projectId}`}>
+              <Link to={`/case-study/${projectId}`}>
                 <Button className="bg-gray-700 hover:bg-gray-800 text-white font-medium rounded-full px-6 py-2 transition-all duration-300">
                   Explore <ArrowRight className="ml-1 h-4 w-4" />
                 </Button>

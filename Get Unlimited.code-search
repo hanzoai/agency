@@ -1,0 +1,19 @@
+# Query: Get Unlimited
+# ContextLines: 1
+
+3 results - 3 files
+
+src/components/FAQ.tsx:
+  7      question: "What do I get for the $3,500/month package?",
+  8:     answer: "You get unlimited graphic design and web development services. This includes UI/UX design, brand design, website & landing page design, and implementation. You'll have a dedicated team of designers, funnel builders, and project managers to help realize your vision."
+  9    },
+
+src/components/Hero.tsx:
+  35            <p className="text-lg md:text-xl text-primary/80 max-w-2xl mx-auto mb-12 reveal-slide-up">
+  36:             Quality design solutions that won't break your budget. Get unlimited designs 
+  37              and development from our dedicated team, all at a predictable monthly rate.
+
+src/components/Testimonials.tsx:
+  100            <Link to="/case-studies" className="btn-secondary">
+  101:             Case Studies
+  102            </Link>

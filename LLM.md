@@ -8,6 +8,8 @@ This project is a React application built with TypeScript, Vite, shadcn-ui, and 
   - `/components`: Reusable UI components
   - `/pages`: Top-level page components
   - `/data`: Static data files
+    - `/data/case-studies`: Individual case study data files
+    - `/data/caseStudies.ts`: Main file that imports and exports all case studies
   - `/hooks`: Custom React hooks
   - `/utils`: Utility functions
   - `/types`: TypeScript type definitions
@@ -16,6 +18,7 @@ This project is a React application built with TypeScript, Vite, shadcn-ui, and 
 The application uses react-router-dom for routing. The main routes are defined in `App.tsx`:
 - `/`: Homepage
 - `/case-studies`: All case studies overview
+- `/case-studies-alt`: Alternative case studies view
 - `/case-study/:id`: Individual case study pages (using the CaseStudy component)
 - `/contact`: Contact page
 - `/subscribe`: Newsletter subscription
@@ -24,10 +27,16 @@ The application uses react-router-dom for routing. The main routes are defined i
 ## Case Studies System
 Case studies are a key part of the website and follow a consistent pattern:
 
-1. **Data Source**:
-   - Main case study data is stored in `src/data/caseStudiesData.ts`
-   - Additional case studies in `src/data/additionalCaseStudies.ts` (imported into caseStudiesData.ts)
-   - The complete set includes: Damon Motorcycles, Bellabeat, TrillerFest, Unikoin Gold, Cover Build, Casper Blockchain, and Myle Tap
+1. **Data Organization**:
+   - Each case study has its own file in `src/data/case-studies/` directory:
+     - `damon-motorcycles.ts`
+     - `bellabeat.ts`
+     - `trillerfest.ts`
+     - `unikoin-gold.ts`
+     - `cover-build.ts`
+     - `casper-blockchain.ts`
+     - `myle-tap.ts`
+   - All case studies are imported and exported together in `src/data/caseStudies.ts`
    
 2. **Rendering Components**:
    - `src/pages/CaseStudy.tsx`: Dynamic page component that renders any case study based on the URL parameter
@@ -35,23 +44,24 @@ Case studies are a key part of the website and follow a consistent pattern:
    - `src/components/CaseStudy.tsx`: Component used on the homepage to showcase featured case studies
 
 3. **Case Study IDs**:
-   - All case study IDs are defined in `caseStudiesData.ts`
+   - Each case study file exports an object with an `id` property matching its filename
    - IDs are used consistently throughout the application
    - The ID `damon-motorcycles` is used in data but sometimes referred to as `damon` in UI components
 
 4. **Routing Structure**:
    - All case studies are accessed via the route pattern: `/case-study/:id`
-   - The ID in the route corresponds to the ID in `caseStudiesData.ts`
+   - The ID in the route corresponds to the ID in the case study file
 
 ## Project Cleanup History
 
-### Data Consolidation
-- **Issue**: Case study data was duplicated in both caseStudiesData.ts and ProjectDetail.tsx
-- **Resolution**: Consolidated all case study data into caseStudiesData.ts
+### Data Reorganization
+- **Issue**: Case study data was split across multiple files with duplication and inconsistencies
+- **Resolution**: Created individual files for each case study and a centralized import/export system
 - **Files Updated**:
-  - `src/pages/ProjectDetail.tsx` was replaced by `src/pages/CaseStudy.tsx`
-  - `App.tsx` updated to use CaseStudy.tsx instead of ProjectDetail.tsx
-  - Updated all components to reference consistent IDs from caseStudiesData.ts
+  - Created `src/data/case-studies/` directory with individual files for each case study
+  - Created `src/data/caseStudies.ts` to import and export all case studies
+  - Updated all components to reference the new data structure
+  - Removed deprecated files `caseStudiesData.ts` and `additionalCaseStudies.ts`
 
 ### Component Consolidation
 - **Issue**: Multiple redundant components for rendering case studies
@@ -59,41 +69,46 @@ Case studies are a key part of the website and follow a consistent pattern:
 - **Files Removed**:
   - Individual case study pages (CaseStudyBellabeat.tsx, CaseStudyDamonMotorcycles.tsx, etc.)
 - **Files Updated**:
-  - Links in components now point to the correct case study IDs
+  - Updated import paths in all components that use case study data
 
 ### ID Consistency
 - **Issue**: Inconsistent usage of IDs across the application (e.g., 'damon' vs 'damon-motorcycles')
-- **Resolution**: Made sure all components link to the correct IDs as defined in caseStudiesData.ts
+- **Resolution**: Made sure all components link to the correct IDs as defined in the case study files
 - **Files Updated**:
   - `src/components/CaseStudy.tsx`: Updated link to use 'damon-motorcycles' instead of 'damon'
   - `src/components/VideoCard.tsx`: Updated thumbnail map to include both 'damon' and 'damon-motorcycles'
 
-### Complete Case Studies
-- **Issue**: Missing case studies (Cover Build, Casper Blockchain, and Myle Tap) that were referenced but not fully implemented
-- **Resolution**: Added all missing case studies to ensure complete portfolio
+### Alternative Case Studies Page
+- **Issue**: Only one view available for case studies
+- **Resolution**: Added an alternative design to showcase projects in a different layout
+- **Files Added**:
+  - `src/pages/AlternativeCaseStudies.tsx`: New page with a card-based layout for case studies
 - **Files Updated**:
-  - Created `src/data/additionalCaseStudies.ts` with detailed information for missing case studies
-  - Updated `src/data/caseStudiesData.ts` to include all case studies
-  - Ensured all case studies are available for display on the case studies page
+  - `App.tsx`: Added route for alternative case studies page
+  - `Navbar.tsx`: Added dropdown menu to access both case study views
 
 ## Best Practices for Development
 
-1. **Single Data Source**: All case study data must be maintained exclusively in `caseStudiesData.ts` and its imports.
+1. **Modular Data Management**: 
+   - Each case study should be in its own file in the `src/data/case-studies/` directory
+   - When adding a new case study, create a new file and then import it in `caseStudies.ts`
 
-2. **ID Consistency**: When working with case studies, always use the ID as defined in `caseStudiesData.ts`.
+2. **ID Consistency**: 
+   - When working with case studies, always use the ID as defined in the case study file
+   - Keep filenames and IDs matching (e.g., `damon-motorcycles.ts` and `id: "damon-motorcycles"`)
 
 3. **Component Usage**:
    - For displaying a case study page: Use `CaseStudy.tsx` with the correct ID in the URL
    - For displaying featured case studies on homepage: Use `components/CaseStudy.tsx`
 
 4. **Adding New Case Studies**:
-   - Add new case study data to `caseStudiesData.ts` directly, or to `additionalCaseStudies.ts` which is then imported
-   - Follow the existing structure and include all required fields
+   - Create a new file in `src/data/case-studies/` directory following the existing structure
+   - Import and add the new case study in `caseStudies.ts`
    - No need to create individual page components - the dynamic CaseStudy.tsx will handle rendering
 
 5. **Routing Pattern**:
    - Always use `/case-study/:id` for linking to case studies
-   - Ensure the ID in the link matches the ID in `caseStudiesData.ts`
+   - Ensure the ID in the link matches the ID in the case study file
 
 6. **Special ID Handling**:
    - Use consistent mapping between display IDs and data IDs (e.g., 'damon' → 'damon-motorcycles')

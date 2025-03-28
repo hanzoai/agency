@@ -24,7 +24,7 @@ export function getRelatedProjects(currentProjectId: string, count: number = 2):
     // Get the first image from the project or use a default
     const projectImage = project.images && project.images.length > 0 
       ? project.images[0] 
-      : `/images/thumbnails/${id}-thumbnail.jpg`;
+      : getDefaultImageForProject(id);
     
     return {
       id: project.id,
@@ -48,6 +48,27 @@ function shuffleArray<T>(array: T[]): T[] {
     [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
   }
   return newArray;
+}
+
+/**
+ * Get a default image path for a project based on its ID
+ * @param projectId - The ID of the project
+ * @returns Path to the default image for this project
+ */
+function getDefaultImageForProject(projectId: string): string {
+  // Map project IDs to standard image paths
+  const imageMap: Record<string, string> = {
+    'damon-motorcycles': '/images/damon/hero-image.jpg',
+    'bellabeat': '/images/bellabeat/bella-1.jpg',
+    'cover-build': '/images/cover-build/cover-1.jpg',
+    'casper-blockchain': '/images/casper/casper-1.jpg',
+    'myle-tap': '/images/myle-tap/myle-1.jpg',
+    'unikoin-gold': '/images/unikoin/unikoin-1.jpeg',
+    'trillerfest': '/images/trillerfest/main-promo.jpg'
+  };
+  
+  // Return the mapped image or a placeholder
+  return imageMap[projectId] || '/placeholder.svg';
 }
 
 /**

@@ -38,7 +38,9 @@ const damonMotorcycles: CaseStudyData = {
     role: "CEO at Damon Motorcycles"
   },
   images: [
-    "/lovable-uploads/3e0ed6d6-8d6d-4b77-a6c1-aa1c7df4f868.png"
+    "/images/damon/cover.jpg",
+    "/images/damon/damon-2.jpg",
+    "/images/damon/damon-3.jpg"
   ],
   socialLinks: {
     links: [
@@ -56,7 +58,7 @@ const damonMotorcycles: CaseStudyData = {
       id: "trillerfest",
       title: "TRILLERFEST",
       subtitle: "LARGEST VIRTUAL MUSIC FESTIVAL IN HISTORY",
-      imageUrl: "/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png",
+      imageUrl: "/images/trillerfest/trillerfest-banner.png",
       route: "/case-study/trillerfest"
     }
   ]

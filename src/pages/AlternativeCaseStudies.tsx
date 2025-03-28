@@ -57,7 +57,7 @@ const AlternativeCaseStudies = () => {
                 {/* TrillerFest - Featured Large */}
                 <div className="col-span-2 relative overflow-hidden rounded-xl h-[500px] group">
                   <img 
-                    src="/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png"
+                    src="/images/trillerfest/trillerfest-banner.png"
                     alt="TrillerFest Music Festival" 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />

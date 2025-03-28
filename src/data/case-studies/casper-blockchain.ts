@@ -38,6 +38,7 @@ const casperBlockchain: CaseStudyData = {
     role: "CEO at Casper Labs"
   },
   images: [
+    "/images/casper/cover.jpg",
     "/images/casper/casper-1.jpg",
     "/images/casper/casper-2.png",
     "/images/casper/casper-3.png"
@@ -58,14 +59,14 @@ const casperBlockchain: CaseStudyData = {
       id: "unikoin-gold",
       title: "UNIKOIN GOLD",
       subtitle: "BLOCKCHAIN-BASED ESPORTS BETTING PLATFORM",
-      imageUrl: "/lovable-uploads/unikoin-header.jpg",
+      imageUrl: "/images/unikoin/unikoin-1.jpeg",
       route: "/case-study/unikoin-gold"
     },
     {
       id: "trillerfest",
       title: "TRILLERFEST",
       subtitle: "LARGEST VIRTUAL MUSIC FESTIVAL IN HISTORY",
-      imageUrl: "/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png",
+      imageUrl: "/images/trillerfest/trillerfest-banner.png",
       route: "/case-study/trillerfest"
     }
   ]

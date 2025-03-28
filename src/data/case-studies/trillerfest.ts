@@ -38,9 +38,9 @@ const trillerfest: CaseStudyData = {
     role: "CEO at Triller"
   },
   images: [
-    "/images/trillerfest/main-promo.jpg",
-    "/images/trillerfest/migos-promo.jpg",
-    "/images/trillerfest/pitbull-promo.jpg"
+    "/images/triller/main-promo.jpg",
+    "/images/triller/migos-promo.jpg",
+    "/images/triller/pitbull-promo.jpg"
   ],
   socialLinks: {
     links: [
@@ -56,7 +56,7 @@ const trillerfest: CaseStudyData = {
       id: "bellabeat",
       title: "BELLABEAT",
       subtitle: "WOMEN'S HEALTH WEARABLE TECH PLATFORM",
-      imageUrl: "/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+      imageUrl: "/images/bellabeat/bellabeat-showcase.jpg",
       route: "/case-study/bellabeat"
     },
     {

@@ -66,19 +66,19 @@ const VideoCard: React.FC<VideoCardProps> = ({ title, youtubeId, description, in
   // Get default thumbnail if not provided
   const getThumbnailUrl = () => {
     if (thumbnailUrl) return thumbnailUrl;
-    // Map project IDs to thumbnail images
-    const thumbnailMap: Record<string, string> = {
-      'damon': '/images/thumbnails/damon-thumbnail.jpg',
-      'damon-motorcycles': '/images/thumbnails/damon-thumbnail.jpg',
-      'bellabeat': '/images/thumbnails/bella_beat_thumbnail.jpg',
-      'cover-build': '/images/thumbnails/cover-thumbnail.png',
-      'casper-blockchain': '/images/thumbnails/Casper-Labs-Thumbnail.jpg',
-      'myle-tap': '/images/thumbnails/myle-tap-thumbnail.jpg',
-      'unikoin-gold': '/images/thumbnails/unikoin-thumbnail.jpg',
-      'trillerfest': '/images/thumbnails/trillerfest-thumbnail.jpg'
+    // Map project IDs to standard image paths
+    const imageMap: Record<string, string> = {
+      'damon': '/images/damon/hero-image.jpg',
+      'damon-motorcycles': '/images/damon/hero-image.jpg',
+      'bellabeat': '/images/bellabeat/bella-1.jpg',
+      'cover-build': '/images/cover-build/cover-1.jpg',
+      'casper-blockchain': '/images/casper/casper-1.jpg',
+      'myle-tap': '/images/myle-tap/myle-1.jpg',
+      'unikoin-gold': '/images/unikoin/unikoin-1.jpeg',
+      'trillerfest': '/images/trillerfest/main-promo.jpg'
     };
     
-    return thumbnailMap[projectId] || 'https://img.youtube.com/vi/' + youtubeId + '/maxresdefault.jpg';
+    return imageMap[projectId] || (youtubeId ? 'https://img.youtube.com/vi/' + youtubeId + '/maxresdefault.jpg' : '/placeholder.svg');
   };
   
   useEffect(() => {

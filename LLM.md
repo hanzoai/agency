@@ -40,7 +40,7 @@ Case studies are a key part of the website and follow a consistent pattern:
    
 2. **Rendering Components**:
    - `src/pages/CaseStudy.tsx`: Dynamic page component that renders any case study based on the URL parameter
-   - `src/components/CaseStudyTemplate.tsx`: Template component for rendering a case study's content
+   - `src/components/CaseStudyPage.tsx`: Component for rendering a case study's full content
    - `src/components/CaseStudy.tsx`: Component used on the homepage to showcase featured case studies
 
 3. **Case Study IDs**:
@@ -54,6 +54,13 @@ Case studies are a key part of the website and follow a consistent pattern:
 
 ## Project Cleanup History
 
+### Component Naming
+- **Issue**: CaseStudyTemplate naming was confusing and component was missing
+- **Resolution**: Created CaseStudyPage component with clear naming that better reflects its purpose
+- **Files Updated**:
+  - Created `src/components/CaseStudyPage.tsx` to render individual case studies
+  - Updated `src/pages/CaseStudy.tsx` to use the new component
+
 ### Data Reorganization
 - **Issue**: Case study data was split across multiple files with duplication and inconsistencies
 - **Resolution**: Created individual files for each case study and a centralized import/export system
@@ -65,7 +72,7 @@ Case studies are a key part of the website and follow a consistent pattern:
 
 ### Component Consolidation
 - **Issue**: Multiple redundant components for rendering case studies
-- **Resolution**: Standardized on using CaseStudy.tsx with CaseStudyTemplate.tsx
+- **Resolution**: Standardized on using CaseStudy.tsx with CaseStudyPage.tsx
 - **Files Removed**:
   - Individual case study pages (CaseStudyBellabeat.tsx, CaseStudyDamonMotorcycles.tsx, etc.)
 - **Files Updated**:
@@ -99,6 +106,7 @@ Case studies are a key part of the website and follow a consistent pattern:
 
 3. **Component Usage**:
    - For displaying a case study page: Use `CaseStudy.tsx` with the correct ID in the URL
+   - For displaying a case study's content: Use `CaseStudyPage.tsx` 
    - For displaying featured case studies on homepage: Use `components/CaseStudy.tsx`
 
 4. **Adding New Case Studies**:

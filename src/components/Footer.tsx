@@ -25,7 +25,7 @@ const Footer = () => {
               <ArrowUpRight size={16} className="ml-1" />
             </a>
           </div>
-          
+
           <div className="grid grid-cols-5 gap-4">
             <a href="https://instagram.com/hanzoai" target="_blank" rel="noopener noreferrer" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
               <Instagram size={24} />
@@ -44,9 +44,9 @@ const Footer = () => {
             </a>
           </div>
         </div>
-        
+
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-primary/70 border-t border-black/10 pt-8">
-          <div>© {new Date().getFullYear()} Hanzo Inc. All rights reserved.</div>
+          <div>© {new Date().getFullYear()} Hanzo Industries Inc. All rights reserved.</div>
           <div className="flex flex-wrap justify-center gap-6 mt-4 md:mt-0">
             <Link to="/" className="hover:text-primary transition">Index</Link>
             <Link to="/projects" className="hover:text-primary transition">Projects</Link>

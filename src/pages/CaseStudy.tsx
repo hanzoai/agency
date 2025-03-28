@@ -254,8 +254,8 @@ const CaseStudy = () => {
             )}
 
             {/* CTA */}
-            <div className="text-center mt-20">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">{data.ctaTitle || "Want to create something amazing?"}</h2>
+            <div className="text-center mt-40 mb-20">
+              <h2 className="text-3xl md:text-4xl font-bold mb-10">{data.ctaTitle || "Want to create something amazing?"}</h2>
               <Link to="/contact" className="bg-accent hover:bg-accent/90 text-black py-3 px-6 rounded-full inline-flex items-center transition-all">
                 Let's Talk
                 <ArrowUpRight size={18} className="ml-2" />

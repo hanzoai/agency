@@ -51,14 +51,14 @@ export const additionalCaseStudies: Record<string, CaseStudyData> = {
         id: "damon-motorcycles",
         title: "DAMON MOTORCYCLES",
         subtitle: "HIGHLY CONVERTING 500X ROI CAMPAIGN",
-        imageUrl: "/img/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+        imageUrl: "/images/damon/damon-campaign.webp",
         route: "/case-study/damon-motorcycles"
       },
       {
         id: "bellabeat",
         title: "BELLABEAT",
         subtitle: "WOMEN'S HEALTH WEARABLE TECH PLATFORM",
-        imageUrl: "/img/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+        imageUrl: "/images/damon/damon-campaign.webp",
         route: "/case-study/bellabeat"
       }
     ]
@@ -112,14 +112,14 @@ export const additionalCaseStudies: Record<string, CaseStudyData> = {
         id: "unikoin-gold",
         title: "UNIKOIN GOLD",
         subtitle: "BLOCKCHAIN-BASED ESPORTS BETTING PLATFORM",
-        imageUrl: "/img/unikoin-header.jpg",
+        imageUrl: "/images/unikoin/unikoin-1.jpeg",
         route: "/case-study/unikoin-gold"
       },
       {
         id: "trillerfest",
         title: "TRILLERFEST",
         subtitle: "LARGEST VIRTUAL MUSIC FESTIVAL IN HISTORY",
-        imageUrl: "/img/919bfa95-912a-489f-a859-7a42e0d7d435.png",
+        imageUrl: "/images/trillerfest/trillerfest-banner.png",
         route: "/case-study/trillerfest"
       }
     ]
@@ -172,14 +172,14 @@ export const additionalCaseStudies: Record<string, CaseStudyData> = {
         id: "bellabeat",
         title: "BELLABEAT",
         subtitle: "WOMEN'S HEALTH WEARABLE TECH PLATFORM",
-        imageUrl: "/img/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+        imageUrl: "/images/damon/damon-campaign.webp",
         route: "/case-study/bellabeat"
       },
       {
         id: "damon-motorcycles",
         title: "DAMON MOTORCYCLES",
         subtitle: "HIGHLY CONVERTING 500X ROI CAMPAIGN",
-        imageUrl: "/img/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+        imageUrl: "/images/damon/damon-campaign.webp",
         route: "/case-study/damon-motorcycles"
       }
     ]

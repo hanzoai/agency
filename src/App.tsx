@@ -10,7 +10,8 @@ import Subscribe from "./pages/Subscribe";
 import OnboardingForm from "./pages/Onboarding";
 import OnboardingSuccess from "./pages/OnboardingSuccess";
 import CaseStudies from "./pages/CaseStudies";
-import CaseStudy from "./pages/CaseStudy";
+import CaseStudyV1 from "./pages/CaseStudyV1";
+import CaseStudyV2 from "./pages/CaseStudyV2";
 
 import Contact from "./pages/Contact";
 
@@ -41,7 +42,8 @@ const App = () => (
           <Route path="/onboarding-success" element={<OnboardingSuccess />} />
           <Route path="/case-studies" element={<CaseStudies />} />
 
-          <Route path="/case-study/:id" element={<CaseStudy />} />
+          <Route path="/case-study/:id" element={<CaseStudyV2 />} />
+          <Route path="/case-study-v1/:id" element={<CaseStudyV1 />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

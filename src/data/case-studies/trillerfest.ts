@@ -38,9 +38,9 @@ const trillerfest: CaseStudyData = {
     role: "CEO at Triller"
   },
   images: [
-    "/images/triller/main-promo.jpg",
-    "/images/triller/migos-promo.jpg",
-    "/images/triller/pitbull-promo.jpg"
+    "/images/triller/triller-1.jpg",
+    "/images/triller/triller-2.jpg",
+    "/images/triller/triller-3.jpg"
   ],
   socialLinks: {
     links: [
@@ -63,7 +63,7 @@ const trillerfest: CaseStudyData = {
       id: "unikoin-gold",
       title: "UNIKOIN GOLD",
       subtitle: "BLOCKCHAIN-BASED ESPORTS BETTING PLATFORM",
-      imageUrl: "/images/unikoin/unikoin-1.jpeg",
+      imageUrl: "/images/unikrn/unikrn-1.jpg",
       route: "/case-study/unikoin-gold"
     }
   ]

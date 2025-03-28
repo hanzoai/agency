@@ -54,6 +54,14 @@ Case studies are a key part of the website and follow a consistent pattern:
 
 ## Project Cleanup History
 
+### Case Study Image Path Fixes
+- **Issue**: Broken images on the landing page in case study sections for Trillerfest and Unikoin Gold
+- **Resolution**: Updated image paths to match the actual directory structure in the public folder
+- **Files Updated**:
+  - `src/components/CaseStudy.tsx`: Fixed fallback image paths to use correct folder names and file paths
+  - `src/data/case-studies/trillerfest.ts`: Updated image paths to match actual files
+  - `src/data/case-studies/unikoin-gold.ts`: Updated image paths to match actual files
+
 ### Component Naming
 - **Issue**: CaseStudyTemplate naming was confusing and component was missing
 - **Resolution**: Created CaseStudyPage component with clear naming that better reflects its purpose

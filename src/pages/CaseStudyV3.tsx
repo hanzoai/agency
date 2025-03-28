@@ -22,7 +22,7 @@ const CaseStudyV3 = () => {
   const data = caseStudies[id];
 
   // Get dynamically generated related projects
-  const relatedProjects = data.relatedProjects || getRelatedProjects(id, 2);
+  const relatedProjects = data.relatedProjects || getRelatedProjects(id, 3);
   
   useEffect(() => {
     // Set the body to dark theme

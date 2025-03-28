@@ -13,9 +13,15 @@ const CaseStudyV1 = () => {
   
   return (
     <div className="relative">
-      <div className="absolute top-24 right-4 z-50">
+      <div className="absolute top-24 right-4 z-50 flex gap-2">
         <Link 
           to={`/case-study/${id}`} 
+          className="text-xs text-accent/70 hover:text-accent bg-black/50 px-3 py-1 rounded-full"
+        >
+          Switch to V3
+        </Link>
+        <Link 
+          to={`/case-study-v2/${id}`} 
           className="text-xs text-accent/70 hover:text-accent bg-black/50 px-3 py-1 rounded-full"
         >
           Switch to V2

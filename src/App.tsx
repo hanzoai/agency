@@ -11,6 +11,7 @@ import OnboardingForm from "./pages/Onboarding";
 import OnboardingSuccess from "./pages/OnboardingSuccess";
 import CaseStudies from "./pages/CaseStudies";
 import CaseStudy from "./pages/CaseStudy";
+import AlternativeCaseStudies from "./pages/AlternativeCaseStudies";
 import Contact from "./pages/Contact";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/onboarding" element={<OnboardingForm />} />
           <Route path="/onboarding-success" element={<OnboardingSuccess />} />
           <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/case-studies-alt" element={<AlternativeCaseStudies />} />
           <Route path="/case-study/:id" element={<CaseStudy />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />

@@ -86,13 +86,13 @@ Case studies are a key part of the website and follow a consistent pattern:
   - `src/components/VideoCard.tsx`: Updated thumbnail map to include both 'damon' and 'damon-motorcycles'
 
 ### Alternative Case Studies Page
-- **Issue**: Only one view available for case studies
-- **Resolution**: Added an alternative design to showcase projects in a different layout
-- **Files Added**:
-  - `src/pages/AlternativeCaseStudies.tsx`: New page with a card-based layout for case studies
+- **Previous Effort**: Added an alternative design to showcase projects with a card-based layout, but it was later deprecated
+- **Resolution**: Removed unused alternative case study pages as part of codebase cleanup
+- **Files Removed**:
+  - `src/pages/AlternativeCaseStudies.tsx`: Unused alternative layout
+  - `src/pages/CaseStudy2.tsx`: Alternative case studies view that was accessible via `/case-studies-alt`
 - **Files Updated**:
-  - `App.tsx`: Added route for alternative case studies page
-  - `Navbar.tsx`: Added dropdown menu to access both case study views
+  - `App.tsx`: Removed import and route for CaseStudy2
 
 ## Best Practices for Development
 

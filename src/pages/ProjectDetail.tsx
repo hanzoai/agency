@@ -4,9 +4,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ArrowLeft, ArrowRight, Globe, Linkedin, Instagram, Facebook, Twitter, Youtube } from 'lucide-react';
 import SocialLinks from '@/components/SocialLinks';
-import { socialLinksData } from '@/data/socialLinksData';
 import GlobalMuteButton from '@/components/GlobalMuteButton';
-import { caseStudiesData } from '@/data/caseStudiesData';
+import caseStudies from '@/data/caseStudies';
 import { CaseStudyData } from '@/types/caseStudy';
 
 // Extended interface that includes additional fields from the static data
@@ -34,8 +33,8 @@ const ProjectDetail = () => {
     // Get the correct ID to use for data lookup
     const dataId = idMapping[id || ''] || id;
     
-    if (dataId && caseStudiesData[dataId]) {
-      const caseStudy = caseStudiesData[dataId];
+    if (dataId && caseStudies[dataId]) {
+      const caseStudy = caseStudies[dataId];
       
       // Extract YouTube ID from videoUrl if available
       let youtubeId = '';
@@ -92,7 +91,7 @@ const ProjectDetail = () => {
   }
 
   // Helper function to join string arrays into a single string
-  // Used for converting arrays in caseStudiesData to strings needed for rendering
+  // Used for converting arrays in caseStudies to strings needed for rendering
   const joinStringArray = (arr: string[]): string => {
     return arr.join(' ');
   };
@@ -155,7 +154,7 @@ const ProjectDetail = () => {
           <h1 className="text-4xl md:text-6xl font-bold mb-6">{project.title}</h1>
           <p className="text-xl md:text-2xl text-white/80 mb-6">{project.subtitle}</p>
           
-          {/* Social Media Icons - Now using the socialLinks from caseStudiesData directly */}
+          {/* Social Media Icons - Now using the socialLinks directly */}
           {project.socialLinks && (
             <div className="flex flex-col space-y-4 mb-12">
               <SocialLinks 

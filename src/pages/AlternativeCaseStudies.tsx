@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
 import GlobalMuteButton from '@/components/GlobalMuteButton';
-import { caseStudiesData } from '@/data/caseStudiesData';
+import caseStudies from '@/data/caseStudies';
 
 const AlternativeCaseStudies = () => {
   // Extract YouTube IDs from case study data
@@ -77,7 +77,7 @@ const AlternativeCaseStudies = () => {
               
               {/* Grid Layout of All Case Studies */}
               <div className="grid md:grid-cols-3 gap-8">
-                {Object.values(caseStudiesData).map((study, index) => (
+                {Object.values(caseStudies).map((study, index) => (
                   index !== 0 && ( // Skip the first one (TrillerFest) as it's featured above
                     <div 
                       key={study.id} 

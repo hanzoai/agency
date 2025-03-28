@@ -6,7 +6,7 @@ import { BentoGrid, BentoCard } from '@/components/BentoGrid';
 import ParallaxItem from '@/components/ParallaxItem';
 import ScrollReveal from '@/utils/ScrollReveal';
 import GlobalMuteButton from '@/components/GlobalMuteButton';
-import { caseStudiesData } from '@/data/caseStudiesData';
+import caseStudies from '@/data/caseStudies';
 
 interface Project {
   id: string;
@@ -32,8 +32,8 @@ const CaseStudies = () => {
     return largeProjects.includes(id) ? 'large' : 'medium';
   };
 
-  // Map from caseStudiesData to the format required by this component
-  const projectsFromCaseStudies: Project[] = Object.values(caseStudiesData).map(caseStudy => {
+  // Map from caseStudies to the format required by this component
+  const projectsFromCaseStudies: Project[] = Object.values(caseStudies).map(caseStudy => {
     // Handle ID mapping for display purposes
     const displayId = caseStudy.id === 'damon-motorcycles' ? 'damon' : caseStudy.id;
     

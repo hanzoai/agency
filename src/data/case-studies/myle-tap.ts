@@ -40,21 +40,21 @@ const myleTap: CaseStudyData = {
   images: [
     "/images/myle/myle-1.jpg",
     "/images/myle/myle-2.jpg",
-    "/images/myle/myle-3.jpeg"
+    "/images/myle/myle-3.jpg"
   ],
   relatedProjects: [
     {
       id: "bellabeat",
       title: "BELLABEAT",
       subtitle: "WOMEN'S HEALTH WEARABLE TECH PLATFORM",
-      imageUrl: "/images/damon/damon-campaign.webp",
+      imageUrl: "/images/bellabeat/bella-1.jpg",
       route: "/case-study/bellabeat"
     },
     {
       id: "damon-motorcycles",
       title: "DAMON MOTORCYCLES",
       subtitle: "HIGHLY CONVERTING 500X ROI CAMPAIGN",
-      imageUrl: "/images/damon/damon-campaign.webp",
+      imageUrl: "/images/damon/damon-1.jpg",
       route: "/case-study/damon-motorcycles"
     }
   ]

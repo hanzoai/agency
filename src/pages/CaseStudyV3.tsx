@@ -115,22 +115,6 @@ const CaseStudyV3 = () => {
         <GlobalMuteButton />
         
         <main className={`${isBannerVisible ? 'pt-36' : 'pt-32'}`}>
-          {/* Version Switcher */}
-          <div className="absolute top-24 right-6 z-50 flex gap-2">
-            <Link 
-              to={`/case-study-v1/${id}`} 
-              className="text-xs text-accent/70 hover:text-accent bg-black/50 px-3 py-1 rounded-full"
-            >
-              View V1
-            </Link>
-            <Link 
-              to={`/case-study-v2/${id}`} 
-              className="text-xs text-accent/70 hover:text-accent bg-black/50 px-3 py-1 rounded-full"
-            >
-              View V2
-            </Link>
-          </div>
-        
           {/* Hero Section - Video or Image */}
           <div className="relative w-full h-[35vh] md:h-[49vh] overflow-hidden flex justify-center pt-12 mb-8">
             <div className={`w-full ${getVideoWidth()} h-full`}>

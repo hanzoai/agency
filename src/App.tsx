@@ -12,6 +12,7 @@ import OnboardingSuccess from "./pages/OnboardingSuccess";
 import CaseStudies from "./pages/CaseStudies";
 import CaseStudyV1 from "./pages/CaseStudyV1";
 import CaseStudyV2 from "./pages/CaseStudyV2";
+import CaseStudyV3 from "./pages/CaseStudyV3";
 
 import Contact from "./pages/Contact";
 
@@ -42,8 +43,9 @@ const App = () => (
           <Route path="/onboarding-success" element={<OnboardingSuccess />} />
           <Route path="/case-studies" element={<CaseStudies />} />
 
-          <Route path="/case-study/:id" element={<CaseStudyV2 />} />
+          <Route path="/case-study/:id" element={<CaseStudyV3 />} />
           <Route path="/case-study-v1/:id" element={<CaseStudyV1 />} />
+          <Route path="/case-study-v2/:id" element={<CaseStudyV2 />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

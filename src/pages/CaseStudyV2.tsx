@@ -111,12 +111,20 @@ const CaseStudyV2 = () => {
               </div>
               
               {/* Version Toggle */}
-              <Link 
-                to={`/case-study-v1/${id}`} 
-                className="text-xs text-accent/70 hover:text-accent"
-              >
-                Switch to V1
-              </Link>
+              <div className="flex gap-2">
+                <Link 
+                  to={`/case-study-v1/${id}`} 
+                  className="text-xs text-accent/70 hover:text-accent"
+                >
+                  Switch to V1
+                </Link>
+                <Link 
+                  to={`/case-study/${id}`} 
+                  className="text-xs text-accent/70 hover:text-accent"
+                >
+                  Switch to V3
+                </Link>
+              </div>
             </div>
             
             {/* Hero section */}

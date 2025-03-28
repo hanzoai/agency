@@ -2,156 +2,81 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { ArrowLeft, Globe, Linkedin, Instagram, Facebook, Twitter, Youtube } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Globe, Linkedin, Instagram, Facebook, Twitter, Youtube } from 'lucide-react';
+import SocialLinks from '@/components/SocialLinks';
+import { socialLinksData } from '@/data/socialLinksData';
 import GlobalMuteButton from '@/components/GlobalMuteButton';
+import { caseStudiesData } from '@/data/caseStudiesData';
+import { CaseStudyData } from '@/types/caseStudy';
 
-interface Project {
-  id: string;
-  title: string;
-  youtubeId: string;
-  description: string;
-  fullDescription?: string;
-  challenge?: string;
-  solution?: string;
-  results?: string;
+// Extended interface that includes additional fields from the static data
+// that aren't in the CaseStudyData interface
+interface ExtendedCaseStudyData extends CaseStudyData {
+  youtubeId?: string;
   technologies?: string[];
   galleryImages?: string[];
 }
 
 const ProjectDetail = () => {
-  const { projectId } = useParams<{ projectId: string }>();
-  const [project, setProject] = useState<Project | null>(null);
+  const { id } = useParams<{ id: string }>();
+  const [project, setProject] = useState<ExtendedCaseStudyData | null>(null);
   
   useEffect(() => {
     // Set the body to dark theme
     document.body.classList.add('dark');
     
-    // This would normally be an API call
-    // For demo purposes, we'll use a static object
-    const projectsData: Record<string, Project> = {
-      'triller': {
-        id: 'triller',
-        title: 'Trillerfest',
-        youtubeId: 'QEQpdYYYlhc',
-        description: 'LARGEST VIRTUAL MUSIC FESTIVAL IN HISTORY',
-        fullDescription: 'TrillerFest was a groundbreaking virtual music festival that brought together top artists during a time when live events were impossible. Our team was tasked with creating an immersive digital experience that would capture the energy of a live event while being accessible to millions worldwide.',
-        challenge: 'The challenge was to create a seamless streaming experience for millions of concurrent viewers, integrate multiple artist performances from different locations, and build an engaging platform that would keep viewers engaged throughout the multi-day event.',
-        solution: 'We developed a custom streaming platform with adaptive bitrate technology, created virtual stages with unique visual identities for each artist, and implemented real-time interaction features to connect artists with fans. The solution included a responsive design that worked across all devices and integrated social media sharing to maximize reach.',
-        results: 'TrillerFest became the largest virtual music festival in history with over 5 million concurrent viewers and 20+ million total views. The event generated significant media coverage and established a new benchmark for virtual music experiences.',
-        technologies: ['React', 'WebRTC', 'Node.js', 'AWS Media Services', 'WebGL'],
-        galleryImages: [
-          '/images/trillerfest/main-promo.jpg',    // Image 1 - Main poster with red background
-          '/images/trillerfest/migos-promo.jpg',    // Image 2 - Migos promo image
-          '/images/trillerfest/pitbull-promo.jpg'   // Image 3 - Pitbull promo image
-        ]
-      },
-      'bella-beat': {
-        id: 'bella-beat',
-        title: 'Bellabeat',
-        youtubeId: 'rsda3VIuRxM',
-        description: 'WOMEN\'S HEALTH WEARABLE TECH PLATFORM',
-        fullDescription: 'Bellabeat, established in 2014 by Urška Sršen and Sandro Mur, is a pioneering fem-tech company dedicated to women\'s health and wellness. The company specializes in wearable technology that enables women to monitor their health metrics, including menstrual cycles, sleep patterns, and stress levels.',
-        challenge: 'In its early years, Bellabeat faced significant challenges in scaling its operations and reaching a broader audience. The competitive landscape of health tech demanded innovative marketing strategies and robust technological infrastructure to support growth. Data management and personalization at scale were key obstacles to overcome.',
-        solution: 'Hanzo AI implemented advanced AI algorithms to analyze consumer behavior and preferences, enabling Bellabeat to tailor its marketing campaigns effectively. We overhauled Bellabeat\'s data management systems, introducing scalable solutions that could handle increased user data volumes and created personalized data visualization tools that improved user engagement with health metrics.',
-        results: 'The strategic partnership between Bellabeat and Hanzo AI yielded substantial results. Bellabeat experienced a significant surge in sales, with revenue estimates reaching up to $35 million by May 2024. User retention increased by 45%, and overall engagement with the platform improved by 67%.',
-        technologies: ['AI Algorithms', 'Data Analytics', 'Wearable Tech', 'Health Metrics', 'Cloud Infrastructure', 'Marketing Automation', 'User Experience', 'Data Visualization'],
-        galleryImages: [
-          '/images/bellabeat/bella-1.jpg',
-          '/images/bellabeat/bella-2.jpg',
-          '/images/bellabeat/bella-3.jpeg'
-        ]
-      },
-      'damon': {
-        id: 'damon',
-        title: 'Damon Motorcycles',
-        youtubeId: 'T6FyMkSAf7w',
-        description: 'HIGHLY CONVERTING 500X ROI CAMPAIGN',
-        fullDescription: 'Damon Motorcycles approached us to create a digital campaign for their revolutionary electric motorcycle. The goal was to generate pre-orders and investment interest by showcasing the bike\'s innovative safety features and performance capabilities.',
-        challenge: 'The electric motorcycle market was crowded with competitors, and Damon needed to differentiate their product while convincing traditional motorcycle enthusiasts to consider an electric alternative. The campaign needed to generate tangible ROI through pre-orders.',
-        solution: 'We created a multi-channel digital campaign centered around high-quality visual content that demonstrated the motorcycle\'s features in action. The campaign included targeted social media ads, an interactive landing page with 3D visualization, and retargeting strategies to maximize conversion.',
-        results: 'The campaign achieved a remarkable 500X ROI, generating over $2M in pre-orders from an investment of $4,000. Additionally, it helped secure Series A funding by demonstrating market demand.',
-        technologies: ['Three.js', 'WebGL', 'Facebook Ads', 'Google Analytics', 'Hubspot'],
-        galleryImages: [
-          '/images/damon/damon-2.jpg',    // Black model in studio
-          '/images/damon/hero-image.jpg',    // White/gold and black models
-          '/images/damon/damon-3.jpg'     // Black model on road
-        ]
-      },
-      'cover-build': {
-        id: 'cover-build',
-        title: 'Cover Build',
-        youtubeId: 'zZwdjRw3w2w',
-        description: 'REVOLUTIONARY PREFAB HOUSING SOLUTION',
-        fullDescription: 'Cover Build is reinventing housing with precision-engineered, fully customizable prefabricated homes. We partnered with them to create a digital presence that would showcase their innovative approach to modern living.',
-        challenge: 'We needed to communicate the value of prefabricated housing to a market that often associates it with lower quality. The website needed to highlight the precision engineering while making the customization process intuitive for potential buyers.',
-        solution: 'We developed an immersive website featuring 3D visualization tools that allowed users to explore and customize their potential homes. The site incorporated detailed animations explaining the engineering process and showcased completed projects through virtual tours.',
-        results: 'The new digital platform increased qualified leads by 300% and reduced the sales cycle by 40%. The visualization tools proved particularly effective, with 70% of customers using them before making purchase decisions.',
-        technologies: ['React', 'Three.js', 'WebGL', 'Gatsby', 'Contentful'],
-        galleryImages: [
-          '/images/cover-build/cover-1.jpg',
-          '/images/cover-build/cover-2.jpeg',
-          '/images/cover-build/cover-3.jpeg'
-        ]
-      },
-      'unikoin-gold': {
-        id: 'unikoin-gold',
-        title: 'Unikoin Gold',
-        youtubeId: '8TbWsxiyKUE',
-        description: 'BLOCKCHAIN-BASED ESPORTS BETTING PLATFORM',
-        fullDescription: 'Unikrn, established in 2014, is a leading esports entertainment and betting platform. To enhance its offerings, Unikrn introduced UnikoinGold (UKG), an ERC20 token on the Ethereum blockchain, aiming to create a decentralized, community-driven virtual economy for esports enthusiasts.',
-        challenge: 'The integration of blockchain technology into Unikrn\'s platform presented several challenges including regulatory compliance across various jurisdictions, technological integration of blockchain systems, and developing features that would drive adoption among the esports community.',
-        solution: 'Hanzo AI collaborated with Unikrn to develop a compliance framework, assisted in designing and implementing Ethereum smart contracts, and helped develop user-centric features such as tipping for esports participants and a new skill-based betting platform powered by UnikoinGold.',
-        results: 'The collaboration led to enhanced compliance allowing Unikrn to operate within legal frameworks across jurisdictions, successful integration of blockchain technology establishing a transparent transaction system, and increased user engagement through new interactive features for the esports community.',
-        technologies: ['Blockchain', 'Ethereum', 'Smart Contracts', 'ERC20 Tokens', 'API Integration', 'AI Algorithms', 'Web3', 'Decentralized Finance'],
-        galleryImages: [
-          '/images/unikoin/unikoin-1.jpeg',
-          '/images/unikoin/unikoin-2.jpeg',
-          '/images/unikoin/unikoin-3.jpeg'
-        ]
-      },
-      'casper-blockchain': {
-        id: 'casper-blockchain',
-        title: 'Casper Blockchain',
-        youtubeId: '7zQZmovxRNs',
-        description: 'Foundational partnership creating the first enterprise-ready blockchain from inception',
-        fullDescription: 'Hanzo AI began collaborating with Casper Labs in 2018, significantly shaping the direction and technology underpinning what would become the Casper Blockchain, an innovative proof-of-stake network designed specifically for enterprise adoption.',
-        challenge: 'The blockchain sector confronted significant hurdles to enterprise adoption, such as performance constraints, security vulnerabilities, and insufficient enterprise-grade functionality. Casper Labs required strategic guidance, deep technical proficiency, and architectural insight to develop a robust solution capable of effectively addressing complex commercial demands, positioning them among industry leaders even before the official launch.',
-        solution: 'Hanzo AI secured Casper Labs\'s first-ever development grant, establishing early financial support. We advocated for and executed a strategic pivot to the Rust programming language, ensuring enhanced security and scalability. Our team co-designed Casper\'s architecture from inception and led initial deployment, being among the first entities to launch and run validator nodes before the official mainnet launch.',
-        results: 'Through Hanzo AI\'s direct involvement, Casper Labs evolved from a conceptual project into a fully operational blockchain platform with a successful mainnet launch in 2021. We co-founded the DEVxDAO, the first Swiss-based blockchain association dedicated to funding cutting-edge blockchain research, which has become instrumental in attracting global blockchain talent and fostering innovation in decentralized technologies.',
-        technologies: ['Blockchain', 'Rust', 'Proof of Stake', 'Smart Contracts', 'Validator Nodes', 'Enterprise Architecture', 'Decentralized Finance'],
-        galleryImages: [
-          '/images/casper/casper-1.jpg',
-          '/images/casper/casper-2.png',
-          '/images/casper/casper-3.png'
-        ]
-      },
-      'myle-tap': {
-        id: 'myle-tap',
-        title: 'Myle Tap',
-        youtubeId: 'A43eWc8vddg',
-        description: 'Innovative wearable interaction technology',
-        fullDescription: 'Myle Tap is the world\'s first truly hands-free, voice-activated, wearable shortcut to your apps. Our collaboration with Myle Tap helped launch this groundbreaking wearable technology that allows users to interact with their smart devices through simple, intuitive voice commands.',
-        challenge: 'The wearable technology market was already crowded with established players. Myle Tap needed to differentiate itself with a unique value proposition while ensuring the user experience was seamless across different platforms and devices.',
-        solution: 'We developed a comprehensive marketing and launch strategy, designing an intuitive mobile app interface that complemented the physical device. Our team created demonstration videos and interactive web experiences to showcase the product\'s capabilities and ease of use.',
-        results: 'The campaign helped Myle Tap secure significant media coverage in major tech publications, leading to a successful product launch with 200% of their crowdfunding goal achieved. The app design received praise for its intuitive interface and seamless integration with the physical device.',
-        technologies: ['Mobile App Development', 'UX/UI Design', 'API Integration', 'Bluetooth Technology', 'Voice Recognition', 'Video Production', 'Digital Marketing'],
-        galleryImages: [
-          '/images/myle-tap/myle-1.jpg',
-          '/images/myle-tap/myle-2.jpg',
-          '/images/myle-tap/myle-3.jpeg'
-        ]
-      }
+    // This mapping handles the case where URL params might use different IDs than the data
+    const idMapping: Record<string, string> = {
+      'damon': 'damon-motorcycles',
+      // Add other mappings if needed
     };
     
-    const foundProject = projectsData[projectId || ''];
-    if (foundProject) {
-      setProject(foundProject);
+    // Get the correct ID to use for data lookup
+    const dataId = idMapping[id || ''] || id;
+    
+    if (dataId && caseStudiesData[dataId]) {
+      const caseStudy = caseStudiesData[dataId];
+      
+      // Extract YouTube ID from videoUrl if available
+      let youtubeId = '';
+      if (caseStudy.videoUrl) {
+        const match = caseStudy.videoUrl.match(/embed\/([^?]+)/);
+        youtubeId = match ? match[1] : '';
+      }
+      
+      // Create an extended case study with additional fields
+      const extendedCaseStudy: ExtendedCaseStudyData = {
+        ...caseStudy,
+        youtubeId,
+        // Map images to galleryImages for compatibility with existing rendering
+        galleryImages: caseStudy.images,
+        // Add technologies if we want to display them (not in original CaseStudyData)
+        technologies: getTechnologiesForProject(dataId)
+      };
+      
+      setProject(extendedCaseStudy);
     }
     
     return () => {
       document.body.classList.remove('dark');
     };
-  }, [projectId]);
+  }, [id]);
+  
+  // Helper function to provide technologies based on project ID
+  // This data was previously hardcoded in the static object
+  const getTechnologiesForProject = (projectId: string): string[] => {
+    const technologiesMap: Record<string, string[]> = {
+      'trillerfest': ['React', 'WebRTC', 'Node.js', 'AWS Media Services', 'WebGL'],
+      'bellabeat': ['AI Algorithms', 'Data Analytics', 'Wearable Tech', 'Health Metrics', 'Cloud Infrastructure', 'Marketing Automation', 'User Experience', 'Data Visualization'],
+      'damon-motorcycles': ['Three.js', 'WebGL', 'Facebook Ads', 'Google Analytics', 'Hubspot'],
+      'cover-build': ['React', 'Three.js', 'WebGL', 'Gatsby', 'Contentful'],
+      'unikoin-gold': ['Blockchain', 'Ethereum', 'Smart Contracts', 'ERC20 Tokens', 'API Integration', 'AI Algorithms', 'Web3', 'Decentralized Finance'],
+      'casper-blockchain': ['Blockchain', 'Rust', 'Proof of Stake', 'Smart Contracts', 'Validator Nodes', 'Enterprise Architecture', 'Decentralized Finance'],
+      'myle-tap': ['Mobile App Development', 'UX/UI Design', 'API Integration', 'Bluetooth Technology', 'Voice Recognition', 'Video Production', 'Digital Marketing']
+    };
+    
+    return technologiesMap[projectId] || [];
+  };
   
   if (!project) {
     return (
@@ -166,14 +91,20 @@ const ProjectDetail = () => {
     );
   }
 
+  // Helper function to join string arrays into a single string
+  // Used for converting arrays in caseStudiesData to strings needed for rendering
+  const joinStringArray = (arr: string[]): string => {
+    return arr.join(' ');
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       <Navbar />
       <GlobalMuteButton />
       
       <main className="pt-36">
-        {/* Hero Section - Video for TrillerFest, Image for Damon */}
-        {project.id === 'damon' ? (
+        {/* Hero Section - Video for most projects, Image for Damon */}
+        {project.id === 'damon-motorcycles' ? (
           <div className="relative w-full h-[35vh] md:h-[49vh] overflow-hidden flex justify-center pt-12 mb-8">
             <div className="w-full md:w-[70%] h-full">
               <img
@@ -222,88 +153,25 @@ const ProjectDetail = () => {
           </Link>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6">{project.title}</h1>
-          <p className="text-xl md:text-2xl text-white/80 mb-6">{project.description}</p>
+          <p className="text-xl md:text-2xl text-white/80 mb-6">{project.subtitle}</p>
           
-          {/* Social Media Icons - Only for specific projects */}
-          {(project.id === 'cover-build' || project.id === 'damon') && (
-            <div className="flex gap-4 mb-12">
-              {/* Website */}
-              {project.id === 'cover-build' && (
-                <a href="https://www.cover.build" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-                  <Globe size={20} className="text-white" />
-                </a>
-              )}
-
-              {project.id === 'damon' && (
-                <a href="https://www.damon.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-                  <Globe size={20} className="text-white" />
-                </a>
-              )}
-              
-              {/* LinkedIn */}
-              {(project.id === 'cover-build' || project.id === 'damon') && (
-                <a 
-                  href={
-                    project.id === 'cover-build' ? "https://www.linkedin.com/company/coverbuild" :
-                    "https://www.linkedin.com/company/damonmotorcycles"
-                  } 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-                >
-                  <Linkedin size={20} className="text-white" />
-                </a>
-              )}
-              
-              {/* Instagram */}
-              {(project.id === 'cover-build' || project.id === 'damon') && (
-                <a 
-                  href={
-                    project.id === 'cover-build' ? "https://www.instagram.com/coverbuild" :
-                    "https://www.instagram.com/damonmotorcycles"
-                  } 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-                >
-                  <Instagram size={20} className="text-white" />
-                </a>
-              )}
-              
-              {/* Facebook */}
-              {(project.id === 'cover-build' || project.id === 'damon') && (
-                <a 
-                  href={
-                    project.id === 'cover-build' ? "https://www.facebook.com/coverbuild" :
-                    "https://www.facebook.com/damonmotorcycles"
-                  } 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-                >
-                  <Facebook size={20} className="text-white" />
-                </a>
-              )}
-              
-              {/* Twitter - Only for Cover Build */}
-              {project.id === 'cover-build' && (
-                <a 
-                  href="https://twitter.com/coverbuild"
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-                >
-                  <Twitter size={20} className="text-white" />
-                </a>
-              )}
+          {/* Social Media Icons - Now using the socialLinks from caseStudiesData directly */}
+          {project.socialLinks && (
+            <div className="flex flex-col space-y-4 mb-12">
+              <SocialLinks 
+                links={project.socialLinks.links}
+                totalFollowers={project.socialLinks.totalFollowers}
+              />
             </div>
           )}
           
           <div className="grid md:grid-cols-2 gap-12 mb-16">
-            {project.fullDescription && (
+            {project.overview && (
               <div>
                 <h2 className="text-2xl font-bold mb-4">Overview</h2>
-                <p className="text-lg text-white/80">{project.fullDescription}</p>
+                {project.overview.map((paragraph, index) => (
+                  <p key={`overview-${index}`} className="text-lg text-white/80 mb-4">{paragraph}</p>
+                ))}
               </div>
             )}
             
@@ -328,7 +196,7 @@ const ProjectDetail = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* Display images with video in place of second image for Damon */}
                 {project.galleryImages.map((image, index) => (
-                  project.id === 'damon' && index === 1 ? (
+                  project.id === 'damon-motorcycles' && index === 1 ? (
                     <div key={index} className="rounded-lg overflow-hidden">
                       <iframe
                         className="w-full h-64 object-cover"
@@ -357,26 +225,70 @@ const ProjectDetail = () => {
             {project.challenge && (
               <div className="bg-white/5 p-6 rounded-lg">
                 <h2 className="text-xl font-bold mb-3">Challenge</h2>
-                <p className="text-white/80">{project.challenge}</p>
+                {project.challenge.map((paragraph, index) => (
+                  <p key={`challenge-${index}`} className="text-white/80 mb-2">{paragraph}</p>
+                ))}
               </div>
             )}
             
             {project.solution && (
               <div className="bg-white/5 p-6 rounded-lg">
                 <h2 className="text-xl font-bold mb-3">Solution</h2>
-                <p className="text-white/80">{project.solution}</p>
+                {project.solution.map((paragraph, index) => (
+                  <p key={`solution-${index}`} className="text-white/80 mb-2">{paragraph}</p>
+                ))}
               </div>
             )}
             
             {project.results && (
               <div className="bg-white/5 p-6 rounded-lg">
                 <h2 className="text-xl font-bold mb-3">Results</h2>
-                <p className="text-white/80">{project.results}</p>
+                <ul className="text-white/80">
+                  {project.results.map((result, index) => (
+                    <li key={`result-${index}`} className="mb-1">• {result}</li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>
 
+          {/* Testimonial */}
+          {project.testimonial && (
+            <div className="mb-16 bg-white/5 p-8 rounded-lg">
+              <blockquote className="text-xl italic mb-4">
+                "{project.testimonial.quote}"
+              </blockquote>
+              <p className="font-bold">
+                - {project.testimonial.author}, {project.testimonial.role}
+              </p>
+            </div>
+          )}
 
+          {/* Related Projects */}
+          {project.relatedProjects && project.relatedProjects.length > 0 && (
+            <div className="mb-16">
+              <h2 className="text-2xl font-bold mb-6">Related Projects</h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                {project.relatedProjects.map((relatedProject, index) => (
+                  <div key={`related-${index}`} className="relative aspect-[4/3] overflow-hidden group">
+                    <img 
+                      src={relatedProject.imageUrl} 
+                      alt={relatedProject.title} 
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+                      <h3 className="text-xl font-bold text-white uppercase">{relatedProject.title}</h3>
+                      <p className="text-white/80 mt-1 text-sm uppercase font-medium">{relatedProject.subtitle}</p>
+                      <Link to={relatedProject.route} className="mt-4 lets-talk-btn w-fit">
+                        Explore
+                        <ArrowRight size={16} className="ml-1" />
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </main>
       

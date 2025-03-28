@@ -38,8 +38,9 @@ const unikoinGold: CaseStudyData = {
     role: "CEO at Unikrn"
   },
   images: [
-    "/images/unikoin/unikoin-platform.jpg",
-    "/images/unikoin/unikoin-blockchain.jpg"
+    "/images/unikrn/unikoin-1.jpeg",
+    "/images/unikrn/unikoin-2.jpeg",
+    "/images/unikrn/unikoin-3.jpeg"
   ],
   socialLinks: {
     links: [
@@ -54,14 +55,14 @@ const unikoinGold: CaseStudyData = {
       id: "bellabeat",
       title: "BELLABEAT",
       subtitle: "WOMEN'S HEALTH WEARABLE TECH PLATFORM",
-      imageUrl: "/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+      imageUrl: "/images/bellabeat/bellabeat-showcase.jpg",
       route: "/case-study/bellabeat"
     },
     {
       id: "trillerfest",
       title: "TRILLERFEST",
       subtitle: "LARGEST VIRTUAL MUSIC FESTIVAL IN HISTORY",
-      imageUrl: "/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png",
+      imageUrl: "/images/trillerfest/trillerfest-banner.png",
       route: "/case-study/trillerfest"
     }
   ],

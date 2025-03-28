@@ -38,8 +38,10 @@ const bellabeat: CaseStudyData = {
     role: "Co-founder & CPO at Bellabeat"
   },
   images: [
+    "/images/bellabeat/cover.jpg",
     "/images/bellabeat/bella-1.jpg",
-    "/images/bellabeat/bella-2.jpg"
+    "/images/bellabeat/bella-2.jpg",
+    "/images/bellabeat/bella-3.jpeg"
   ],
   socialLinks: {
     links: [
@@ -57,14 +59,14 @@ const bellabeat: CaseStudyData = {
       id: "damon-motorcycles",
       title: "DAMON MOTORCYCLES",
       subtitle: "HIGHLY CONVERTING 500X ROI CAMPAIGN",
-      imageUrl: "/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+      imageUrl: "/images/damon/damon-campaign.webp",
       route: "/case-study/damon-motorcycles"
     },
     {
       id: "trillerfest",
       title: "TRILLERFEST",
       subtitle: "LARGEST VIRTUAL MUSIC FESTIVAL IN HISTORY",
-      imageUrl: "/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png",
+      imageUrl: "/images/trillerfest/trillerfest-banner.png",
       route: "/case-study/trillerfest"
     }
   ]

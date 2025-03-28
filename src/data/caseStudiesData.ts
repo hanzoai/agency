@@ -41,7 +41,7 @@ export const caseStudiesData: Record<string, CaseStudyData> = {
       role: "CEO at Damon Motorcycles"
     },
     images: [
-      "/lovable-uploads/3e0ed6d6-8d6d-4b77-a6c1-aa1c7df4f868.png"
+      "/images/damon/damon-campaign.webp"
     ],
     socialLinks: {
       links: [
@@ -59,7 +59,7 @@ export const caseStudiesData: Record<string, CaseStudyData> = {
         id: "trillerfest",
         title: "TRILLERFEST",
         subtitle: "LARGEST VIRTUAL MUSIC FESTIVAL IN HISTORY",
-        imageUrl: "/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png",
+        imageUrl: "/images/trillerfest/trillerfest-banner.png",
         route: "/case-study/trillerfest"
       }
     ]
@@ -122,14 +122,14 @@ export const caseStudiesData: Record<string, CaseStudyData> = {
         id: "damon-motorcycles",
         title: "DAMON MOTORCYCLES",
         subtitle: "HIGHLY CONVERTING 500X ROI CAMPAIGN",
-        imageUrl: "/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+        imageUrl: "/images/damon/damon-campaign.webp",
         route: "/case-study/damon-motorcycles"
       },
       {
         id: "trillerfest",
         title: "TRILLERFEST",
         subtitle: "LARGEST VIRTUAL MUSIC FESTIVAL IN HISTORY",
-        imageUrl: "/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png",
+        imageUrl: "/images/trillerfest/trillerfest-banner.png",
         route: "/case-study/trillerfest"
       }
     ]
@@ -190,14 +190,14 @@ export const caseStudiesData: Record<string, CaseStudyData> = {
         id: "bellabeat",
         title: "BELLABEAT",
         subtitle: "WOMEN'S HEALTH WEARABLE TECH PLATFORM",
-        imageUrl: "/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+        imageUrl: "/images/damon/damon-campaign.webp",
         route: "/case-study/bellabeat"
       },
       {
         id: "unikoin-gold",
         title: "UNIKOIN GOLD",
         subtitle: "BLOCKCHAIN-BASED ESPORTS BETTING PLATFORM",
-        imageUrl: "/lovable-uploads/unikoin-header.jpg",
+        imageUrl: "/images/unikoin/unikoin-1.jpeg",
         route: "/case-study/unikoin-gold"
       }
     ]
@@ -257,14 +257,14 @@ export const caseStudiesData: Record<string, CaseStudyData> = {
         id: "bellabeat",
         title: "BELLABEAT",
         subtitle: "WOMEN'S HEALTH WEARABLE TECH PLATFORM",
-        imageUrl: "/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+        imageUrl: "/images/damon/damon-campaign.webp",
         route: "/case-study/bellabeat"
       },
       {
         id: "trillerfest",
         title: "TRILLERFEST",
         subtitle: "LARGEST VIRTUAL MUSIC FESTIVAL IN HISTORY",
-        imageUrl: "/lovable-uploads/919bfa95-912a-489f-a859-7a42e0d7d435.png",
+        imageUrl: "/images/trillerfest/trillerfest-banner.png",
         route: "/case-study/trillerfest"
       }
     ],

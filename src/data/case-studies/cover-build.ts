@@ -38,9 +38,10 @@ const coverBuild: CaseStudyData = {
     role: "CEO at Cover Build"
   },
   images: [
-    "/images/cover-build/cover-1.jpg",
-    "/images/cover-build/cover-2.jpeg",
-    "/images/cover-build/cover-3.jpeg"
+    "/images/cover/cover.jpg",
+    "/images/cover/cover-1.jpg",
+    "/images/cover/cover-2.jpeg",
+    "/images/cover/cover-3.jpeg"
   ],
   socialLinks: {
     links: [
@@ -56,14 +57,14 @@ const coverBuild: CaseStudyData = {
       id: "damon-motorcycles",
       title: "DAMON MOTORCYCLES",
       subtitle: "HIGHLY CONVERTING 500X ROI CAMPAIGN",
-      imageUrl: "/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+      imageUrl: "/images/bellabeat/bellabeat-showcase.jpg",
       route: "/case-study/damon-motorcycles"
     },
     {
       id: "bellabeat",
       title: "BELLABEAT",
       subtitle: "WOMEN'S HEALTH WEARABLE TECH PLATFORM",
-      imageUrl: "/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+      imageUrl: "/images/bellabeat/bellabeat-showcase.jpg",
       route: "/case-study/bellabeat"
     }
   ]

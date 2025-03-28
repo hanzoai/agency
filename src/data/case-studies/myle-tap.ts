@@ -38,23 +38,23 @@ const myleTap: CaseStudyData = {
     role: "Founder at Myle Tap"
   },
   images: [
-    "/images/myle-tap/myle-1.jpg",
-    "/images/myle-tap/myle-2.jpg",
-    "/images/myle-tap/myle-3.jpeg"
+    "/images/myle/myle-1.jpg",
+    "/images/myle/myle-2.jpg",
+    "/images/myle/myle-3.jpeg"
   ],
   relatedProjects: [
     {
       id: "bellabeat",
       title: "BELLABEAT",
       subtitle: "WOMEN'S HEALTH WEARABLE TECH PLATFORM",
-      imageUrl: "/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+      imageUrl: "/images/damon/damon-campaign.webp",
       route: "/case-study/bellabeat"
     },
     {
       id: "damon-motorcycles",
       title: "DAMON MOTORCYCLES",
       subtitle: "HIGHLY CONVERTING 500X ROI CAMPAIGN",
-      imageUrl: "/lovable-uploads/7269bbbd-37f4-4f9e-af2b-4e6a47122f10.png",
+      imageUrl: "/images/damon/damon-campaign.webp",
       route: "/case-study/damon-motorcycles"
     }
   ]

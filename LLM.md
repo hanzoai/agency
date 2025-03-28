@@ -67,6 +67,19 @@ Case studies are a key part of the website and follow a consistent pattern:
   - `/case-study-v1/:id`: Alternative route using the original version
   - Each page has a toggle to switch between versions
 
+### Case Study Page Versioning v2
+- **Issue**: Need a third case study design that better matches the project brand aesthetic
+- **Resolution**: Created CaseStudyV3 component based on a more modern, streamlined design
+- **Files Added/Updated**:
+  - `src/pages/CaseStudyV3.tsx`: New component with modern gallery-style layout
+  - `App.tsx`: Updated to make V3 the default while keeping V1 and V2 accessible
+  - Updated V1 and V2 components to include toggles for all versions
+- **Updated Routing Structure**:
+  - `/case-study/:id`: Now uses the new V3 component
+  - `/case-study-v1/:id`: Alternative route using the original version
+  - `/case-study-v2/:id`: Alternative route using the V2 component
+  - All pages include toggles to switch between all three versions
+
 ### Case Study Image Path Fixes
 - **Issue**: Broken images on the landing page in case study sections for Trillerfest and Unikoin Gold
 - **Resolution**: Updated image paths to match the actual directory structure in the public folder

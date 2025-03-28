@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import CaseStudyTemplate from '@/components/CaseStudyTemplate';
+import CaseStudyPage from '@/components/CaseStudyPage';
 import caseStudies from '@/data/caseStudies';
 
 const CaseStudy = () => {
@@ -11,7 +11,7 @@ const CaseStudy = () => {
     return <Navigate to="/case-studies" replace />;
   }
   
-  return <CaseStudyTemplate data={caseStudies[id]} />;
+  return <CaseStudyPage data={caseStudies[id]} />;
 };
 
 export default CaseStudy;

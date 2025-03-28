@@ -172,12 +172,12 @@ const CaseStudyV3 = () => {
               </div>
             </div>
             
-            {/* Gallery Section */}
+            {/* Gallery Section - Limited to 3 images */}
             {data.images && data.images.length > 1 && (
               <div className="mb-16">
                 <h2 className="text-2xl font-bold mb-6">Gallery</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {data.images.map((image, index) => (
+                  {data.images.slice(0, 3).map((image, index) => (
                     <div key={index} className="rounded-lg overflow-hidden">
                       <img 
                         src={image} 

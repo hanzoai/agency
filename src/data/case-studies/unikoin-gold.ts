@@ -38,9 +38,9 @@ const unikoinGold: CaseStudyData = {
     role: "CEO at Unikrn"
   },
   images: [
-    "/images/unikrn/unikoin-1.jpeg",
-    "/images/unikrn/unikoin-2.jpeg",
-    "/images/unikrn/unikoin-3.jpeg"
+    "/images/unikrn/unikrn-1.jpg",
+    "/images/unikrn/unikrn-2.jpg",
+    "/images/unikrn/unikrn-3.jpg"
   ],
   socialLinks: {
     links: [
@@ -62,7 +62,7 @@ const unikoinGold: CaseStudyData = {
       id: "trillerfest",
       title: "TRILLERFEST",
       subtitle: "LARGEST VIRTUAL MUSIC FESTIVAL IN HISTORY",
-      imageUrl: "/images/trillerfest/trillerfest-banner.png",
+      imageUrl: "/images/triller/triller-1.jpg",
       route: "/case-study/trillerfest"
     }
   ],

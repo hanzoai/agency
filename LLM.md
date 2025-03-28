@@ -54,6 +54,19 @@ Case studies are a key part of the website and follow a consistent pattern:
 
 ## Project Cleanup History
 
+### Case Study Page Versioning
+- **Issue**: Need an alternative design for case study pages while maintaining the current one
+- **Resolution**: Created a new case study page component (CaseStudyV2) that works with all case studies
+- **Files Added/Updated**:
+  - `src/pages/CaseStudyV1.tsx`: Renamed from the existing CaseStudy component
+  - `src/pages/CaseStudyV2.tsx`: New component based on older design but updated to work with current data structure
+  - `App.tsx`: Updated to use CaseStudyV2 as default but keep CaseStudyV1 as an option
+  - `src/utils/projectUtils.ts`: Updated default image paths to match actual directory structure
+- **Routing Structure**:
+  - `/case-study/:id`: Default route now uses the new V2 component
+  - `/case-study-v1/:id`: Alternative route using the original version
+  - Each page has a toggle to switch between versions
+
 ### Case Study Image Path Fixes
 - **Issue**: Broken images on the landing page in case study sections for Trillerfest and Unikoin Gold
 - **Resolution**: Updated image paths to match the actual directory structure in the public folder

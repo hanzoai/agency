@@ -58,13 +58,13 @@ function shuffleArray<T>(array: T[]): T[] {
 function getDefaultImageForProject(projectId: string): string {
   // Map project IDs to standard image paths
   const imageMap: Record<string, string> = {
-    'damon-motorcycles': '/images/damon/hero-image.jpg',
+    'damon-motorcycles': '/images/damon/damon-1.jpg',
     'bellabeat': '/images/bellabeat/bella-1.jpg',
-    'cover-build': '/images/cover-build/cover-1.jpg',
+    'cover-build': '/images/cover/cover-1.png',
     'casper-blockchain': '/images/casper/casper-1.jpg',
-    'myle-tap': '/images/myle-tap/myle-1.jpg',
-    'unikoin-gold': '/images/unikoin/unikoin-1.jpeg',
-    'trillerfest': '/images/trillerfest/main-promo.jpg'
+    'myle-tap': '/images/myle/myle-1.jpg',
+    'unikoin-gold': '/images/unikrn/unikrn-1.jpg',
+    'trillerfest': '/images/triller/triller-1.jpg'
   };
   
   // Return the mapped image or a placeholder

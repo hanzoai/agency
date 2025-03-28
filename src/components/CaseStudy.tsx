@@ -22,13 +22,13 @@ const CaseStudy = () => {
     
     // Fallback image mapping
     const fallbackImages: Record<string, string> = {
-      'trillerfest': '/images/trillerfest/main-promo.jpg',
-      'damon-motorcycles': '/images/damon/hero-image.jpg',
-      'unikoin-gold': '/images/unikoin/unikoin-1.jpeg',
+      'trillerfest': '/images/triller/triller-1.jpg',
+      'damon-motorcycles': '/images/damon/damon-1.jpg',
+      'unikoin-gold': '/images/unikrn/unikrn-1.jpg',
       'casper-blockchain': '/images/casper/casper-1.jpg',
       'bellabeat': '/images/bellabeat/bella-1.jpg',
-      'cover-build': '/images/cover-build/cover-1.jpg',
-      'myle-tap': '/images/myle-tap/myle-1.jpg'
+      'cover-build': '/images/cover/cover-1.png',
+      'myle-tap': '/images/myle/myle-1.jpg'
     };
     
     return fallbackImages[studyId] || '/placeholder.svg';

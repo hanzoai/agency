@@ -1,4 +1,4 @@
-import { ArrowUpRight, Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { ArrowUpRight, Instagram, Facebook, Twitter, Github, MessageSquare } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -11,13 +11,13 @@ const Footer = () => {
             <div className="space-y-3 mb-8">
               <p className="text-primary/80">
                 Hanzo Industries, Inc.<br/>
-                500 Market Street, Suite 800<br/>
-                San Francisco, CA 94105<br/>
+                1828 Golden Gate Ave<br/>
+                San Francisco, CA 94115<br/>
                 United States
               </p>
               <p className="text-primary/80">
-                hello.verywell@gmail.com<br/>
-                (+65) 13370-9976
+                hi@hanzo.agency<br/>
+                +1 415 3732496
               </p>
             </div>
             <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="lets-talk-btn bg-gray-700 hover:bg-gray-800 text-white font-medium rounded-full px-6 py-2 transition-all duration-300 inline-flex items-center">
@@ -26,18 +26,21 @@ const Footer = () => {
             </a>
           </div>
           
-          <div className="grid grid-cols-4 gap-4">
-            <a href="#" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
+          <div className="grid grid-cols-5 gap-4">
+            <a href="https://instagram.com/hanzoai" target="_blank" rel="noopener noreferrer" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
               <Instagram size={24} />
             </a>
-            <a href="#" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
+            <a href="https://facebook.com/hanzo-inc" target="_blank" rel="noopener noreferrer" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
               <Facebook size={24} />
             </a>
-            <a href="#" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
+            <a href="https://x.com/hanzoai" target="_blank" rel="noopener noreferrer" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
               <Twitter size={24} />
             </a>
-            <a href="#" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
-              <Linkedin size={24} />
+            <a href="https://github.com/hanzoai" target="_blank" rel="noopener noreferrer" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
+              <Github size={24} />
+            </a>
+            <a href="https://discord.com/invite/Xxxxxxx" target="_blank" rel="noopener noreferrer" className="geometric-circle border border-black/20 aspect-square flex items-center justify-center hover:bg-accent/20 transition-colors">
+              <MessageSquare size={24} />
             </a>
           </div>
         </div>

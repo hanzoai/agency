@@ -38,8 +38,8 @@ const bellabeat: CaseStudyData = {
     role: "Co-founder & CPO at Bellabeat"
   },
   images: [
-    "/images/bellabeat/bellabeat-product.jpg",
-    "/images/bellabeat/bellabeat-app.jpg"
+    "/images/bellabeat/bella-1.jpg",
+    "/images/bellabeat/bella-2.jpg"
   ],
   socialLinks: {
     links: [

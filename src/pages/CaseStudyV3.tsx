@@ -21,8 +21,8 @@ const CaseStudyV3 = () => {
   // Get the case study data
   const data = caseStudies[id];
 
-  // Get dynamically generated related projects
-  const relatedProjects = data.relatedProjects || getRelatedProjects(id, 3);
+  // Always use dynamically generated related projects to ensure correct image paths
+  const relatedProjects = getRelatedProjects(id, 3);
   
   useEffect(() => {
     // Set the body to dark theme

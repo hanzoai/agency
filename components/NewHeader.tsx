@@ -128,6 +128,86 @@ const NewHeader = () => {
                             )}
                           </div>
                         </div>
+                      </NavigationMenuContent>
+                    )}
+                    
+                    {/* Services Categories Layout */}
+                    {item.categories && (
+                      <NavigationMenuContent>
+                        <div className="p-6 max-w-7xl mx-auto w-full">
+                          <div className="grid gap-8 grid-cols-4">
+                            {/* Categories Columns */}
+                            {item.categories.map((category, categoryIndex) => (
+                              <div key={category.title} className={categoryIndex === 3 ? "col-span-1" : "col-span-1"}>
+                                <a 
+                                  href={category.href} 
+                                  className="font-medium text-white text-sm mb-4 flex items-center hover:underline group"
+                                >
+                                  {category.title}
+                                  <svg 
+                                    className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" 
+                                    fill="none" 
+                                    viewBox="0 0 24 24" 
+                                    stroke="currentColor"
+                                  >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                  </svg>
+                                </a>
+                                <ul className="space-y-2 mt-3">
+                                  {category.items.map((item) => (
+                                    <ListItem
+                                      key={item.title}
+                                      title={item.title}
+                                      href={item.href}
+                                      icon={item.icon}
+                                      className="w-full"
+                                      isExternal={item.isExternal}
+                                      compact
+                                      isNew={item.isNew}
+                                    >
+                                      {item.description}
+                                    </ListItem>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+
+                            {/* Featured Column */}
+                            {item.featured && (
+                              <div className="col-span-1">
+                                {item.featured.map((feature, index) => (
+                                  <div 
+                                    key={feature.title}
+                                    className={`bg-gray-800/50 rounded-md p-5 ${index > 0 ? 'mt-4' : ''}`}
+                                  >
+                                    {feature.icon && (
+                                      <div className="flex items-center gap-2 mb-2">
+                                        <div className="bg-gray-700 text-white w-6 h-6 rounded flex items-center justify-center text-xs font-bold">
+                                          {feature.icon}
+                                        </div>
+                                        <span className="text-sm font-medium text-white">{feature.title}</span>
+                                      </div>
+                                    )}
+                                    {!feature.icon && (
+                                      <h3 className="text-sm font-medium text-white mb-2">{feature.title}</h3>
+                                    )}
+                                    <p className="text-xs text-gray-400 mb-3">{feature.description}</p>
+                                    {feature.cta && (
+                                      <a href={feature.href} className="text-xs text-white inline-flex items-center hover:underline">
+                                        {feature.cta}
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
+                                          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                        </svg>
+                                      </a>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </NavigationMenuContent>
+                    )}
                         </div>
                       </NavigationMenuContent>
                     )}
@@ -171,8 +251,9 @@ const ListItem = React.forwardRef<
     icon?: React.ComponentType<{ className?: string }>;
     isExternal?: boolean;
     compact?: boolean;
+    isNew?: boolean;
   }
->(({ className, title, children, icon: Icon, isExternal, compact, ...props }, ref) => {
+>(({ className, title, children, icon: Icon, isExternal, compact, isNew, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -189,7 +270,10 @@ const ListItem = React.forwardRef<
         >
           <div className="flex items-center gap-2 mb-1">
             {Icon && <Icon className="h-4 w-4 text-gray-400" />}
-            <div className="text-sm font-medium leading-none">{title}</div>
+            <div className="text-sm font-medium leading-none flex items-center">
+              {title}
+              {isNew && <span className="ml-2 bg-green-500 text-white text-[10px] px-1 py-0.5 rounded">New</span>}
+            </div>
             {isExternal && (
               <ExternalLink className="h-3 w-3 text-gray-400" />
             )}

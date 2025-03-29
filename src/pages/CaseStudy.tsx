@@ -13,9 +13,9 @@ const CaseStudy = () => {
   const { id } = useParams<{ id: string }>();
   const [isBannerVisible, setIsBannerVisible] = useState(false);
 
-  // If no ID is found, or the ID doesn't match any case study, redirect to case studies
+  // If no ID is found, or the ID doesn't match any case study, redirect to our work page
   if (!id || !caseStudies[id]) {
-    return <Navigate to="/case-studies" replace />;
+    return <Navigate to="/our-work" replace />;
   }
 
   // Get the case study data
@@ -141,7 +141,7 @@ const CaseStudy = () => {
 
           {/* Content */}
           <div className="container-custom py-16">
-            <Link to="/case-studies" className="inline-flex items-center text-white/70 hover:text-white mb-8 transition-colors">
+            <Link to="/our-work" className="inline-flex items-center text-white/70 hover:text-white mb-8 transition-colors">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to all projects
             </Link>

@@ -1,7 +1,7 @@
 
 import { ArrowUpRight } from 'lucide-react';
-import { LinearButton } from '@/components/ui/linear-button';
 import { Button } from '@/components/ui/button';
+import { buttonModifiers } from '@/lib/button-utils';
 
 const CTA = () => {
   return (
@@ -14,7 +14,7 @@ const CTA = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center md:text-left">
             <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-12 reveal">
-              UNLIMITED<br/>FULL-STACK APP<br/>DEVELOPMENT
+              Unlimited<br/>Full-Stack App<br/>Development
             </h2>
             <p className="text-lg md:text-xl text-white/80 mb-10 max-w-xl reveal">
               Expand your in-house creative team with top global talent and cutting-edge AI workflows, bringing any vision to life quickly and cost-effectively.
@@ -22,14 +22,22 @@ const CTA = () => {
             
             <div className="flex justify-center md:justify-start reveal gap-4">
               <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8">
-                <LinearButton variant="default" size="lg" className="font-medium">
+                <Button 
+                  variant="primary" 
+                  size="lg" 
+                  className={buttonModifiers.interactive + " font-medium"}
+                >
                   Let's talk
                   <ArrowUpRight size={16} className="ml-1" />
-                </LinearButton>
+                </Button>
               </a>
               
               <a href="/subscribe">
-                <Button variant="outline" size="lg" className="font-medium">
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className={buttonModifiers.interactive + " font-medium"}
+                >
                   Get Started
                   <ArrowUpRight size={16} className="ml-1" />
                 </Button>

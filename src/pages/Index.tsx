@@ -13,7 +13,9 @@ import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
 import NewUserBanner from '@/components/NewUserBanner';
-import AnimatedGradient from '@/components/AnimatedGradient';
+import AICapabilities from '@/components/AICapabilities';
+import ModernTestimonials from '@/components/ModernTestimonials';
+import StatsSection from '@/components/StatsSection';
 
 const Index = () => {
   const [isBannerVisible, setIsBannerVisible] = useState(true); // Set to true by default
@@ -70,14 +72,15 @@ const Index = () => {
   return (
     <ScrollReveal>
       <div className="min-h-screen flex flex-col" style={{ paddingTop: isBannerVisible ? '100px' : '40px' }}>
-        <AnimatedGradient />
         <NewUserBanner />
         <Navbar />
         <Hero />
         <Services />
+        <AICapabilities />
+        <StatsSection />
         <WhyHanzo />
         <CaseStudy />
-        <Testimonials />
+        <ModernTestimonials />
         <Process />
         <Pricing />
         <FAQ />

@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -109,6 +108,20 @@ export default {
           '0%': { transform: 'scale(0.95)', opacity: '0' },
           '100%': { transform: 'scale(1)', opacity: '1' },
         },
+        pulseGlow: {
+          '0%': {
+            opacity: '0.6',
+            transform: 'scale(1) rotate(0deg)',
+          },
+          '50%': {
+            opacity: '0.8',
+            transform: 'scale(1.05) rotate(6deg)',
+          },
+          '100%': {
+            opacity: '0.6',
+            transform: 'scale(1) rotate(0deg)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -118,6 +131,7 @@ export default {
         'slide-in-right': 'slideInRight 0.6s ease-out forwards',
         'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'scale-in': 'scaleIn 0.3s ease-out forwards',
+        'pulse-glow': 'pulseGlow 8s ease-in-out infinite',
       },
       fontFamily: {
         sans: ['"Inter"', 'sans-serif'],

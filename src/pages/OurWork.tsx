@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Navbar from '@/components/Navbar';
+// Remove Navbar import since it's now global
 import Footer from '@/components/Footer';
 import VideoCard from '@/components/VideoCard';
 import { BentoGrid, BentoCard } from '@/components/BentoGrid';
@@ -36,7 +36,7 @@ const OurWork = () => {
   const projectsFromCaseStudies: Project[] = Object.values(caseStudies).map(caseStudy => {
     // Handle ID mapping for display purposes
     const displayId = caseStudy.id === 'damon-motorcycles' ? 'damon' : caseStudy.id;
-    
+
     return {
       id: displayId, // Use the display ID for UI, but keep original ID for links
       title: caseStudy.title,
@@ -50,7 +50,7 @@ const OurWork = () => {
   useEffect(() => {
     // Set the body to dark theme
     document.body.classList.add('dark');
-    
+
     return () => {
       document.body.classList.remove('dark');
     };
@@ -59,9 +59,9 @@ const OurWork = () => {
   return (
     <ScrollReveal>
       <div className="min-h-screen bg-black text-white">
-        <Navbar />
+        {/* Navbar removed since it's now global */}
         <GlobalMuteButton />
-        
+
         <main className="pt-24">
           <header className="pt-16 md:pt-24 pb-12 container mx-auto px-6">
             <ParallaxItem speed={0.1}>
@@ -73,25 +73,25 @@ const OurWork = () => {
               </p>
             </ParallaxItem>
           </header>
-          
+
           <section id="gallery" className="py-8 md:py-16 bg-gradient-to-b from-black via-black/95 to-black/90">
             <div className="container-custom">
               <BentoGrid className="max-w-7xl mx-auto gap-6 md:gap-8">
                 {projectsFromCaseStudies.map((project, index) => (
-                  <ParallaxItem 
-                    key={project.id} 
-                    speed={project.id === 'cover-build' ? 0 : 0.03 * (index % 3 + 1)} 
+                  <ParallaxItem
+                    key={project.id}
+                    speed={project.id === 'cover-build' ? 0 : 0.03 * (index % 3 + 1)}
                     className="h-full"
                   >
-                    <BentoCard 
+                    <BentoCard
                       size={project.size}
                       className={project.className}
                     >
-                      <VideoCard 
-                        title={project.title} 
+                      <VideoCard
+                        title={project.title}
                         youtubeId={project.youtubeId}
                         description={project.description}
-                        index={index} 
+                        index={index}
                         projectId={project.id === 'damon' ? 'damon-motorcycles' : project.id} // Map display ID back to data ID for links
                         thumbnailUrl={project.thumbnailUrl}
                       />
@@ -102,7 +102,7 @@ const OurWork = () => {
             </div>
           </section>
         </main>
-        
+
         <Footer />
       </div>
     </ScrollReveal>

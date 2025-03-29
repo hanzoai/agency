@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { LinearButton } from '@/components/ui/linear-button';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { buttonModifiers } from '@/lib/button-utils';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -83,7 +83,10 @@ const Navbar = () => {
     >
       <div className="container-custom">
         <div className="flex items-center justify-between py-4">
-          <Link to="/" className="text-xl font-bold">HANZO</Link>
+          <Link to="/" className="flex items-center">
+            <img src="/images/logo/hanzo-logo.svg" alt="Hanzo" className="h-6 w-auto" />
+            <span className="ml-2 text-lg font-medium">Hanzo</span>
+          </Link>
           
           <nav className="hidden lg:flex items-center space-x-8">
             <a href="/#services" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#services')}>Services</a>
@@ -98,10 +101,13 @@ const Navbar = () => {
           
           <div className="hidden lg:block">
             <Link to="/subscribe">
-              <LinearButton variant="default" className="py-2 px-4">
+              <Button 
+                variant="primary" 
+                className={buttonModifiers.interactive + " py-2 px-4"}
+              >
                 Sign Up
                 <ArrowUpRight size={14} className="ml-1" />
-              </LinearButton>
+              </Button>
             </Link>
           </div>
           
@@ -124,10 +130,14 @@ const Navbar = () => {
             <a href="/#pricing" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#pricing')}>Pricing</a>
             <a href="/#faq" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#faq')}>FAQ</a>
             <Link to="/subscribe" onClick={() => setIsMenuOpen(false)}>
-              <LinearButton variant="default" className="py-2 px-3 text-sm w-fit">
+              <Button 
+                variant="primary"
+                size="sm" 
+                className={buttonModifiers.interactive + " py-2 px-3 text-sm w-fit"}
+              >
                 Sign Up
                 <ArrowUpRight size={14} className="ml-1" />
-              </LinearButton>
+              </Button>
             </Link>
           </nav>
         </div>

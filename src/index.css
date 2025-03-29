@@ -185,20 +185,21 @@
     @apply transition-colors hover:bg-accent/5;
   }
   
-  /* Animation for case studies page */
-  @keyframes scale-up {
-    0% {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
+  /* Hover transitions */
+  .hover-transition {
+    @apply transition-all duration-200;
   }
   
-  .animate-scale-up {
-    animation: scale-up 0.5s ease-out forwards;
+  .hover-grow {
+    @apply hover-transition hover:scale-[1.01] active:scale-[0.99];
+  }
+  
+  .hover-lift {
+    @apply hover-transition hover:translate-y-[-1px];
+  }
+  
+  .hover-highlight {
+    @apply hover-transition hover:brightness-110;
   }
   
   /* Dark theme for case studies */

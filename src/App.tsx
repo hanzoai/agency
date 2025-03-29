@@ -11,11 +11,12 @@ import OnboardingForm from "./pages/Onboarding";
 import OnboardingSuccess from "./pages/OnboardingSuccess";
 import OurWork from "./pages/OurWork";
 import CaseStudy from "./pages/CaseStudy";
-
 import Contact from "./pages/Contact";
 import Pricing from "./pages/Pricing";
 import Payment from "./pages/Payment";
 import Enterprise from "./pages/Enterprise";
+import ServicesPage from "./pages/ServicesPage";
+import SolutionsPage from "./pages/SolutionsPage";
 
 const queryClient = new QueryClient();
 
@@ -44,9 +45,11 @@ const App = () => (
           <Route path="/onboarding-success" element={<OnboardingSuccess />} />
           <Route path="/our-work" element={<OurWork />} />
           <Route path="/pricing" element={<Pricing />} />
-          <Route path="/services/*" element={<Navigate to="/" replace />} />
-          <Route path="/capabilities/*" element={<Navigate to="/" replace />} />
-          <Route path="/industries/*" element={<Navigate to="/" replace />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/solutions" element={<SolutionsPage />} />
+          <Route path="/services/*" element={<ServicesPage />} />
+          <Route path="/capabilities/*" element={<SolutionsPage />} />
+          <Route path="/industries/*" element={<SolutionsPage />} />
           <Route path="/case-studies" element={<Navigate to="/our-work" replace />} />
           <Route path="/case-study/:id" element={<CaseStudy />} />
           <Route path="/contact" element={<Contact />} />

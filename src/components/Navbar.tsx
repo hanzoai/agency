@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { FancyButton } from '@/components/ui/fancy-button';
+import { GradientBorderButton } from '@/components/ui/gradient-border-button';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -96,9 +98,11 @@ const Navbar = () => {
           </nav>
           
           <div className="hidden lg:block">
-            <Link to="/subscribe" className="rounded-full bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 inline-flex items-center font-medium transition-all duration-300">
-              Sign Up
-              <ArrowUpRight size={16} className="ml-1" />
+            <Link to="/subscribe">
+              <FancyButton variant="shiny" className="py-2 px-4">
+                Sign Up
+                <ArrowUpRight size={16} className="ml-1" />
+              </FancyButton>
             </Link>
           </div>
           
@@ -120,9 +124,11 @@ const Navbar = () => {
             <a href="/#testimonials" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#testimonials')}>Testimonials</a>
             <a href="/#pricing" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#pricing')}>Pricing</a>
             <a href="/#faq" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#faq')}>FAQ</a>
-            <Link to="/subscribe" className="rounded-full bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 inline-flex items-center w-fit transition-all duration-300" onClick={() => setIsMenuOpen(false)}>
-              Sign Up
-              <ArrowUpRight size={16} className="ml-1" />
+            <Link to="/subscribe" onClick={() => setIsMenuOpen(false)}>
+              <GradientBorderButton className="py-2 px-4 text-sm font-medium w-fit" gradientColors={['#ffffff', '#aaaaaa', '#ffffff']}>
+                Sign Up
+                <ArrowUpRight size={16} className="ml-1" />
+              </GradientBorderButton>
             </Link>
           </nav>
         </div>

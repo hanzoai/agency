@@ -40,7 +40,6 @@ const App = () => (
           <Route path="/onboarding" element={<OnboardingForm />} />
           <Route path="/onboarding-success" element={<OnboardingSuccess />} />
           <Route path="/case-studies" element={<CaseStudies />} />
-
           <Route path="/case-study/:id" element={<CaseStudy />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />

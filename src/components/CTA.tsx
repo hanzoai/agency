@@ -1,5 +1,7 @@
 
 import { ArrowUpRight } from 'lucide-react';
+import { FancyButton } from '@/components/ui/fancy-button';
+import { GradientBorderButton } from '@/components/ui/gradient-border-button';
 
 const CTA = () => {
   return (
@@ -19,20 +21,23 @@ const CTA = () => {
             </p>
             
             <div className="flex justify-center md:justify-start reveal gap-4">
-              <a 
-                href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" 
-                className="lets-talk-btn text-lg py-3 px-6"
-              >
-                Let's talk
-                <ArrowUpRight size={20} className="ml-2" />
+              <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8">
+                <FancyButton variant="default" size="lg" className="text-lg font-medium">
+                  Let's talk
+                  <ArrowUpRight size={20} className="ml-2" />
+                </FancyButton>
               </a>
               
-              <a 
-                href="/subscribe" 
-                className="bg-transparent text-white border border-white hover:bg-white hover:text-black transition-colors duration-300 flex items-center text-lg py-3 px-6"
-              >
-                Get Started
-                <ArrowUpRight size={20} className="ml-2" />
+              <a href="/subscribe">
+                <GradientBorderButton 
+                  className="text-lg font-medium py-3 px-6 h-12"
+                  gradientColors={['#ffffff', '#cccccc', '#ffffff']}
+                  borderWidth={2}
+                  animationDuration={4}
+                >
+                  Get Started
+                  <ArrowUpRight size={20} className="ml-2" />
+                </GradientBorderButton>
               </a>
             </div>
           </div>

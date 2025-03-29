@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="300" viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="300" fill="none"/>
+  
+  <!-- Background Grid -->
+  <path d="M0 50 H600" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+  <path d="M0 100 H600" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+  <path d="M0 150 H600" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+  <path d="M0 200 H600" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+  <path d="M0 250 H600" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+  
+  <path d="M100 0 V300" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+  <path d="M200 0 V300" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+  <path d="M300 0 V300" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+  <path d="M400 0 V300" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+  <path d="M500 0 V300" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+  
+  <!-- Data Wave Line (Primary) -->
+  <path d="M0 200 C50 180, 100 120, 150 100 C200 80, 250 130, 300 150 C350 170, 400 90, 450 110 C500 130, 550 180, 600 160" 
+        stroke="rgba(255,255,255,0.7)" 
+        stroke-width="2"
+        fill="none">
+    <animate attributeName="d" 
+             values="M0 200 C50 180, 100 120, 150 100 C200 80, 250 130, 300 150 C350 170, 400 90, 450 110 C500 130, 550 180, 600 160;
+                     M0 180 C50 160, 100 100, 150 120 C200 140, 250 110, 300 130 C350 150, 400 110, 450 90 C500 70, 550 160, 600 140;
+                     M0 200 C50 180, 100 120, 150 100 C200 80, 250 130, 300 150 C350 170, 400 90, 450 110 C500 130, 550 180, 600 160" 
+             dur="20s" 
+             repeatCount="indefinite" />
+  </path>
+  
+  <!-- Data Wave Line (Secondary) -->
+  <path d="M0 220 C50 200, 100 240, 150 220 C200 200, 250 150, 300 170 C350 190, 400 210, 450 190 C500 170, 550 200, 600 180" 
+        stroke="rgba(255,255,255,0.4)" 
+        stroke-width="1.5"
+        fill="none">
+    <animate attributeName="d" 
+             values="M0 220 C50 200, 100 240, 150 220 C200 200, 250 150, 300 170 C350 190, 400 210, 450 190 C500 170, 550 200, 600 180;
+                     M0 200 C50 220, 100 200, 150 180 C200 160, 250 170, 300 190 C350 210, 400 190, 450 170 C500 150, 550 180, 600 200;
+                     M0 220 C50 200, 100 240, 150 220 C200 200, 250 150, 300 170 C350 190, 400 210, 450 190 C500 170, 550 200, 600 180" 
+             dur="15s" 
+             repeatCount="indefinite" />
+  </path>
+  
+  <!-- Data Points -->
+  <circle cx="150" cy="100" r="4" fill="white" opacity="0.8">
+    <animate attributeName="cy" values="100;120;100" dur="20s" repeatCount="indefinite" />
+  </circle>
+  
+  <circle cx="300" cy="150" r="4" fill="white" opacity="0.8">
+    <animate attributeName="cy" values="150;130;150" dur="20s" repeatCount="indefinite" />
+  </circle>
+  
+  <circle cx="450" cy="110" r="4" fill="white" opacity="0.8">
+    <animate attributeName="cy" values="110;90;110" dur="20s" repeatCount="indefinite" />
+  </circle>
+</svg>

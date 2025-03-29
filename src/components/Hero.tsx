@@ -23,7 +23,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="pt-32 pb-20 md:pt-36 md:pb-28 bg-background relative overflow-hidden">
+    <section className="pt-44 pb-20 md:pt-48 md:pb-28 bg-background relative overflow-hidden">
       {/* Subtle decorative elements */}
       <div className="absolute top-0 right-0 w-1/3 h-1/2 bg-gradient-to-bl from-secondary/20 to-transparent opacity-30 blur-3xl -z-10"></div>
       <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-gradient-to-tr from-secondary/10 to-transparent opacity-20 blur-3xl -z-10"></div>

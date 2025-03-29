@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="32" height="32" fill="#111216"/>
-  <path d="M4 4H12V12H20V20H28V28H20V20H12V12H4V4Z" fill="white"/>
+  <image href="/images/logo/logo.png" x="4" y="4" width="24" height="24" preserveAspectRatio="xMidYMid slice"/>
 </svg>

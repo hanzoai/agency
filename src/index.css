@@ -16,8 +16,8 @@
     --popover: 0 0% 5%;
     --popover-foreground: 30 25% 93%;
 
-    --primary: 30 25% 93%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 0 0% 100%; /* Updated to white */
+    --primary-foreground: 0 0% 0%; /* Black text */
 
     --secondary: 0 0% 10%;
     --secondary-foreground: 30 25% 93%;
@@ -25,15 +25,15 @@
     --muted: 0 0% 15%;
     --muted-foreground: 30 15% 70%;
 
-    --accent: 0 0% 70%; /* Changed from green to gray */
-    --accent-foreground: 0 0% 0%;
+    --accent: 0 0% 100%; /* Changed to white */
+    --accent-foreground: 0 0% 0%; /* Black text */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 0%;
 
-    --border: 0 0% 20%;
+    --border: 0 0% 100%; /* Updated to white */
     --input: 0 0% 20%;
-    --ring: 0 0% 30%;
+    --ring: 0 0% 100%; /* Updated to white */
 
     --radius: 0.25rem;
   }
@@ -83,15 +83,15 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-accent hover:bg-accent/90 text-black font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
+    @apply bg-white hover:bg-white/90 text-black font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center shadow-lg backdrop-blur-sm;
   }
 
   .btn-secondary {
-    @apply bg-white hover:bg-white/90 text-black border border-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
+    @apply bg-white hover:bg-white/90 text-black border border-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center shadow-lg backdrop-blur-sm;
   }
 
   .btn-outline {
-    @apply bg-transparent hover:bg-primary/10 text-primary border border-primary/20 font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center;
+    @apply bg-transparent hover:bg-white/10 text-white border border-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center shadow-md backdrop-blur-sm;
   }
 
   .container-custom {
@@ -119,18 +119,18 @@
   }
   
   .lets-talk-btn {
-    @apply bg-gray-700 hover:bg-gray-800 text-white rounded-full py-2 px-4 inline-flex items-center font-medium;
+    @apply bg-white hover:bg-white/90 text-black rounded-full py-2 px-4 inline-flex items-center font-medium shadow-lg backdrop-blur-sm border border-white/50;
   }
 
   .lets-talk-btn.bg-black {
-    @apply text-white;
+    @apply text-white bg-black border border-white/30 hover:bg-black/90;
   }
   
   .rainbow-gradient-btn {
     position: relative;
     z-index: 1;
     overflow: hidden;
-    @apply bg-gray-700 hover:bg-gray-800 text-white;
+    @apply bg-black hover:bg-black/90 text-white border border-white/30 shadow-lg;
   }
   
   .rainbow-gradient-btn::before {
@@ -140,16 +140,17 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, #333, #555, #777, #999, #aaa);
+    background: linear-gradient(45deg, #ffffff, #f5f5f5, #e6e6e6, #cccccc, #ffffff);
     background-size: 400% 400%;
     z-index: -1;
     border-radius: 9999px;
     opacity: 0;
     transition: opacity 0.3s ease;
+    filter: blur(1px);
   }
   
   .rainbow-gradient-btn:hover::before {
-    opacity: 1;
+    opacity: 0.15;
     animation: rainbow-shift 3s ease infinite;
   }
   
@@ -163,6 +164,68 @@
     100% {
       background-position: 0% 50%;
     }
+  }
+  
+  /* Shine animations */
+  @keyframes shine-effect {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%) translateY(-100%) rotate(30deg);
+    }
+    15% {
+      opacity: 0.3;
+    }
+    30% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(100%) translateY(100%) rotate(30deg);
+    }
+  }
+  
+  /* Border gradient animation */
+  @keyframes border-rotate {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  /* Glass effect */
+  .glass-effect {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Button with auto-shine effect */
+  .auto-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .auto-shine::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: shine-effect 6s infinite;
   }
   
   /* Animation for case studies page */

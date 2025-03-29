@@ -3,7 +3,7 @@ import { CaseStudyData } from '@/types/caseStudy';
 const unikoinGold: CaseStudyData = {
   id: "unikoin-gold",
   title: "UNIKOIN GOLD",
-  subtitle: "BLOCKCHAIN-BASED ESPORTS BETTING PLATFORM",
+  subtitle: "BLOCKCHAIN-BASED ESPORTS BETTING",
   client: "Unikrn",
   services: [
     "Blockchain Integration",

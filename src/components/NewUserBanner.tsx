@@ -88,16 +88,16 @@ const NewUserBanner = () => {
   }
   
   return (
-    <div className="bg-white text-black py-4 px-4 sm:px-6 fixed top-0 left-0 right-0 z-[200] shadow-md">
+    <div className="bg-black/90 backdrop-blur-sm text-white py-0 h-16 px-4 sm:px-6 fixed top-0 left-0 right-0 z-[200] border-b border-border/20 flex items-center">
       <button 
-        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-black/10 rounded-full"
+        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-white/10 rounded-full"
         onClick={closeBanner}
       >
-        <X size={16} className="text-black" />
+        <X size={16} className="text-white" />
       </button>
       
-      <div className="container-custom">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
+      <div className="container-custom h-full">
+        <div className="flex h-full flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
           <div className="flex items-center">
             <span className="text-base font-medium">Try Today with our 7-Day Free Trial!</span>
           </div>
@@ -105,7 +105,7 @@ const NewUserBanner = () => {
             Offer expires in: <span className="font-mono">{formatTimeLeft()}</span>
           </div>
           <button 
-            className="text-sm sm:text-base whitespace-nowrap bg-black text-white px-6 py-2 rounded-full font-semibold hover:bg-black/90 transition-colors"
+            className="text-sm sm:text-base whitespace-nowrap bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-white/90 transition-colors"
             onClick={handleStartTrial}
           >
             Start Free Trial

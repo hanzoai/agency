@@ -1,0 +1,5 @@
+:root {
+  --header-height: 80px; /* Adjust this value to match your header height */
+  --background-color: var(--background);
+  --max-width: 1280px; /* Match with the max-width in other CSS files */
+} 

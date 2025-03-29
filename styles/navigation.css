@@ -1,0 +1,105 @@
+.header {
+  position: relative;
+  z-index: 1000; /* Ensure header stays on top */
+  background: var(--background-color);
+  width: 100%;
+}
+
+.nav-item {
+  position: relative; /* Change back to relative */
+}
+
+.nav-dropdown {
+  position: fixed; /* Change to fixed positioning */
+  top: var(--header-height); /* Use header height variable or specific pixel value */
+  left: 0;
+  transform: none; /* Remove transform */
+  width: 100%;
+  background: var(--background-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 999; /* Just below header */
+  padding: 2rem 0;
+  height: calc(100vh - var(--header-height)); /* Optional: make it full height minus header */
+  overflow-y: auto; /* Allow scrolling if content is tall */
+}
+
+.nav-dropdown-content {
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.main-nav {
+  position: relative;
+  width: 100%;
+  background: var(--background-color);
+}
+
+.nav-container {
+  position: relative;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Desktop Navigation Styles */
+@media (min-width: 768px) {
+  .nav-item {
+    position: static; /* This is important for desktop */
+  }
+
+  .nav-dropdown {
+    position: absolute;
+    top: 100%; /* Position right at the bottom of header */
+    left: 0;
+    right: 0;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background: var(--background-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    padding: 2rem 0;
+    height: auto; /* Remove fixed height */
+    overflow-y: visible; /* Remove scroll */
+  }
+
+  .nav-dropdown-content {
+    max-width: var(--max-width);
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .main-nav {
+    position: relative;
+    width: 100%;
+  }
+
+  .nav-container {
+    position: relative;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Mobile styles should be separate */
+@media (max-width: 767px) {
+  .nav-dropdown {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+    overflow-y: auto;
+  }
+} 

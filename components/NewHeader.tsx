@@ -37,45 +37,97 @@ const NewHeader = () => {
                     {item.children && (
                       <NavigationMenuContent>
                         <div className="p-6 max-w-7xl mx-auto w-full">
-                          <ul className="grid gap-4 w-full grid-cols-2 lg:grid-cols-3 mb-6">
-                            {item.children.map((child) => (
-                              <ListItem
-                                key={child.title}
-                                title={child.title}
-                                href={child.href}
-                                icon={child.icon}
-                                className="w-full"
-                                isExternal={child.isExternal}
-                              >
-                                {child.description}
-                              </ListItem>
-                            ))}
-                          </ul>
-                          
-                          {item.featured && (
-                            <div className="mt-6 border-t border-gray-700 pt-6">
-                              <h3 className="text-sm font-medium text-white mb-4">Featured</h3>
-                              <ul className="grid gap-4 w-full grid-cols-1 md:grid-cols-2">
-                                {item.featured.map((feature) => (
-                                  <a 
+                          <div className="grid gap-8 grid-cols-3">
+                            {/* Capabilities Column */}
+                            {item.capabilities && (
+                              <div className="col-span-1">
+                                <h3 className="font-medium text-white text-sm mb-4">Capabilities</h3>
+                                <ul className="space-y-2">
+                                  {item.capabilities.map((capability) => (
+                                    <ListItem
+                                      key={capability.title}
+                                      title={capability.title}
+                                      href={capability.href}
+                                      icon={capability.icon}
+                                      className="w-full"
+                                      isExternal={capability.isExternal}
+                                      compact
+                                    >
+                                      {capability.description}
+                                    </ListItem>
+                                  ))}
+                                </ul>
+                                <button className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
+                                  View all 
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
+                                    <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                  </svg>
+                                </button>
+                              </div>
+                            )}
+
+                            {/* Industries Column */}
+                            {item.industries && (
+                              <div className="col-span-1">
+                                <h3 className="font-medium text-white text-sm mb-4">Industries</h3>
+                                <ul className="space-y-2">
+                                  {item.industries.map((industry) => (
+                                    <ListItem
+                                      key={industry.title}
+                                      title={industry.title}
+                                      href={industry.href}
+                                      icon={industry.icon}
+                                      className="w-full"
+                                      isExternal={industry.isExternal}
+                                      compact
+                                    >
+                                      {industry.description}
+                                    </ListItem>
+                                  ))}
+                                </ul>
+                                <button className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
+                                  View all 
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
+                                    <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                  </svg>
+                                </button>
+                              </div>
+                            )}
+
+                            {/* Featured Column */}
+                            {item.featured && (
+                              <div className="col-span-1">
+                                {item.featured.map((feature, index) => (
+                                  <div 
                                     key={feature.title}
-                                    href={feature.href} 
-                                    className="group flex p-3 rounded-md hover:bg-gray-800 transition-colors"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                    className={`bg-gray-800/50 rounded-md p-5 ${index > 0 ? 'mt-4' : ''}`}
                                   >
-                                    <div>
-                                      <div className="flex items-center">
-                                        <h4 className="text-sm font-medium text-white">{feature.title}</h4>
-                                        <ExternalLink className="ml-1 h-3 w-3 text-gray-400 group-hover:text-white transition-colors" />
+                                    {feature.icon && (
+                                      <div className="flex items-center gap-2 mb-2">
+                                        <div className="bg-gray-700 text-white w-6 h-6 rounded flex items-center justify-center text-xs font-bold">
+                                          {feature.icon}
+                                        </div>
+                                        <span className="text-sm font-medium text-white">{feature.title}</span>
                                       </div>
-                                      <p className="mt-1 text-sm text-gray-400">{feature.description}</p>
-                                    </div>
-                                  </a>
+                                    )}
+                                    {!feature.icon && (
+                                      <h3 className="text-sm font-medium text-white mb-2">{feature.title}</h3>
+                                    )}
+                                    <p className="text-xs text-gray-400 mb-3">{feature.description}</p>
+                                    {feature.cta && (
+                                      <a href={feature.href} className="text-xs text-white inline-flex items-center hover:underline">
+                                        {feature.cta}
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
+                                          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                        </svg>
+                                      </a>
+                                    )}
+                                  </div>
                                 ))}
-                              </ul>
-                            </div>
-                          )}
+                              </div>
+                            )}
+                          </div>
+                        </div>
                         </div>
                       </NavigationMenuContent>
                     )}
@@ -118,15 +170,17 @@ const ListItem = React.forwardRef<
   React.ComponentPropsWithoutRef<"a"> & {
     icon?: React.ComponentType<{ className?: string }>;
     isExternal?: boolean;
+    compact?: boolean;
   }
->(({ className, title, children, icon: Icon, isExternal, ...props }, ref) => {
+>(({ className, title, children, icon: Icon, isExternal, compact, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
         <a
           ref={ref}
           className={cn(
-            "block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-800 text-white focus:bg-gray-800",
+            "block select-none rounded-md leading-none no-underline outline-none transition-colors hover:bg-gray-800 text-white focus:bg-gray-800",
+            compact ? "py-1 px-2" : "p-3",
             className
           )}
           {...props}

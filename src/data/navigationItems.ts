@@ -48,6 +48,26 @@ export const navigationItems: NavigationItem[] = [
         href: "/services/social",
         description: "Engaging social media content"
       },
+      {
+        title: "Illustration & Design",
+        href: "/services/illustration",
+        description: "Creative illustrations and graphic design"
+      },
+      {
+        title: "Motion & Animation",
+        href: "/services/motion",
+        description: "Engaging animations and motion graphics"
+      },
+      {
+        title: "Visual Brilliance",
+        href: "/services/visual",
+        description: "Stunning visual content and imagery"
+      },
+      {
+        title: "Packaging & Merchandise",
+        href: "/services/packaging",
+        description: "Product packaging and merchandise design"
+      }
     ]
   },
   {
@@ -83,6 +103,16 @@ export const navigationItems: NavigationItem[] = [
         href: "/solutions/ai-human-collaboration",
         description: "Optimal human-AI collaboration models"
       },
+      {
+        title: "Maximizing Conversion",
+        href: "/solutions/conversion",
+        description: "Strategies to increase conversion rates"
+      },
+      {
+        title: "AI with Tailored Strategies",
+        href: "/solutions/tailored-ai",
+        description: "Custom AI solutions for your specific needs"
+      }
     ]
   },
   {

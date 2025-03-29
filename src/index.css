@@ -84,15 +84,15 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary/90 hover:bg-primary text-primary-foreground font-medium py-2 px-4 rounded-md transition-colors inline-flex items-center justify-center;
+    @apply bg-primary/90 hover:bg-primary text-primary-foreground font-medium py-2 px-4 rounded-full transition-colors inline-flex items-center justify-center;
   }
 
   .btn-secondary {
-    @apply bg-secondary hover:bg-secondary/80 text-secondary-foreground font-medium py-2 px-4 rounded-md transition-colors inline-flex items-center justify-center;
+    @apply bg-secondary hover:bg-secondary/80 text-secondary-foreground font-medium py-2 px-4 rounded-full transition-colors inline-flex items-center justify-center;
   }
 
   .btn-outline {
-    @apply bg-transparent hover:bg-accent/10 text-foreground border border-border font-medium py-2 px-4 rounded-md transition-colors inline-flex items-center justify-center;
+    @apply bg-transparent hover:bg-accent/10 text-foreground border border-border font-medium py-2 px-4 rounded-full transition-colors inline-flex items-center justify-center;
   }
 
   .container-custom {
@@ -120,7 +120,7 @@
   }
   
   .lets-talk-btn {
-    @apply bg-primary/90 hover:bg-primary text-primary-foreground rounded-md py-2 px-4 inline-flex items-center font-medium;
+    @apply bg-primary/90 hover:bg-primary text-primary-foreground rounded-full py-2 px-4 inline-flex items-center font-medium;
   }
 
   .lets-talk-btn.dark {
@@ -129,7 +129,7 @@
   
   .linear-btn {
     position: relative;
-    @apply bg-secondary hover:bg-secondary/80 text-foreground border border-border/40 rounded-md transition-colors;
+    @apply bg-secondary hover:bg-secondary/80 text-foreground border border-border/40 rounded-full transition-colors;
   }
   
   @keyframes rainbow-shift {

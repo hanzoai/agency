@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#111216"/>
+  <g transform="translate(360, 135)">
+    <path d="M0 0H100V100H200V200H300V300H200V200H100V100H0V0Z" fill="white"/>
+    <text x="480" y="180" font-family="Inter, sans-serif" font-weight="600" font-size="72" fill="white">Hanzo</text>
+    <text x="480" y="240" font-family="Inter, sans-serif" font-weight="400" font-size="36" fill="rgba(255,255,255,0.8)">The human edge for AI</text>
+  </g>
+</svg>

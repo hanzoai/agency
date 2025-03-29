@@ -13,6 +13,7 @@ import OurWork from "./pages/OurWork";
 import CaseStudy from "./pages/CaseStudy";
 import Contact from "./pages/Contact";
 import Pricing from "./pages/Pricing";
+import FAQ from "./pages/FAQ";
 import Payment from "./pages/Payment";
 import Enterprise from "./pages/Enterprise";
 import ServicesPage from "./pages/ServicesPage";
@@ -58,6 +59,7 @@ const App = () => (
           <Route path="/terms" element={<NotFound />} />
           <Route path="/privacy" element={<NotFound />} />
           <Route path="/cookies" element={<NotFound />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

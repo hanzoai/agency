@@ -39,8 +39,8 @@ function MainNavigation() {
     <div className="w-full bg-black fixed top-0 z-50 border-b border-border/40" role="banner">
       <div className="w-full max-w-full px-4 mx-auto flex h-16 items-center">
         <Link to="/" className="mr-6 flex items-center space-x-2">
-          <img src="/images/logo/logo.png" alt="Hanzo" className="h-8 w-auto" />
-          <span className="font-bold text-2xl">Hanzo</span>
+          <img src="/images/logo/logo.png" alt="Hanzo" className="h-7 w-auto" />
+          <span className="font-bold text-xl truncate">Hanzo</span>
         </Link>
         
         <NavigationMenu className="w-full bg-black text-white">
@@ -81,12 +81,12 @@ function MainNavigation() {
                                     </ListItem>
                                   ))}
                                 </ul>
-                                <button className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
+                                <Link to="/solutions/capabilities" className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
                                   View all 
                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
                                     <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                   </svg>
-                                </button>
+                                </Link>
                               </div>
                             )}
 
@@ -109,47 +109,80 @@ function MainNavigation() {
                                     </ListItem>
                                   ))}
                                 </ul>
-                                <button className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
+                                <Link to="/solutions/industries" className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
                                   View all 
                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
                                     <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                   </svg>
-                                </button>
+                                </Link>
                               </div>
                             )}
 
-                            {/* Featured Column */}
-                            {item.featured && (
-                              <div className="col-span-1">
-                                {item.featured.map((feature, index) => (
-                                  <div 
-                                    key={feature.title}
-                                    className={`bg-gray-800/50 rounded-md p-5 ${index > 0 ? 'mt-4' : ''}`}
-                                  >
-                                    {feature.icon && (
-                                      <div className="flex items-center gap-2 mb-2">
-                                        <div className="bg-gray-700 text-white w-6 h-6 rounded flex items-center justify-center text-xs font-bold">
-                                          {feature.icon}
-                                        </div>
-                                        <span className="text-sm font-medium text-white">{feature.title}</span>
+                            {/* Solutions Column */}
+                            <div className="col-span-1">
+                              <h3 className="font-medium text-white text-sm mb-4">AI & DX Platforms</h3>
+                              <ul className="space-y-4">
+                                <li>
+                                  <a href="https://hanzo.ai" className="block select-none rounded-md py-2 px-3 no-underline outline-none transition-colors hover:bg-gray-800 text-white focus:bg-gray-800">
+                                    <div className="flex items-center gap-2 mb-1">
+                                      <div className="text-sm font-medium leading-none flex items-center">
+                                        AI Cloud
+                                        <ExternalLink className="h-3 w-3 text-gray-400 ml-1" />
                                       </div>
-                                    )}
-                                    {!feature.icon && (
-                                      <h3 className="text-sm font-medium text-white mb-2">{feature.title}</h3>
-                                    )}
-                                    <p className="text-xs text-gray-400 mb-3">{feature.description}</p>
-                                    {feature.cta && (
-                                      <a href={feature.href} className="text-xs text-white inline-flex items-center hover:underline">
-                                        {feature.cta}
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
-                                          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                        </svg>
-                                      </a>
-                                    )}
-                                  </div>
-                                ))}
-                              </div>
-                            )}
+                                    </div>
+                                    <p className="text-sm leading-snug text-gray-400">
+                                      Enterprise-grade AI solutions
+                                    </p>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="https://hanzo.ai" className="block select-none rounded-md py-2 px-3 no-underline outline-none transition-colors hover:bg-gray-800 text-white focus:bg-gray-800">
+                                    <div className="flex items-center gap-2 mb-1">
+                                      <div className="text-sm font-medium leading-none flex items-center">
+                                        DX Platform
+                                        <ExternalLink className="h-3 w-3 text-gray-400 ml-1" />
+                                      </div>
+                                    </div>
+                                    <p className="text-sm leading-snug text-gray-400">
+                                      Digital experience platform for enterprises
+                                    </p>
+                                  </a>
+                                </li>
+                              </ul>
+                              
+                              {/* Featured Card for Solutions */}
+                              {item.featured && (
+                                <div className="mt-4">
+                                  {item.featured.filter(f => f.title === "Sensei Group").map((feature) => (
+                                    <div 
+                                      key={feature.title}
+                                      className="bg-gray-800/50 rounded-md p-5 mt-4"
+                                    >
+                                      {feature.icon && (
+                                        <div className="flex items-center gap-2 mb-2">
+                                          <div className="bg-gray-700 text-white w-6 h-6 rounded flex items-center justify-center text-xs font-bold">
+                                            {feature.icon}
+                                          </div>
+                                          <span className="text-sm font-medium text-white">{feature.title}</span>
+                                        </div>
+                                      )}
+                                      {!feature.icon && (
+                                        <h3 className="text-sm font-medium text-white mb-2">{feature.title}</h3>
+                                      )}
+                                      <p className="text-xs text-gray-400 mb-3">{feature.description}</p>
+                                      {feature.cta && (
+                                        <a href={feature.href} className="text-xs text-white inline-flex items-center hover:underline">
+                                          {feature.cta}
+                                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
+                                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                          </svg>
+                                        </a>
+                                      )}
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </NavigationMenuContent>
@@ -160,9 +193,9 @@ function MainNavigation() {
                       <NavigationMenuContent>
                         <div className="p-6 w-full mx-auto">
                           <div className="grid gap-8 grid-cols-4">
-                            {/* Categories Columns */}
-                            {item.categories.map((category, categoryIndex) => (
-                              <div key={category.title} className={categoryIndex === 3 ? "col-span-1" : "col-span-1"}>
+                            {/* Only show first 2 categories */}
+                            {item.categories.slice(0, 2).map((category, categoryIndex) => (
+                              <div key={category.title} className="col-span-1">
                                 <a 
                                   href={category.href} 
                                   className="font-medium text-white text-sm mb-4 flex items-center hover:underline group"
@@ -196,7 +229,43 @@ function MainNavigation() {
                               </div>
                             ))}
 
-                            {/* Featured Column */}
+                            {/* View More Services Column */}
+                            <div className="col-span-1">
+                              <a
+                                href="/services"
+                                className="font-medium text-white text-sm mb-4 flex items-center hover:underline group"
+                              >
+                                View more services
+                                <svg
+                                  className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                >
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                              </a>
+                              <ul className="space-y-2 mt-3">
+                                <li>
+                                  <a href="/services/specialized-production" className="block select-none rounded-md py-1 px-2 leading-none no-underline outline-none transition-colors hover:bg-gray-800 text-white focus:bg-gray-800">
+                                    <div className="flex items-center gap-2 mb-1">
+                                      <div className="text-sm font-medium leading-none flex items-center">Specialized production</div>
+                                    </div>
+                                    <p className="line-clamp-2 text-sm leading-snug text-gray-400">Motion design, video, and 3D services</p>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="/services/ai-services" className="block select-none rounded-md py-1 px-2 leading-none no-underline outline-none transition-colors hover:bg-gray-800 text-white focus:bg-gray-800">
+                                    <div className="flex items-center gap-2 mb-1">
+                                      <div className="text-sm font-medium leading-none flex items-center">AI services</div>
+                                    </div>
+                                    <p className="line-clamp-2 text-sm leading-snug text-gray-400">AI-enhanced creative and consulting</p>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+
+                            {/* Featured Column - keep Sensei under Services */}
                             {item.featured && (
                               <div className="col-span-1">
                                 {item.featured.map((feature, index) => (
@@ -266,7 +335,30 @@ function MainNavigation() {
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div className="lg:hidden fixed inset-0 top-0 left-0 right-0 bottom-0 w-full h-full bg-black/95 backdrop-blur-lg z-[999] overflow-auto transition-all duration-300">
-          <div className="container-custom py-20 min-h-screen">
+          <div className="flex items-center justify-between p-4 border-b border-white/10">
+            <Link to="/" className="flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
+              <img src="/images/logo/logo.png" alt="Hanzo" className="h-7 w-auto" />
+              <span className="font-bold text-xl text-white">Hanzo</span>
+            </Link>
+            <button 
+              className="p-2 text-primary hover:text-white" 
+              onClick={() => setIsMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <X size={24} />
+            </button>
+          </div>
+          
+          <div className="p-4 border-b border-white/10">
+            <div className="relative">
+              <input 
+                type="search" 
+                placeholder="Search..." 
+                className="w-full bg-white/10 border border-white/20 rounded-md px-4 py-2 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
+              />
+            </div>
+          </div>
+          <div className="container-custom py-8 min-h-screen">
             <nav className="flex flex-col space-y-6 divide-y divide-white/10 pb-20">
               <div className="py-4">
                 <details className="group mobile-nav-details">
@@ -365,6 +457,14 @@ function MainNavigation() {
                       </ul>
                     </div>
                     
+                    <div>
+                      <h4 className="font-semibold text-sm mb-2">Platforms</h4>
+                      <ul className="space-y-2 ml-2">
+                        <li><a href="https://hanzo.ai" target="_blank" className="text-foreground/80 hover:text-foreground text-sm flex items-center gap-1" onClick={handleMobileLinkClick}>AI Cloud <ExternalLink className="h-3 w-3" /></a></li>
+                        <li><a href="https://hanzo.ai" target="_blank" className="text-foreground/80 hover:text-foreground text-sm flex items-center gap-1" onClick={handleMobileLinkClick}>DX Platform <ExternalLink className="h-3 w-3" /></a></li>
+                      </ul>
+                    </div>
+                    
                     <div className="bg-black/20 p-3 rounded-lg">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="w-8 h-8 bg-emerald-800/30 rounded-lg flex items-center justify-center text-white text-xs">SG</div>
@@ -380,7 +480,8 @@ function MainNavigation() {
                 </details>
               </div>
               
-              <Link to="/help" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Help</Link>
+              <Link to="/pricing" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
+              <Link to="/faq" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>FAQ</Link>
               <Link to="/login" className="bg-white text-black px-7 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap mt-4" onClick={() => setIsMenuOpen(false)}>
                 Signup
               </Link>

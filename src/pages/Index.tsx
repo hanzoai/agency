@@ -13,7 +13,7 @@ import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
 import AICapabilities from '@/components/AICapabilities';
-import ModernTestimonials from '@/components/ModernTestimonials';
+// import ModernTestimonials from '@/components/ModernTestimonials';
 import StatsSection from '@/components/StatsSection';
 
 const Index = () => {
@@ -78,10 +78,7 @@ const Index = () => {
         <StatsSection />
         <WhyHanzo />
         <CaseStudy />
-        <ModernTestimonials />
         <Process />
-        <Pricing />
-        <FAQ />
         <CTA />
         <Footer />
       </div>

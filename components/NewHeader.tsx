@@ -18,7 +18,8 @@ const NewHeader = () => {
     <div className="w-full bg-black fixed top-0 z-50 border-b border-border/40" role="banner">
       <div className="w-full max-w-full px-4 mx-auto flex h-16 items-center">
         <Link to="/" className="mr-6 flex items-center space-x-2">
-          <span className="font-bold text-2xl">Hanzo</span>
+          <img src="/images/logo/logo.png" alt="Hanzo" className="h-7 w-auto" />
+          <span className="font-bold text-xl truncate">Hanzo</span>
         </Link>
         
         <NavigationMenu className="w-full bg-black text-white">

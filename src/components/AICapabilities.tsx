@@ -68,7 +68,7 @@ const AICapabilities = () => {
           </div>
         </div>
         
-        <div className="text-center">
+        <div className="text-center mb-16">
           <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8">
             <Button 
               variant="primary" 
@@ -79,6 +79,87 @@ const AICapabilities = () => {
               <ArrowUpRight size={16} className="ml-1" />
             </Button>
           </a>
+        </div>
+        
+        <div className="mt-20">
+          <h3 className="text-center text-lg font-medium mb-8">We work with all leading frontier models and open source software</h3>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 items-center justify-items-center">
+            {/* AI Models */}
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/openai.svg" alt="OpenAI" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">OpenAI</span>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/anthropic.svg" alt="Anthropic" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">Anthropic</span>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/mistral.svg" alt="Mistral AI" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">Mistral AI</span>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/meta.svg" alt="Meta AI" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">Meta AI</span>
+            </div>
+            
+            {/* Open Source */}
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/huggingface.svg" alt="Hugging Face" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">Hugging Face</span>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/pytorch.svg" alt="PyTorch" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">PyTorch</span>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/tensorflow.svg" alt="TensorFlow" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">TensorFlow</span>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/langchain.svg" alt="LangChain" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">LangChain</span>
+            </div>
+          </div>
+          
+          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-items-center">
+            {/* Cloud Platforms */}
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/aws.svg" alt="AWS" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">AWS</span>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/gcp.svg" alt="Google Cloud" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">Google Cloud</span>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/azure.svg" alt="Microsoft Azure" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">Azure</span>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/vercel.svg" alt="Vercel" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">Vercel</span>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/databricks.svg" alt="Databricks" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">Databricks</span>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <img src="/images/logo/snowflake.svg" alt="Snowflake" className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-foreground/60 mt-2">Snowflake</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -303,7 +303,11 @@ export const navigationItems: NavigationItem[] = [
     ]
   },
   {
-    title: "Help",
-    href: "/help",
+    title: "Pricing",
+    href: "/pricing",
+  },
+  {
+    title: "FAQ",
+    href: "/faq",
   },
 ];

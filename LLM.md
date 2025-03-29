@@ -71,6 +71,7 @@ Case studies are a key part of the website and follow a consistent pattern:
    - Navigation is responsive with different behaviors at desktop and mobile breakpoints
 
 3. **UI Design Pattern**:
-   - Full-width dropdown menus on desktop use `width: 100vw` with `margin-left: calc(-50vw + 50%)` for proper alignment
-   - Content within dropdowns is constrained to `max-width: var(--max-width)`
-   - Consistent z-index hierarchy ensures proper layering of UI elements
+   - Navigation now uses shadcn's NavigationMenu component for dropdowns
+   - Navigation content is stored in a separate data file (`src/data/navigationItems.ts`)
+   - Hero headline updated to "AI is our super power"
+   - Fixed header with proper dropdown positioning

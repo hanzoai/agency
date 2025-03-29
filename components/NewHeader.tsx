@@ -14,13 +14,13 @@ import { navigationItems } from "@/data/navigationItems";
 
 const NewHeader = () => {
   return (
-    <header className="w-full bg-background fixed top-0 z-50 border-b border-border/40">
+    <header className="w-full bg-black fixed top-0 z-50 border-b border-border/40">
       <div className="container mx-auto flex h-16 items-center px-4">
         <Link to="/" className="mr-6 flex items-center space-x-2">
           <span className="font-bold text-2xl">Hanzo</span>
         </Link>
         
-        <NavigationMenu className="mx-auto">
+        <NavigationMenu className="mx-auto bg-black text-white">
           <NavigationMenuList>
             {navigationItems.map((item) => (
               <NavigationMenuItem key={item.title}>
@@ -35,7 +35,7 @@ const NewHeader = () => {
                     <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
                     {item.children && (
                       <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                        <ul className="grid gap-3 p-6 max-w-7xl mx-auto w-full grid-cols-2 lg:grid-cols-3">
                           {item.children.map((child) => (
                             <ListItem
                               key={child.title}
@@ -85,7 +85,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-800 text-white focus:bg-gray-800 text-white",
             className
           )}
           {...props}

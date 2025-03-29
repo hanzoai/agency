@@ -78,11 +78,11 @@ const Navbar = () => {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b ${isScrolled ? 'bg-background/95 backdrop-blur-sm border-border/40' : 'bg-transparent border-transparent'}`} 
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 h-16 flex items-center ${isScrolled ? 'bg-background/95 backdrop-blur-sm border-b border-border/40' : 'bg-transparent border-transparent'}`} 
       style={{ top: isBannerVisible ? '64px' : '0' }}
     >
       <div className="container-custom">
-        <div className="flex items-center justify-between py-4">
+        <div className="flex items-center justify-between w-full">
           <Link to="/" className="flex items-center gap-3 py-1">
             <img src="/images/logo/logo.png" alt="Hanzo" className="h-8 w-auto" />
             <span className="text-xl font-semibold tracking-tight">Hanzo</span>

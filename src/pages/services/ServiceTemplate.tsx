@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight, Check } from 'lucide-react';
 import { buttonModifiers } from '@/lib/button-utils';
-import { Link } from 'react-router-dom';
+import Footer from '@/components/Footer';
+import { Button } from '@/components/ui/button';
 
 interface ServiceTemplateProps {
   title: string;
@@ -26,14 +25,14 @@ interface ServiceTemplateProps {
   }[];
 }
 
-const ServiceTemplate: React.FC<ServiceTemplateProps> = ({ 
-  title, 
-  description, 
+const ServiceTemplate: React.FC<ServiceTemplateProps> = ({
+  title,
+  description,
   icon,
   color,
-  services, 
-  features, 
-  caseStudies 
+  services,
+  features,
+  caseStudies
 }) => {
   useEffect(() => {
     document.body.classList.add('dark');
@@ -43,9 +42,8 @@ const ServiceTemplate: React.FC<ServiceTemplateProps> = ({
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <main className="pt-16 bg-black text-white">
+    <div className="min-h-screen bg-black text-white">
+      <main className="pt-24">
         {/* Hero Section */}
         <section className="py-24">
           <div className="container-custom">
@@ -103,7 +101,7 @@ const ServiceTemplate: React.FC<ServiceTemplateProps> = ({
                 We deliver exceptional results through a combination of experienced talent, proven processes, and cutting-edge technology.
               </p>
             </div>
-            
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {features.map((feature, index) => (
                 <div key={index} className="bg-white/5 p-6 rounded-xl backdrop-blur-sm border border-white/10">
@@ -126,7 +124,7 @@ const ServiceTemplate: React.FC<ServiceTemplateProps> = ({
                 See how we've helped businesses across industries achieve their goals through {title.toLowerCase()}.
               </p>
             </div>
-            
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {caseStudies.map((study, index) => (
                 <Link key={index} to={`/case-study/${study.id}`} className="group">
@@ -149,7 +147,7 @@ const ServiceTemplate: React.FC<ServiceTemplateProps> = ({
                 </Link>
               ))}
             </div>
-            
+
             <div className="text-center mt-12">
               <Link to="/our-work">
                 <Button
@@ -203,7 +201,7 @@ const ServiceTemplate: React.FC<ServiceTemplateProps> = ({
         </section>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 

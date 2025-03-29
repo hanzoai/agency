@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import NewHeader from "../components/NewHeader";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Subscribe from "./pages/Subscribe";
@@ -39,6 +40,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <NewHeader />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/subscribe" element={<Subscribe />} />

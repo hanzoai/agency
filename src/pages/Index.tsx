@@ -1,6 +1,4 @@
-
 import { useEffect, useState } from 'react';
-import MainNavigation from '../components/MainNavigation';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
 import WhyHanzo from '@/components/WhyHanzo';
@@ -9,7 +7,6 @@ import Testimonials from '@/components/Testimonials';
 import Process from '@/components/Process';
 import Pricing from '@/components/Pricing';
 import FAQ from '@/components/FAQ';
-import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
 import AICapabilities from '@/components/AICapabilities';
@@ -71,7 +68,6 @@ const Index = () => {
   return (
     <ScrollReveal>
       <div className="min-h-screen flex flex-col pt-16">
-        <MainNavigation />
         <Hero />
         <Services />
         <AICapabilities />
@@ -79,7 +75,6 @@ const Index = () => {
         <WhyHanzo />
         <CaseStudy />
         <Process />
-        <CTA />
         <Footer />
       </div>
     </ScrollReveal>

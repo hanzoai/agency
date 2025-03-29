@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import Navbar from '@/components/Navbar';
+import NewHeader from '../../components/NewHeader';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
 import WhyHanzo from '@/components/WhyHanzo';
@@ -70,8 +70,8 @@ const Index = () => {
 
   return (
     <ScrollReveal>
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
+      <div className="min-h-screen flex flex-col pt-16">
+        <NewHeader />
         <Hero />
         <Services />
         <AICapabilities />

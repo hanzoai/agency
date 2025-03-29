@@ -8,24 +8,24 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
-import { navigationItems } from "@/data/navigationItems";
+} from "../src/components/ui/navigation-menu";
+import { cn } from "../src/lib/utils";
+import { navigationItems } from "../src/data/navigationItems";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 
 const NewHeader = () => {
   return (
     <div className="w-full bg-black fixed top-0 z-50 border-b border-border/40" role="banner">
-      <div className="container mx-auto flex h-16 items-center px-4">
+      <div className="w-full max-w-full px-4 mx-auto flex h-16 items-center">
         <Link to="/" className="mr-6 flex items-center space-x-2">
           <span className="font-bold text-2xl">Hanzo</span>
         </Link>
         
-        <NavigationMenu className="mx-auto bg-black text-white">
-          <NavigationMenuList>
+        <NavigationMenu className="w-full bg-black text-white">
+          <NavigationMenuList className="w-full justify-start">
             {navigationItems.map((item) => (
               <NavigationMenuItem key={item.title}>
-                {item.href && !item.children ? (
+                {item.href && !item.children && !item.capabilities && !item.industries && !item.categories ? (
                   <Link to={item.href}>
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                       {item.title}
@@ -34,9 +34,11 @@ const NewHeader = () => {
                 ) : (
                   <>
                     <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
-                    {item.children && (
+                    
+                    {/* Solutions Layout with Capabilities & Industries */}
+                    {(item.capabilities || item.industries) && (
                       <NavigationMenuContent>
-                        <div className="p-6 max-w-7xl mx-auto w-full">
+                        <div className="p-6 w-full mx-auto">
                           <div className="grid gap-8 grid-cols-3">
                             {/* Capabilities Column */}
                             {item.capabilities && (
@@ -57,12 +59,12 @@ const NewHeader = () => {
                                     </ListItem>
                                   ))}
                                 </ul>
-                                <button className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
+                                <Link to="/solutions/capabilities" className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
                                   View all 
                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
                                     <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                   </svg>
-                                </button>
+                                </Link>
                               </div>
                             )}
 
@@ -85,12 +87,12 @@ const NewHeader = () => {
                                     </ListItem>
                                   ))}
                                 </ul>
-                                <button className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
+                                <Link to="/solutions/industries" className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
                                   View all 
                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
                                     <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                   </svg>
-                                </button>
+                                </Link>
                               </div>
                             )}
 
@@ -134,7 +136,7 @@ const NewHeader = () => {
                     {/* Services Categories Layout */}
                     {item.categories && (
                       <NavigationMenuContent>
-                        <div className="p-6 max-w-7xl mx-auto w-full">
+                        <div className="p-6 w-full mx-auto">
                           <div className="grid gap-8 grid-cols-4">
                             {/* Categories Columns */}
                             {item.categories.map((category, categoryIndex) => (
@@ -205,9 +207,6 @@ const NewHeader = () => {
                               </div>
                             )}
                           </div>
-                        </div>
-                      </NavigationMenuContent>
-                    )}
                         </div>
                       </NavigationMenuContent>
                     )}

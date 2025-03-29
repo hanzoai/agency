@@ -108,15 +108,15 @@ const Navbar = () => {
                   Our Work
                 </Link>
                 
-                <div className="relative group">
-                  <a href="/services" className="text-foreground/90 hover:text-foreground font-medium transition flex items-center gap-1">
-                    Services
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:rotate-180">
-                      <path d="m6 9 6 6 6-6"/>
-                    </svg>
-                  </a>
+              <div className="relative group">
+                <Link to="/services" className="text-foreground/90 hover:text-foreground font-medium transition flex items-center gap-1">
+                  Services
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:rotate-180">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                </Link>
                   
-                  <div className="absolute left-0 top-full z-50 w-full bg-black border-t border-gray-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div className="absolute left-1/2 transform -translate-x-1/2 top-full z-50 w-screen max-w-full bg-black border-t border-gray-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <div className="container-custom py-8">
                       <div className="grid grid-cols-4 gap-8">
                         {/* Column 1: Creative design services */}
@@ -358,14 +358,14 @@ const Navbar = () => {
                 </div>
                 
                 <div className="relative group">
-                  <button className="text-foreground/90 hover:text-foreground font-medium transition flex items-center gap-1">
-                    Solutions
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:rotate-180">
-                      <path d="m6 9 6 6 6-6"/>
-                    </svg>
-                  </button>
+                <Link to="/solutions" className="text-foreground/90 hover:text-foreground font-medium transition flex items-center gap-1">
+                  Solutions
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:rotate-180">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                </Link>
                   
-                  <div className="absolute left-0 top-full z-50 w-full bg-black border-t border-gray-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div className="absolute left-1/2 transform -translate-x-1/2 top-full z-50 w-screen max-w-full bg-black border-t border-gray-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <div className="container-custom py-8 grid grid-cols-3 gap-6">
                       <div>
                         <h3 className="font-bold text-lg mb-4">Capabilities</h3>

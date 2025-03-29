@@ -1,73 +1,78 @@
+import { ArrowUpRight } from 'lucide-react';
+import { Button } from './ui/button';
+import { buttonModifiers } from '@/lib/button-utils';
 
-import { Circle } from 'lucide-react';
-
-const services = [
+const serviceCategories = [
   {
-    title: "Cost-Effective App Design",
-    description: "Web apps, mobile apps, SaaS apps (UI/UX) at budget-friendly rates."
+    title: "Creative Design",
+    services: [
+      { name: "Ad Creative", description: "AI-powered designs that drive measurable performance" },
+      { name: "Social Media Creative", description: "Algorithm-optimized assets for maximum engagement" },
+      { name: "Presentation Design", description: "Strategic narratives that elevate your message" },
+      { name: "Illustration Design", description: "Visual storytelling engineered for brand recognition" },
+      { name: "Web Design", description: "User-centric experiences built for conversions" },
+      { name: "Branding Services", description: "Data-driven identity systems for market differentiation" }
+    ]
   },
   {
-    title: "Reliable Brand Design",
-    description: "Consistent logos, brandkits, slide decks, and templates you can depend on."
+    title: "Specialized Production",
+    services: [
+      { name: "Video Production", description: "Streamlined production systems for cinematic quality at scale" },
+      { name: "Motion Design", description: "Dynamic visual systems for digital environments" },
+      { name: "3D & AR Design", description: "Immersive experiences with practical implementation" }
+    ]
   },
   {
-    title: "Affordable Websites",
-    description: "Full websites, splash pages, sales pages without breaking the bank."
-  },
-  {
-    title: "And so much more...",
-    description: "Quality solutions for all your design needs at predictable prices."
+    title: "AI Engineering",
+    services: [
+      { name: "RAG System Implementation", description: "Custom knowledge systems for specialized applications" },
+      { name: "LLM Fine-Tuning", description: "Precision model adaptation for domain-specific requirements" },
+      { name: "AI Pipeline Development", description: "End-to-end architecture from ingestion to deployment" },
+      { name: "AI-Enhanced Creative", description: "Human expertise multiplied by computational intelligence" }
+    ]
   }
 ];
 
 const Services = () => {
   return (
-    <section id="services" className="section-padding bg-beige-50">
+    <section id="services" className="py-24 lg:py-32 bg-background">
       <div className="container-custom">
-        <div className="text-center md:text-left max-w-3xl mb-16">
-          <h2 className="text-3xl md:text-6xl font-black uppercase tracking-tighter mb-8 reveal">
-            WHAT WE<br/>OFFER
-          </h2>
-          <p className="text-lg text-primary/80 reveal">
-            Reliable design solutions that deliver consistent value. Quality services at affordable prices, tailored to fit your budget and exceed your expectations.
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">One subscription for access to all services</h2>
+          <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
+            No matter your creative or technical need, initiating and managing projects is streamlined through our systematic approach.
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, index) => (
-            <div key={index} className="border-t border-black pt-6 reveal-slide-up" style={{animationDelay: `${index * 0.1}s`}}>
-              <h3 className="text-xl font-bold mb-3 uppercase">{service.title}</h3>
-              <p className="text-primary/80">{service.description}</p>
+        <div className="grid gap-12 mb-16">
+          {serviceCategories.map((category, categoryIndex) => (
+            <div key={categoryIndex} className="mb-12">
+              <h3 className="text-2xl font-bold mb-8 pb-4 border-b border-border/40">
+                {category.title}
+              </h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
+                {category.services.map((service, serviceIndex) => (
+                  <div key={serviceIndex} className="reveal-slide-up" style={{animationDelay: `${serviceIndex * 0.1}s`}}>
+                    <h4 className="text-xl font-semibold mb-2">{service.name}</h4>
+                    <p className="text-foreground/70">{service.description}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
         
-        <div className="mt-20 pt-20 border-t border-black/10">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="text-center md:text-left">
-              <div className="inline-flex items-center text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
-                <span>TEN+</span>
-                <div className="ml-4 text-base uppercase text-primary/70 normal-case font-normal tracking-normal leading-tight">
-                  Years of<br/>reliability
-                </div>
-              </div>
-              <p className="text-lg text-primary/80">
-                Consistently delivering value to our clients.
-              </p>
-            </div>
-            
-            <div className="text-center md:text-left">
-              <div className="inline-flex items-center text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
-                <span>0.8K</span>
-                <div className="ml-4 text-base uppercase text-primary/70 normal-case font-normal tracking-normal leading-tight">
-                  Satisfied<br/>customers
-                </div>
-              </div>
-              <p className="text-lg text-primary/80">
-                Our business is built on trust and affordability.
-              </p>
-            </div>
-          </div>
+        <div className="text-center">
+          <a href="/services">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className={buttonModifiers.interactive + " font-medium px-8"}
+            >
+              View all services
+              <ArrowUpRight size={16} className="ml-1" />
+            </Button>
+          </a>
         </div>
       </div>
     </section>

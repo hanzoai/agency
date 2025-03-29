@@ -9,10 +9,13 @@ import NotFound from "./pages/NotFound";
 import Subscribe from "./pages/Subscribe";
 import OnboardingForm from "./pages/Onboarding";
 import OnboardingSuccess from "./pages/OnboardingSuccess";
-import CaseStudies from "./pages/CaseStudies";
+import OurWork from "./pages/OurWork";
 import CaseStudy from "./pages/CaseStudy";
 
 import Contact from "./pages/Contact";
+import Pricing from "./pages/Pricing";
+import Payment from "./pages/Payment";
+import Enterprise from "./pages/Enterprise";
 
 const queryClient = new QueryClient();
 
@@ -39,9 +42,19 @@ const App = () => (
           <Route path="/subscribe" element={<Subscribe />} />
           <Route path="/onboarding" element={<OnboardingForm />} />
           <Route path="/onboarding-success" element={<OnboardingSuccess />} />
-          <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/our-work" element={<OurWork />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/services/*" element={<Navigate to="/" replace />} />
+          <Route path="/capabilities/*" element={<Navigate to="/" replace />} />
+          <Route path="/industries/*" element={<Navigate to="/" replace />} />
+          <Route path="/case-studies" element={<Navigate to="/our-work" replace />} />
           <Route path="/case-study/:id" element={<CaseStudy />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/enterprise" element={<Enterprise />} />
+          <Route path="/terms" element={<NotFound />} />
+          <Route path="/privacy" element={<NotFound />} />
+          <Route path="/cookies" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

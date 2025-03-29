@@ -4,6 +4,8 @@ import Footer from '@/components/Footer';
 import { PricingCard } from '@/components/ui/pricing-card';
 import { PricingToggle } from '@/components/ui/pricing-toggle';
 import GradientBackground from '@/components/GradientBackground';
+import { Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const pricingData = [
   {
@@ -23,7 +25,7 @@ const pricingData = [
   {
     title: "Basic",
     price: "$8",
-    description: "Billed yearly",
+    description: "per user/month",
     features: [
       { text: "All Free features +" },
       { text: "5 teams" },
@@ -37,7 +39,7 @@ const pricingData = [
   {
     title: "Business",
     price: "$14",
-    description: "Billed yearly",
+    description: "per user/month",
     features: [
       { text: "All Basic features +" },
       { text: "Linear Asks", link: "#asks" },
@@ -58,7 +60,6 @@ const pricingData = [
   {
     title: "Enterprise",
     price: "Custom pricing",
-    description: "Annual billing only",
     features: [
       { text: "All Business features +" },
       { text: "Advanced Linear Asks", link: "#asks" },
@@ -72,94 +73,182 @@ const pricingData = [
   },
 ];
 
-const monthlyPrices = {
-  "Basic": "$10",
-  "Business": "$18"
-};
-
 export default function Pricing() {
   const [yearlyBilling, setYearlyBilling] = useState(true);
   
   return (
     <>
       <Navbar />
-      <main className="pt-32 pb-20">
-        <GradientBackground 
-          variant="primary" 
-          intensity="medium" 
-          className="fixed inset-0 z-[-1]"
-        />
-        
+      <main className="pt-32 pb-20 bg-black text-white">
         <div className="container-custom">
           <div className="text-center mb-16">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Pricing</h1>
             <p className="text-xl text-foreground/80 max-w-3xl mx-auto">
-              Use Hanzo for free with your whole team. Upgrade to enable
-              unlimited projects, enhanced security controls, and additional features.
+              Choose between our self-serve AI creative platform or full-service agency support.
+              Start immediately with flexible terms and our quality guarantee.
             </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Self-Serve AI Hub */}
+            <div className="flex flex-col h-full border border-border/20 rounded-lg overflow-hidden">
+              <div className="p-6 border-b border-border/20">
+                <h3 className="text-xl font-semibold mb-1">Self-Serve AI Hub</h3>
+                <p className="text-sm text-foreground/70">AI-powered creative & marketing platform</p>
+                <div className="flex items-baseline gap-1 mt-2">
+                  <span className="text-3xl font-bold">$500</span>
+                  <span className="text-foreground/60 text-sm">/month</span>
+                </div>
+                <p className="text-xs text-foreground/60 mt-2">Cancel anytime • No commitment</p>
+              </div>
+              
+              <div className="p-6 flex-grow">
+                <ul className="space-y-3">
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">1 custom brand-trained AI agent</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">40 hours of AI-assisted design</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Web design & development</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Brand identity design</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Social media content creation</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Marketing collateral design</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Access to collaboration portal</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">48-hour turnaround for basic requests</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="p-6 pt-2 mt-auto">
+                <Link to="/payment?plan=self-serve" className="w-full inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium border border-border/40 hover:bg-card/40 transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+                  Get started now
+                </Link>
+              </div>
+            </div>
             
-            <div className="mt-10">
-              <PricingToggle
-                enabled={yearlyBilling}
-                onChange={setYearlyBilling}
-                labelLeft="Monthly"
-                labelRight="Billed yearly"
-              />
-              {yearlyBilling && (
-                <p className="text-sm text-foreground/60 mt-2">Save 20% with annual billing</p>
-              )}
+            {/* Agency Service */}
+            <div className="flex flex-col h-full border border-border/20 rounded-lg overflow-hidden bg-card/20 backdrop-blur-sm relative">
+              <div className="absolute top-0 right-0 bg-accent text-white px-4 py-1 text-sm font-bold">
+                POPULAR
+              </div>
+              <div className="p-6 border-b border-border/20">
+                <h3 className="text-xl font-semibold mb-1">Agency Service</h3>
+                <p className="text-sm text-foreground/70">Full-service creative & marketing team</p>
+                <div className="flex items-baseline gap-1 mt-2">
+                  <span className="text-3xl font-bold">$5,000</span>
+                  <span className="text-foreground/60 text-sm">/month</span>
+                </div>
+                <p className="text-xs text-foreground/60 mt-2">1 quarter minimum commitment</p>
+              </div>
+              
+              <div className="p-6 flex-grow">
+                <ul className="space-y-3">
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Dedicated Creative Director</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Dedicated Project Manager</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">2 specialized creatives simultaneously</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">120 hours dedicated per month</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">2 custom brand-trained AI agents</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">24-hour turnaround for basic requests</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Access to 100+ creative services</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Full copyright ownership</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Unlimited revisions & requests</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">4 hours of consultation per month</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="p-6 pt-2 mt-auto">
+                <Link to="/payment?plan=agency" className="w-full inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium bg-white text-black hover:bg-white/90 transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+                  Get started now
+                </Link>
+                <div className="text-center mt-4">
+                  <Link to="/contact" className="text-sm text-foreground hover:underline">
+                    Schedule a demo
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pricingData.map((plan) => (
-              <PricingCard
-                key={plan.title}
-                {...plan}
-                price={
-                  !yearlyBilling && monthlyPrices[plan.title as keyof typeof monthlyPrices]
-                    ? monthlyPrices[plan.title as keyof typeof monthlyPrices]
-                    : plan.price
-                }
-                description={
-                  plan.title === "Basic" || plan.title === "Business" 
-                    ? (yearlyBilling ? "Billed yearly" : "Billed monthly")
-                    : plan.description
-                }
-              />
-            ))}
-          </div>
-          
-          <div className="mt-24">
-            <h2 className="text-2xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <div className="bg-card/30 border border-border/20 rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-3">Can I change plans later?</h3>
-                <p className="text-foreground/80 text-sm">
-                  Yes, you can upgrade, downgrade, or cancel your plan at any time. When changing plans, you'll be prorated for the remainder of your billing period.
-                </p>
-              </div>
-              
-              <div className="bg-card/30 border border-border/20 rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-3">What payment methods do you accept?</h3>
-                <p className="text-foreground/80 text-sm">
-                  We accept all major credit cards, including Visa, Mastercard, and American Express. For Enterprise plans, we also offer invoicing.
-                </p>
-              </div>
-              
-              <div className="bg-card/30 border border-border/20 rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-3">Do you offer discounts?</h3>
-                <p className="text-foreground/80 text-sm">
-                  We offer discounts for nonprofit organizations and educational institutions. Contact our sales team for more information.
-                </p>
-              </div>
-              
-              <div className="bg-card/30 border border-border/20 rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-3">What happens when my trial ends?</h3>
-                <p className="text-foreground/80 text-sm">
-                  When your trial ends, your account will automatically switch to the Free plan. You can upgrade to a paid plan at any time to regain access to premium features.
-                </p>
-              </div>
+        </div>
+        
+        <div className="container-custom mt-24">
+          <h2 className="text-2xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="bg-card/30 border border-border/20 rounded-lg p-6">
+              <h3 className="text-lg font-semibold mb-3">How does your onboarding process work?</h3>
+              <p className="text-foreground/80 text-sm">
+                After signing up, you'll be assigned a dedicated team within 24 hours. Our onboarding specialist will walk you through our platform, gather your brand assets, and help you submit your first creative request to get you up and running quickly.
+              </p>
+            </div>
+            
+            <div className="bg-card/30 border border-border/20 rounded-lg p-6">
+              <h3 className="text-lg font-semibold mb-3">How quickly will I receive my designs?</h3>
+              <p className="text-foreground/80 text-sm">
+                Basic design requests are delivered within 24-48 hours depending on your plan. More complex projects like websites or videos follow a detailed timeline established at the beginning of your project.
+              </p>
+            </div>
+            
+            <div className="bg-card/30 border border-border/20 rounded-lg p-6">
+              <h3 className="text-lg font-semibold mb-3">What's the difference between the self-serve and agency plans?</h3>
+              <p className="text-foreground/80 text-sm">
+                The self-serve plan gives you access to our AI-powered platform with limited support. The agency plan provides a full creative team including a dedicated Creative Director, Project Manager, and specialized creatives who handle everything from strategy to execution.
+              </p>
+            </div>
+            
+            <div className="bg-card/30 border border-border/20 rounded-lg p-6">
+              <h3 className="text-lg font-semibold mb-3">Who owns the copyright to the work?</h3>
+              <p className="text-foreground/80 text-sm">
+                You own all copyrights to work created while you're an active client. All files and source materials are yours with no additional fees. However, if you cancel during the trial period, you cannot use any work produced during that time.
+              </p>
             </div>
           </div>
         </div>

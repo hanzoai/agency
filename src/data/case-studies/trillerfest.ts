@@ -51,22 +51,6 @@ const trillerfest: CaseStudyData = {
     ],
     totalFollowers: 7204000
   },
-  relatedProjects: [
-    {
-      id: "bellabeat",
-      title: "BELLABEAT",
-      subtitle: "WOMEN'S HEALTH WEARABLE TECH PLATFORM",
-      imageUrl: "/images/bellabeat/bellabeat-showcase.jpg",
-      route: "/case-study/bellabeat"
-    },
-    {
-      id: "unikoin-gold",
-      title: "UNIKOIN GOLD",
-      subtitle: "BLOCKCHAIN-BASED ESPORTS BETTING PLATFORM",
-      imageUrl: "/images/unikrn/unikrn-1.jpg",
-      route: "/case-study/unikoin-gold"
-    }
-  ]
 };
 
 export default trillerfest;

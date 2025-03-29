@@ -3,7 +3,7 @@ import { CaseStudyData } from '@/types/caseStudy';
 const casperBlockchain: CaseStudyData = {
   id: "casper-blockchain",
   title: "CASPER BLOCKCHAIN",
-  subtitle: "FOUNDATIONAL PARTNERSHIP CREATING THE FIRST ENTERPRISE-READY BLOCKCHAIN",
+  subtitle: "FIRST EVER ENTERPRISE-READY BLOCKCHAIN",
   client: "Casper Labs",
   services: [
     "Blockchain Development",
@@ -58,7 +58,7 @@ const casperBlockchain: CaseStudyData = {
     {
       id: "unikoin-gold",
       title: "UNIKOIN GOLD",
-      subtitle: "BLOCKCHAIN-BASED ESPORTS BETTING PLATFORM",
+      subtitle: "BLOCKCHAIN-BASED ESPORTS BETTING",
       imageUrl: "/images/unikoin/unikoin-1.jpeg",
       route: "/case-study/unikoin-gold"
     },

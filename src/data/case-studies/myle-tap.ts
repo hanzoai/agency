@@ -3,7 +3,7 @@ import { CaseStudyData } from '@/types/caseStudy';
 const myleTap: CaseStudyData = {
   id: "myle-tap",
   title: "MYLE TAP",
-  subtitle: "INNOVATIVE WEARABLE INTERACTION TECHNOLOGY",
+  subtitle: "INNOVATIVE WEARABLE TECHNOLOGY",
   client: "Myle Tap",
   services: [
     "Mobile App Development",
@@ -42,22 +42,6 @@ const myleTap: CaseStudyData = {
     "/images/myle/myle-2.jpg",
     "/images/myle/myle-3.jpg"
   ],
-  relatedProjects: [
-    {
-      id: "bellabeat",
-      title: "BELLABEAT",
-      subtitle: "WOMEN'S HEALTH WEARABLE TECH PLATFORM",
-      imageUrl: "/images/bellabeat/bella-1.jpg",
-      route: "/case-study/bellabeat"
-    },
-    {
-      id: "damon-motorcycles",
-      title: "DAMON MOTORCYCLES",
-      subtitle: "HIGHLY CONVERTING 500X ROI CAMPAIGN",
-      imageUrl: "/images/damon/damon-1.jpg",
-      route: "/case-study/damon-motorcycles"
-    }
-  ]
 };
 
 export default myleTap;

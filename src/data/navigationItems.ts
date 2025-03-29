@@ -4,12 +4,14 @@ export type NavigationItem = {
   title: string;
   href?: string;
   description?: string;
+  isExternal?: boolean;
   featured?: {
     title: string;
     href: string;
     description: string;
     cta?: string;
     icon?: string;
+    isExternal?: boolean;
   }[];
   children?: {
     title: string;
@@ -50,164 +52,173 @@ export type NavigationItem = {
 export const navigationItems: NavigationItem[] = [
   {
     title: "Our Work",
-    href: "/work",
+    href: "/our-work",
   },
   {
     title: "Services",
+    href: "/services",
     categories: [
       {
-        title: "Creative design services",
-        href: "/services/creative-design",
+        title: "Engineering",
+        href: "/services/engineering",
         items: [
           {
-            title: "Ad creative",
-            href: "/services/ad-creative",
-            description: "Eye-catching designs that perform",
-            icon: icons.layers
+            title: "Digital Engineering",
+            href: "/services/digital-engineering",
+            description: "Full-stack development and software solutions",
+            icon: icons.code
           },
           {
-            title: "Social media creative",
-            href: "/services/social",
-            description: "Engaging assets for all platforms",
-            icon: icons.messageSquare
+            title: "Cloud Services",
+            href: "/services/cloud",
+            description: "Scalable cloud infrastructure and solutions",
+            icon: icons.cloud
           },
           {
-            title: "Presentation design",
-            href: "/services/presentation",
-            description: "Captivating slides that tell your story",
-            icon: icons.panelLeft
-          },
-          {
-            title: "Illustration design",
-            href: "/services/illustration",
-            description: "Visual storytelling for your brand",
-            icon: icons.panelLeft
-          },
-          {
-            title: "Branding services",
-            href: "/services/branding",
-            description: "Expertise & custom design services",
-            icon: icons.layers
-          },
-          {
-            title: "Email creation",
-            href: "/services/email",
-            description: "Click-worthy emails that drive engagement",
-            icon: icons.mail
-          },
-          {
-            title: "Web design",
-            href: "/services/web-design",
-            description: "Stunning websites built to engage",
+            title: "Web Development",
+            href: "/services/web-development",
+            description: "Custom websites and web applications",
             icon: icons.laptop
           },
           {
-            title: "eBooks & report design",
-            href: "/services/ebooks",
-            description: "Your digital content supercharged",
-            icon: icons.panelLeft
-          },
-          {
-            title: "Concept creation",
-            href: "/services/concept",
-            description: "Big ideas crafted for maximum impact",
-            icon: icons.lightbulb
-          },
-          {
-            title: "Print design",
-            href: "/services/print",
-            description: "Tangible designs that leave a lasting impression",
-            icon: icons.layers
-          },
-          {
-            title: "Packaging & merchandise design",
-            href: "/services/packaging",
-            description: "Bring your brand to life",
-            icon: icons.shoppingBag
-          }
-        ]
-      },
-      {
-        title: "Specialized production services",
-        href: "/services/production",
-        items: [
-          {
-            title: "Video production",
-            href: "/services/video-production",
-            description: "Effortless video production at scale",
+            title: "Mobile Development",
+            href: "/services/mobile",
+            description: "Native and cross-platform mobile solutions",
             icon: icons.laptop
           },
           {
-            title: "Motion design",
-            href: "/services/motion",
-            description: "For websites, ads, and presentations",
-            icon: icons.layers
-          },
-          {
-            title: "3D & AR design",
-            href: "/services/3d-ar",
-            description: "Innovative solutions for 3D design services",
-            icon: icons.layers
-          },
-          {
-            title: "Web3 services",
+            title: "Web3 & Blockchain",
             href: "/services/web3",
-            description: "Blockchain and decentralized solutions",
+            description: "Decentralized solutions and smart contracts",
             icon: icons.globe
           }
         ]
       },
       {
-        title: "AI services",
-        href: "/services/ai",
+        title: "Design",
+        href: "/services/design",
         items: [
           {
-            title: "AI enhanced creative",
-            href: "/services/ai-creative",
-            description: "Human brilliance powered by AI",
-            icon: icons.brainCircuit
+            title: "UI/UX Design",
+            href: "/services/ui-ux",
+            description: "User-centered design solutions",
+            icon: icons.layers
           },
           {
-            title: "AI consulting",
-            href: "/services/ai-consulting",
-            description: "Maximize AI with tailored strategies",
-            icon: icons.brainCircuit
+            title: "Brand Identity",
+            href: "/services/branding",
+            description: "Complete brand identity systems",
+            icon: icons.layers
+          },
+          {
+            title: "Creative Services",
+            href: "/services/creative",
+            description: "Ad creative, illustrations, and visual assets",
+            icon: icons.layers
+          },
+          {
+            title: "Motion & Video",
+            href: "/services/motion-video",
+            description: "Video production and motion graphics",
+            icon: icons.laptop
+          },
+          {
+            title: "Product Design",
+            href: "/services/product-design",
+            description: "End-to-end product design solutions",
+            icon: icons.layers
           }
         ]
       },
       {
-        title: "Marketing services",
-        href: "/services/marketing",
+        title: "Research",
+        href: "/services/research",
         items: [
           {
-            title: "Marketing strategy",
+            title: "User Research",
+            href: "/services/user-research",
+            description: "Insights into user behaviors and needs",
+            icon: icons.briefcase
+          },
+          {
+            title: "Market Analysis",
+            href: "/services/market-analysis",
+            description: "Comprehensive market research",
+            icon: icons.lineChart
+          },
+          {
+            title: "Data Analytics",
+            href: "/services/data-analytics",
+            description: "Data-driven insights and visualization",
+            icon: icons.lineChart
+          },
+          {
+            title: "Competitive Analysis",
+            href: "/services/competitive-analysis",
+            description: "In-depth competitor research",
+            icon: icons.lineChart
+          },
+          {
+            title: "Emerging Tech",
+            href: "/services/emerging-tech",
+            description: "Research on cutting-edge technologies",
+            icon: icons.lightbulb
+          }
+        ]
+      },
+      {
+        title: "Growth",
+        href: "/services/growth",
+        items: [
+          {
+            title: "Marketing Strategy",
             href: "/services/marketing-strategy",
-            description: "Grow your brand with expert consultants",
+            description: "Comprehensive marketing plans",
             icon: icons.lineChart,
             isNew: true
           },
           {
-            title: "Customer Support",
-            href: "/services/customer-support",
-            description: "Support that drives satisfaction",
+            title: "AI Solutions",
+            href: "/services/ai-solutions",
+            description: "AI-powered business transformation",
+            icon: icons.brainCircuit
+          },
+          {
+            title: "Digital Marketing",
+            href: "/services/digital-marketing",
+            description: "Full-service digital marketing",
             icon: icons.messageSquare
+          },
+          {
+            title: "Content Strategy",
+            href: "/services/content-strategy",
+            description: "Content planning and execution",
+            icon: icons.messageSquare
+          },
+          {
+            title: "Growth Optimization",
+            href: "/services/growth-optimization",
+            description: "Conversion and retention strategies",
+            icon: icons.lineChart
           }
         ]
       }
     ],
     featured: [
       {
-        title: "Sensei",
-        href: "/services/sensei",
-        description: "Executive-level AI services designed exclusively for C-suite leaders. Strategic implementation with measurable ROI.",
+        title: "Enterprise Solutions",
+        href: "/enterprise",
+        description: "Comprehensive AI-powered solutions designed for enterprise scale and complexity",
         cta: "Learn more",
-        icon: "SG"
+        icon: "🏢"
       },
       {
-        title: "AI Cloud Platform",
-        href: "https://hanzo.ai",
-        description: "Enterprise-grade AI solutions for your business",
-        cta: "Explore platform"
+        title: "Sensei Group",
+        href: "https://sensei.group",
+        description: "Fractional CXO services from our elite collective of executives and technology experts",
+        cta: "Hire CXX Talent",
+        isExternal: true,
+        icon: "SG"
       }
     ]
   },
@@ -216,98 +227,91 @@ export const navigationItems: NavigationItem[] = [
     capabilities: [
       {
         title: "Cloud",
-        href: "/solutions/capabilities/cloud",
+        href: "/solutions?capability=cloud",
         icon: icons.cloud
       },
       {
         title: "Cybersecurity",
-        href: "/solutions/capabilities/cybersecurity",
+        href: "/solutions?capability=cybersecurity",
         icon: icons.layers
       },
       {
         title: "Data and Artificial Intelligence",
-        href: "/solutions/capabilities/data-ai",
+        href: "/solutions?capability=data-ai",
         icon: icons.brainCircuit
       },
       {
         title: "Digital Engineering",
-        href: "/solutions/capabilities/digital-engineering",
+        href: "/solutions?capability=digital-engineering",
         icon: icons.code
       },
       {
         title: "Emerging Technology",
-        href: "/solutions/capabilities/emerging-tech",
+        href: "/solutions?capability=emerging-tech",
         icon: icons.lightbulb
       },
       {
         title: "Finance and Risk Management",
-        href: "/solutions/capabilities/finance-risk",
+        href: "/solutions?capability=finance-risk",
         icon: icons.lineChart
-      },
-      {
-        title: "Fractional CXO",
-        href: "/solutions/capabilities/fractional-cxo",
-        icon: icons.briefcase
       }
     ],
     industries: [
       {
         title: "Aerospace and Defense",
-        href: "/solutions/industries/aerospace-defense",
+        href: "/solutions?industry=aerospace-defense",
         icon: icons.globe
       },
       {
         title: "Automotive",
-        href: "/solutions/industries/automotive",
+        href: "/solutions?industry=automotive",
         icon: icons.lineChart
       },
       {
         title: "Banking",
-        href: "/solutions/industries/banking",
+        href: "/solutions?industry=banking",
         icon: icons.building
       },
       {
         title: "Capital Markets",
-        href: "/solutions/industries/capital-markets",
+        href: "/solutions?industry=capital-markets",
         icon: icons.lineChart
       },
       {
         title: "Chemicals",
-        href: "/solutions/industries/chemicals",
+        href: "/solutions?industry=chemicals",
         icon: icons.factory
       },
       {
         title: "Communications and Media",
-        href: "/solutions/industries/communications-media",
+        href: "/solutions?industry=communications-media",
         icon: icons.globe
       },
       {
         title: "Consumer Goods and Services",
-        href: "/solutions/industries/consumer-goods",
+        href: "/solutions?industry=consumer-goods",
         icon: icons.shoppingBag
       }
     ],
     featured: [
       {
-        title: "Sensei Group",
-        href: "/sensei-group",
-        description: "Accelerate enterprise transformation with our elite collective of CXOs and technology experts. Strategic implementation for digital evolution.",
-        cta: "Learn more",
-        icon: "SG"
+        title: "AI Cloud Platform",
+        href: "https://cloud.hanzo.ai",
+        description: "Our enterprise AI platform for scalable, secure solutions.",
+        cta: "Explore platform",
+        isExternal: true
       },
       {
         title: "DX Platform",
         href: "https://hanzo.ai",
-        description: "Our digital experience platform for enterprises"
+        description: "Our digital experience platform for enterprise transformation",
+        cta: "Learn more",
+        isExternal: true
       }
     ]
   },
   {
     title: "Pricing",
     href: "/pricing",
-  },
-  {
-    title: "FAQ",
-    href: "/faq",
-  },
+  }
 ];

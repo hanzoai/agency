@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   NavigationMenu,
@@ -11,17 +11,110 @@ import {
 } from "../src/components/ui/navigation-menu";
 import { cn } from "../src/lib/utils";
 import { navigationItems } from "../src/data/navigationItems";
-import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { ArrowUpRight, ExternalLink, FileImage, Book, HelpCircle, Palette, Coffee } from "lucide-react";
+import React from "react";
 
 const NewHeader = () => {
+  const [showLogoMenu, setShowLogoMenu] = useState(false);
+  const logoMenuRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
+
+  // Close the context menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (logoMenuRef.current && !logoMenuRef.current.contains(event.target as Node)) {
+        setShowLogoMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Custom context menu for the logo
+  const handleLogoContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowLogoMenu(true);
+  };
+
+  // Links for the logo context menu
+  const logoMenuLinks = [
+    {
+      title: "Hanzo.ai Main Site",
+      href: "https://hanzo.ai",
+      icon: <ArrowUpRight className="h-4 w-4" />
+    },
+    {
+      title: "Branding Kit",
+      href: "https://hanzo.ai/brand",
+      icon: <FileImage className="h-4 w-4" />
+    },
+    {
+      title: "Press Page",
+      href: "https://hanzo.ai/press",
+      icon: <Book className="h-4 w-4" />
+    },
+    {
+      title: "FAQ",
+      href: "/faq",
+      icon: <HelpCircle className="h-4 w-4" />
+    },
+    {
+      title: "Brand Page",
+      href: "https://hanzo.ai/brand",
+      icon: <Palette className="h-4 w-4" />
+    },
+    {
+      title: "Zen of Hanzo",
+      href: "https://hanzo.ai/zen",
+      icon: <Coffee className="h-4 w-4" />
+    }
+  ];
+
   return (
     <div className="w-full bg-black fixed top-0 z-50 border-b border-border/40" role="banner">
       <div className="w-full max-w-full px-4 mx-auto flex h-16 items-center">
-        <Link to="/" className="mr-6 flex items-center space-x-2">
-          <img src="/images/logo/logo.png" alt="Hanzo" className="h-7 w-auto" />
-          <span className="font-bold text-xl truncate">Hanzo</span>
-        </Link>
-        
+        <div className="relative mr-6">
+          <Link to="/" className="flex items-center space-x-2">
+            <img
+              ref={logoRef}
+              src="/images/logo/logo.png"
+              alt="Hanzo"
+              className="h-10 w-auto object-contain"
+              onContextMenu={handleLogoContextMenu}
+            />
+            <span className="font-bold text-xl text-white">Hanzo</span>
+          </Link>
+
+          {/* Logo context menu */}
+          {showLogoMenu && (
+            <div
+              ref={logoMenuRef}
+              className="absolute top-full left-0 mt-2 w-60 bg-black border border-gray-800 rounded-md shadow-lg z-50 overflow-hidden"
+              style={{ boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)' }}
+            >
+              <div className="py-2">
+                <div className="px-4 py-2 text-xs text-gray-500 uppercase">Hanzo Resources</div>
+                {logoMenuLinks.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    target={link.href.startsWith('http') ? "_blank" : undefined}
+                    rel={link.href.startsWith('http') ? "noopener noreferrer" : undefined}
+                    className="flex items-center px-4 py-2 text-sm text-white hover:bg-gray-800"
+                    onClick={() => setShowLogoMenu(false)}
+                  >
+                    <span className="mr-2 text-gray-400">{link.icon}</span>
+                    {link.title}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
         <NavigationMenu className="w-full bg-black text-white">
           <NavigationMenuList className="w-full justify-start">
             {navigationItems.map((item) => (
@@ -35,7 +128,7 @@ const NewHeader = () => {
                 ) : (
                   <>
                     <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
-                    
+
                     {/* Solutions Layout with Capabilities & Industries */}
                     {(item.capabilities || item.industries) && (
                       <NavigationMenuContent>
@@ -60,10 +153,10 @@ const NewHeader = () => {
                                     </ListItem>
                                   ))}
                                 </ul>
-                                <Link to="/solutions/capabilities" className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
-                                  View all 
+                                <Link to="/solutions?category=capabilities" className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
+                                  View all
                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
-                                    <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                   </svg>
                                 </Link>
                               </div>
@@ -88,10 +181,10 @@ const NewHeader = () => {
                                     </ListItem>
                                   ))}
                                 </ul>
-                                <Link to="/solutions/industries" className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
-                                  View all 
+                                <Link to="/solutions?category=industries" className="mt-4 text-xs text-gray-400 hover:text-white inline-flex items-center">
+                                  View all
                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
-                                    <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                   </svg>
                                 </Link>
                               </div>
@@ -101,7 +194,7 @@ const NewHeader = () => {
                             {item.featured && (
                               <div className="col-span-1">
                                 {item.featured.map((feature, index) => (
-                                  <div 
+                                  <div
                                     key={feature.title}
                                     className={`bg-gray-800/50 rounded-md p-5 ${index > 0 ? 'mt-4' : ''}`}
                                   >
@@ -118,10 +211,15 @@ const NewHeader = () => {
                                     )}
                                     <p className="text-xs text-gray-400 mb-3">{feature.description}</p>
                                     {feature.cta && (
-                                      <a href={feature.href} className="text-xs text-white inline-flex items-center hover:underline">
+                                      <a
+                                        href={feature.href}
+                                        target={feature.isExternal ? "_blank" : undefined}
+                                        rel={feature.isExternal ? "noopener noreferrer" : undefined}
+                                        className="text-xs text-white inline-flex items-center hover:underline"
+                                      >
                                         {feature.cta}
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
-                                          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                       </a>
                                     )}
@@ -133,7 +231,7 @@ const NewHeader = () => {
                         </div>
                       </NavigationMenuContent>
                     )}
-                    
+
                     {/* Services Categories Layout */}
                     {item.categories && (
                       <NavigationMenuContent>
@@ -142,15 +240,15 @@ const NewHeader = () => {
                             {/* Categories Columns */}
                             {item.categories.map((category, categoryIndex) => (
                               <div key={category.title} className={categoryIndex === 3 ? "col-span-1" : "col-span-1"}>
-                                <a 
-                                  href={category.href} 
+                                <a
+                                  href={category.href}
                                   className="font-medium text-white text-sm mb-4 flex items-center hover:underline group"
                                 >
                                   {category.title}
-                                  <svg 
-                                    className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" 
-                                    fill="none" 
-                                    viewBox="0 0 24 24" 
+                                  <svg
+                                    className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
                                     stroke="currentColor"
                                   >
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -179,7 +277,7 @@ const NewHeader = () => {
                             {item.featured && (
                               <div className="col-span-1">
                                 {item.featured.map((feature, index) => (
-                                  <div 
+                                  <div
                                     key={feature.title}
                                     className={`bg-gray-800/50 rounded-md p-5 ${index > 0 ? 'mt-4' : ''}`}
                                   >
@@ -199,7 +297,7 @@ const NewHeader = () => {
                                       <a href={feature.href} className="text-xs text-white inline-flex items-center hover:underline">
                                         {feature.cta}
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
-                                          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                       </a>
                                     )}
@@ -218,24 +316,16 @@ const NewHeader = () => {
           </NavigationMenuList>
         </NavigationMenu>
 
-        <div className="ml-auto flex items-center space-x-4">
+        <div className="ml-auto flex items-center space-x-3">
           <a
-            href="https://cloud.hanzo.ai"
-            className="text-sm font-medium transition-colors hover:text-primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Console
-          </a>
-          <a
-            href="https://auth.hanzo.ai"
-            className="text-sm font-medium transition-colors hover:text-primary mr-2"
+            href="/login"
+            className="border border-white text-white hover:bg-white hover:text-black transition-colors duration-200 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm font-medium"
           >
             Login
           </a>
           <a
             href="/signup"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-sm font-medium"
+            className="bg-white text-black border border-white hover:bg-transparent hover:text-white transition-colors duration-200 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm font-medium"
           >
             Sign Up
           </a>

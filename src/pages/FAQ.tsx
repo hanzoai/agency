@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import NewHeader from '../../components/NewHeader';
 import Footer from '@/components/Footer';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -58,7 +57,7 @@ const faqData = [
 
 const FAQPage = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  
+
   const toggleFAQ = (index: number) => {
     if (openIndex === index) {
       setOpenIndex(null);
@@ -66,10 +65,9 @@ const FAQPage = () => {
       setOpenIndex(index);
     }
   };
-  
+
   return (
     <>
-      <NewHeader />
       <main className="pt-32 pb-20 bg-black text-white">
         <div className="container-custom mb-12">
           <div className="text-center mb-16">
@@ -78,24 +76,24 @@ const FAQPage = () => {
               Everything you need to know about working with Hanzo AI agency.
             </p>
           </div>
-          
+
           <div className="max-w-3xl mx-auto space-y-6">
             {faqData.map((faq, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="border-2 border-gray-800 hover:border-gray-700 rounded-xl p-6 transition-all duration-300"
               >
-                <button 
+                <button
                   className="w-full flex justify-between items-center text-left"
                   onClick={() => toggleFAQ(index)}
                 >
                   <h3 className="text-xl font-bold text-white">{faq.question}</h3>
-                  {openIndex === index ? 
-                    <ChevronUp size={20} className="text-white/70 flex-shrink-0 ml-4" /> : 
+                  {openIndex === index ?
+                    <ChevronUp size={20} className="text-white/70 flex-shrink-0 ml-4" /> :
                     <ChevronDown size={20} className="text-white/70 flex-shrink-0 ml-4" />
                   }
                 </button>
-                <div 
+                <div
                   className={`mt-4 text-white/80 overflow-hidden transition-all duration-300 ${openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
                 >
                   <p>{faq.answer}</p>
@@ -103,18 +101,18 @@ const FAQPage = () => {
               </div>
             ))}
           </div>
-          
+
           <div className="max-w-3xl mx-auto mt-12 text-center">
             <h2 className="text-2xl font-bold mb-6">Ready to get started?</h2>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link 
-                to="/pricing" 
+              <Link
+                to="/pricing"
                 className="inline-flex items-center justify-center rounded-full px-8 py-3 text-base font-medium bg-white text-black hover:bg-white/90 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2"
               >
                 View Pricing
               </Link>
-              <Link 
-                to="/contact" 
+              <Link
+                to="/contact"
                 className="inline-flex items-center justify-center rounded-full px-8 py-3 text-base font-medium border border-white/40 hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2"
               >
                 Contact Sales

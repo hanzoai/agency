@@ -78,25 +78,25 @@ const Navbar = () => {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${isScrolled ? 'bg-background/95 backdrop-blur-sm border-b border-border/20' : 'bg-transparent'}`} 
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b ${isScrolled ? 'bg-background/95 backdrop-blur-sm border-border/40' : 'bg-transparent border-transparent'}`} 
       style={{ top: isBannerVisible ? '60px' : '0' }}
     >
       <div className="container-custom">
         <div className="flex items-center justify-between py-4">
-          <Link to="/" className="flex items-center">
-            <img src="/images/logo/hanzo-logo.svg" alt="Hanzo" className="h-6 w-auto" />
-            <span className="ml-2 text-lg font-medium">Hanzo</span>
+          <Link to="/" className="flex items-center gap-3 py-1">
+            <img src="/images/logo/hanzo-logo.svg" alt="Hanzo" className="h-8 w-auto" />
+            <span className="text-xl font-semibold tracking-tight">Hanzo</span>
           </Link>
           
-          <nav className="hidden lg:flex items-center space-x-8">
-            <a href="/#services" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#services')}>Services</a>
-            <a href="/#why-hanzo" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#why-hanzo')}>Why Hanzo</a>
-            <Link to="/case-studies" className="text-primary/80 hover:text-primary font-medium transition">
+          <nav className="hidden lg:flex items-center space-x-6">
+            <a href="/#services" className="text-foreground/90 hover:text-foreground font-medium transition" onClick={(e) => handleNavLinkClick(e, '#services')}>Services</a>
+            <a href="/#why-hanzo" className="text-foreground/90 hover:text-foreground font-medium transition" onClick={(e) => handleNavLinkClick(e, '#why-hanzo')}>Why Hanzo</a>
+            <Link to="/case-studies" className="text-foreground/90 hover:text-foreground font-medium transition">
               Case Studies
             </Link>
-            <a href="/#testimonials" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#testimonials')}>Testimonials</a>
-            <a href="/#pricing" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#pricing')}>Pricing</a>
-            <a href="/#faq" className="text-primary/80 hover:text-primary font-medium transition" onClick={(e) => handleNavLinkClick(e, '#faq')}>FAQ</a>
+            <a href="/#testimonials" className="text-foreground/90 hover:text-foreground font-medium transition" onClick={(e) => handleNavLinkClick(e, '#testimonials')}>Testimonials</a>
+            <a href="/#pricing" className="text-foreground/90 hover:text-foreground font-medium transition" onClick={(e) => handleNavLinkClick(e, '#pricing')}>Pricing</a>
+            <a href="/#faq" className="text-foreground/90 hover:text-foreground font-medium transition" onClick={(e) => handleNavLinkClick(e, '#faq')}>FAQ</a>
           </nav>
           
           <div className="hidden lg:block">
@@ -120,15 +120,15 @@ const Navbar = () => {
         </div>
       </div>
       
-      <div className={`lg:hidden bg-beige-50 overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-screen shadow-md' : 'max-h-0'}`}>
+      <div className={`lg:hidden bg-background/95 backdrop-blur-sm border-b border-border/40 overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-screen' : 'max-h-0'}`}>
         <div className="container-custom py-4">
           <nav className="flex flex-col space-y-4">
-            <a href="/#services" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#services')}>Services</a>
-            <a href="/#why-hanzo" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#why-hanzo')}>Why Hanzo</a>
-            <Link to="/case-studies" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Case Studies</Link>
-            <a href="/#testimonials" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#testimonials')}>Testimonials</a>
-            <a href="/#pricing" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#pricing')}>Pricing</a>
-            <a href="/#faq" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#faq')}>FAQ</a>
+            <a href="/#services" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#services')}>Services</a>
+            <a href="/#why-hanzo" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#why-hanzo')}>Why Hanzo</a>
+            <Link to="/case-studies" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Case Studies</Link>
+            <a href="/#testimonials" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#testimonials')}>Testimonials</a>
+            <a href="/#pricing" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#pricing')}>Pricing</a>
+            <a href="/#faq" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#faq')}>FAQ</a>
             <Link to="/subscribe" onClick={() => setIsMenuOpen(false)}>
               <Button 
                 variant="primary"

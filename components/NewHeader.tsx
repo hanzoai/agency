@@ -15,7 +15,7 @@ import { ArrowUpRight, ExternalLink } from "lucide-react";
 
 const NewHeader = () => {
   return (
-    <header className="w-full bg-black fixed top-0 z-50 border-b border-border/40">
+    <div className="w-full bg-black fixed top-0 z-50 border-b border-border/40" role="banner">
       <div className="container mx-auto flex h-16 items-center px-4">
         <Link to="/" className="mr-6 flex items-center space-x-2">
           <span className="font-bold text-2xl">Hanzo</span>
@@ -241,7 +241,7 @@ const NewHeader = () => {
           </a>
         </div>
       </div>
-    </header>
+    </div>
   );
 };
 

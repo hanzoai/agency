@@ -29,20 +29,26 @@ export default {
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        beige: {
-          50: '#0a0a0a',
-          100: '#141414',
-          200: '#282828',
-          300: '#3d3d3d',
-          400: '#525252',
-          500: '#696969',
-          600: '#7c7c7c',
+        // Linear-inspired color palette
+        gray: {
+          50: '#f7f8fa',
+          100: '#ebedf0',
+          200: '#dfe1e6',
+          300: '#c1c7d0',
+          400: '#a5adba',
+          500: '#808997',
+          600: '#596066',
+          700: '#454950',
+          800: '#212326',
+          900: '#171717',
+          950: '#0e0e0e',
         },
         black: '#000000',
         white: '#ffffff',
         accent: {
-          DEFAULT: '#34a853',
-          light: '#293329',
+          DEFAULT: 'rgba(255, 255, 255, 0.87)',
+          muted: 'rgba(255, 255, 255, 0.65)',
+          subtle: 'rgba(255, 255, 255, 0.45)',
         },
         primary: {
           DEFAULT: 'hsl(var(--primary))',
@@ -114,8 +120,7 @@ export default {
         'scale-in': 'scaleIn 0.3s ease-out forwards',
       },
       fontFamily: {
-        sans: ['"Libre Franklin"', 'sans-serif'],
-        display: ['"Libre Franklin"', 'sans-serif'],
+        sans: ['"Inter"', 'sans-serif'],
         inter: ['"Inter"', 'sans-serif'],
       },
     }

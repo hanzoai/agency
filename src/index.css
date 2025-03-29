@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,35 +7,36 @@
 
 @layer base {
   :root {
-    --background: 0 0% 0%;
-    --foreground: 30 25% 93%;
+    /* Linear-inspired monochromatic dark theme */
+    --background: 220 13% 9%; /* #111216 - dark background */
+    --foreground: 0 0% 100%; /* Pure white text */
 
-    --card: 0 0% 5%;
-    --card-foreground: 30 25% 93%;
+    --card: 220 10% 12%; /* #16171B - slightly lighter than background */
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 5%;
-    --popover-foreground: 30 25% 93%;
+    --popover: 220 10% 12%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 0 0% 100%; /* Updated to white */
-    --primary-foreground: 0 0% 0%; /* Black text */
+    --primary: 220 6% 90%;
+    --primary-foreground: 220 13% 9%;
 
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 30 25% 93%;
+    --secondary: 220 10% 15%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 30 15% 70%;
+    --muted: 220 10% 16%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 0 0% 100%; /* Changed to white */
-    --accent-foreground: 0 0% 0%; /* Black text */
+    --accent: 220 10% 16%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 0%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 100%; /* Updated to white */
-    --input: 0 0% 20%;
-    --ring: 0 0% 100%; /* Updated to white */
+    --border: 220 13% 15%;
+    --input: 220 13% 15%;
+    --ring: 220 13% 25%;
 
-    --radius: 0.25rem;
+    --radius: 0.375rem;
   }
 
   * {
@@ -49,11 +50,11 @@
   }
 
   body {
-    @apply bg-black text-primary font-sans antialiased;
+    @apply bg-background text-foreground font-inter antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold tracking-tight;
+    @apply font-inter font-semibold tracking-tight;
   }
 
   .reveal {
@@ -83,15 +84,15 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-white hover:bg-white/90 text-black font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center shadow-lg backdrop-blur-sm;
+    @apply bg-primary/90 hover:bg-primary text-primary-foreground font-medium py-2 px-4 rounded-md transition-colors inline-flex items-center justify-center;
   }
 
   .btn-secondary {
-    @apply bg-white hover:bg-white/90 text-black border border-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center shadow-lg backdrop-blur-sm;
+    @apply bg-secondary hover:bg-secondary/80 text-secondary-foreground font-medium py-2 px-4 rounded-md transition-colors inline-flex items-center justify-center;
   }
 
   .btn-outline {
-    @apply bg-transparent hover:bg-white/10 text-white border border-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center shadow-md backdrop-blur-sm;
+    @apply bg-transparent hover:bg-accent/10 text-foreground border border-border font-medium py-2 px-4 rounded-md transition-colors inline-flex items-center justify-center;
   }
 
   .container-custom {
@@ -103,11 +104,11 @@
   }
 
   .testimonial-card {
-    @apply bg-card p-6 md:p-8 rounded-lg shadow-sm border border-border;
+    @apply bg-card p-4 md:p-5 rounded-md border border-border/40;
   }
 
   .service-card {
-    @apply bg-card p-6 md:p-8 rounded-lg shadow-sm border border-border hover:shadow-md transition-all duration-300;
+    @apply bg-card p-4 md:p-5 rounded-md border border-border/40 hover:border-border/60 transition-colors duration-200;
   }
 
   .faq-item {
@@ -119,39 +120,16 @@
   }
   
   .lets-talk-btn {
-    @apply bg-white hover:bg-white/90 text-black rounded-full py-2 px-4 inline-flex items-center font-medium shadow-lg backdrop-blur-sm border border-white/50;
+    @apply bg-primary/90 hover:bg-primary text-primary-foreground rounded-md py-2 px-4 inline-flex items-center font-medium;
   }
 
-  .lets-talk-btn.bg-black {
-    @apply text-white bg-black border border-white/30 hover:bg-black/90;
+  .lets-talk-btn.dark {
+    @apply text-foreground bg-secondary hover:bg-secondary/80 border border-border/50;
   }
   
-  .rainbow-gradient-btn {
+  .linear-btn {
     position: relative;
-    z-index: 1;
-    overflow: hidden;
-    @apply bg-black hover:bg-black/90 text-white border border-white/30 shadow-lg;
-  }
-  
-  .rainbow-gradient-btn::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, #ffffff, #f5f5f5, #e6e6e6, #cccccc, #ffffff);
-    background-size: 400% 400%;
-    z-index: -1;
-    border-radius: 9999px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    filter: blur(1px);
-  }
-  
-  .rainbow-gradient-btn:hover::before {
-    opacity: 0.15;
-    animation: rainbow-shift 3s ease infinite;
+    @apply bg-secondary hover:bg-secondary/80 text-foreground border border-border/40 rounded-md transition-colors;
   }
   
   @keyframes rainbow-shift {
@@ -197,35 +175,14 @@
     }
   }
   
-  /* Glass effect */
-  .glass-effect {
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  /* Subtle card hover effect */
+  .hover-card {
+    @apply transition-colors border border-border/40 hover:border-border/60;
   }
   
-  /* Button with auto-shine effect */
-  .auto-shine {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .auto-shine::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.3) 50%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    transform: rotate(30deg);
-    animation: shine-effect 6s infinite;
+  /* Linear-inspired subtle hover */
+  .linear-hover {
+    @apply transition-colors hover:bg-accent/5;
   }
   
   /* Animation for case studies page */

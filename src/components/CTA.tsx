@@ -1,14 +1,14 @@
 
 import { ArrowUpRight } from 'lucide-react';
-import { FancyButton } from '@/components/ui/fancy-button';
-import { GradientBorderButton } from '@/components/ui/gradient-border-button';
+import { LinearButton } from '@/components/ui/linear-button';
+import { Button } from '@/components/ui/button';
 
 const CTA = () => {
   return (
-    <section id="get-started" className="section-padding bg-black text-white relative overflow-hidden">
-      {/* Decorative circles */}
-      <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white/10 -z-0"></div>
-      <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-white/5 -z-0"></div>
+    <section id="get-started" className="section-padding bg-background text-foreground relative overflow-hidden">
+      {/* Subtle decorative elements */}
+      <div className="absolute top-0 right-0 w-1/3 h-1/2 bg-gradient-to-bl from-secondary/20 to-transparent opacity-40 blur-3xl -z-0"></div>
+      <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-gradient-to-tr from-secondary/10 to-transparent opacity-30 blur-3xl -z-0"></div>
       
       <div className="container-custom relative z-10">
         <div className="max-w-4xl mx-auto">
@@ -22,22 +22,17 @@ const CTA = () => {
             
             <div className="flex justify-center md:justify-start reveal gap-4">
               <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8">
-                <FancyButton variant="default" size="lg" className="text-lg font-medium">
+                <LinearButton variant="default" size="lg" className="font-medium">
                   Let's talk
-                  <ArrowUpRight size={20} className="ml-2" />
-                </FancyButton>
+                  <ArrowUpRight size={16} className="ml-1" />
+                </LinearButton>
               </a>
               
               <a href="/subscribe">
-                <GradientBorderButton 
-                  className="text-lg font-medium py-3 px-6 h-12"
-                  gradientColors={['#ffffff', '#cccccc', '#ffffff']}
-                  borderWidth={2}
-                  animationDuration={4}
-                >
+                <Button variant="outline" size="lg" className="font-medium">
                   Get Started
-                  <ArrowUpRight size={20} className="ml-2" />
-                </GradientBorderButton>
+                  <ArrowUpRight size={16} className="ml-1" />
+                </Button>
               </a>
             </div>
           </div>

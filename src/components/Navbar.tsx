@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { FancyButton } from '@/components/ui/fancy-button';
-import { GradientBorderButton } from '@/components/ui/gradient-border-button';
+import { LinearButton } from '@/components/ui/linear-button';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -79,7 +78,7 @@ const Navbar = () => {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-sm' : 'bg-transparent'}`} 
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${isScrolled ? 'bg-background/95 backdrop-blur-sm border-b border-border/20' : 'bg-transparent'}`} 
       style={{ top: isBannerVisible ? '60px' : '0' }}
     >
       <div className="container-custom">
@@ -99,10 +98,10 @@ const Navbar = () => {
           
           <div className="hidden lg:block">
             <Link to="/subscribe">
-              <FancyButton variant="shiny" className="py-2 px-4">
+              <LinearButton variant="default" className="py-2 px-4">
                 Sign Up
-                <ArrowUpRight size={16} className="ml-1" />
-              </FancyButton>
+                <ArrowUpRight size={14} className="ml-1" />
+              </LinearButton>
             </Link>
           </div>
           
@@ -125,10 +124,10 @@ const Navbar = () => {
             <a href="/#pricing" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#pricing')}>Pricing</a>
             <a href="/#faq" className="text-primary/80 hover:text-primary py-2 font-medium transition" onClick={(e) => handleNavLinkClick(e, '#faq')}>FAQ</a>
             <Link to="/subscribe" onClick={() => setIsMenuOpen(false)}>
-              <GradientBorderButton className="py-2 px-4 text-sm font-medium w-fit" gradientColors={['#ffffff', '#aaaaaa', '#ffffff']}>
+              <LinearButton variant="default" className="py-2 px-3 text-sm w-fit">
                 Sign Up
-                <ArrowUpRight size={16} className="ml-1" />
-              </GradientBorderButton>
+                <ArrowUpRight size={14} className="ml-1" />
+              </LinearButton>
             </Link>
           </nav>
         </div>

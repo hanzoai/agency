@@ -8,8 +8,24 @@ export type NavigationItem = {
     title: string;
     href: string;
     description: string;
+    cta?: string;
+    icon?: string;
   }[];
   children?: {
+    title: string;
+    href: string;
+    description?: string;
+    icon?: React.ComponentType<{ className?: string }>;
+    isExternal?: boolean;
+  }[];
+  capabilities?: {
+    title: string;
+    href: string;
+    description?: string;
+    icon?: React.ComponentType<{ className?: string }>;
+    isExternal?: boolean;
+  }[];
+  industries?: {
     title: string;
     href: string;
     description?: string;
@@ -103,69 +119,88 @@ export const navigationItems: NavigationItem[] = [
   },
   {
     title: "Solutions",
-    children: [
+    capabilities: [
       {
-        title: "Capabilities",
-        href: "/solutions/capabilities",
-        description: "Our core technical and creative capabilities",
+        title: "Cloud",
+        href: "/solutions/capabilities/cloud",
+        icon: icons.cloud
+      },
+      {
+        title: "Cybersecurity",
+        href: "/solutions/capabilities/cybersecurity",
+        icon: icons.layers
+      },
+      {
+        title: "Data and Artificial Intelligence",
+        href: "/solutions/capabilities/data-ai",
+        icon: icons.brainCircuit
+      },
+      {
+        title: "Digital Engineering",
+        href: "/solutions/capabilities/digital-engineering",
+        icon: icons.code
+      },
+      {
+        title: "Emerging Technology",
+        href: "/solutions/capabilities/emerging-tech",
         icon: icons.lightbulb
       },
       {
-        title: "Industries",
-        href: "/solutions/industries",
-        description: "Sector-specific AI and creative solutions",
-        icon: icons.factory
-      },
-      {
-        title: "Branding Solutions",
-        href: "/solutions/branding",
-        description: "Strategic brand development and management",
-        icon: icons.layers
-      },
-      {
-        title: "AI Consulting",
-        href: "/solutions/ai-consulting",
-        description: "Expert guidance on AI implementation",
-        icon: icons.brainCircuit
-      },
-      {
-        title: "Enterprise Solutions",
-        href: "/solutions/enterprise",
-        description: "Tailored solutions for large organizations",
-        icon: icons.building
-      },
-      {
-        title: "Growth Strategy",
-        href: "/solutions/growth",
-        description: "Data-driven growth planning",
+        title: "Finance and Risk Management",
+        href: "/solutions/capabilities/finance-risk",
         icon: icons.lineChart
       },
       {
-        title: "Creative Production",
-        href: "/solutions/creative-production",
-        description: "Streamlined creative content production",
-        icon: icons.layers
+        title: "Fractional CXO",
+        href: "/solutions/capabilities/fractional-cxo",
+        icon: icons.briefcase
+      }
+    ],
+    industries: [
+      {
+        title: "Aerospace and Defense",
+        href: "/solutions/industries/aerospace-defense",
+        icon: icons.globe
       },
       {
-        title: "AI with Humans",
-        href: "/solutions/ai-human-collaboration",
-        description: "Optimal human-AI collaboration models",
-        icon: icons.bot
+        title: "Automotive",
+        href: "/solutions/industries/automotive",
+        icon: icons.lineChart
       },
       {
-        title: "Maximizing Conversion",
-        href: "/solutions/conversion",
-        description: "Strategies to increase conversion rates",
-        icon: icons.arrowUpRight
+        title: "Banking",
+        href: "/solutions/industries/banking",
+        icon: icons.building
       },
       {
-        title: "AI with Tailored Strategies",
-        href: "/solutions/tailored-ai",
-        description: "Custom AI solutions for your specific needs",
-        icon: icons.brainCircuit
+        title: "Capital Markets",
+        href: "/solutions/industries/capital-markets",
+        icon: icons.lineChart
+      },
+      {
+        title: "Chemicals",
+        href: "/solutions/industries/chemicals",
+        icon: icons.factory
+      },
+      {
+        title: "Communications and Media",
+        href: "/solutions/industries/communications-media",
+        icon: icons.globe
+      },
+      {
+        title: "Consumer Goods and Services",
+        href: "/solutions/industries/consumer-goods",
+        icon: icons.shoppingBag
       }
     ],
     featured: [
+      {
+        title: "Sensei Group",
+        href: "/sensei-group",
+        description: "Accelerate enterprise transformation with our elite collective of CXOs and technology experts. Strategic implementation for digital evolution.",
+        cta: "Learn more",
+        icon: "SG"
+      },
       {
         title: "DX Platform",
         href: "https://hanzo.ai",

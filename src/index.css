@@ -7,7 +7,7 @@
 
 @layer base {
   :root {
-    /* Linear-inspired monochromatic dark theme */
+    /* Professional dark theme with no green */
     --background: 220 13% 9%; /* #111216 - dark background */
     --foreground: 0 0% 100%; /* Pure white text */
 
@@ -17,8 +17,8 @@
     --popover: 220 10% 12%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 220 6% 90%;
-    --primary-foreground: 220 13% 9%;
+    --primary: 0 0% 100%; /* White */
+    --primary-foreground: 220 13% 9%; /* Dark background */
 
     --secondary: 220 10% 15%;
     --secondary-foreground: 0 0% 100%;

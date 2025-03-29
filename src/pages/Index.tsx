@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import NewHeader from '../../components/NewHeader';
+import MainNavigation from '../components/MainNavigation';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
 import WhyHanzo from '@/components/WhyHanzo';
@@ -71,7 +71,7 @@ const Index = () => {
   return (
     <ScrollReveal>
       <div className="min-h-screen flex flex-col pt-16">
-        <NewHeader />
+        <MainNavigation />
         <Hero />
         <Services />
         <AICapabilities />

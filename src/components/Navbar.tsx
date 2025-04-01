@@ -424,7 +424,7 @@ const Navbar = () => {
               <a href="https://cloud.hanzo.ai" className="border border-white/60 hover:border-white px-6 py-2.5 rounded-full text-foreground/90 hover:text-white font-medium transition">
                 Console
               </a>
-              <Link to="/login" className="bg-white text-black px-7 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap border border-white">
+              <Link to="/login" className="bg-white text-black px-7 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap border border-white" style={{whiteSpace: 'nowrap'}}>
                 <span style={{ fontSize: '15pt', whiteSpace: 'nowrap' }}>Sign Up</span>
               </Link>
             </div>

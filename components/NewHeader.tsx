@@ -319,13 +319,13 @@ const NewHeader = () => {
         <div className="ml-auto flex items-center space-x-3">
           <a
             href="/login"
-            className="border border-white text-white hover:bg-white hover:text-black transition-colors duration-200 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm font-medium"
+            className="border border-white text-white hover:bg-white hover:text-black transition-colors duration-200 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm font-medium whitespace-nowrap"
           >
             Login
           </a>
           <a
             href="/signup"
-            className="bg-white text-black border border-white hover:bg-transparent hover:text-white transition-colors duration-200 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm font-medium"
+            className="bg-white text-black border border-white hover:bg-transparent hover:text-white transition-colors duration-200 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm font-medium whitespace-nowrap"
           >
             Sign Up
           </a>

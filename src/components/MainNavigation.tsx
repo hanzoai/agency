@@ -152,11 +152,11 @@ function MainNavigation() {
                               
                               {/* Featured Card for Solutions */}
                               {item.featured && (
-                                <div className="mt-4">
-                                  {item.featured.filter(f => f.title === "Sensei Group").map((feature) => (
+                                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                  {item.featured.map((feature) => (
                                     <div 
                                       key={feature.title}
-                                      className="bg-gray-800/50 rounded-md p-5 mt-4"
+                                      className="bg-gray-800/50 rounded-md p-5"
                                     >
                                       {feature.icon && (
                                         <div className="flex items-center gap-2 mb-2">

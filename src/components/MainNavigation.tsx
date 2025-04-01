@@ -317,9 +317,9 @@ function MainNavigation() {
           </a>
           <a
             href="/signup"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2.5 rounded-full text-sm font-medium whitespace-nowrap"
+            className="bg-white text-black px-6 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap border border-white"
           >
-            Signup
+            <span style={{ fontSize: '15pt', whiteSpace: 'nowrap' }}>Signup</span>
           </a>
           
           <button 
@@ -482,8 +482,8 @@ function MainNavigation() {
               
               <Link to="/pricing" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
               <Link to="/faq" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>FAQ</Link>
-              <Link to="/login" className="bg-white text-black px-7 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap mt-4" onClick={() => setIsMenuOpen(false)}>
-                Signup
+              <Link to="/login" className="bg-white text-black px-7 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap mt-4 border border-white" onClick={() => setIsMenuOpen(false)}>
+                <span style={{ fontSize: '15pt', whiteSpace: 'nowrap' }}>Signup</span>
               </Link>
             </nav>
           </div>

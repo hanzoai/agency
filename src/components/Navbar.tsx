@@ -98,7 +98,7 @@ const Navbar = () => {
         <div className="container-custom">
           <div className="flex items-center justify-between w-full">
             <Link to="/" className="flex items-center gap-3 py-1">
-              <img src="/images/logo/logo.png" alt="Hanzo" className="h-8 w-8" />
+              <img src="/images/logo/logo.png" alt="Hanzo" className="h-6 w-6" />
               <span className="text-xl font-semibold tracking-tight">Hanzo</span>
             </Link>
             

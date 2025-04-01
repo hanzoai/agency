@@ -82,7 +82,7 @@ const NewHeader = () => {
               ref={logoRef}
               src="/images/logo/logo.png"
               alt="Hanzo"
-              className="h-8 w-8 object-contain"
+              className="h-6 w-6 object-contain"
               onContextMenu={handleLogoContextMenu}
             />
             <span className="font-bold text-xl text-white">Hanzo</span>

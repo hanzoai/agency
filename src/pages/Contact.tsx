@@ -1,12 +1,12 @@
 
-import Navbar from '@/components/Navbar';
+
 import Footer from '@/components/Footer';
 import { ArrowUpRight, Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
 
 const Contact = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      {/* <Navbar /> removed - using global NewHeader */}
       
       <main className="flex-grow container-custom py-32">
         <div className="max-w-3xl mx-auto">

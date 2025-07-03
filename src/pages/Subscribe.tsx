@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
 import { CreditCard, Mail, Lock, Tag, Check, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Navbar from '@/components/Navbar';
+
 import Footer from '@/components/Footer';
 import {
   Tooltip,
@@ -173,7 +173,7 @@ const Subscribe = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-black text-white">
-      <Navbar />
+      {/* <Navbar /> removed - using global NewHeader */}
       
       <main className="flex-grow py-16 pt-32">
         <div className="container-custom">

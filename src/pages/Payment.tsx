@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '@/components/Navbar';
+
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Check, Lock } from 'lucide-react';
@@ -74,7 +74,7 @@ const Payment = () => {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> removed - using global NewHeader */}
       <main className="pt-32 pb-20 bg-black text-white">
         <div className="container-custom max-w-5xl">
           <div className="text-center mb-12">

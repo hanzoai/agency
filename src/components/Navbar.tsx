@@ -15,50 +15,50 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 20);
       setIsTop(window.scrollY <= 20);
     };
-    
+
     // Toggle body class when menu state changes
     if (isMenuOpen) {
       document.body.classList.add('menu-open');
     } else {
       document.body.classList.remove('menu-open');
     }
-    
+
     const checkBannerVisible = () => {
       const bannerShown = localStorage.getItem('bannerShown');
       const bannerExpiry = localStorage.getItem('bannerExpiry');
       const discountUsed = localStorage.getItem('discountUsed');
-      
+
       if (discountUsed === 'true') {
         setIsBannerVisible(false);
         return;
       }
-      
+
       if (bannerShown === 'true' && bannerExpiry) {
         const expiryTime = parseInt(bannerExpiry, 10);
         const currentTime = new Date().getTime();
-        
+
         setIsBannerVisible(expiryTime > currentTime);
       } else {
         setIsBannerVisible(false);
       }
     };
-    
+
     // Listen for banner visibility changes
     const handleBannerVisibilityChanged = (e: Event) => {
       const customEvent = e as CustomEvent;
       setIsBannerVisible(customEvent.detail.visible);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('bannerVisibilityChanged', handleBannerVisibilityChanged);
     checkBannerVisible();
-    
+
     const handleStorageChange = () => {
       checkBannerVisible();
     };
-    
+
     window.addEventListener('storage', handleStorageChange);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('storage', handleStorageChange);
@@ -68,7 +68,7 @@ const Navbar = () => {
 
   const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
     e.preventDefault();
-    
+
     // If we're on the homepage
     if (window.location.pathname === '/') {
       const targetElement = document.querySelector(target);
@@ -85,7 +85,7 @@ const Navbar = () => {
       window.location.href = `/${target}`;
     }
   };
-  
+
   // Close the mobile menu when clicking any link
   const handleMobileLinkClick = () => {
     setIsMenuOpen(false);
@@ -97,17 +97,17 @@ const Navbar = () => {
       <header className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 h-16 flex items-center bg-black border-b border-gray-800">
         <div className="container-custom">
           <div className="flex items-center justify-between w-full">
-            <Link to="/" className="flex items-center gap-3 py-1">
-              <img src="/images/logo/logo.png" alt="Hanzo" className="h-8 w-auto" />
-              <span className="text-xl font-semibold tracking-tight">Hanzo</span>
+            <Link to="/" className="flex items-center gap-2 py-1 flex-shrink-0">
+              <img src="/images/logo/logo.png" alt="Hanzo" className="h-6 w-auto" />
+              <span className="text-lg font-semibold tracking-tight whitespace-nowrap">Hanzo</span>
             </Link>
-            
-            <div className="container mx-auto max-w-screen-2xl px-6 flex justify-center">
-              <nav className="hidden lg:flex items-center justify-center space-x-8">
+
+            <div className="flex-1 flex justify-center px-4">
+              <nav className="hidden lg:flex items-center justify-center gap-6">
                 <Link to="/our-work" className="text-foreground/90 hover:text-foreground font-medium transition">
                   Our Work
                 </Link>
-                
+
               <div className="relative group">
                 <Link to="/services" className="text-foreground/90 hover:text-foreground font-medium transition flex items-center gap-1">
                   Services
@@ -115,7 +115,7 @@ const Navbar = () => {
                     <path d="m6 9 6 6 6-6"/>
                   </svg>
                 </Link>
-                  
+
                   <div className="absolute left-1/2 transform -translate-x-1/2 top-full z-50 w-screen max-w-full bg-black border-t border-gray-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <div className="container-custom py-8">
                       <div className="grid grid-cols-4 gap-8">
@@ -194,7 +194,7 @@ const Navbar = () => {
                             </li>
                           </ul>
                         </div>
-                        
+
                         {/* Column 2: Creative design services continued + Specialized production services */}
                         <div>
                           <div className="mb-8">
@@ -256,13 +256,13 @@ const Navbar = () => {
                               </li>
                             </ul>
                           </div>
-                          
+
                           <a href="/services/specialized-production" className="text-emerald-700 font-medium hover:underline flex items-center gap-1 mb-4">
                             Specialized production services
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
                           </a>
                         </div>
-                        
+
                         {/* Column 3: Specialized production services continued + AI services */}
                         <div>
                           <ul className="space-y-4 mb-8">
@@ -300,7 +300,7 @@ const Navbar = () => {
                               </a>
                             </li>
                           </ul>
-                          
+
                           <a href="/services/ai-services" className="text-blue-700 font-medium hover:underline flex items-center gap-1 mb-4">
                             AI services
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
@@ -330,7 +330,7 @@ const Navbar = () => {
                             </li>
                           </ul>
                         </div>
-                        
+
                         {/* Column 4: Marketing services */}
                         <div>
                           <a href="/services/marketing-services" className="text-amber-500 font-medium hover:underline flex items-center gap-1 mb-4">
@@ -356,7 +356,7 @@ const Navbar = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="relative group">
                 <Link to="/solutions" className="text-foreground/90 hover:text-foreground font-medium transition flex items-center gap-1">
                   Solutions
@@ -364,7 +364,7 @@ const Navbar = () => {
                     <path d="m6 9 6 6 6-6"/>
                   </svg>
                 </Link>
-                  
+
                   <div className="absolute left-1/2 transform -translate-x-1/2 top-full z-50 w-screen max-w-full bg-black border-t border-gray-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <div className="container-custom py-8 grid grid-cols-3 gap-6">
                       <div>
@@ -380,7 +380,7 @@ const Navbar = () => {
                         </ul>
                         <a href="/capabilities" className="text-accent hover:underline mt-4 inline-block">View all</a>
                       </div>
-                      
+
                       <div>
                         <h3 className="font-bold text-lg mb-4">Industries</h3>
                         <ul className="space-y-3">
@@ -394,7 +394,7 @@ const Navbar = () => {
                         </ul>
                         <a href="/industries" className="text-accent hover:underline mt-4 inline-block">View all</a>
                       </div>
-                      
+
                       <div className="bg-black/40 p-4 rounded-lg">
                         <div className="mb-4 flex items-center gap-2">
                           <div className="w-10 h-10 bg-emerald-800/30 rounded-lg flex items-center justify-center text-white">SG</div>
@@ -409,28 +409,28 @@ const Navbar = () => {
                     </div>
                   </div>
                 </div>
-                
-                <Link to="/help" className="text-foreground/90 hover:text-foreground font-medium transition">
-                  Help
+
+                <Link to="/faq" className="text-foreground/90 hover:text-foreground font-medium transition">
+                  FAQ
                 </Link>
-                
+
                 <Link to="/pricing" className="text-foreground/90 hover:text-foreground font-medium transition">
                   Pricing
                 </Link>
               </nav>
             </div>
-            
+
             <div className="hidden lg:flex items-center gap-4">
               <a href="https://cloud.hanzo.ai" className="border border-white/60 hover:border-white px-6 py-2.5 rounded-full text-foreground/90 hover:text-white font-medium transition">
                 Console
               </a>
-              <Link to="/login" className="bg-white text-black px-7 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap">
+              <Link to="/onboarding" className="bg-white text-black px-7 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap">
                 Sign Up
               </Link>
             </div>
-            
-            <button 
-              className="lg:hidden p-2 text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-md" 
+
+            <button
+              className="lg:hidden p-2 text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-md"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle navigation menu"
             >
@@ -439,7 +439,7 @@ const Navbar = () => {
           </div>
         </div>
       </header>
-      
+
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div className="lg:hidden fixed inset-0 top-0 left-0 right-0 bottom-0 w-full h-full bg-black/95 backdrop-blur-lg z-[999] overflow-auto transition-all duration-300">
@@ -471,7 +471,7 @@ const Navbar = () => {
                         <li><a href="/services/packaging-merchandise-design" className="text-foreground/80 hover:text-foreground text-sm" onClick={handleMobileLinkClick}>Packaging & merchandise design</a></li>
                       </ul>
                     </div>
-                    
+
                     {/* Specialized production services */}
                     <div>
                       <h4 className="font-semibold text-sm mb-2 text-emerald-700">Specialized production services</h4>
@@ -481,7 +481,7 @@ const Navbar = () => {
                         <li><a href="/services/3d-ar-design" className="text-foreground/80 hover:text-foreground text-sm" onClick={handleMobileLinkClick}>3D & AR design</a></li>
                       </ul>
                     </div>
-                    
+
                     {/* AI services */}
                     <div>
                       <h4 className="font-semibold text-sm mb-2 text-blue-700">AI services</h4>
@@ -490,7 +490,7 @@ const Navbar = () => {
                         <li><a href="/services/ai-consulting" className="text-foreground/80 hover:text-foreground text-sm" onClick={handleMobileLinkClick}>AI consulting</a></li>
                       </ul>
                     </div>
-                    
+
                     {/* Marketing services */}
                     <div>
                       <h4 className="font-semibold text-sm mb-2 text-amber-500">Marketing services</h4>
@@ -506,7 +506,7 @@ const Navbar = () => {
                   </div>
                 </details>
               </div>
-              
+
               <div className="py-4">
                 <details className="group mobile-nav-details">
                   <summary className="text-foreground hover:text-foreground font-medium transition list-none flex items-center justify-between cursor-pointer py-2">
@@ -528,7 +528,7 @@ const Navbar = () => {
                         <li><a href="https://sensei.group" target="_blank" className="text-foreground/80 hover:text-foreground text-sm" onClick={handleMobileLinkClick}>Fractional CXO</a></li>
                       </ul>
                     </div>
-                    
+
                     <div>
                       <h4 className="font-semibold text-sm mb-2">Industries</h4>
                       <ul className="space-y-2 ml-2">
@@ -541,7 +541,7 @@ const Navbar = () => {
                         <li><a href="/industries/consumer" className="text-foreground/80 hover:text-foreground text-sm" onClick={handleMobileLinkClick}>Consumer Goods and Services</a></li>
                       </ul>
                     </div>
-                    
+
                     <div className="bg-black/20 p-3 rounded-lg">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="w-8 h-8 bg-emerald-800/30 rounded-lg flex items-center justify-center text-white text-xs">SG</div>
@@ -556,11 +556,11 @@ const Navbar = () => {
                   </div>
                 </details>
               </div>
-              
-              <Link to="/help" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Help</Link>
+
+              <Link to="/faq" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>FAQ</Link>
               <Link to="/pricing" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
               <a href="https://cloud.hanzo.ai" className="text-foreground/90 hover:text-white py-2 font-medium transition border border-white/60 hover:border-white rounded-full px-6 py-2.5 inline-block mt-4" onClick={handleMobileLinkClick}>Console</a>
-              <Link to="/login" className="bg-white text-black px-7 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap mt-4" onClick={() => setIsMenuOpen(false)}>
+              <Link to="/onboarding" className="bg-white text-black px-7 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap mt-4" onClick={() => setIsMenuOpen(false)}>
                 Sign Up
               </Link>
             </nav>

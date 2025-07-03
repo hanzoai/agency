@@ -13,6 +13,7 @@ import { cn } from "../src/lib/utils";
 import { navigationItems } from "../src/data/navigationItems";
 import { ArrowUpRight, ExternalLink, FileImage, Book, HelpCircle, Palette, Coffee } from "lucide-react";
 import React from "react";
+import "../src/components/NavigationFixes.css";
 
 const NewHeader = () => {
   const [showLogoMenu, setShowLogoMenu] = useState(false);
@@ -75,17 +76,17 @@ const NewHeader = () => {
 
   return (
     <div className="w-full bg-black fixed top-0 z-50 border-b border-border/40" role="banner">
-      <div className="w-full max-w-full px-4 mx-auto flex h-16 items-center">
-        <div className="relative mr-6">
-          <Link to="/" className="flex items-center space-x-2">
+      <div className="header-container w-full max-w-full px-4 mx-auto flex h-16 items-center">
+        <div className="logo-container relative mr-6">
+          <Link to="/" className="flex items-center gap-2">
             <img
               ref={logoRef}
               src="/images/logo/logo.png"
               alt="Hanzo"
-              className="h-10 w-auto object-contain"
+              className="h-6 w-auto object-contain"
               onContextMenu={handleLogoContextMenu}
             />
-            <span className="font-bold text-xl text-white">Hanzo</span>
+            <span className="font-bold text-lg text-white whitespace-nowrap">Hanzo</span>
           </Link>
 
           {/* Logo context menu */}
@@ -115,8 +116,8 @@ const NewHeader = () => {
           )}
         </div>
 
-        <NavigationMenu className="w-full bg-black text-white">
-          <NavigationMenuList className="w-full justify-start">
+        <NavigationMenu className="flex-1 bg-black text-white">
+          <NavigationMenuList className="justify-center">
             {navigationItems.map((item) => (
               <NavigationMenuItem key={item.title}>
                 {item.href && !item.children && !item.capabilities && !item.industries && !item.categories ? (
@@ -318,17 +319,17 @@ const NewHeader = () => {
 
         <div className="ml-auto flex items-center space-x-3">
           <a
-            href="/login"
+            href="https://cloud.hanzo.ai"
             className="border border-white text-white hover:bg-white hover:text-black transition-colors duration-200 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm font-medium"
           >
-            Login
+            Console
           </a>
-          <a
-            href="/signup"
+          <Link
+            to="/onboarding"
             className="bg-white text-black border border-white hover:bg-transparent hover:text-white transition-colors duration-200 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm font-medium"
           >
             Sign Up
-          </a>
+          </Link>
         </div>
       </div>
     </div>

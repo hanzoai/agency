@@ -313,5 +313,9 @@ export const navigationItems: NavigationItem[] = [
   {
     title: "Pricing",
     href: "/pricing",
+  },
+  {
+    title: "FAQ",
+    href: "/faq",
   }
 ];

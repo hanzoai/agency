@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
 import { Button } from '@/components/ui/button';
-import Navbar from '@/components/Navbar';
+
 import Footer from '@/components/Footer';
 import FormSection from '@/components/onboarding/FormSection';
 import ProgressBar from '@/components/onboarding/ProgressBar';
@@ -77,7 +77,7 @@ const OnboardingForm = () => {
   
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      {/* <Navbar /> removed - using global NewHeader */}
       
       <main className="flex-grow bg-beige-50 py-16">
         <div className="container-custom">

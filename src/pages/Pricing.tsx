@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import NewHeader from '../../components/NewHeader';
+
 import Footer from '@/components/Footer';
 import { PricingCard } from '@/components/ui/pricing-card';
 import { PricingToggle } from '@/components/ui/pricing-toggle';
@@ -78,7 +78,7 @@ export default function Pricing() {
   
   return (
     <>
-      <NewHeader />
+      {/* <NewHeader /> removed - using global NewHeader */}
       <main className="pt-32 pb-20 bg-black text-white">
         <div className="container-custom">
           <div className="text-center mb-16">

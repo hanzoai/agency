@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Check } from 'lucide-react';
-import Navbar from '@/components/Navbar';
+
 import Footer from '@/components/Footer';
 
 // Category interface
@@ -155,7 +155,7 @@ const SolutionsPage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <Navbar />
+      {/* <Navbar /> removed - using global NewHeader */}
 
       {/* Hero Section */}
       <div className="pt-32 pb-20">

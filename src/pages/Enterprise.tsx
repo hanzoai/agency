@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Navbar from '@/components/Navbar';
+
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowUpRight, Check, Shield, Clock, Star, Users, Database, Lock, Globe } from 'lucide-react';
@@ -21,7 +21,7 @@ const Enterprise = () => {
   return (
     <ScrollReveal>
       <div className="min-h-screen bg-black text-white">
-        <Navbar />
+        {/* <Navbar /> removed - using global NewHeader */}
         <GlobalMuteButton />
         
         <main className="pt-24">

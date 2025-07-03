@@ -1,0 +1,34 @@
+/* Navigation spacing fixes */
+.navigation-menu-list {
+  gap: 1.5rem !important; /* Increase spacing between nav items */
+}
+
+/* Ensure logo doesn't get cut off */
+.logo-container {
+  flex-shrink: 0;
+  min-width: fit-content;
+}
+
+/* Better responsive handling */
+@media (max-width: 1280px) {
+  .navigation-menu-list {
+    gap: 1rem !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navigation-menu-list {
+    gap: 0.75rem !important;
+  }
+  
+  /* Reduce font size slightly on smaller screens */
+  .navigation-menu-trigger {
+    font-size: 0.875rem;
+  }
+}
+
+/* Ensure header content doesn't overflow */
+.header-container {
+  max-width: 100%;
+  overflow: hidden;
+}

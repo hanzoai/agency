@@ -11,7 +11,7 @@ import {
   Shield,
   AlertCircle
 } from 'lucide-react';
-import { notifyAdmins } from '@/utils/emailNotifications';
+import { redirectToCheckout, STRIPE_PRICE_IDS } from '@/lib/stripe';
 import { useToast } from '@/hooks/use-toast';
 
 const PurchaseCredits = () => {
@@ -37,6 +37,7 @@ const PurchaseCredits = () => {
       price: 100,
       perCredit: 1.00,
       icon: Zap,
+      priceId: STRIPE_PRICE_IDS.STARTER_100_CREDITS,
       features: [
         '100 credits',
         '$1 per credit',
@@ -51,6 +52,7 @@ const PurchaseCredits = () => {
       perCredit: 0.90,
       savings: 50,
       icon: TrendingUp,
+      priceId: STRIPE_PRICE_IDS.PROFESSIONAL_500_CREDITS,
       features: [
         '500 credits',
         '$0.90 per credit',
@@ -65,6 +67,7 @@ const PurchaseCredits = () => {
       perCredit: 0.75,
       savings: 500,
       icon: Star,
+      priceId: STRIPE_PRICE_IDS.ENTERPRISE_2000_CREDITS,
       features: [
         '2,000 credits',
         '$0.75 per credit',
@@ -83,44 +86,21 @@ const PurchaseCredits = () => {
     if (!pack) return;
 
     try {
-      // Check if user has payment method
-      const hasPaymentMethod = localStorage.getItem('hasPaymentMethod') === 'true';
+      // Save purchase info for the success page
+      localStorage.setItem('pendingPurchase', JSON.stringify({
+        packId: selectedPack,
+        credits: pack.credits * quantity,
+        amount: pack.price * quantity,
+        quantity: quantity
+      }));
 
-      if (!hasPaymentMethod) {
-        // Redirect to add payment method
-        navigate('/add-payment-method');
-        return;
-      }
-
-      // Simulate purchase
-      setTimeout(() => {
-        const currentCredits = parseInt(localStorage.getItem('userCredits') || '0');
-        const newCredits = currentCredits + (pack.credits * quantity);
-        localStorage.setItem('userCredits', newCredits.toString());
-
-        // Add to purchase history
-        const history = JSON.parse(localStorage.getItem('creditHistory') || '[]');
-        history.push({
-          id: Date.now().toString(),
-          type: 'purchase',
-          credits: pack.credits * quantity,
-          amount: pack.price * quantity,
-          description: `Purchased ${pack.credits * quantity} credits`,
-          date: new Date().toISOString()
-        });
-        localStorage.setItem('creditHistory', JSON.stringify(history));
-
-        // Send email notification to admins
-        const userEmail = localStorage.getItem('userEmail') || '';
-        notifyAdmins.creditsPurchased(userEmail, pack.credits * quantity, pack.price * quantity);
-
-        navigate('/dashboard');
-      }, 1500);
+      // Redirect to Stripe Checkout
+      await redirectToCheckout(pack.priceId, quantity);
     } catch (error) {
-      console.error('Purchase error:', error);
+      console.error('Checkout error:', error);
       toast({
-        title: 'Purchase Failed',
-        description: 'There was an error processing your purchase. Please try again.',
+        title: 'Checkout Failed',
+        description: 'Unable to redirect to payment. Please try again.',
         variant: 'destructive'
       });
       setIsLoading(false);
@@ -147,13 +127,22 @@ const PurchaseCredits = () => {
             </p>
           </div>
 
-          {/* Stripe Integration Notice */}
-          <div className="bg-yellow-900/20 border border-yellow-800/50 rounded-lg p-4 mb-8 flex items-start gap-3">
-            <AlertCircle className="h-5 w-5 text-yellow-500 mt-0.5 flex-shrink-0" />
+          {/* Important Notice */}
+          <div className="bg-blue-900/20 border border-blue-800/50 rounded-lg p-4 mb-8 flex items-start gap-3">
+            <AlertCircle className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
             <div>
-              <p className="text-yellow-200 font-medium">Payment Integration In Progress</p>
-              <p className="text-yellow-300/80 text-sm mt-1">
-                Stripe payment integration is being set up. For now, this is a demo mode.
+              <p className="text-blue-200 font-medium">Stripe Price Setup Required</p>
+              <p className="text-blue-300/80 text-sm mt-1">
+                To complete purchases, you need to create products and prices in your{' '}
+                <a 
+                  href="https://dashboard.stripe.com/products" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="underline hover:text-blue-200"
+                >
+                  Stripe Dashboard
+                </a>
+                . Use the price IDs from the code comments.
               </p>
             </div>
           </div>
@@ -282,12 +271,12 @@ const PurchaseCredits = () => {
                     disabled={isLoading}
                     className="w-full bg-white hover:bg-gray-100 text-black py-3 text-lg font-semibold rounded-lg transition-colors mt-6"
                   >
-                    {isLoading ? 'Processing...' : 'Purchase Credits (Demo)'}
+                    {isLoading ? 'Redirecting to payment...' : 'Continue to Payment'}
                   </Button>
 
                   <div className="mt-4 flex items-center justify-center gap-2 text-sm text-gray-400">
                     <Shield className="h-4 w-4" />
-                    <span>Secure payment powered by Stripe (Coming Soon)</span>
+                    <span>Secure payment powered by Stripe</span>
                   </div>
                 </div>
               </div>

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Footer from '@/components/Footer';
-import { CheckCircle, ArrowRight, Loader2 } from 'lucide-react';
-import { notifyAdmins } from '@/utils/emailNotifications';
+import { CheckCircle, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(false);
+  const [purchaseDetails, setPurchaseDetails] = useState<any>(null);
   
   const sessionId = searchParams.get('session_id');
 
@@ -22,18 +22,15 @@ const PaymentSuccess = () => {
       }
 
       try {
-        // In a real app, you would verify the session with your backend
-        // For now, we'll simulate processing
-        await new Promise(resolve => setTimeout(resolve, 2000));
-
-        // Get stored metadata from before the checkout
+        // Get stored purchase details
         const pendingPurchase = localStorage.getItem('pendingPurchase');
         if (pendingPurchase) {
-          const { credits, amount, type } = JSON.parse(pendingPurchase);
+          const details = JSON.parse(pendingPurchase);
+          setPurchaseDetails(details);
           
           // Update user credits
           const currentCredits = parseInt(localStorage.getItem('userCredits') || '0');
-          const newCredits = currentCredits + credits;
+          const newCredits = currentCredits + details.credits;
           localStorage.setItem('userCredits', newCredits.toString());
 
           // Add to purchase history
@@ -41,17 +38,13 @@ const PaymentSuccess = () => {
           history.push({
             id: sessionId,
             type: 'purchase',
-            credits: credits,
-            amount: amount,
-            description: `Purchased ${credits} credits`,
+            credits: details.credits,
+            amount: details.amount,
+            description: `Purchased ${details.credits} credits`,
             date: new Date().toISOString(),
             stripeSessionId: sessionId
           });
           localStorage.setItem('creditHistory', JSON.stringify(history));
-
-          // Send notification
-          const userEmail = localStorage.getItem('userEmail') || '';
-          notifyAdmins.creditsPurchased(userEmail, credits, amount);
 
           // Clear pending purchase
           localStorage.removeItem('pendingPurchase');
@@ -89,15 +82,22 @@ const PaymentSuccess = () => {
         <main className="pt-32 pb-20 bg-black text-white min-h-screen">
           <div className="container-custom max-w-2xl text-center">
             <div className="bg-red-900/20 border border-red-800 rounded-xl p-8 mb-8">
-              <h1 className="text-3xl font-bold mb-4">Payment Error</h1>
+              <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-6" />
+              <h1 className="text-3xl font-bold mb-4">Payment Verification Error</h1>
               <p className="text-gray-300 mb-6">
-                There was an issue processing your payment. Please try again or contact support.
+                We couldn't verify your payment. This might happen if you accessed this page directly.
+                If you just completed a payment, please contact support with your session ID.
               </p>
+              {sessionId && (
+                <p className="text-sm text-gray-400 mb-6">
+                  Session ID: {sessionId}
+                </p>
+              )}
               <Button 
                 onClick={() => navigate('/purchase-credits')}
                 className="bg-white hover:bg-gray-100 text-black"
               >
-                Try Again
+                Return to Purchase
               </Button>
             </div>
           </div>
@@ -115,35 +115,61 @@ const PaymentSuccess = () => {
             <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
             <h1 className="text-4xl font-bold mb-4">Payment Successful!</h1>
             <p className="text-gray-300 text-lg mb-8">
-              Your credits have been added to your account and are ready to use.
+              Your payment has been processed successfully.
+              {purchaseDetails && ` ${purchaseDetails.credits} credits have been added to your account.`}
             </p>
             
-            <div className="bg-gray-900/30 rounded-lg p-6 mb-8">
-              <h3 className="font-semibold mb-2">What's next?</h3>
-              <p className="text-gray-400 mb-4">
-                You can now use your credits to access any of our creative services.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/dashboard">
-                  <Button className="bg-white hover:bg-gray-100 text-black">
-                    Go to Dashboard
-                  </Button>
-                </Link>
-                <Link to="/services">
-                  <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black">
-                    Browse Services
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Button>
-                </Link>
+            {purchaseDetails && (
+              <div className="bg-gray-900/30 rounded-lg p-6 mb-8 text-left max-w-md mx-auto">
+                <h3 className="font-semibold mb-4 text-center">Purchase Summary</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Credits Purchased:</span>
+                    <span>{purchaseDetails.credits.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Amount Paid:</span>
+                    <span>${purchaseDetails.amount.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Date:</span>
+                    <span>{new Date().toLocaleDateString()}</span>
+                  </div>
+                </div>
               </div>
+            )}
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/dashboard">
+                <Button className="bg-white hover:bg-gray-100 text-black">
+                  Go to Dashboard
+                </Button>
+              </Link>
+              <Link to="/services">
+                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black">
+                  Browse Services
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
+              </Link>
             </div>
 
-            <div className="text-sm text-gray-400">
+            <div className="mt-8 text-sm text-gray-400">
               <p>Transaction ID: {sessionId}</p>
               <p className="mt-2">
                 A receipt has been sent to your email address.
               </p>
             </div>
+          </div>
+
+          <div className="bg-blue-900/20 border border-blue-800 rounded-xl p-6">
+            <h3 className="font-semibold mb-2">Next Steps</h3>
+            <p className="text-gray-300 text-sm mb-4">
+              Your credits are now available to use on any of our services. 
+              Visit your dashboard to see your balance and redeem services.
+            </p>
+            <p className="text-xs text-gray-400">
+              Note: In a production environment, this would be verified server-side with webhooks.
+            </p>
           </div>
         </div>
       </main>

@@ -1,0 +1,105 @@
+/* Navigation Dropdown Fixes */
+
+/* Ensure the header has proper z-index stacking */
+header {
+  z-index: 100 !important;
+  overflow: visible !important;
+}
+
+/* Fix for dropdown visibility with important flags */
+nav .group:hover > div[class*="opacity-0"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Ensure dropdowns can receive hover events */
+nav .group > div[class*="absolute"] {
+  pointer-events: none;
+}
+
+nav .group:hover > div[class*="absolute"] {
+  pointer-events: auto !important;
+}
+
+/* Additional fixes for dropdown positioning */
+nav .group {
+  position: relative;
+}
+
+/* Ensure the dropdown stays visible when hovering over it */
+nav .group > div[class*="absolute"]:hover {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Fix for Safari/Chrome transform issues */
+nav .group > div[class*="absolute"] {
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+/* Ensure smooth transitions */
+nav .group > div[class*="absolute"] {
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+/* Make sure the dropdown content is above other elements */
+nav .group > div[class*="absolute"] > div {
+  position: relative;
+  z-index: 101;
+}
+
+/* Fix for edge cases where dropdown might be cut off */
+nav {
+  overflow: visible !important;
+}
+
+header > div {
+  overflow: visible !important;
+}
+
+/* Delay the hiding of dropdown to allow mouse to move to it */
+nav .group:not(:hover) > div[class*="absolute"] {
+  transition-delay: 0.1s;
+}
+
+/* Specific fixes for the dropdowns */
+nav .group > .absolute {
+  display: block !important;
+}
+
+/* Fix container overflow issues */
+.container-custom {
+  overflow: visible !important;
+}
+
+/* Additional specificity for Tailwind classes */
+.group:hover .opacity-0.group-hover\:opacity-100 {
+  opacity: 1 !important;
+}
+
+.group:hover .invisible.group-hover\:visible {
+  visibility: visible !important;
+}
+
+/* Fix z-index layering */
+nav .group > div.absolute {
+  z-index: 9999 !important;
+}
+
+/* Ensure parent containers don't clip */
+.flex-1 {
+  overflow: visible !important;
+}
+
+/* Debug - temporarily make dropdowns visible to check if they exist */
+/* Uncomment the following to debug: */
+/*
+nav .group > div[class*="absolute"] {
+  opacity: 0.5 !important;
+  visibility: visible !important;
+  border: 2px solid red !important;
+}
+*/

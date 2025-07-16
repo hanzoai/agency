@@ -1,0 +1,84 @@
+/* Navigation Menu Dropdown Fixes for shadcn/ui */
+
+/* Force the navigation content to be visible on hover */
+[data-radix-collection-item] [data-state="open"] > [data-radix-popper-content-wrapper] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Ensure navigation content wrapper allows interaction */
+[data-radix-popper-content-wrapper] {
+  pointer-events: auto !important;
+  z-index: 50 !important;
+}
+
+/* Navigation menu content styling */
+[role="navigation"] [data-radix-collection-item] {
+  position: relative;
+}
+
+/* Ensure dropdowns appear correctly */
+.NavigationMenuContent,
+[data-radix-popper-content-wrapper] > div {
+  opacity: 1 !important;
+  visibility: visible !important;
+  background-color: rgb(0, 0, 0) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Fix viewport positioning */
+.NavigationMenuViewport,
+[data-radix-viewport] {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  width: var(--radix-navigation-menu-viewport-width) !important;
+  pointer-events: auto !important;
+  z-index: 50 !important;
+}
+
+/* Ensure content is interactive */
+.NavigationMenuContent {
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Remove any overflow hidden that might clip dropdowns */
+header,
+header > div,
+nav,
+[role="navigation"],
+.NavigationMenu {
+  overflow: visible !important;
+}
+
+/* Ensure triggers work properly */
+.NavigationMenuTrigger {
+  position: relative;
+  z-index: 10;
+}
+
+/* Style the dropdown content container */
+.NavigationMenuContent > div {
+  background-color: black;
+  min-width: 600px;
+  max-width: 1200px;
+}
+
+/* Ensure list items are properly styled */
+.NavigationMenuList {
+  position: relative;
+  z-index: 10;
+}
+
+/* Debug styles - uncomment to see dropdown positions */
+/*
+[data-radix-popper-content-wrapper] {
+  border: 2px solid red !important;
+  background: rgba(255, 0, 0, 0.1) !important;
+}
+*/

@@ -1,0 +1,133 @@
+/* Comprehensive Navigation Dropdown Fix for Radix UI Navigation Menu */
+
+/* 1. Force viewport to be visible and properly positioned */
+[data-radix-viewport] {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  width: var(--radix-navigation-menu-viewport-width) !important;
+  height: var(--radix-navigation-menu-viewport-height) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  z-index: 999 !important;
+  overflow: visible !important;
+}
+
+/* 2. Ensure content wrapper is visible */
+[data-radix-popper-content-wrapper] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  z-index: 999 !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+/* 3. Force navigation content to be visible when state is open */
+[data-state="open"] > [data-radix-popper-content-wrapper],
+[data-state="open"] + [data-radix-viewport] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* 4. Ensure the navigation menu content is styled and visible */
+[data-radix-collection-item] > div[role="group"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  background-color: black !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8) !important;
+  min-width: 600px !important;
+}
+
+/* 5. Remove all overflow hidden from parent elements */
+body,
+#root,
+header,
+header > div,
+nav,
+[role="navigation"],
+[data-radix-collection-item] {
+  overflow: visible !important;
+}
+
+/* 6. Ensure triggers have proper z-index */
+button[data-state="open"],
+button[data-state="closed"] {
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* 7. Force content to show on state open */
+[data-state="open"] div[style*="pointer-events"] {
+  pointer-events: auto !important;
+  opacity: 1 !important;
+}
+
+/* 8. Alternative method using aria-expanded */
+button[aria-expanded="true"] ~ * {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* 9. Specific fixes for NavigationMenuContent component */
+.NavigationMenuContent,
+div[data-radix-collection-item] div[style*="position: absolute"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  pointer-events: auto !important;
+}
+
+/* 10. Animation overrides to prevent hiding */
+[data-motion],
+[data-state] {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+/* 11. Override any transform that might hide content */
+[data-radix-popper-content-wrapper] > div,
+[data-radix-viewport] > div {
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+/* 12. Debug mode - uncomment to see all dropdown elements */
+/* ACTIVE DEBUG MODE - THIS WILL SHOW ALL DROPDOWN ELEMENTS */
+[data-radix-viewport],
+[data-radix-popper-content-wrapper],
+[data-radix-collection-item] > div,
+[data-state="open"] ~ div,
+.NavigationMenuContent {
+  border: 2px solid red !important;
+  background: rgba(255, 0, 0, 0.1) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  position: relative !important;
+  min-height: 100px !important;
+}
+
+/* 13. Ensure the dropdown content minimum dimensions */
+[role="navigation"] [data-radix-collection-item] > div > div {
+  min-width: 900px !important;
+  background-color: black !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 14. Fix for Services dropdown specifically */
+[role="navigation"] [data-radix-collection-item]:nth-child(2) > div > div {
+  min-width: 1200px !important;
+}
+
+/* 15. Make sure list items don't hide content */
+[role="navigation"] ul {
+  position: static !important;
+  overflow: visible !important;
+}

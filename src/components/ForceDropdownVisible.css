@@ -1,0 +1,70 @@
+/* FORCE DROPDOWN VISIBILITY - TEMPORARY DEBUG */
+
+/* Force all dropdown content to be visible */
+nav * {
+  overflow: visible !important;
+}
+
+/* Force NavigationMenuContent to show */
+nav div[role="group"] {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  z-index: 9999 !important;
+  background: black !important;
+  border: 2px solid white !important;
+  min-width: 800px !important;
+  min-height: 400px !important;
+  padding: 20px !important;
+}
+
+/* Show viewport */
+nav > div > div[style*="position"] {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+}
+
+/* Force all navigation content to be visible */
+button[aria-haspopup="menu"] ~ * {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Override any hiding styles */
+nav [style*="opacity: 0"],
+nav [style*="visibility: hidden"],
+nav [style*="display: none"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* Specific target for shadcn NavigationMenuContent */
+.absolute.left-0.top-full {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: absolute !important;
+  z-index: 9999 !important;
+}
+
+/* Force content divs to show */
+nav button ~ div,
+nav button ~ * > div {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid red !important;
+  min-height: 50px !important;
+}

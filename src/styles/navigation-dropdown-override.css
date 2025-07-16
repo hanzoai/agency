@@ -1,0 +1,58 @@
+/* Navigation Dropdown Fixes - High Specificity Override */
+
+/* Force dropdowns to be interactive */
+body header nav .group:hover > div[class*="absolute"][class*="opacity-0"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Alternative hover mechanism using adjacent sibling */
+body header nav .group > a:hover + div[class*="absolute"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Keep dropdown visible when hovering over it */
+body header nav .group > div[class*="absolute"]:hover {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Debug mode - uncomment to see dropdown positions */
+/* 
+body header nav .group > div[class*="absolute"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: rgba(255, 0, 0, 0.1) !important;
+  border: 2px solid red !important;
+}
+*/
+
+/* Ensure no parent element clips the dropdown */
+body, #root, header, header > div, nav, nav > div {
+  overflow: visible !important;
+}
+
+/* Fix z-index stacking context */
+body header nav .group > div[class*="absolute"] {
+  z-index: 999999 !important;
+}
+
+/* Create hover bridge to prevent gap */
+body header nav .group::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: transparent;
+}
+
+/* Adjust dropdown position to remove gap */
+body header nav .group > div[class*="absolute"] {
+  margin-top: -2px;
+}

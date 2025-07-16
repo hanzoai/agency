@@ -1,0 +1,56 @@
+/* Simple dropdown styles for NewHeaderSimple */
+
+/* Ensure proper z-index and overflow handling */
+header {
+  z-index: 100 !important;
+  overflow: visible !important;
+}
+
+nav {
+  overflow: visible !important;
+}
+
+/* Dropdown hover mechanics */
+.group {
+  position: relative;
+}
+
+/* Make dropdowns interactive on hover */
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1 !important;
+}
+
+.group:hover .group-hover\:visible {
+  visibility: visible !important;
+}
+
+.group:hover .group-hover\:pointer-events-auto {
+  pointer-events: auto !important;
+}
+
+/* Ensure dropdowns stay visible when hovering over them */
+.group > div[class*="absolute"]:hover {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Add a delay before hiding to allow mouse movement */
+.group:not(:hover) > div[class*="absolute"] {
+  transition-delay: 0.1s;
+}
+
+/* Ensure all parent containers allow overflow */
+.header-container,
+.flex-1,
+.logo-container {
+  overflow: visible !important;
+}
+
+/* Fix any potential clipping issues */
+body,
+#root,
+body > div,
+header > div {
+  overflow: visible !important;
+}

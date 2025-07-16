@@ -1,0 +1,78 @@
+/* Navigation Dropdown Final Fix */
+
+/* Remove all overflow hidden from parent elements */
+html, body, #root {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+header, header > div, nav, .container-custom {
+  overflow: visible !important;
+}
+
+/* Fix the group hover state */
+.group:hover .opacity-0 {
+  opacity: 1 !important;
+}
+
+.group:hover .invisible {
+  visibility: visible !important;
+}
+
+/* Ensure dropdowns are above everything */
+.group > .absolute {
+  z-index: 9999 !important;
+}
+
+/* Fix pointer events */
+.group > .absolute {
+  pointer-events: none;
+}
+
+.group:hover > .absolute {
+  pointer-events: auto !important;
+}
+
+/* Keep dropdown open when hovering over it */
+.group > .absolute:hover {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Fix the width issue - use max width instead of full screen */
+.group > .absolute {
+  width: max-content !important;
+  max-width: 90vw !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+/* Add a small delay to prevent flicker */
+.group > .absolute {
+  transition: opacity 0.3s ease, visibility 0.3s ease !important;
+}
+
+/* Create invisible bridge between trigger and dropdown */
+.group::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: -50px;
+  right: -50px;
+  height: 20px;
+  z-index: 9998;
+}
+
+/* Debug mode - uncomment to visualize */
+/*
+.group > .absolute {
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: rgba(255, 0, 0, 0.2) !important;
+  border: 2px solid yellow !important;
+}
+
+.group::before {
+  background: rgba(0, 255, 0, 0.2) !important;
+}
+*/

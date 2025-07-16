@@ -33,8 +33,12 @@ import AdminDashboard from "./pages/AdminDashboard";
 import EmailInvitation from "./pages/EmailInvitation";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancel from "./pages/PaymentCancel";
+import { initializeAnalytics, analytics } from "./utils/analytics";
 
 const queryClient = new QueryClient();
+
+// Initialize analytics
+initializeAnalytics();
 
 // Scroll to top component that will be used on route changes
 function ScrollToTop() {
@@ -42,6 +46,8 @@ function ScrollToTop() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Track page navigation
+    analytics.trackPageView(pathname, document.title);
   }, [pathname]);
 
   return null;

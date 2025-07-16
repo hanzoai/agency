@@ -1,0 +1,1 @@
+# Directory removed - Creative Carousel feature was deleted

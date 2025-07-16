@@ -124,6 +124,33 @@ button:hover + div {
     @apply container mx-auto px-4 md:px-8 max-w-7xl;
   }
 
+  /* Mobile-first container that keeps content centered */
+  @media (max-width: 640px) {
+    .container-custom {
+      @apply px-4 max-w-full;
+    }
+    
+    /* Ensure all sections have proper padding on mobile */
+    section {
+      @apply overflow-x-hidden;
+    }
+    
+    /* Prevent horizontal scroll on mobile */
+    body {
+      @apply overflow-x-hidden;
+    }
+    
+    /* Center all text content on mobile */
+    .mobile-center {
+      @apply text-center;
+    }
+    
+    /* Ensure cards and content blocks are properly padded */
+    .card, .service-card, .testimonial-card {
+      @apply mx-auto max-w-sm;
+    }
+  }
+
   .section-padding {
     @apply py-16 md:py-24;
   }
@@ -367,6 +394,49 @@ button:hover + div {
   @media (max-width: 767px) {
     body.menu-open {
       @apply overflow-hidden;
+    }
+  }
+  
+  /* Global mobile centering and layout improvements */
+  @media (max-width: 768px) {
+    /* Center all text content on mobile by default */
+    .text-center-mobile {
+      @apply text-center;
+    }
+    
+    /* Override text alignment for specific desktop-aligned sections */
+    .lg\:text-left {
+      @apply text-center;
+    }
+    
+    /* Ensure buttons stack and center on mobile */
+    .flex-col-mobile {
+      @apply flex-col;
+    }
+    
+    /* Add consistent mobile padding */
+    .px-mobile {
+      @apply px-4;
+    }
+    
+    /* Prevent horizontal overflow on all elements */
+    * {
+      max-width: 100vw;
+    }
+    
+    /* Ensure sections don't overflow */
+    section {
+      @apply overflow-x-hidden;
+    }
+    
+    /* Center button groups */
+    .justify-center-mobile {
+      @apply justify-center;
+    }
+    
+    /* Make sure images don't break layout */
+    img {
+      @apply max-w-full h-auto;
     }
   }
 }

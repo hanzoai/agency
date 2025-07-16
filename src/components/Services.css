@@ -1,0 +1,210 @@
+/* Services Component Custom Styles */
+
+/* Ensure proper card heights and spacing */
+.services-card-container {
+  min-height: 600px;
+}
+
+/* Custom beige color for right card */
+.services-right-card {
+  background-color: #f5f3e9;
+}
+
+/* Check mark styling */
+.services-check-icon {
+  color: #16a34a;
+}
+
+/* Italic styling for "all plans" */
+.services-italic-text {
+  font-style: italic;
+}
+
+/* Feature list styling */
+.services-feature-list > div:nth-child(2) {
+  margin-left: 1.5rem;
+  margin-top: -0.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* Card shadow and hover effects */
+.services-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.services-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Full width section for services carousel */
+.services-full-width-section {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* Carousel scroll container - aligns left with container, extends right */
+.carousel-scroll-container {
+  margin-left: max(1rem, calc((100vw - 80rem) / 2));
+}
+
+@media (min-width: 768px) {
+  .carousel-scroll-container {
+    margin-left: max(2rem, calc((100vw - 80rem) / 2));
+  }
+}
+
+/* Carousel wrapper */
+.services-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+/* Container alignment for full-width section */
+.services-full-width-section .container-custom {
+  max-width: 80rem; /* 1280px - Same as default container */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .services-full-width-section .container-custom {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .services-full-width-section .container-custom {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .services-full-width-section .container-custom {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Carousel wrapper */
+.services-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Hide scrollbar for carousel */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
+/* Carousel smooth scrolling */
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+/* Service description - 2 lines with ellipsis */
+.service-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  min-height: 3rem;
+}
+
+/* Stacked card effect */
+.service-card-stack {
+  position: relative;
+}
+
+/* Background card styling */
+.service-card-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(16px);
+  opacity: 0.9;
+}
+
+/* Front card styling */
+.service-card-front {
+  position: relative;
+  background: #000;
+  transition: transform 0.3s ease;
+}
+
+.service-card-front:hover {
+  transform: translateY(-8px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .services-card-container {
+    min-height: auto;
+  }
+  
+  .services-full-width-section {
+    overflow-x: hidden;
+  }
+}
+
+/* Navigation button styles */
+.carousel-nav-button {
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.carousel-nav-button:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.carousel-nav-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Ensure proper z-index for stacked cards */
+.service-card-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.service-card-wrapper:hover {
+  z-index: 10;
+}
+
+/* Card shadows for depth */
+.service-card-shadow {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Ensure cards are properly spaced */
+.service-cards-container {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+@media (min-width: 768px) {
+  .service-cards-container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}

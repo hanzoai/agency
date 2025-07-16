@@ -1,0 +1,194 @@
+/* Hero Text Animation Styles */
+
+/* Improved marquee for client logos */
+@keyframes smooth-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: smooth-marquee 25s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+/* Ensure sparkle emoji appears smoothly */
+.sparkle-emoji {
+  display: inline-block;
+  margin-left: 0.2em;
+  font-size: 0.9em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  transform: translateY(-2px);
+}
+
+.group:hover .sparkle-emoji,
+span:hover .sparkle-emoji {
+  opacity: 1;
+}
+
+.animated-text-container {
+  display: inline-block;
+  position: relative;
+}
+
+/* All text is white by default - no animations */
+.animated-text {
+  color: white;
+  display: inline-block;
+}
+
+/* White highlight box with rainbow gradient on hover for "super power" */
+.animated-underline {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.animated-underline::before {
+  content: '';
+  position: absolute;
+  left: -0.05em;  /* Reduced from -0.3em for minimal side padding */
+  right: -0.05em;  /* Reduced from -0.3em for minimal side padding */
+  top: 0.2em;  /* Increased from -0.1em to move box down */
+  bottom: -0.1em;
+  background: white;
+  opacity: 0;
+  z-index: -1;
+  border-radius: 0;  /* Removed rounded corners */
+  transition: opacity 0.3s ease;
+}
+
+/* Rainbow gradient animation */
+@keyframes rainbow-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+/* Hover state for "super power" */
+.animated-underline:hover {
+  color: black;
+}
+
+.animated-underline:hover::before {
+  opacity: 1;
+  background: linear-gradient(90deg, 
+    #ff0000 0%, 
+    #ff7f00 14.28%, 
+    #ffff00 28.57%, 
+    #00ff00 42.86%, 
+    #0000ff 57.14%, 
+    #4b0082 71.43%, 
+    #9400d3 85.71%, 
+    #ff0000 100%
+  );
+  background-size: 200% 100%;
+  animation: rainbow-gradient 3s linear infinite;
+}
+
+/* Ensure the animation plays immediately on page load */
+.animated-text-container {
+  animation: none !important;
+}
+
+/* Floating animation for blur elements */
+@keyframes float-and-pulse {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  20% {
+    transform: translate(100px, -50px) scale(1.5);
+  }
+  40% {
+    transform: translate(-50px, 100px) scale(0.5);
+  }
+  60% {
+    transform: translate(150px, 80px) scale(2);
+  }
+  80% {
+    transform: translate(-100px, -30px) scale(0.8);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes float-and-pulse-reverse {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  20% {
+    transform: translate(-80px, 60px) scale(0.5);
+  }
+  40% {
+    transform: translate(120px, -40px) scale(1.8);
+  }
+  60% {
+    transform: translate(-60px, -100px) scale(1.2);
+  }
+  80% {
+    transform: translate(100px, 50px) scale(2);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.animate-float {
+  animation: float-and-pulse 20s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-and-pulse-reverse 20s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* Slow pulse animation for smaller blur elements */
+@keyframes pulse-and-move {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1) translate(0, 0);
+  }
+  25% {
+    opacity: 0.3;
+    transform: scale(2) translate(20px, -20px);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(0.5) translate(-30px, 30px);
+  }
+  75% {
+    opacity: 0.25;
+    transform: scale(1.5) translate(10px, 10px);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-and-move 8s ease-in-out infinite;
+}
+
+.animate-pulse-slow-delayed {
+  animation: pulse-and-move 8s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .animated-underline::before {
+    /* Adjust highlight padding on mobile if needed */
+    left: -0.15em;
+    right: -0.15em;
+  }
+}

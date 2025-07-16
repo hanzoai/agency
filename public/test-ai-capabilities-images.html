@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Capabilities Images Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-item {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+        .image-item img {
+            max-width: 100%;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        .image-item .label {
+            font-size: 12px;
+            color: #666;
+            word-break: break-all;
+        }
+        .status {
+            font-size: 11px;
+            margin-top: 5px;
+        }
+        .status.success {
+            color: green;
+        }
+        .status.error {
+            color: red;
+        }
+        h1, h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Capabilities Images Test</h1>
+        <p>This page tests all images used in the AICapabilities component.</p>
+
+        <div class="section">
+            <h2>Feature Graphics</h2>
+            <div class="images-grid">
+                <div class="image-item">
+                    <img src="/images/graphics/ai-nodes.svg" alt="AI Nodes" 
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">ai-nodes.svg</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/graphics/data-wave.svg" alt="Data Wave"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">data-wave.svg</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/graphics/code-blocks.svg" alt="Code Blocks"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">code-blocks.svg</div>
+                    <div class="status">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>AI Models</h2>
+            <div class="images-grid">
+                <div class="image-item">
+                    <img src="/images/logo/openai.svg" alt="OpenAI"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">OpenAI</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/logo/anthropic.svg" alt="Anthropic"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">Anthropic</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/logo/mistral.svg" alt="Mistral AI"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">Mistral AI</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/logo/meta.svg" alt="Meta AI"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">Meta AI</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/logo/huggingface.svg" alt="Hugging Face"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">Hugging Face</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/logo/pytorch.svg" alt="PyTorch"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">PyTorch</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/logo/tensorflow.svg" alt="TensorFlow"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">TensorFlow</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/logo/langchain.svg" alt="LangChain"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">LangChain</div>
+                    <div class="status">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Cloud Platforms</h2>
+            <div class="images-grid">
+                <div class="image-item">
+                    <img src="/images/logo/aws.svg" alt="AWS"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">AWS</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/logo/gcp.svg" alt="Google Cloud"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">Google Cloud</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/logo/azure.svg" alt="Microsoft Azure"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">Azure</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/logo/vercel.svg" alt="Vercel"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">Vercel</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/logo/databricks.svg" alt="Databricks"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">Databricks</div>
+                    <div class="status">Loading...</div>
+                </div>
+                <div class="image-item">
+                    <img src="/images/logo/snowflake.svg" alt="Snowflake"
+                         onload="this.nextElementSibling.nextElementSibling.textContent='✅ Loaded'; this.nextElementSibling.nextElementSibling.className='status success';"
+                         onerror="this.nextElementSibling.nextElementSibling.textContent='❌ Failed'; this.nextElementSibling.nextElementSibling.className='status error'; this.style.display='none';">
+                    <div class="label">Snowflake</div>
+                    <div class="status">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Summary</h2>
+            <p>Open this file in a browser to test if all images are loading correctly. Any failed images will show a red ❌ status.</p>
+            <p><strong>To test:</strong> Run your development server and navigate to <code>http://localhost:5173/test-ai-capabilities-images.html</code></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -75,3 +75,44 @@ Case studies are a key part of the website and follow a consistent pattern:
    - Navigation content is stored in a separate data file (`src/data/navigationItems.ts`)
    - Hero headline updated to "AI is our super power"
    - Fixed header with proper dropdown positioning
+   - Navigation dropdown fixes applied via CSS overrides to ensure visibility on hover
+   - Multiple CSS files used to fix dropdown issues:
+     - `NavigationDropdownFix.css` - Basic hover and pointer-events fixes
+     - `navbar-dropdown-final-fix.css` - Comprehensive overflow and z-index fixes
+     - `navigation-dropdown-override.css` - High-specificity overrides
+
+## Services Section Redesign
+- Updated Services component to match two-card pricing layout from design mockup
+- Left card: Dark green (#3a4a42) with flexible pricing information
+- Right card: Beige (#f5f3e9) with included features checklist
+- Responsive design: Cards stack vertically on mobile/tablet, side-by-side on desktop
+- Service categories displayed in responsive grid below the main cards
+- Custom CSS file (Services.css) for precise styling and animations
+
+## Creative Portfolio Carousel
+- Added CreativePortfolioCarousel component (`src/components/CreativePortfolioCarousel.tsx`)
+- Uses shadcn/ui carousel component with Embla Carousel for smooth scrolling
+- Features 13 creative works spanning design and AI capabilities:
+  - Design Work: Presentation Design, Branding Services, Illustration, Ad Creative, Social Media, Video Production, Web Design, Motion Design, 3D/AR Design
+  - AI Solutions: AI Enhanced Creative, AI Pipeline Development, LLM Fine Tuning, RAG System Implementation
+- Images stored in `public/images/carousel/` with exact filenames from desktop
+- Responsive layout: 3 items on desktop, 2 on tablet, 1 on mobile
+- Category badges overlay on images for easy identification
+- Hover effects with scale transformation and shadow enhancement
+- Mobile-friendly with swipe gesture support and scroll indicator
+- Added to homepage between Services and AICapabilities sections
+
+## AI Capabilities Section
+- Enhanced AICapabilities component (`src/components/AICapabilities.tsx`) with improved image handling
+- Features three main capabilities cards with SVG graphics:
+  - Intelligent Systems (ai-nodes.svg)
+  - Predictive Analytics (data-wave.svg)
+  - Custom Development (code-blocks.svg)
+- Displays partner logos for AI models and cloud platforms
+- Implemented robust image error handling:
+  - Loading states with skeleton placeholders
+  - Error fallbacks showing label text if images fail to load
+  - Lazy loading for better performance
+  - Console logging for debugging image load failures
+- All images stored in `public/images/logo/` and `public/images/graphics/`
+- Test page available at `/test-ai-capabilities-images.html` to verify all images load correctly

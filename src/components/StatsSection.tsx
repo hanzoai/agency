@@ -59,7 +59,7 @@ const StatItem: React.FC<StatItemProps> = ({ value, label, symbol = '', duration
   }, [value, duration, isInView]);
 
   return (
-    <div ref={ref} className="text-center p-6">
+    <div ref={ref} className="text-left md:text-center p-6">
       <div className="text-4xl md:text-5xl font-bold mb-2">
         {count}{symbol}
       </div>

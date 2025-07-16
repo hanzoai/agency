@@ -69,7 +69,7 @@ const CaseStudies = () => {
                 CASE STUDIES
               </h1>
               <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto md:mx-0">
-                Showcasing our most impactful digital campaigns and creative work
+                Showcasing our most impactful digital campaigns and creative work.
               </p>
             </ParallaxItem>
           </header>

@@ -38,8 +38,8 @@ const trillerfest: CaseStudyData = {
     role: "CEO at Triller"
   },
   images: [
+    "/images/triller/thumbnail.jpg",
     "/images/triller/triller-1.jpg",
-    "/images/triller/triller-2.jpg",
     "/images/triller/triller-3.jpg"
   ],
   socialLinks: {

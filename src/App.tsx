@@ -31,6 +31,8 @@ import History from "./pages/History";
 import AddPaymentMethod from "./pages/AddPaymentMethod";
 import AdminDashboard from "./pages/AdminDashboard";
 import EmailInvitation from "./pages/EmailInvitation";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentCancel from "./pages/PaymentCancel";
 
 const queryClient = new QueryClient();
 
@@ -72,7 +74,7 @@ const App = () => (
           <Route path="/instant-site-form" element={<InstantSiteForm />} />
           <Route path="/instant-site-success" element={<InstantSiteSuccess />} />
           <Route path="/enterprise" element={<Enterprise />} />
-          
+
           {/* Credit System Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
@@ -83,7 +85,9 @@ const App = () => (
           <Route path="/history" element={<History />} />
           <Route path="/add-payment-method" element={<AddPaymentMethod />} />
           <Route path="/admin-invite" element={<EmailInvitation />} />
-          
+          <Route path="/success" element={<PaymentSuccess />} />
+          <Route path="/cancel" element={<PaymentCancel />} />
+
           <Route path="/terms" element={<NotFound />} />
           <Route path="/privacy" element={<NotFound />} />
           <Route path="/cookies" element={<NotFound />} />

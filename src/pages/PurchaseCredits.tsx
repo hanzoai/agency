@@ -2,17 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Footer from '@/components/Footer';
-import { 
+import {
   ArrowLeft,
   Check,
   Star,
   Zap,
-  TrendingUp
+  TrendingUp,
+  Shield
 } from 'lucide-react';
 import { notifyAdmins } from '@/utils/emailNotifications';
+import { createCheckoutSession, STRIPE_CONFIG } from '@/lib/stripe';
+import { useToast } from '@/hooks/use-toast';
 
 const PurchaseCredits = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [selectedPack, setSelectedPack] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -71,46 +75,51 @@ const PurchaseCredits = () => {
     }
   ];
 
-  const handlePurchase = () => {
+  const handlePurchase = async () => {
     if (!selectedPack) return;
-    
+
     setIsLoading(true);
     const pack = creditPacks.find(p => p.id === selectedPack);
     if (!pack) return;
 
-    // Check if user has payment method
-    const hasPaymentMethod = localStorage.getItem('hasPaymentMethod') === 'true';
-    
-    if (!hasPaymentMethod) {
-      // Redirect to add payment method
-      navigate('/add-payment-method');
-      return;
-    }
-
-    // Simulate purchase
-    setTimeout(() => {
-      const currentCredits = parseInt(localStorage.getItem('userCredits') || '0');
-      const newCredits = currentCredits + (pack.credits * quantity);
-      localStorage.setItem('userCredits', newCredits.toString());
+    try {
+      // Get the Stripe price ID for the selected pack
+      const priceId = STRIPE_CONFIG.creditPacks[selectedPack as keyof typeof STRIPE_CONFIG.creditPacks]?.priceId;
       
-      // Add to purchase history
-      const history = JSON.parse(localStorage.getItem('creditHistory') || '[]');
-      history.push({
-        id: Date.now().toString(),
-        type: 'purchase',
+      if (!priceId) {
+        throw new Error('Invalid credit pack selected');
+      }
+
+      // Get user email for checkout
+      const userEmail = localStorage.getItem('userEmail') || '';
+      const userId = localStorage.getItem('userId') || '';
+
+      // Save pending purchase info for the success page
+      localStorage.setItem('pendingPurchase', JSON.stringify({
         credits: pack.credits * quantity,
         amount: pack.price * quantity,
-        description: `Purchased ${pack.credits * quantity} credits`,
-        date: new Date().toISOString()
+        type: selectedPack
+      }));
+
+      // Create Stripe checkout session
+      await createCheckoutSession(priceId, quantity, {
+        userId,
+        email: userEmail,
+        creditPack: selectedPack,
+        credits: pack.credits * quantity
       });
-      localStorage.setItem('creditHistory', JSON.stringify(history));
-      
-      // Send email notification to admins
-      const userEmail = localStorage.getItem('userEmail') || '';
-      notifyAdmins.creditsPurchased(userEmail, pack.credits * quantity, pack.price * quantity);
-      
-      navigate('/dashboard');
-    }, 1500);
+
+      // The user will be redirected to Stripe Checkout
+      // Success handling will be done on the success page
+    } catch (error) {
+      console.error('Purchase error:', error);
+      toast({
+        title: 'Purchase Failed',
+        description: 'There was an error processing your purchase. Please try again.',
+        variant: 'destructive'
+      });
+      setIsLoading(false);
+    }
   };
 
   const selectedPackDetails = creditPacks.find(p => p.id === selectedPack);
@@ -138,13 +147,13 @@ const PurchaseCredits = () => {
             {creditPacks.map((pack) => {
               const Icon = pack.icon;
               const isSelected = selectedPack === pack.id;
-              
+
               return (
                 <div
                   key={pack.id}
                   className={`relative bg-gray-900/30 border-2 rounded-xl p-6 cursor-pointer transition-all ${
-                    isSelected 
-                      ? 'border-white' 
+                    isSelected
+                      ? 'border-white'
                       : 'border-gray-800 hover:border-gray-600'
                   } ${pack.id === 'enterprise' ? 'md:scale-105' : ''}`}
                   onClick={() => setSelectedPack(pack.id)}
@@ -154,7 +163,7 @@ const PurchaseCredits = () => {
                       {pack.badge}
                     </div>
                   )}
-                  
+
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center">
                       <Icon className="h-6 w-6 text-white" />
@@ -165,7 +174,7 @@ const PurchaseCredits = () => {
                       </div>
                     )}
                   </div>
-                  
+
                   <h3 className="text-2xl font-bold mb-2">
                     {pack.credits.toLocaleString()} Credits
                   </h3>
@@ -175,7 +184,7 @@ const PurchaseCredits = () => {
                   <p className="text-gray-400 text-sm mb-6">
                     ${pack.perCredit.toFixed(2)} per credit
                   </p>
-                  
+
                   {pack.savings && (
                     <div className="bg-green-900/30 border border-green-800 rounded-lg px-3 py-2 mb-4">
                       <p className="text-green-400 text-sm font-semibold">
@@ -183,7 +192,7 @@ const PurchaseCredits = () => {
                       </p>
                     </div>
                   )}
-                  
+
                   <ul className="space-y-3">
                     {pack.features.map((feature, index) => (
                       <li key={index} className="flex items-start gap-3 text-sm">
@@ -228,7 +237,7 @@ const PurchaseCredits = () => {
                     Buy multiple packs at once
                   </p>
                 </div>
-                
+
                 <div>
                   <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
                   <div className="space-y-3">
@@ -251,14 +260,19 @@ const PurchaseCredits = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <Button
                     onClick={handlePurchase}
                     disabled={isLoading}
                     className="w-full bg-white hover:bg-gray-100 text-black py-3 text-lg font-semibold rounded-lg transition-colors mt-6"
                   >
-                    {isLoading ? 'Processing...' : 'Purchase Credits'}
+                    {isLoading ? 'Redirecting to payment...' : 'Continue to Payment'}
                   </Button>
+
+                  <div className="mt-4 flex items-center justify-center gap-2 text-sm text-gray-400">
+                    <Shield className="h-4 w-4" />
+                    <span>Secure payment powered by Stripe</span>
+                  </div>
                 </div>
               </div>
             </div>

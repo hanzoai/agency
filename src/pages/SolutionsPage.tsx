@@ -1,469 +1,477 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowRight, Check } from 'lucide-react';
-
+import { ArrowUpRight, Check } from 'lucide-react';
 import Footer from '@/components/Footer';
+import { Button } from '@/components/ui/button';
+import { buttonModifiers } from '@/lib/button-utils';
 
-// Category interface
-interface Category {
+interface Solution {
+  id: string;
   title: string;
   description: string;
   icon: string;
-  link: string;
-  id?: string; // Add id field for matching with query params
+  features: string[];
+  benefits: string[];
+  industries?: string[];
 }
 
-const SolutionsPage = () => {
+const solutions: Record<string, Solution> = {
+  'cloud': {
+    id: 'cloud',
+    title: 'Cloud Solutions',
+    description: 'Transform your business with scalable, secure cloud infrastructure and services',
+    icon: '☁️',
+    features: [
+      'Multi-cloud architecture design and implementation',
+      'Cloud migration and modernization',
+      'Container orchestration with Kubernetes',
+      'Serverless computing solutions',
+      'Cloud cost optimization',
+      'Disaster recovery and business continuity'
+    ],
+    benefits: [
+      'Reduce infrastructure costs by up to 40%',
+      'Scale resources instantly based on demand',
+      'Improve application performance and reliability',
+      'Enable remote work and collaboration',
+      'Enhance security and compliance',
+      'Accelerate time to market'
+    ],
+    industries: ['Technology', 'Finance', 'Healthcare', 'Retail', 'Manufacturing']
+  },
+  'cybersecurity': {
+    id: 'cybersecurity',
+    title: 'Cybersecurity',
+    description: 'Protect your business with comprehensive security solutions and threat management',
+    icon: '🔒',
+    features: [
+      'Security assessment and audit',
+      'Threat detection and response',
+      'Identity and access management',
+      'Data encryption and protection',
+      'Security operations center (SOC)',
+      'Compliance management'
+    ],
+    benefits: [
+      'Protect against data breaches and cyber attacks',
+      'Ensure regulatory compliance',
+      'Reduce security incidents by up to 90%',
+      'Safeguard customer trust and reputation',
+      'Minimize downtime and business disruption',
+      'Lower security operational costs'
+    ],
+    industries: ['Banking', 'Healthcare', 'Government', 'Retail', 'Technology']
+  },
+  'data-ai': {
+    id: 'data-ai',
+    title: 'Data and Artificial Intelligence',
+    description: 'Unlock insights and automate processes with advanced AI and data analytics',
+    icon: '🤖',
+    features: [
+      'Machine learning model development',
+      'Natural language processing',
+      'Computer vision solutions',
+      'Predictive analytics',
+      'Data warehouse and lake design',
+      'Real-time data processing'
+    ],
+    benefits: [
+      'Improve decision-making with data insights',
+      'Automate repetitive tasks and processes',
+      'Enhance customer experience with personalization',
+      'Predict trends and prevent issues',
+      'Increase operational efficiency by 50%',
+      'Drive innovation and competitive advantage'
+    ],
+    industries: ['Retail', 'Healthcare', 'Finance', 'Manufacturing', 'Media']
+  },
+  'digital-engineering': {
+    id: 'digital-engineering',
+    title: 'Digital Engineering',
+    description: 'Build modern, scalable applications with cutting-edge engineering practices',
+    icon: '⚙️',
+    features: [
+      'Full-stack application development',
+      'Microservices architecture',
+      'API design and development',
+      'DevOps and CI/CD pipelines',
+      'Quality engineering and testing',
+      'Legacy system modernization'
+    ],
+    benefits: [
+      'Accelerate product development by 3x',
+      'Improve code quality and reliability',
+      'Enable rapid feature deployment',
+      'Reduce technical debt',
+      'Enhance team productivity',
+      'Future-proof your technology stack'
+    ],
+    industries: ['Technology', 'Finance', 'E-commerce', 'Healthcare', 'Media']
+  },
+  'emerging-tech': {
+    id: 'emerging-tech',
+    title: 'Emerging Technology',
+    description: 'Stay ahead with blockchain, IoT, AR/VR, and other cutting-edge technologies',
+    icon: '🚀',
+    features: [
+      'Blockchain and Web3 development',
+      'Internet of Things (IoT) solutions',
+      'Augmented and Virtual Reality',
+      'Edge computing',
+      'Quantum computing readiness',
+      '5G technology implementation'
+    ],
+    benefits: [
+      'Pioneer new business models',
+      'Create unique customer experiences',
+      'Gain first-mover advantage',
+      'Unlock new revenue streams',
+      'Transform industry operations',
+      'Build future-ready solutions'
+    ],
+    industries: ['Gaming', 'Retail', 'Manufacturing', 'Real Estate', 'Entertainment']
+  },
+  'finance-risk': {
+    id: 'finance-risk',
+    title: 'Finance and Risk Management',
+    description: 'Optimize financial operations and manage risk with advanced analytics',
+    icon: '📊',
+    features: [
+      'Risk modeling and assessment',
+      'Regulatory compliance automation',
+      'Financial forecasting and planning',
+      'Fraud detection and prevention',
+      'Portfolio optimization',
+      'Real-time financial reporting'
+    ],
+    benefits: [
+      'Reduce financial risk exposure by 60%',
+      'Ensure regulatory compliance',
+      'Improve forecasting accuracy',
+      'Detect fraud in real-time',
+      'Optimize investment returns',
+      'Streamline financial operations'
+    ],
+    industries: ['Banking', 'Insurance', 'Capital Markets', 'Private Equity', 'Corporate Finance']
+  }
+};
+
+const industries = [
+  {
+    id: 'aerospace-defense',
+    title: 'Aerospace and Defense',
+    description: 'Mission-critical systems and advanced technology solutions',
+    icon: '✈️',
+    solutions: ['cloud', 'cybersecurity', 'data-ai', 'digital-engineering']
+  },
+  {
+    id: 'automotive',
+    title: 'Automotive',
+    description: 'Connected vehicles and intelligent transportation systems',
+    icon: '🚗',
+    solutions: ['emerging-tech', 'data-ai', 'cloud', 'digital-engineering']
+  },
+  {
+    id: 'banking',
+    title: 'Banking',
+    description: 'Digital banking transformation and fintech innovation',
+    icon: '🏦',
+    solutions: ['finance-risk', 'cybersecurity', 'cloud', 'data-ai']
+  },
+  {
+    id: 'capital-markets',
+    title: 'Capital Markets',
+    description: 'Trading platforms and investment technology',
+    icon: '📈',
+    solutions: ['finance-risk', 'data-ai', 'cloud', 'cybersecurity']
+  },
+  {
+    id: 'chemicals',
+    title: 'Chemicals',
+    description: 'Supply chain optimization and process automation',
+    icon: '⚗️',
+    solutions: ['data-ai', 'cloud', 'digital-engineering', 'emerging-tech']
+  },
+  {
+    id: 'communications-media',
+    title: 'Communications and Media',
+    description: 'Content delivery and audience engagement platforms',
+    icon: '📡',
+    solutions: ['cloud', 'data-ai', 'digital-engineering', 'emerging-tech']
+  },
+  {
+    id: 'consumer-goods',
+    title: 'Consumer Goods and Services',
+    description: 'E-commerce and customer experience solutions',
+    icon: '🛍️',
+    solutions: ['data-ai', 'cloud', 'digital-engineering', 'emerging-tech']
+  }
+];
+
+const SolutionsPage: React.FC = () => {
   const [searchParams] = useSearchParams();
+  const capability = searchParams.get('capability');
+  const industry = searchParams.get('industry');
   const [activeTab, setActiveTab] = useState<'capabilities' | 'industries'>('capabilities');
-  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
-  const [selectedCapability, setSelectedCapability] = useState<string | null>(null);
 
-  // Initialize with query parameters
   useEffect(() => {
-    const industry = searchParams.get('industry');
-    const capability = searchParams.get('capability');
+    document.body.classList.add('dark');
+    return () => {
+      document.body.classList.remove('dark');
+    };
+  }, []);
 
+  useEffect(() => {
     if (industry) {
       setActiveTab('industries');
-      setSelectedIndustry(industry);
-    } else if (capability) {
+    } else {
       setActiveTab('capabilities');
-      setSelectedCapability(capability);
     }
-  }, [searchParams]);
+  }, [capability, industry]);
 
-  // Capabilities data
-  const capabilities: Category[] = [
-    {
-      title: "Cloud",
-      description: "Secure, scalable cloud solutions tailored to your business needs",
-      icon: "☁️",
-      link: "/solutions?capability=cloud",
-      id: "cloud"
-    },
-    {
-      title: "Cybersecurity",
-      description: "Protecting your digital assets with advanced security solutions",
-      icon: "🔒",
-      link: "/solutions?capability=cybersecurity",
-      id: "cybersecurity"
-    },
-    {
-      title: "Data and Artificial Intelligence",
-      description: "Unleashing the power of your data with AI-driven insights",
-      icon: "🧠",
-      link: "/solutions?capability=data-ai",
-      id: "data-ai"
-    },
-    {
-      title: "Digital Engineering",
-      description: "Building robust software solutions with cutting-edge technologies",
-      icon: "⚙️",
-      link: "/solutions?capability=digital-engineering",
-      id: "digital-engineering"
-    },
-    {
-      title: "Emerging Technology",
-      description: "Harnessing next-generation technologies to drive innovation",
-      icon: "🚀",
-      link: "/solutions?capability=emerging-tech",
-      id: "emerging-tech"
-    },
-    {
-      title: "Finance and Risk Management",
-      description: "Optimizing financial operations and mitigating risks",
-      icon: "💰",
-      link: "/solutions?capability=finance-risk",
-      id: "finance-risk"
-    },
-    {
-      title: "Fractional CXO",
-      description: "Executive leadership expertise when you need it most",
-      icon: "👑",
-      link: "https://sensei.group",
-      id: "fractional-cxo"
-    }
-  ];
+  const selectedSolution = capability ? solutions[capability] : null;
+  const selectedIndustry = industry ? industries.find(ind => ind.id === industry) : null;
 
-  // Industries data
-  const industries: Category[] = [
-    {
-      title: "Aerospace and Defense",
-      description: "Advanced solutions for aerospace innovation and defense capabilities",
-      icon: "✈️",
-      link: "/solutions?industry=aerospace-defense",
-      id: "aerospace-defense"
-    },
-    {
-      title: "Automotive",
-      description: "Driving digital transformation in the automotive industry",
-      icon: "🚗",
-      link: "/solutions?industry=automotive",
-      id: "automotive"
-    },
-    {
-      title: "Banking",
-      description: "Modernizing banking operations with digital-first solutions",
-      icon: "🏦",
-      link: "/solutions?industry=banking",
-      id: "banking"
-    },
-    {
-      title: "Capital Markets",
-      description: "Optimizing trading and investment operations with technology",
-      icon: "📈",
-      link: "/solutions?industry=capital-markets",
-      id: "capital-markets"
-    },
-    {
-      title: "Chemicals",
-      description: "Digital transformation solutions for the chemical industry",
-      icon: "🧪",
-      link: "/solutions?industry=chemicals",
-      id: "chemicals"
-    },
-    {
-      title: "Communications and Media",
-      description: "Innovative solutions for the evolving media landscape",
-      icon: "📱",
-      link: "/solutions?industry=communications-media",
-      id: "communications-media"
-    },
-    {
-      title: "Consumer Goods and Services",
-      description: "Enhancing customer experience in the consumer goods sector",
-      icon: "🛍️",
-      link: "/solutions?industry=consumer-goods",
-      id: "consumer-goods"
-    },
-    {
-      title: "Energy and Utilities",
-      description: "Sustainable and efficient solutions for the energy sector",
-      icon: "⚡",
-      link: "/solutions?industry=energy",
-      id: "energy"
-    },
-    {
-      title: "Healthcare and Life Sciences",
-      description: "Innovative technology solutions for healthcare providers",
-      icon: "🩺",
-      link: "/solutions?industry=healthcare",
-      id: "healthcare"
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-black text-white">
-      {/* <Navbar /> removed - using global NewHeader */}
-
-      {/* Hero Section */}
-      <div className="pt-32 pb-20">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">INDUSTRY-SPECIFIC EXPERTISE</h1>
-            <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-              Our specialized teams deliver tailored solutions for your unique business challenges across industries.
-            </p>
-
-            <Link to="/login" className="bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-white/90 inline-flex items-center text-lg">
-              Partner With Us <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* Tabs Section */}
-      <div className="pb-20 border-b border-gray-800">
-        <div className="container-custom">
-          <div className="flex justify-center mb-12">
-            <div className="bg-gray-900 p-1 rounded-full inline-flex">
-              <button
-                className={`px-8 py-3 rounded-full font-medium text-base transition-colors ${activeTab === 'capabilities' ? 'bg-white text-black' : 'text-white'
-                  }`}
-                onClick={() => setActiveTab('capabilities')}
-              >
-                Capabilities
-              </button>
-              <button
-                className={`px-8 py-3 rounded-full font-medium text-base transition-colors ${activeTab === 'industries' ? 'bg-white text-black' : 'text-white'
-                  }`}
-                onClick={() => setActiveTab('industries')}
-              >
-                Industries
-              </button>
-            </div>
-          </div>
-
-          {activeTab === 'capabilities' ? (
-            <div>
-              <div className="max-w-3xl mx-auto text-center mb-16">
-                <h2 className="text-3xl font-bold mb-4">Our Core Capabilities</h2>
-                <p className="text-lg text-gray-300">
-                  Comprehensive expertise across key technology domains to solve your complex business challenges.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {capabilities.map((capability) => (
-                  <a
-                    href={capability.link}
-                    key={capability.title}
-                    className="bg-gray-900 rounded-lg p-8 border border-gray-800 hover:border-gray-700 transition-all group"
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="text-3xl">{capability.icon}</div>
-                      <h3 className="text-xl font-bold group-hover:text-blue-400 transition-colors">{capability.title}</h3>
-                    </div>
-                    <p className="text-gray-400 mb-6">{capability.description}</p>
-                    <div className="text-white group-hover:text-blue-400 inline-flex items-center transition-colors">
-                      Learn more <ArrowRight className="ml-1 h-4 w-4" />
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div>
-              <div className="max-w-3xl mx-auto text-center mb-16">
-                <h2 className="text-3xl font-bold mb-4">Industries We Serve</h2>
-                <p className="text-lg text-gray-300">
-                  Specialized solutions designed for the unique challenges of your industry.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {industries.map((industry) => (
-                  <a
-                    href={industry.link}
-                    key={industry.title}
-                    className="bg-gray-900 rounded-lg p-8 border border-gray-800 hover:border-gray-700 transition-all group"
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="text-3xl">{industry.icon}</div>
-                      <h3 className="text-xl font-bold group-hover:text-blue-400 transition-colors">{industry.title}</h3>
-                    </div>
-                    <p className="text-gray-400 mb-6">{industry.description}</p>
-                    <div className="text-white group-hover:text-blue-400 inline-flex items-center transition-colors">
-                      Learn more <ArrowRight className="ml-1 h-4 w-4" />
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Features Section */}
-      <div className="py-20 bg-gradient-to-b from-black to-gray-900">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-4xl font-bold mb-6">Why Choose Hanzo Solutions</h2>
-              <p className="text-lg text-gray-300 mb-8">
-                Our unique approach combines deep industry expertise with cutting-edge technology to deliver measurable results.
-              </p>
-
-              <ul className="space-y-6">
-                <li className="flex items-start gap-4">
-                  <div className="bg-blue-600 p-2 rounded-lg mt-1">
-                    <Check className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-medium mb-2">Industry Expertise</h3>
-                    <p className="text-gray-400">Our specialized teams understand the unique challenges in your industry.</p>
-                  </div>
-                </li>
-
-                <li className="flex items-start gap-4">
-                  <div className="bg-blue-600 p-2 rounded-lg mt-1">
-                    <Check className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-medium mb-2">AI-Powered Innovation</h3>
-                    <p className="text-gray-400">Cutting-edge AI technology integrated into all our solutions.</p>
-                  </div>
-                </li>
-
-                <li className="flex items-start gap-4">
-                  <div className="bg-blue-600 p-2 rounded-lg mt-1">
-                    <Check className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-medium mb-2">Measurable Results</h3>
-                    <p className="text-gray-400">Data-driven approaches that deliver clear ROI and business impact.</p>
-                  </div>
-                </li>
-
-                <li className="flex items-start gap-4">
-                  <div className="bg-blue-600 p-2 rounded-lg mt-1">
-                    <Check className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-medium mb-2">Scalable Solutions</h3>
-                    <p className="text-gray-400">Our solutions grow with your business needs and adapt to market changes.</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-gray-800 rounded-xl overflow-hidden">
-              <div className="p-1 bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 rounded-xl">
-                <div className="bg-gray-900 p-8 rounded-lg">
-                  <h3 className="text-2xl font-bold mb-6">Enterprise Solutions Package</h3>
-                  <div className="text-4xl font-bold mb-4">$5,000<span className="text-xl font-normal">/month</span></div>
-                  <p className="text-gray-300 mb-8">Comprehensive access to our full suite of capabilities and industry expertise.</p>
-
-                  <ul className="space-y-4 mb-8">
-                    <li className="flex items-start gap-3">
-                      <Check className="text-green-400 mt-1 flex-shrink-0" />
-                      <span>Dedicated team of industry experts</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <Check className="text-green-400 mt-1 flex-shrink-0" />
-                      <span>AI-powered solutions customized for your business</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <Check className="text-green-400 mt-1 flex-shrink-0" />
-                      <span>Regular strategy sessions and success metrics</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <Check className="text-green-400 mt-1 flex-shrink-0" />
-                      <span>Priority support and implementation</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <Check className="text-green-400 mt-1 flex-shrink-0" />
-                      <span>Quarterly business reviews and optimization</span>
-                    </li>
-                  </ul>
-
-                  <Link to="/login" className="block w-full bg-white text-black py-3 rounded-full text-center font-medium hover:bg-white/90 transition-colors">
-                    Get Started Now
+  if (selectedSolution) {
+    return (
+      <div className="min-h-screen bg-black text-white">
+        <main className="pt-24">
+          {/* Solution Detail Hero */}
+          <section className="py-24">
+            <div className="container-custom">
+              <div className="max-w-4xl mx-auto text-center">
+                <div className="text-6xl mb-6">{selectedSolution.icon}</div>
+                <h1 className="text-5xl md:text-7xl font-bold mb-6">{selectedSolution.title}</h1>
+                <p className="text-xl text-white/80 mb-8">{selectedSolution.description}</p>
+                <div className="flex gap-4 justify-center">
+                  <Link to="/contact">
+                    <Button variant="primary" size="lg" className={buttonModifiers.interactive}>
+                      Get started
+                      <ArrowUpRight size={16} className="ml-1" />
+                    </Button>
+                  </Link>
+                  <Link to="/pricing">
+                    <Button variant="outline" size="lg" className={buttonModifiers.interactive}>
+                      View pricing
+                    </Button>
                   </Link>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </section>
 
-      {/* Case Studies Section */}
-      <div className="py-20 bg-gray-900 border-t border-gray-800">
-        <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Success Stories</h2>
-            <p className="text-lg text-gray-300">
-              See how our solutions have transformed businesses across industries.
-            </p>
-          </div>
+          {/* Features */}
+          <section className="py-20 bg-gradient-to-b from-black to-gray-950">
+            <div className="container-custom">
+              <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center">Key Features</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {selectedSolution.features.map((feature, index) => (
+                  <div key={index} className="bg-white/5 p-6 rounded-xl border border-white/10">
+                    <Check className="h-6 w-6 text-green-400 mb-4" />
+                    <p className="text-lg">{feature}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-black p-6 rounded-lg border border-gray-800 overflow-hidden group">
-              <div className="h-56 overflow-hidden rounded-lg mb-6 relative">
-                <img
-                  src="/images/damon/cover.jpg"
-                  alt="Damon Motorcycles"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
-                  <div className="text-xl font-bold">Damon Motorcycles</div>
+          {/* Benefits */}
+          <section className="py-20">
+            <div className="container-custom">
+              <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center">Business Benefits</h2>
+              <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                {selectedSolution.benefits.map((benefit, index) => (
+                  <div key={index} className="flex items-start">
+                    <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center mr-4 flex-shrink-0">
+                      <Check className="h-4 w-4 text-blue-400" />
+                    </div>
+                    <p className="text-lg">{benefit}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Industries */}
+          {selectedSolution.industries && (
+            <section className="py-20 bg-gradient-to-b from-gray-950 to-black">
+              <div className="container-custom">
+                <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center">Industries We Serve</h2>
+                <div className="flex flex-wrap gap-4 justify-center">
+                  {selectedSolution.industries.map((ind, index) => (
+                    <div key={index} className="bg-white/5 px-6 py-3 rounded-full border border-white/10">
+                      {ind}
+                    </div>
+                  ))}
                 </div>
               </div>
-              <p className="text-gray-400 mb-4">
-                AI-powered engineering solutions for next-generation electric motorcycles.
-              </p>
-              <div className="font-bold text-gray-300 mb-2">Results:</div>
-              <ul className="text-sm text-gray-400 space-y-1 mb-6">
-                <li>• 40% reduction in design iteration time</li>
-                <li>• 25% increase in battery efficiency</li>
-                <li>• Successful Series B funding round</li>
-              </ul>
-              <Link to="/case-study/damon" className="text-blue-400 hover:text-blue-300 inline-flex items-center">
-                View case study <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="bg-black p-6 rounded-lg border border-gray-800 overflow-hidden group">
-              <div className="h-56 overflow-hidden rounded-lg mb-6 relative">
-                <img
-                  src="/images/triller/cover.jpg"
-                  alt="Triller"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
-                  <div className="text-xl font-bold">Triller</div>
-                </div>
-              </div>
-              <p className="text-gray-400 mb-4">
-                Comprehensive digital transformation for social media platform growth.
-              </p>
-              <div className="font-bold text-gray-300 mb-2">Results:</div>
-              <ul className="text-sm text-gray-400 space-y-1 mb-6">
-                <li>• 3x increase in user engagement</li>
-                <li>• 65% improvement in algorithm performance</li>
-                <li>• Successful market positioning</li>
-              </ul>
-              <Link to="/case-study/triller" className="text-blue-400 hover:text-blue-300 inline-flex items-center">
-                View case study <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="bg-black p-6 rounded-lg border border-gray-800 overflow-hidden group">
-              <div className="h-56 overflow-hidden rounded-lg mb-6 relative">
-                <img
-                  src="/images/bellabeat/cover.jpg"
-                  alt="Bellabeat"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
-                  <div className="text-xl font-bold">Bellabeat</div>
-                </div>
-              </div>
-              <p className="text-gray-400 mb-4">
-                Health tech innovation through AI-powered solutions and data analysis.
-              </p>
-              <div className="font-bold text-gray-300 mb-2">Results:</div>
-              <ul className="text-sm text-gray-400 space-y-1 mb-6">
-                <li>• 45% improvement in user retention</li>
-                <li>• 78% increase in health insights accuracy</li>
-                <li>• Successful partnership expansions</li>
-              </ul>
-              <Link to="/case-study/bellabeat" className="text-blue-400 hover:text-blue-300 inline-flex items-center">
-                View case study <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <Link to="/our-work" className="border border-white px-8 py-3 rounded-full font-medium hover:bg-white/10 inline-flex items-center">
-              View All Case Studies <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </div>
-        </div>
+            </section>
+          )}
+        </main>
+        <Footer />
       </div>
+    );
+  }
 
-      {/* CTA Section */}
-      <div className="py-20 bg-black">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-4">Ready to Transform Your Business?</h2>
-            <p className="text-xl text-gray-300 mb-12">
-              Join leading companies achieving remarkable results with our AI-powered solutions.
-            </p>
+  if (selectedIndustry) {
+    return (
+      <div className="min-h-screen bg-black text-white">
+        <main className="pt-24">
+          {/* Industry Detail Hero */}
+          <section className="py-24">
+            <div className="container-custom">
+              <div className="max-w-4xl mx-auto text-center">
+                <div className="text-6xl mb-6">{selectedIndustry.icon}</div>
+                <h1 className="text-5xl md:text-7xl font-bold mb-6">{selectedIndustry.title}</h1>
+                <p className="text-xl text-white/80 mb-8">{selectedIndustry.description}</p>
+                <Link to="/contact">
+                  <Button variant="primary" size="lg" className={buttonModifiers.interactive}>
+                    Get industry insights
+                    <ArrowUpRight size={16} className="ml-1" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </section>
 
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/login" className="bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-white/90 inline-flex items-center text-lg">
-                Get Started Today <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-              <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="border border-white px-8 py-4 rounded-full font-medium hover:bg-white/10 inline-flex items-center text-lg">
-                Schedule a Consultation
-              </a>
+          {/* Solutions for Industry */}
+          <section className="py-20 bg-gradient-to-b from-black to-gray-950">
+            <div className="container-custom">
+              <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center">Solutions for {selectedIndustry.title}</h2>
+              <div className="grid md:grid-cols-2 gap-8">
+                {selectedIndustry.solutions.map((solutionId) => {
+                  const solution = solutions[solutionId];
+                  return (
+                    <Link key={solutionId} to={`/solutions?capability=${solutionId}`} className="group">
+                      <div className="bg-white/5 p-8 rounded-xl border border-white/10 hover:border-white/20 transition-all">
+                        <div className="text-4xl mb-4">{solution.icon}</div>
+                        <h3 className="text-2xl font-bold mb-2">{solution.title}</h3>
+                        <p className="text-white/70 mb-4">{solution.description}</p>
+                        <span className="inline-flex items-center text-blue-400 group-hover:text-blue-300">
+                          Learn more
+                          <ArrowUpRight size={16} className="ml-1" />
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Main Solutions Page
+  return (
+    <div className="min-h-screen bg-black text-white">
+      <main className="pt-24">
+        {/* Hero Section */}
+        <section className="py-24">
+          <div className="container-custom">
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="text-5xl md:text-7xl font-bold mb-6">Enterprise Solutions</h1>
+              <p className="text-xl text-white/80">
+                Comprehensive technology solutions designed to transform your business and drive growth
+              </p>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
 
+        {/* Tab Navigation */}
+        <section className="border-b border-gray-800">
+          <div className="container-custom">
+            <div className="flex justify-center">
+              <button
+                onClick={() => setActiveTab('capabilities')}
+                className={`px-8 py-4 text-lg font-medium transition-all ${
+                  activeTab === 'capabilities'
+                    ? 'text-white border-b-2 border-white'
+                    : 'text-white/60 hover:text-white'
+                }`}
+              >
+                By Capability
+              </button>
+              <button
+                onClick={() => setActiveTab('industries')}
+                className={`px-8 py-4 text-lg font-medium transition-all ${
+                  activeTab === 'industries'
+                    ? 'text-white border-b-2 border-white'
+                    : 'text-white/60 hover:text-white'
+                }`}
+              >
+                By Industry
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Content */}
+        <section className="py-20">
+          <div className="container-custom">
+            {activeTab === 'capabilities' ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {Object.values(solutions).map((solution) => (
+                  <Link key={solution.id} to={`/solutions?capability=${solution.id}`} className="group">
+                    <div className="bg-white/5 p-8 rounded-xl border border-white/10 hover:border-white/20 transition-all h-full">
+                      <div className="text-4xl mb-4">{solution.icon}</div>
+                      <h3 className="text-2xl font-bold mb-2">{solution.title}</h3>
+                      <p className="text-white/70 mb-4">{solution.description}</p>
+                      <span className="inline-flex items-center text-blue-400 group-hover:text-blue-300">
+                        Explore solution
+                        <ArrowUpRight size={16} className="ml-1" />
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {industries.map((industry) => (
+                  <Link key={industry.id} to={`/solutions?industry=${industry.id}`} className="group">
+                    <div className="bg-white/5 p-8 rounded-xl border border-white/10 hover:border-white/20 transition-all h-full">
+                      <div className="text-4xl mb-4">{industry.icon}</div>
+                      <h3 className="text-2xl font-bold mb-2">{industry.title}</h3>
+                      <p className="text-white/70 mb-4">{industry.description}</p>
+                      <span className="inline-flex items-center text-blue-400 group-hover:text-blue-300">
+                        View solutions
+                        <ArrowUpRight size={16} className="ml-1" />
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 bg-gradient-to-br from-gray-900 to-black">
+          <div className="container-custom">
+            <div className="bg-black/30 p-12 rounded-3xl border border-white/10 backdrop-blur-sm text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to transform your business?</h2>
+              <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
+                Let's discuss how our solutions can help you achieve your goals and drive innovation.
+              </p>
+              <div className="flex gap-4 justify-center">
+                <Link to="/contact">
+                  <Button variant="primary" size="lg" className={buttonModifiers.interactive}>
+                    Schedule consultation
+                    <ArrowUpRight size={16} className="ml-1" />
+                  </Button>
+                </Link>
+                <Link to="/enterprise">
+                  <Button variant="outline" size="lg" className={buttonModifiers.interactive}>
+                    Enterprise solutions
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
       <Footer />
     </div>
   );

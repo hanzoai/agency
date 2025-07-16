@@ -21,7 +21,7 @@ const WhyHanzo = () => {
       <div className="absolute -bottom-16 -right-16 w-96 h-96 rounded-full bg-beige-200/50 -z-10"></div>
 
       <div className="container-custom">
-        <div className="text-center md:text-left max-w-3xl mb-16">
+        <div className="text-center max-w-3xl mb-16 mx-auto">
           <h2 className="text-3xl md:text-6xl font-black tracking-tighter mb-8 reveal">
             Pioneering the future of AI-powered solutions
           </h2>
@@ -30,11 +30,11 @@ const WhyHanzo = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+        <div className="grid md:grid-cols-3 gap-8 lg:gap-12 max-w-5xl mx-auto">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="border-t border-black pt-6 reveal-slide-up"
+              className="border-t border-white pt-6 reveal-slide-up text-center"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
@@ -43,17 +43,17 @@ const WhyHanzo = () => {
           ))}
         </div>
 
-        <div className="mt-14 text-center md:text-left reveal flex flex-wrap gap-4">
-          <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="lets-talk-btn">
+        <div className="mt-14 text-center reveal flex flex-wrap gap-4 justify-center">
+          <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="lets-talk-btn px-12">
             Let's talk
             <ArrowUpRight size={16} className="ml-1" />
           </a>
           <a
             href="/subscribe"
-            className="lets-talk-btn bg-black hover:bg-black/0 text-white hover:text-black rainbow-gradient-btn transition-all duration-300"
+            className="lets-talk-btn bg-black hover:bg-black/0 text-white hover:text-black transition-all duration-300 px-12 border border-white rainbow-hover-btn"
           >
             Sign Up
-            <Mail size={16} className="ml-1" />
+            <Mail size={16} className="ml-2" />
           </a>
         </div>
       </div>

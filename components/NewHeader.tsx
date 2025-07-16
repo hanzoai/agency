@@ -14,6 +14,7 @@ import { navigationItems } from "../src/data/navigationItems";
 import { ArrowUpRight, ExternalLink, FileImage, Book, HelpCircle, Palette, Coffee } from "lucide-react";
 import React from "react";
 import "../src/components/NavigationFixes.css";
+import "../src/components/NavigationMenuFix.css";
 
 const NewHeader = () => {
   const [showLogoMenu, setShowLogoMenu] = useState(false);

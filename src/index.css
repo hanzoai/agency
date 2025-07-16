@@ -1,5 +1,30 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import './components/SimpleDropdown.css';
+
+/* Navigation Menu Dropdown Fixes */
+[data-radix-popper-content-wrapper] {
+  z-index: 50 !important;
+}
+
+/* Ensure NavigationMenuContent is visible */
+[data-state="open"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Fix for NavigationMenu dropdowns */
+nav[role="navigation"] [data-radix-collection-item] {
+  position: relative;
+}
+
+/* Ensure dropdown content is visible on hover */
+button[data-state="open"] + div,
+button:hover + div {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
 
 @tailwind base;
 @tailwind components;
@@ -243,7 +268,83 @@
     animation: slide-in 0.3s ease-out;
   }
   
-  /* Marquee animation for client logos */
+  /* Rainbow gradient animation for specific buttons */
+    @keyframes rainbow-gradient-button {
+      0% {
+        background-position: 0% 50%;
+      }
+      100% {
+        background-position: 200% 50%;
+      }
+    }
+
+    /* Rainbow hover effect for Schedule Consultation and Sign Up buttons */
+    .rainbow-hover-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .rainbow-hover-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, 
+        #ff0000 0%, 
+        #ff7f00 14.28%, 
+        #ffff00 28.57%, 
+        #00ff00 42.86%, 
+        #0000ff 57.14%, 
+        #4b0082 71.43%, 
+        #9400d3 85.71%, 
+        #ff0000 100%
+      );
+      background-size: 200% 100%;
+      opacity: 0;
+      z-index: 1;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .rainbow-hover-btn:hover::before {
+      opacity: 1;
+      animation: rainbow-gradient-button 3s linear infinite;
+    }
+
+    /* Ensure text and icons stay on top with proper contrast */
+    .rainbow-hover-btn > span,
+    .rainbow-hover-btn > svg,
+    .rainbow-hover-btn > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Maintain text readability on rainbow background */
+    .rainbow-hover-btn:hover {
+      color: white !important;
+      text-shadow: 0 0 4px rgba(0,0,0,0.5), 0 0 8px rgba(0,0,0,0.3);
+    }
+
+    .rainbow-hover-btn:hover svg {
+      filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+    }
+
+    /* Keep black text for specific buttons */
+    .rainbow-hover-btn.keep-black:hover {
+      color: black !important;
+      text-shadow: none;
+    }
+    
+    .rainbow-hover-btn.keep-black:hover svg {
+      color: black !important;
+      filter: none;
+    }
+
+    /* Marquee animation for client logos */
   @keyframes marquee {
     0% {
       transform: translateX(0);

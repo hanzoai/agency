@@ -17,24 +17,24 @@ const OnboardingForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormDataType>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData(prev => ({ ...prev, [id]: value }));
   };
-  
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setFormData(prev => ({ ...prev, [e.target.id]: file }));
     }
   };
-  
+
   const nextStep = () => {
     // Check if required fields in current step are filled
     const currentFields = formSections[currentStep].fields;
     const requiredFields = currentFields.filter(field => field.required);
-    
+
     for (const field of requiredFields) {
       if (!formData[field.id]) {
         toast({
@@ -45,24 +45,24 @@ const OnboardingForm = () => {
         return;
       }
     }
-    
+
     if (currentStep < formSections.length - 1) {
       setCurrentStep(currentStep + 1);
       window.scrollTo(0, 0);
     }
   };
-  
+
   const prevStep = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
       window.scrollTo(0, 0);
     }
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Here you would typically send the data to your backend
     // For now, we'll just simulate a successful submission
     setTimeout(() => {
@@ -74,37 +74,37 @@ const OnboardingForm = () => {
       navigate('/onboarding-success');
     }, 2000);
   };
-  
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* <Navbar /> removed - using global NewHeader */}
-      
+
       <main className="flex-grow bg-beige-50 py-16">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
-              <h1 className="text-3xl md:text-4xl font-bold mb-2">Help Us Create Your Perfect Website</h1>
-              <p className="text-lg text-primary/70">
+              <h1 className="text-3xl md:text-4xl font-bold mb-2 text-black">Help Us Create Your Perfect Website</h1>
+              <p className="text-lg text-black/70">
                 Please fill out this onboarding form as thoroughly as possible so we can deliver the best results for your project.
               </p>
             </div>
-            
+
             <div className="bg-white p-8 rounded-xl shadow-sm">
-              <ProgressBar 
-                currentStep={currentStep} 
+              <ProgressBar
+                currentStep={currentStep}
                 totalSteps={formSections.length}
                 title={formSections[currentStep].title}
               />
-              
+
               <form onSubmit={handleSubmit}>
-                <FormSection 
-                  section={formSections[currentStep]} 
+                <FormSection
+                  section={formSections[currentStep]}
                   formData={formData}
                   handleInputChange={handleInputChange}
                   handleFileChange={handleFileChange}
                 />
-                
-                <FormNavigation 
+
+                <FormNavigation
                   currentStep={currentStep}
                   totalSteps={formSections.length}
                   prevStep={prevStep}
@@ -116,7 +116,7 @@ const OnboardingForm = () => {
           </div>
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );

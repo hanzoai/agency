@@ -82,6 +82,22 @@ const Subscribe = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
+  
+  // Check if user has already subscribed
+  useEffect(() => {
+    const hasSubscribed = localStorage.getItem('trialUsed');
+    if (hasSubscribed === 'true') {
+      toast({
+        title: "Already Subscribed",
+        description: "You already have an active subscription. Redirecting to login...",
+        variant: "default"
+      });
+      setTimeout(() => {
+        window.location.href = 'https://auth.hanzo.ai';
+      }, 2000);
+    }
+  }, [toast]);
+  
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     email: '',

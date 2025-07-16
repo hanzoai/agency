@@ -39,8 +39,8 @@ const coverBuild: CaseStudyData = {
   },
   images: [
     "/images/cover/cover.jpg",
-    "/images/cover/cover-1.jpg",
-    "/images/cover/cover-2.jpg",
+    "/images/cover/cover-1.png",
+    "/images/cover/cover-3.jpg",
     "/images/cover/cover-3.jpg"
   ],
   socialLinks: {

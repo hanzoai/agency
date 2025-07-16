@@ -16,7 +16,7 @@ const FormField: React.FC<FormFieldProps> = ({ field, value, onChange, onFileCha
   if (type === 'textarea') {
     return (
       <div className="mb-6">
-        <label htmlFor={id} className="block text-sm font-medium text-primary/70 mb-1">
+        <label htmlFor={id} className="block text-sm font-medium text-black mb-1">
           {label} {required && <span className="text-red-500">*</span>}
         </label>
         <textarea
@@ -33,7 +33,7 @@ const FormField: React.FC<FormFieldProps> = ({ field, value, onChange, onFileCha
   } else if (type === 'file') {
     return (
       <div className="mb-6">
-        <label htmlFor={id} className="block text-sm font-medium text-primary/70 mb-1">
+        <label htmlFor={id} className="block text-sm font-medium text-black mb-1">
           {label} {required && <span className="text-red-500">*</span>}
         </label>
         <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -69,7 +69,7 @@ const FormField: React.FC<FormFieldProps> = ({ field, value, onChange, onFileCha
   } else {
     return (
       <div className="mb-6">
-        <label htmlFor={id} className="block text-sm font-medium text-primary/70 mb-1">
+        <label htmlFor={id} className="block text-sm font-medium text-black mb-1">
           {label} {required && <span className="text-red-500">*</span>}
         </label>
         <input

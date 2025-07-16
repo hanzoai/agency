@@ -1,22 +1,16 @@
-# Welcome to your Lovable project
+# Hanzo Agency
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/0d26a8c6-880d-4da6-ac52-9bbf0aa68adb
+AI-Powered Solutions - The human edge for AI. We build tomorrow's solutions with today's teams.
 
 ## How can I edit this code?
 
 There are several ways of editing your application.
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/0d26a8c6-880d-4da6-ac52-9bbf0aa68adb) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
 **Use your preferred IDE**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Clone this repo and push changes using your own IDE.
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
@@ -62,8 +56,8 @@ This project is built with .
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/0d26a8c6-880d-4da6-ac52-9bbf0aa68adb) and click on Share -> Publish.
+Deploy using your preferred hosting service (Netlify, Vercel, etc.).
 
 ## I want to use a custom domain - is that possible?
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+For custom domain deployment, we recommend using Netlify or similar services.

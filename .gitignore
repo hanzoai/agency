@@ -41,3 +41,4 @@ rename-*.sh
 # Test components
 **/TestNavigation.tsx
 **/test-images.html
+.claude

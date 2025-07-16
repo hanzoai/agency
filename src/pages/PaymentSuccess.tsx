@@ -3,6 +3,8 @@ import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Footer from '@/components/Footer';
 import { CheckCircle, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
+import { trackPurchaseSuccess } from '@/lib/stripe';
+import { analytics } from '@/utils/analytics';
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();
@@ -14,6 +16,9 @@ const PaymentSuccess = () => {
   const sessionId = searchParams.get('session_id');
 
   useEffect(() => {
+    // Track page view
+    analytics.trackPageView('/success', 'Payment Success');
+
     const processPayment = async () => {
       if (!sessionId) {
         setError(true);
@@ -45,6 +50,27 @@ const PaymentSuccess = () => {
             stripeSessionId: sessionId
           });
           localStorage.setItem('creditHistory', JSON.stringify(history));
+
+          // Track successful purchase with analytics
+          trackPurchaseSuccess(
+            sessionId,
+            [{
+              id: details.packId,
+              name: details.productName,
+              category: 'credit_packs',
+              price: details.unitPrice,
+              quantity: details.quantity
+            }],
+            details.amount
+          );
+
+          // Track custom conversion event
+          analytics.trackCustomEvent('credit_purchase_completed', {
+            pack_id: details.packId,
+            credits: details.credits,
+            value: details.amount,
+            quantity: details.quantity
+          });
 
           // Clear pending purchase
           localStorage.removeItem('pendingPurchase');
@@ -159,17 +185,6 @@ const PaymentSuccess = () => {
                 A receipt has been sent to your email address.
               </p>
             </div>
-          </div>
-
-          <div className="bg-blue-900/20 border border-blue-800 rounded-xl p-6">
-            <h3 className="font-semibold mb-2">Next Steps</h3>
-            <p className="text-gray-300 text-sm mb-4">
-              Your credits are now available to use on any of our services. 
-              Visit your dashboard to see your balance and redeem services.
-            </p>
-            <p className="text-xs text-gray-400">
-              Note: In a production environment, this would be verified server-side with webhooks.
-            </p>
           </div>
         </div>
       </main>

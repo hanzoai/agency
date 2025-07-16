@@ -23,3 +23,15 @@ dist-ssr
 *.sln
 *.sw?
 .vite
+
+# Temporary and test files
+check-*.js
+test-*.html
+*_temp.*
+*.sh
+copy-*.sh
+rename-*.sh
+
+# Test components
+**/TestNavigation.tsx
+**/test-images.html

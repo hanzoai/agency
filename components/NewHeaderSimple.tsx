@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { navigationItems } from "../src/data/navigationItems";
-import { ArrowUpRight, ExternalLink, FileImage, Book, HelpCircle, Palette, Coffee, ChevronDown } from "lucide-react";
+import { ArrowUpRight, ExternalLink, FileImage, Book, HelpCircle, Palette, Coffee, ChevronDown, Menu, X } from "lucide-react";
 import React from "react";
 
 const NewHeader = () => {
   const [showLogoMenu, setShowLogoMenu] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileExpandedItems, setMobileExpandedItems] = useState<string[]>([]);
   const logoMenuRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLImageElement>(null);
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const NewHeader = () => {
     checkAuth();
     // Listen for storage changes
     window.addEventListener('storage', checkAuth);
-    
+
     return () => {
       window.removeEventListener('storage', checkAuth);
     };
@@ -41,10 +43,37 @@ const NewHeader = () => {
     };
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [navigate]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   // Custom context menu for the logo
   const handleLogoContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
     setShowLogoMenu(true);
+  };
+
+  // Toggle mobile submenu
+  const toggleMobileSubmenu = (title: string) => {
+    setMobileExpandedItems(prev => 
+      prev.includes(title) 
+        ? prev.filter(item => item !== title)
+        : [...prev, title]
+    );
   };
 
   // Links for the logo context menu
@@ -123,7 +152,8 @@ const NewHeader = () => {
           )}
         </div>
 
-        <nav className="flex-1 bg-black text-white flex items-center justify-center">
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex flex-1 bg-black text-white items-center justify-center">
           <div className="flex items-center gap-6">
             {navigationItems.map((item) => (
               <div key={item.title}>
@@ -335,7 +365,8 @@ const NewHeader = () => {
           </div>
         </nav>
 
-        <div className="ml-auto flex items-center space-x-3">
+        {/* Desktop Auth Buttons */}
+        <div className="hidden lg:flex ml-auto items-center space-x-3">
           {isAuthenticated ? (
             <Link
               to="/dashboard"
@@ -360,7 +391,146 @@ const NewHeader = () => {
             </>
           )}
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="lg:hidden ml-auto p-2 text-white hover:bg-gray-800 rounded-md transition-colors"
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 top-16 bg-black z-50 overflow-y-auto">
+          <div className="px-4 py-6">
+            {/* Mobile Navigation Items */}
+            <nav className="space-y-4">
+              {navigationItems.map((item) => (
+                <div key={item.title}>
+                  {item.href && !item.children && !item.capabilities && !item.industries && !item.categories ? (
+                    <Link
+                      to={item.href}
+                      className="block text-white hover:text-gray-300 font-medium py-2"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.title}
+                    </Link>
+                  ) : (
+                    <div>
+                      <button
+                        onClick={() => toggleMobileSubmenu(item.title)}
+                        className="flex items-center justify-between w-full text-white hover:text-gray-300 font-medium py-2"
+                      >
+                        {item.title}
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform ${
+                            mobileExpandedItems.includes(item.title) ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+
+                      {/* Mobile Submenu */}
+                      {mobileExpandedItems.includes(item.title) && (
+                        <div className="mt-2 ml-4 space-y-2">
+                          {/* Capabilities */}
+                          {item.capabilities && (
+                            <div className="pb-4">
+                              <h4 className="text-sm font-bold text-gray-400 mb-2">Capabilities</h4>
+                              {item.capabilities.map((capability) => (
+                                <Link
+                                  key={capability.title}
+                                  to={capability.href}
+                                  className="block text-gray-300 hover:text-white py-1 text-sm"
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                  {capability.title}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* Industries */}
+                          {item.industries && (
+                            <div className="pb-4">
+                              <h4 className="text-sm font-bold text-gray-400 mb-2">Industries</h4>
+                              {item.industries.map((industry) => (
+                                <Link
+                                  key={industry.title}
+                                  to={industry.href}
+                                  className="block text-gray-300 hover:text-white py-1 text-sm"
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                  {industry.title}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* Categories */}
+                          {item.categories && item.categories.map((category) => (
+                            <div key={category.title} className="pb-4">
+                              <Link
+                                to={category.href}
+                                className="text-sm font-bold text-gray-400 mb-2 block"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                              >
+                                {category.title} →
+                              </Link>
+                              {category.items.map((subItem) => (
+                                <Link
+                                  key={subItem.title}
+                                  to={subItem.href}
+                                  className="block text-gray-300 hover:text-white py-1 text-sm ml-2"
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                  {subItem.title}
+                                </Link>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </nav>
+
+            {/* Mobile Auth Buttons */}
+            <div className="mt-8 space-y-3">
+              {isAuthenticated ? (
+                <Link
+                  to="/dashboard"
+                  className="block w-full text-center bg-white text-black border border-white hover:bg-transparent hover:text-white transition-colors duration-200 px-4 py-3 rounded-full text-sm font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="block w-full text-center border border-white text-white hover:bg-white hover:text-black transition-colors duration-200 px-4 py-3 rounded-full text-sm font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Log In
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="block w-full text-center bg-white text-black border border-white hover:bg-transparent hover:text-white transition-colors duration-200 px-4 py-3 rounded-full text-sm font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

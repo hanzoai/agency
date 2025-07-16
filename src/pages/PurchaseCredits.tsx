@@ -8,10 +8,10 @@ import {
   Star,
   Zap,
   TrendingUp,
-  Shield
+  Shield,
+  AlertCircle
 } from 'lucide-react';
 import { notifyAdmins } from '@/utils/emailNotifications';
-import { createCheckoutSession, STRIPE_CONFIG } from '@/lib/stripe';
 import { useToast } from '@/hooks/use-toast';
 
 const PurchaseCredits = () => {
@@ -83,34 +83,39 @@ const PurchaseCredits = () => {
     if (!pack) return;
 
     try {
-      // Get the Stripe price ID for the selected pack
-      const priceId = STRIPE_CONFIG.creditPacks[selectedPack as keyof typeof STRIPE_CONFIG.creditPacks]?.priceId;
-      
-      if (!priceId) {
-        throw new Error('Invalid credit pack selected');
+      // Check if user has payment method
+      const hasPaymentMethod = localStorage.getItem('hasPaymentMethod') === 'true';
+
+      if (!hasPaymentMethod) {
+        // Redirect to add payment method
+        navigate('/add-payment-method');
+        return;
       }
 
-      // Get user email for checkout
-      const userEmail = localStorage.getItem('userEmail') || '';
-      const userId = localStorage.getItem('userId') || '';
+      // Simulate purchase
+      setTimeout(() => {
+        const currentCredits = parseInt(localStorage.getItem('userCredits') || '0');
+        const newCredits = currentCredits + (pack.credits * quantity);
+        localStorage.setItem('userCredits', newCredits.toString());
 
-      // Save pending purchase info for the success page
-      localStorage.setItem('pendingPurchase', JSON.stringify({
-        credits: pack.credits * quantity,
-        amount: pack.price * quantity,
-        type: selectedPack
-      }));
+        // Add to purchase history
+        const history = JSON.parse(localStorage.getItem('creditHistory') || '[]');
+        history.push({
+          id: Date.now().toString(),
+          type: 'purchase',
+          credits: pack.credits * quantity,
+          amount: pack.price * quantity,
+          description: `Purchased ${pack.credits * quantity} credits`,
+          date: new Date().toISOString()
+        });
+        localStorage.setItem('creditHistory', JSON.stringify(history));
 
-      // Create Stripe checkout session
-      await createCheckoutSession(priceId, quantity, {
-        userId,
-        email: userEmail,
-        creditPack: selectedPack,
-        credits: pack.credits * quantity
-      });
+        // Send email notification to admins
+        const userEmail = localStorage.getItem('userEmail') || '';
+        notifyAdmins.creditsPurchased(userEmail, pack.credits * quantity, pack.price * quantity);
 
-      // The user will be redirected to Stripe Checkout
-      // Success handling will be done on the success page
+        navigate('/dashboard');
+      }, 1500);
     } catch (error) {
       console.error('Purchase error:', error);
       toast({
@@ -140,6 +145,17 @@ const PurchaseCredits = () => {
             <p className="text-gray-400 text-lg">
               Choose a credit pack that fits your needs. 1 credit = $1 value.
             </p>
+          </div>
+
+          {/* Stripe Integration Notice */}
+          <div className="bg-yellow-900/20 border border-yellow-800/50 rounded-lg p-4 mb-8 flex items-start gap-3">
+            <AlertCircle className="h-5 w-5 text-yellow-500 mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="text-yellow-200 font-medium">Payment Integration In Progress</p>
+              <p className="text-yellow-300/80 text-sm mt-1">
+                Stripe payment integration is being set up. For now, this is a demo mode.
+              </p>
+            </div>
           </div>
 
           {/* Credit Packs */}
@@ -266,12 +282,12 @@ const PurchaseCredits = () => {
                     disabled={isLoading}
                     className="w-full bg-white hover:bg-gray-100 text-black py-3 text-lg font-semibold rounded-lg transition-colors mt-6"
                   >
-                    {isLoading ? 'Redirecting to payment...' : 'Continue to Payment'}
+                    {isLoading ? 'Processing...' : 'Purchase Credits (Demo)'}
                   </Button>
 
                   <div className="mt-4 flex items-center justify-center gap-2 text-sm text-gray-400">
                     <Shield className="h-4 w-4" />
-                    <span>Secure payment powered by Stripe</span>
+                    <span>Secure payment powered by Stripe (Coming Soon)</span>
                   </div>
                 </div>
               </div>

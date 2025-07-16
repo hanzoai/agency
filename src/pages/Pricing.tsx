@@ -89,7 +89,71 @@ export default function Pricing() {
             </p>
           </div>
           
-          <div className="max-w-2xl mx-auto mb-12">
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+            {/* Instant Site */}
+            <div className="flex flex-col h-full border-2 border-green-800 hover:border-green-700 rounded-xl overflow-hidden bg-gradient-to-b from-black to-green-950/30 backdrop-blur-sm relative shadow-lg shadow-green-900/10 transition-all duration-300">
+              <div className="p-6 border-b border-border/20">
+                <h3 className="text-xl font-semibold mb-1">Instant Site</h3>
+                <p className="text-sm text-foreground/70 font-semibold">Fast, polished 3-page website in 24 hours</p>
+                <div className="flex items-baseline gap-1 mt-2">
+                  <span className="text-3xl font-bold">$500</span>
+                  <span className="text-foreground/60 text-sm">/one-time</span>
+                </div>
+                <p className="text-sm text-foreground/60 mt-2 font-bold">No subscription. No delays. Just results.</p>
+              </div>
+
+              <div className="p-6 flex-grow">
+                <ul className="space-y-3">
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Custom-built 3-page website, tailored to your brand</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Up to 10 premium images or product photos included</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">24-hour guaranteed turnaround from kickoff</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">1 design revision to fine-tune the final look</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Built with Framer, Webflow, or no-code export for easy updates</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Fully mobile-responsive and lightning fast</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">SEO-ready structure to boost your visibility</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Domain + hosting setup guidance (or we'll do it for you)</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Lifetime ownership — no recurring fees</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Ideal for creators, events, popups, and new businesses</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="p-6 pt-2 mt-auto">
+                <Link to="/payment?plan=instant-site" className="w-full inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium bg-white text-black hover:bg-white/90 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2">
+                  Get your site in 24 hours
+                </Link>
+              </div>
+            </div>
+
             {/* Agency Service */}
             <div className="flex flex-col h-full border-2 border-blue-800 hover:border-blue-700 rounded-xl overflow-hidden bg-gradient-to-b from-black to-blue-950/30 backdrop-blur-sm relative shadow-lg shadow-blue-900/10 transition-all duration-300">
 
@@ -100,7 +164,7 @@ export default function Pricing() {
                   <span className="text-3xl font-bold">$5,000</span>
                   <span className="text-foreground/60 text-sm">/month</span>
                 </div>
-                <p className="text-xs text-foreground/60 mt-2">1 quarter minimum commitment</p>
+                <p className="text-sm text-foreground/60 mt-2 font-bold">1 quarter minimum commitment</p>
               </div>
               
               <div className="p-6 flex-grow">

@@ -3,12 +3,15 @@ import { Button } from '@/components/ui/button';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { buttonModifiers } from '@/lib/button-utils';
+import './NavigationDropdownFix.css';
+import './navbar-dropdown-final-fix.css';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isTop, setIsTop] = useState(true);
   const [isBannerVisible, setIsBannerVisible] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -357,7 +360,7 @@ const Navbar = () => {
                   </div>
                 </div>
 
-                <div className="relative group">
+                <div className="relative group dropdown-container">
                 <Link to="/solutions" className="text-foreground/90 hover:text-foreground font-medium transition flex items-center gap-1">
                   Solutions
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:rotate-180">

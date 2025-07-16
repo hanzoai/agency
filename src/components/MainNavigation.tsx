@@ -16,6 +16,63 @@ import { ArrowUpRight, ExternalLink, Menu, X } from "lucide-react";
 function MainNavigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Rainbow gradient styles
+  const rainbowButtonStyle = {
+    position: 'relative' as const,
+    overflow: 'hidden',
+    transition: 'all 0.3s ease'
+  };
+
+  const rainbowGradientStyle = `
+    @keyframes rainbow-move {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+    
+    .signup-btn {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .signup-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, 
+        #ff0000 0%, 
+        #ff7f00 14.28%, 
+        #ffff00 28.57%, 
+        #00ff00 42.86%, 
+        #0000ff 57.14%, 
+        #4b0082 71.43%, 
+        #9400d3 85.71%, 
+        #ff0000 100%
+      );
+      background-size: 200% 100%;
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 9999px;
+    }
+    
+    .signup-btn:hover::before {
+      opacity: 1;
+      animation: rainbow-move 3s linear infinite;
+    }
+    
+    .signup-btn > span {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .signup-btn:hover {
+      color: white !important;
+    }
+  `;
+
   useEffect(() => {
     // Toggle body class when menu state changes
     if (isMenuOpen) {
@@ -36,7 +93,9 @@ function MainNavigation() {
   };
   
   return (
-    <div className="w-full bg-black fixed top-0 z-50 border-b border-border/40" role="banner">
+    <>
+      <style dangerouslySetInnerHTML={{ __html: rainbowGradientStyle }} />
+      <div className="w-full bg-black fixed top-0 z-50 border-b border-border/40" role="banner">
       <div className="w-full max-w-full px-4 mx-auto flex h-16 items-center">
         <Link to="/" className="mr-6 flex items-center space-x-2">
           <img src="/images/logo/logo.png" alt="Hanzo" className="h-7 w-auto" />
@@ -317,7 +376,7 @@ function MainNavigation() {
           </a>
           <a
             href="/signup"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2.5 rounded-full text-sm font-medium whitespace-nowrap"
+            className="signup-btn inline-block bg-white text-black hover:bg-white/90 px-6 py-2.5 rounded-full text-sm font-medium whitespace-nowrap"
           >
             Signup
           </a>
@@ -331,6 +390,7 @@ function MainNavigation() {
           </button>
         </div>
       </div>
+    </>
 
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
@@ -482,9 +542,9 @@ function MainNavigation() {
               
               <Link to="/pricing" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
               <Link to="/faq" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>FAQ</Link>
-              <Link to="/login" className="bg-white text-black px-7 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap mt-4" onClick={() => setIsMenuOpen(false)}>
-                Signup
-              </Link>
+              <a href="https://auth.hanzo.ai" className="bg-white text-black px-7 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap mt-4" onClick={() => setIsMenuOpen(false)}>
+                <span>Signup</span>
+              </a>
             </nav>
           </div>
         </div>

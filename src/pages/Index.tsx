@@ -67,13 +67,13 @@ const Index = () => {
 
   return (
     <ScrollReveal>
-      <div className="min-h-screen flex flex-col pt-16">
+      <div className="min-h-screen flex flex-col">
         <Hero />
         <Services />
         <AICapabilities />
-        <StatsSection />
         <WhyHanzo />
         <CaseStudy />
+        <StatsSection />
         <Process />
         <Footer />
       </div>

@@ -12,6 +12,7 @@ import ScrollReveal from '@/utils/ScrollReveal';
 const CaseStudy = () => {
   const { id } = useParams<{ id: string }>();
   const [isBannerVisible, setIsBannerVisible] = useState(false);
+  const [imageErrors, setImageErrors] = useState<{[key: number]: boolean}>({});
 
   // If no ID is found, or the ID doesn't match any case study, redirect to our work page
   if (!id || !caseStudies[id]) {
@@ -63,6 +64,11 @@ const CaseStudy = () => {
       window.removeEventListener('bannerVisibilityChanged', handleBannerVisibilityChanged);
     };
   }, []);
+
+  const handleImageError = (index: number) => {
+    console.error(`Failed to load image ${index + 1} for ${data.title}`);
+    setImageErrors(prev => ({ ...prev, [index]: true }));
+  };
 
   // Function to render social links
   const renderSocialLinks = () => {
@@ -172,18 +178,29 @@ const CaseStudy = () => {
               </div>
             </div>
 
-            {/* Gallery Section - Limited to 3 images */}
+            {/* Gallery Section - Limited to 3 images with error handling */}
             {data.images && data.images.length > 1 && (
               <div className="mb-16">
                 <h2 className="text-2xl font-bold mb-6">Gallery</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {data.images.slice(0, 3).map((image, index) => (
-                    <div key={index} className="rounded-lg overflow-hidden">
-                      <img
-                        src={image}
-                        alt={`${data.title} - Image ${index + 1}`}
-                        className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-                      />
+                    <div key={index} className="rounded-lg overflow-hidden bg-gray-800 relative min-h-[16rem]">
+                      {imageErrors[index] ? (
+                        <div className="absolute inset-0 flex items-center justify-center text-gray-500">
+                          <div className="text-center">
+                            <p className="text-sm">Image could not be loaded</p>
+                            <p className="text-xs mt-2 px-4 break-all">{image}</p>
+                          </div>
+                        </div>
+                      ) : (
+                        <img
+                          src={image}
+                          alt={`${data.title} - Image ${index + 1}`}
+                          className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+                          onError={() => handleImageError(index)}
+                          loading="lazy"
+                        />
+                      )}
                     </div>
                   ))}
                 </div>

@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Footer from '@/components/Footer';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { analytics } from '@/utils/analytics';
 
 const Login = () => {
   const navigate = useNavigate();

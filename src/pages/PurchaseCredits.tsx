@@ -8,11 +8,11 @@ import {
   Star,
   Zap,
   TrendingUp,
-  Shield,
-  AlertCircle
+  Shield
 } from 'lucide-react';
-import { redirectToCheckout, STRIPE_PRICE_IDS } from '@/lib/stripe';
+import { createCheckoutSession, STRIPE_PRICE_IDS } from '@/lib/stripe';
 import { useToast } from '@/hooks/use-toast';
+import { analytics } from '@/utils/analytics';
 
 const PurchaseCredits = () => {
   const navigate = useNavigate();
@@ -28,6 +28,9 @@ const PurchaseCredits = () => {
       navigate('/login');
       return;
     }
+
+    // Track page view
+    analytics.trackPageView('/purchase-credits', 'Purchase Credits');
   }, [navigate]);
 
   const creditPacks = [
@@ -78,6 +81,29 @@ const PurchaseCredits = () => {
     }
   ];
 
+  const handlePackSelect = (packId: string) => {
+    setSelectedPack(packId);
+    const pack = creditPacks.find(p => p.id === packId);
+    if (pack) {
+      // Track product selection
+      analytics.trackProductView({
+        id: pack.id,
+        name: `${pack.credits} Credits Pack`,
+        category: 'credit_packs',
+        price: pack.price
+      });
+
+      // Track add to cart
+      analytics.trackAddToCart({
+        id: pack.id,
+        name: `${pack.credits} Credits Pack`,
+        category: 'credit_packs',
+        price: pack.price,
+        quantity: 1
+      });
+    }
+  };
+
   const handlePurchase = async () => {
     if (!selectedPack) return;
 
@@ -87,20 +113,32 @@ const PurchaseCredits = () => {
 
     try {
       // Save purchase info for the success page
-      localStorage.setItem('pendingPurchase', JSON.stringify({
+      const purchaseData = {
         packId: selectedPack,
         credits: pack.credits * quantity,
         amount: pack.price * quantity,
-        quantity: quantity
-      }));
+        quantity: quantity,
+        productName: `${pack.credits} Credits Pack`,
+        unitPrice: pack.price
+      };
+      
+      localStorage.setItem('pendingPurchase', JSON.stringify(purchaseData));
 
-      // Redirect to Stripe Checkout
-      await redirectToCheckout(pack.priceId, quantity);
+      // Create checkout session via API
+      await createCheckoutSession(pack.priceId, quantity, {
+        userId: localStorage.getItem('userId'),
+        email: localStorage.getItem('userEmail'),
+        packId: selectedPack,
+        credits: pack.credits * quantity,
+        productName: `${pack.credits} Credits Pack`,
+        price: pack.price,
+        totalPrice: pack.price * quantity
+      });
     } catch (error) {
       console.error('Checkout error:', error);
       toast({
         title: 'Checkout Failed',
-        description: 'Unable to redirect to payment. Please try again.',
+        description: 'Unable to process payment. Please try again.',
         variant: 'destructive'
       });
       setIsLoading(false);
@@ -127,26 +165,6 @@ const PurchaseCredits = () => {
             </p>
           </div>
 
-          {/* Important Notice */}
-          <div className="bg-blue-900/20 border border-blue-800/50 rounded-lg p-4 mb-8 flex items-start gap-3">
-            <AlertCircle className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
-            <div>
-              <p className="text-blue-200 font-medium">Stripe Price Setup Required</p>
-              <p className="text-blue-300/80 text-sm mt-1">
-                To complete purchases, you need to create products and prices in your{' '}
-                <a 
-                  href="https://dashboard.stripe.com/products" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="underline hover:text-blue-200"
-                >
-                  Stripe Dashboard
-                </a>
-                . Use the price IDs from the code comments.
-              </p>
-            </div>
-          </div>
-
           {/* Credit Packs */}
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             {creditPacks.map((pack) => {
@@ -161,7 +179,7 @@ const PurchaseCredits = () => {
                       ? 'border-white'
                       : 'border-gray-800 hover:border-gray-600'
                   } ${pack.id === 'enterprise' ? 'md:scale-105' : ''}`}
-                  onClick={() => setSelectedPack(pack.id)}
+                  onClick={() => handlePackSelect(pack.id)}
                 >
                   {pack.badge && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-black px-4 py-1 rounded-full text-sm font-bold">

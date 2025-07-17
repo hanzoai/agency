@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import './Hero.css';
 
 const clientLogos = [
-  'Triller', 'Damon', 'Bellabeat', 'Unikrn', 'Cover', 'Casper', 'Myle', 'Coinbase'
+  'Triller', 'Damon', 'Bellabeat', 'Unikrn', 'Cover', 'Casper', 'Myle', 'Drumpants', 'Cove', 'Aura', 'KANOA', 'SKULLY', 'LUX', 'ZOO'
 ];
 
 const Hero = () => {
@@ -65,24 +65,24 @@ const Hero = () => {
                   <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-lg blur-lg opacity-20 animate-pulse-slow-delayed -z-10"></div>
 
                   <div className="text-sm text-gray-400 mb-2 text-center lg:text-left">THE AI-POWERED ENGINE</div>
-                  <h3 className="text-xl lg:text-2xl font-bold mb-4 text-center lg:text-left">Powering 30+ successful exits and countless industry awards.</h3>
+                  <h3 className="text-xl lg:text-2xl font-bold mb-4 text-center lg:text-left">$1B+ in client revenue, 100M+ users acquired for our partners</h3>
 
                   <div className="grid grid-cols-2 gap-3 lg:gap-4 mt-6 lg:mt-8">
                     <div className="bg-gray-800/50 rounded-lg p-3 lg:p-4 text-center">
-                      <div className="text-2xl lg:text-3xl font-bold text-white">92%</div>
-                      <div className="text-xs lg:text-sm text-gray-400">conversion rate increase</div>
+                      <div className="text-2xl lg:text-3xl font-bold text-white">$1B+</div>
+                      <div className="text-xs lg:text-sm text-gray-400">client revenue</div>
                     </div>
                     <div className="bg-gray-800/50 rounded-lg p-3 lg:p-4 text-center">
-                      <div className="text-2xl lg:text-3xl font-bold text-white">3.5x</div>
-                      <div className="text-xs lg:text-sm text-gray-400">ROI improvement</div>
+                      <div className="text-2xl lg:text-3xl font-bold text-white">100M+</div>
+                      <div className="text-xs lg:text-sm text-gray-400">users acquired</div>
                     </div>
                     <div className="bg-gray-800/50 rounded-lg p-3 lg:p-4 text-center">
-                      <div className="text-2xl lg:text-3xl font-bold text-white">75%</div>
-                      <div className="text-xs lg:text-sm text-gray-400">time to market reduction</div>
+                      <div className="text-2xl lg:text-3xl font-bold text-white">100+</div>
+                      <div className="text-xs lg:text-sm text-gray-400">products launched</div>
                     </div>
                     <div className="bg-gray-800/50 rounded-lg p-3 lg:p-4 text-center">
-                      <div className="text-2xl lg:text-3xl font-bold text-white">24+</div>
-                      <div className="text-xs lg:text-sm text-gray-400">industry awards</div>
+                      <div className="text-2xl lg:text-3xl font-bold text-white">11+</div>
+                      <div className="text-xs lg:text-sm text-gray-400">years experience</div>
                     </div>
                   </div>
                 </div>
@@ -92,15 +92,15 @@ const Hero = () => {
               <div className="sm:hidden mt-8">
                 <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-6">
                   <div className="text-sm text-gray-400 mb-2 text-center">THE AI-POWERED ENGINE</div>
-                  <h3 className="text-xl font-bold mb-4 text-center">Powering 30+ successful exits</h3>
+                  <h3 className="text-xl font-bold mb-4 text-center">$1B+ in client revenue generated</h3>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="bg-gray-800/50 rounded-lg p-3 text-center">
-                      <div className="text-2xl font-bold text-white">92%</div>
-                      <div className="text-xs text-gray-400">conversion increase</div>
+                      <div className="text-2xl font-bold text-white">$1B+</div>
+                      <div className="text-xs text-gray-400">client revenue</div>
                     </div>
                     <div className="bg-gray-800/50 rounded-lg p-3 text-center">
-                      <div className="text-2xl font-bold text-white">3.5x</div>
-                      <div className="text-xs text-gray-400">ROI improvement</div>
+                      <div className="text-2xl font-bold text-white">100M+</div>
+                      <div className="text-xs text-gray-400">users acquired</div>
                     </div>
                   </div>
                 </div>

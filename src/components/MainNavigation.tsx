@@ -374,12 +374,12 @@ function MainNavigation() {
           >
             Login
           </a>
-          <a
-            href="/signup"
+          <Link
+            to="/signup"
             className="signup-btn inline-block bg-white text-black hover:bg-white/90 px-6 py-2.5 rounded-full text-sm font-medium whitespace-nowrap"
           >
             Signup
-          </a>
+          </Link>
           
           <button 
             className="lg:hidden ml-4 p-2 text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-md" 

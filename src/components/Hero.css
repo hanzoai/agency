@@ -6,12 +6,12 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-25%);
   }
 }
 
 .animate-marquee {
-  animation: smooth-marquee 25s linear infinite;
+  animation: smooth-marquee 40s linear infinite;
   display: flex;
   width: max-content;
 }
@@ -33,21 +33,21 @@ span:hover .sparkle-emoji {
 }
 
 .animated-text-container {
-  display: inline-block;
+  display: inline;
   position: relative;
 }
 
 /* All text is white by default - no animations */
 .animated-text {
   color: white;
-  display: inline-block;
+  display: inline;
 }
 
 /* White highlight box with rainbow gradient on hover for "super power" */
 .animated-underline {
   position: relative;
   z-index: 1;
-  display: inline-block;
+  display: inline;
   color: white;
   cursor: pointer;
   transition: color 0.3s ease;

@@ -1,48 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GradientBackground from './GradientBackground';
 import { ArrowUpRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { buttonModifiers } from '@/lib/button-utils';
 
 // Image component with error handling and loading state
-const LogoImage = ({ src, alt, label }: { src: string; alt: string; label: string }) => {
+const LogoImage = ({ src, alt, label, index }: { src: string; alt: string; label: string; index?: number }) => {
   const [imageError, setImageError] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
 
-  const handleImageError = () => {
-    console.error(`Failed to load image: ${src}`);
-    setImageError(true);
-    setImageLoading(false);
-  };
+  // Preload image with staggered delay
+  useEffect(() => {
+    const delay = (index || 0) * 50; // 50ms delay between each logo
+    const timer = setTimeout(() => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => setImageLoading(false);
+      img.onerror = () => {
+        console.error(`Failed to load image: ${src}`);
+        setImageError(true);
+        setImageLoading(false);
+      };
+    }, delay);
 
-  const handleImageLoad = () => {
-    setImageLoading(false);
-  };
+    return () => clearTimeout(timer);
+  }, [src, index]);
 
   return (
     <div className="flex flex-col items-center">
-      <div className="h-10 w-auto flex items-center justify-center">
+      <div className="h-10 w-auto flex items-center justify-center min-w-[80px]">
         {imageError ? (
-          <div className="h-10 w-20 bg-gray-700 rounded flex items-center justify-center">
-            <span className="text-xs text-gray-400">{label}</span>
+          <div className="h-10 px-4 py-2 bg-gray-800 rounded flex items-center justify-center">
+            <span className="text-xs text-gray-400 font-medium">{label}</span>
           </div>
+        ) : imageLoading ? (
+          <div className="h-10 w-20 bg-gray-800 rounded animate-pulse" />
         ) : (
-          <>
-            {imageLoading && (
-              <div className="h-10 w-20 bg-gray-700 rounded animate-pulse" />
-            )}
-            <img
-              src={src}
-              alt={alt}
-              className={`h-10 w-auto opacity-70 hover:opacity-100 transition-opacity ${imageLoading ? 'hidden' : ''}`}
-              onError={handleImageError}
-              onLoad={handleImageLoad}
-              loading="lazy"
-            />
-          </>
+          <img
+            src={src}
+            alt={alt}
+            className="h-10 w-auto max-w-[120px] opacity-70 hover:opacity-100 transition-opacity"
+          />
         )}
       </div>
-      <span className="text-xs text-foreground/60 mt-2">{label}</span>
+      <span className="text-xs text-foreground/60 mt-2 text-center">{label}</span>
     </div>
   );
 };
@@ -128,13 +129,12 @@ const AICapabilities = () => {
     { src: "/images/logo/anthropic.svg", alt: "Anthropic", label: "Anthropic" },
     { src: "/images/logo/mistral.svg", alt: "Mistral AI", label: "Mistral AI" },
     { src: "/images/logo/meta.svg", alt: "Meta AI", label: "Meta AI" },
+    { src: "/images/logo/groq.svg", alt: "Groq", label: "Groq" },
+    { src: "/images/logo/xai.svg", alt: "xAI", label: "xAI" },
     { src: "/images/logo/huggingface.svg", alt: "Hugging Face", label: "Hugging Face" },
     { src: "/images/logo/pytorch.svg", alt: "PyTorch", label: "PyTorch" },
     { src: "/images/logo/tensorflow.svg", alt: "TensorFlow", label: "TensorFlow" },
-    { src: "/images/logo/langchain.svg", alt: "LangChain", label: "LangChain" }
-  ];
-
-  const cloudPlatforms = [
+    { src: "/images/logo/langchain.svg", alt: "LangChain", label: "LangChain" },
     { src: "/images/logo/aws.svg", alt: "AWS", label: "AWS" },
     { src: "/images/logo/gcp.svg", alt: "Google Cloud", label: "Google Cloud" },
     { src: "/images/logo/azure.svg", alt: "Microsoft Azure", label: "Azure" },
@@ -142,6 +142,7 @@ const AICapabilities = () => {
     { src: "/images/logo/databricks.svg", alt: "Databricks", label: "Databricks" },
     { src: "/images/logo/snowflake.svg", alt: "Snowflake", label: "Snowflake" }
   ];
+
 
   return (
     <section className="py-24 lg:py-32 relative overflow-hidden">
@@ -199,15 +200,10 @@ const AICapabilities = () => {
             and open source software
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 items-center justify-items-center">
+          {/* All logos in a single responsive grid - 16 total */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-6 items-center justify-items-center max-w-6xl mx-auto">
             {aiModels.map((model, index) => (
-              <LogoImage key={index} {...model} />
-            ))}
-          </div>
-
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-items-center">
-            {cloudPlatforms.map((platform, index) => (
-              <LogoImage key={index} {...platform} />
+              <LogoImage key={index} {...model} index={index} />
             ))}
           </div>
         </div>

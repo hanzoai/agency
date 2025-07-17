@@ -1,0 +1,15 @@
+<svg width="80" height="40" viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- xAI stylized logo -->
+  <g fill="currentColor">
+    <!-- x part -->
+    <path d="M8 8L20 20L8 32" stroke="currentColor" stroke-width="3" fill="none"/>
+    <path d="M20 8L8 20L20 32" stroke="currentColor" stroke-width="3" fill="none"/>
+    
+    <!-- AI text -->
+    <path d="M36 26L40 14L44 26M37.5 22H42.5" stroke="currentColor" stroke-width="2" fill="none"/>
+    <path d="M50 14V26" stroke="currentColor" stroke-width="2" fill="none"/>
+    
+    <!-- Dot on the I -->
+    <circle cx="50" cy="10" r="1.5" fill="currentColor"/>
+  </g>
+</svg>

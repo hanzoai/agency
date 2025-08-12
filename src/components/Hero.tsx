@@ -30,8 +30,8 @@ const Hero = () => {
               <div className="relative z-10 text-center lg:text-left">
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                   <span className="animated-text-container">
-                    <span className="animated-text">AI is our </span>
-                    <Link to="/onboarding" className="animated-text animated-underline hover:no-underline">super power.</Link>
+                    <span className="animated-text">AI is our</span>
+                    <Link to="/onboarding" className="animated-text animated-underline hover:no-underline"> super power.</Link>
                   </span>
                 </h1>
                 <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-12 max-w-xl mx-auto lg:mx-0 mt-6 lg:mt-10">

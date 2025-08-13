@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { navigationItems } from "../src/data/navigationItems";
 import { ArrowUpRight, ExternalLink, FileImage, Book, HelpCircle, Palette, Coffee, ChevronDown, Menu, X } from "lucide-react";
 import React from "react";
+import "./HeaderDropdown.css";
 
 const NewHeader = () => {
   const [showLogoMenu, setShowLogoMenu] = useState(false);
@@ -162,7 +163,7 @@ const NewHeader = () => {
                     {item.title}
                   </Link>
                 ) : (
-                  <div className="relative group">
+                  <div className="relative group dropdown-trigger">
                     <button className="text-white hover:text-gray-300 font-medium px-4 py-2 rounded-md transition-colors flex items-center gap-1">
                       {item.title}
                       <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
@@ -170,7 +171,10 @@ const NewHeader = () => {
 
                     {/* Solutions Layout with Capabilities & Industries */}
                     {(item.capabilities || item.industries) && (
-                      <div className="absolute left-1/2 transform -translate-x-1/2 top-full mt-2 w-[900px] bg-black border border-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none group-hover:pointer-events-auto">
+                      <div className="absolute left-1/2 transform -translate-x-1/2 top-full pt-1 w-[900px]">
+                        {/* Invisible bridge to maintain hover */}
+                        <div className="absolute top-0 left-0 right-0 h-2"></div>
+                        <div className="dropdown-menu bg-black border border-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible pointer-events-none group-hover:pointer-events-auto">
                         <div className="p-6">
                           <div className="grid gap-8 grid-cols-3">
                             {/* Capabilities Column */}
@@ -290,12 +294,16 @@ const NewHeader = () => {
                             )}
                           </div>
                         </div>
+                        </div>
                       </div>
                     )}
 
                     {/* Services Categories Layout */}
                     {item.categories && (
-                      <div className="absolute left-1/2 transform -translate-x-1/2 top-full mt-2 w-[1200px] bg-black border border-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none group-hover:pointer-events-auto">
+                      <div className="absolute left-1/2 transform -translate-x-1/2 top-full pt-1 w-[1200px]">
+                        {/* Invisible bridge to maintain hover */}
+                        <div className="absolute top-0 left-0 right-0 h-2"></div>
+                        <div className="dropdown-menu bg-black border border-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible pointer-events-none group-hover:pointer-events-auto">
                         <div className="p-6">
                           <div className="grid gap-8 grid-cols-5">
                             {/* Categories Columns */}
@@ -393,6 +401,7 @@ const NewHeader = () => {
                               </div>
                             )}
                           </div>
+                        </div>
                         </div>
                       </div>
                     )}

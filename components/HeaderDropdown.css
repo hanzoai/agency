@@ -6,6 +6,7 @@
 /* Add a delay before hiding the dropdown */
 .dropdown-menu {
   transition: opacity 300ms ease-in-out, visibility 300ms ease-in-out;
+  z-index: 50;
 }
 
 /* Keep dropdown visible for a moment after mouse leaves */
@@ -16,6 +17,14 @@
 /* Show immediately on hover */
 .dropdown-trigger:hover .dropdown-menu {
   transition-delay: 0ms;
+}
+
+/* Hide all other dropdowns when one is hovered */
+.dropdown-container:has(.dropdown-trigger:hover) .dropdown-trigger:not(:hover) .dropdown-menu {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition-delay: 0ms !important;
 }
 
 /* Ensure smooth cursor movement between trigger and dropdown */

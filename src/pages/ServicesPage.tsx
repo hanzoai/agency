@@ -40,11 +40,25 @@ const ServicesPage: React.FC = () => {
 
   // If a specific service is requested, render the ServiceTemplate component
   if (serviceParam) {
-    const serviceId = serviceParam.split('/').pop() || '';
-    const service = Object.values(services).find(s => s.id === serviceId);
+    // Extract the service ID from the URL path
+    const serviceId = serviceParam;
+    const service = services[serviceId];
 
     if (service) {
       return <ServiceTemplate service={service} />;
+    } else {
+      // Return a 404 page for unknown service
+      return (
+        <div className="min-h-screen bg-black text-white flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold mb-4">Service Not Found</h1>
+            <p className="text-gray-400 mb-8">The service "{serviceId}" could not be found.</p>
+            <Link to="/services" className="text-blue-400 hover:underline">
+              ← Back to Services
+            </Link>
+          </div>
+        </div>
+      );
     }
   }
 

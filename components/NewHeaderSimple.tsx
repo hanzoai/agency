@@ -10,6 +10,7 @@ const NewHeader = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mobileExpandedItems, setMobileExpandedItems] = useState<string[]>([]);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const logoMenuRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLImageElement>(null);
   const navigate = useNavigate();
@@ -163,18 +164,24 @@ const NewHeader = () => {
                     {item.title}
                   </Link>
                 ) : (
-                  <div className="relative group dropdown-trigger">
+                  <div 
+                    className="relative group dropdown-trigger"
+                    onMouseEnter={() => setActiveDropdown(item.title)}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
                     <button className="text-white hover:text-gray-300 font-medium px-4 py-2 rounded-md transition-colors flex items-center gap-1">
                       {item.title}
-                      <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
+                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${activeDropdown === item.title ? 'rotate-180' : ''}`} />
                     </button>
 
                     {/* Solutions Layout with Capabilities & Industries */}
                     {(item.capabilities || item.industries) && (
-                      <div className="absolute left-1/2 transform -translate-x-1/2 top-full pt-1 w-[900px]">
+                      <div className={`absolute left-1/2 transform -translate-x-1/2 top-full pt-1 w-[900px] ${activeDropdown === item.title ? '' : 'pointer-events-none'}`}>
                         {/* Invisible bridge to maintain hover */}
                         <div className="absolute top-0 left-0 right-0 h-2"></div>
-                        <div className="dropdown-menu bg-black border border-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible pointer-events-none group-hover:pointer-events-auto">
+                        <div className={`dropdown-menu bg-black border border-gray-800 rounded-lg shadow-xl transition-all duration-300 ${
+                          activeDropdown === item.title ? 'opacity-100 visible' : 'opacity-0 invisible'
+                        }`}>
                         <div className="p-6">
                           <div className="grid gap-8 grid-cols-3">
                             {/* Capabilities Column */}
@@ -300,10 +307,12 @@ const NewHeader = () => {
 
                     {/* Services Categories Layout */}
                     {item.categories && (
-                      <div className="absolute left-1/2 transform -translate-x-1/2 top-full pt-1 w-[1200px]">
+                      <div className={`absolute left-1/2 transform -translate-x-1/2 top-full pt-1 w-[1200px] ${activeDropdown === item.title ? '' : 'pointer-events-none'}`}>
                         {/* Invisible bridge to maintain hover */}
                         <div className="absolute top-0 left-0 right-0 h-2"></div>
-                        <div className="dropdown-menu bg-black border border-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible pointer-events-none group-hover:pointer-events-auto">
+                        <div className={`dropdown-menu bg-black border border-gray-800 rounded-lg shadow-xl transition-all duration-300 ${
+                          activeDropdown === item.title ? 'opacity-100 visible' : 'opacity-0 invisible'
+                        }`}>
                         <div className="p-6">
                           <div className="grid gap-8 grid-cols-5">
                             {/* Categories Columns */}

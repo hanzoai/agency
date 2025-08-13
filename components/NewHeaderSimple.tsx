@@ -180,16 +180,26 @@ const NewHeader = () => {
                                 <ul className="space-y-2">
                                   {item.capabilities.map((capability) => (
                                     <li key={capability.title}>
-                                      <a
-                                        href={capability.href}
-                                        className="flex items-center gap-2 text-gray-300 hover:text-white text-sm transition-colors"
-                                        target={capability.isExternal ? "_blank" : undefined}
-                                        rel={capability.isExternal ? "noopener noreferrer" : undefined}
-                                      >
-                                        {capability.icon && <capability.icon className="h-4 w-4 text-gray-400" />}
-                                        <span className="font-bold">{capability.title}</span>
-                                        {capability.isExternal && <ExternalLink className="h-3 w-3 text-gray-400" />}
-                                      </a>
+                                      {capability.isExternal ? (
+                                        <a
+                                          href={capability.href}
+                                          className="flex items-center gap-2 text-gray-300 hover:text-white text-sm transition-colors"
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          {capability.icon && <capability.icon className="h-4 w-4 text-gray-400" />}
+                                          <span className="font-bold">{capability.title}</span>
+                                          <ExternalLink className="h-3 w-3 text-gray-400" />
+                                        </a>
+                                      ) : (
+                                        <Link
+                                          to={capability.href}
+                                          className="flex items-center gap-2 text-gray-300 hover:text-white text-sm transition-colors"
+                                        >
+                                          {capability.icon && <capability.icon className="h-4 w-4 text-gray-400" />}
+                                          <span className="font-bold">{capability.title}</span>
+                                        </Link>
+                                      )}
                                     </li>
                                   ))}
                                 </ul>
@@ -209,16 +219,26 @@ const NewHeader = () => {
                                 <ul className="space-y-2">
                                   {item.industries.map((industry) => (
                                     <li key={industry.title}>
-                                      <a
-                                        href={industry.href}
-                                        className="flex items-center gap-2 text-gray-300 hover:text-white text-sm transition-colors"
-                                        target={industry.isExternal ? "_blank" : undefined}
-                                        rel={industry.isExternal ? "noopener noreferrer" : undefined}
-                                      >
-                                        {industry.icon && <industry.icon className="h-4 w-4 text-gray-400" />}
-                                        <span className="font-bold">{industry.title}</span>
-                                        {industry.isExternal && <ExternalLink className="h-3 w-3 text-gray-400" />}
-                                      </a>
+                                      {industry.isExternal ? (
+                                        <a
+                                          href={industry.href}
+                                          className="flex items-center gap-2 text-gray-300 hover:text-white text-sm transition-colors"
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          {industry.icon && <industry.icon className="h-4 w-4 text-gray-400" />}
+                                          <span className="font-bold">{industry.title}</span>
+                                          <ExternalLink className="h-3 w-3 text-gray-400" />
+                                        </a>
+                                      ) : (
+                                        <Link
+                                          to={industry.href}
+                                          className="flex items-center gap-2 text-gray-300 hover:text-white text-sm transition-colors"
+                                        >
+                                          {industry.icon && <industry.icon className="h-4 w-4 text-gray-400" />}
+                                          <span className="font-bold">{industry.title}</span>
+                                        </Link>
+                                      )}
                                     </li>
                                   ))}
                                 </ul>
@@ -281,8 +301,8 @@ const NewHeader = () => {
                             {/* Categories Columns */}
                             {item.categories.map((category, categoryIndex) => (
                               <div key={category.title} className="col-span-1">
-                                <a
-                                  href={category.href}
+                                <Link
+                                  to={category.href}
                                   className="font-bold text-white text-sm mb-4 flex items-center hover:underline group"
                                 >
                                   {category.title}
@@ -294,28 +314,46 @@ const NewHeader = () => {
                                   >
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                   </svg>
-                                </a>
+                                </Link>
                                 <ul className="space-y-2 mt-3">
                                   {category.items.map((item) => (
                                     <li key={item.title}>
-                                      <a
-                                        href={item.href}
-                                        className="flex items-start gap-2 text-gray-300 hover:text-white text-sm transition-colors"
-                                        target={item.isExternal ? "_blank" : undefined}
-                                        rel={item.isExternal ? "noopener noreferrer" : undefined}
-                                      >
-                                        {item.icon && <item.icon className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" />}
-                                        <div>
-                                          <div className="flex items-center gap-2">
-                                            <span className="font-bold">{item.title}</span>
-                                            {item.isNew && <span className="bg-green-500 text-white text-[10px] px-1 py-0.5 rounded">New</span>}
-                                            {item.isExternal && <ExternalLink className="h-3 w-3 text-gray-400" />}
+                                      {item.isExternal ? (
+                                        <a
+                                          href={item.href}
+                                          className="flex items-start gap-2 text-gray-300 hover:text-white text-sm transition-colors"
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          {item.icon && <item.icon className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" />}
+                                          <div>
+                                            <div className="flex items-center gap-2">
+                                              <span className="font-bold">{item.title}</span>
+                                              {item.isNew && <span className="bg-green-500 text-white text-[10px] px-1 py-0.5 rounded">New</span>}
+                                              <ExternalLink className="h-3 w-3 text-gray-400" />
+                                            </div>
+                                            {item.description && (
+                                              <p className="text-xs text-gray-400 mt-0.5">{item.description}</p>
+                                            )}
                                           </div>
-                                          {item.description && (
-                                            <p className="text-xs text-gray-400 mt-0.5">{item.description}</p>
-                                          )}
-                                        </div>
-                                      </a>
+                                        </a>
+                                      ) : (
+                                        <Link
+                                          to={item.href}
+                                          className="flex items-start gap-2 text-gray-300 hover:text-white text-sm transition-colors"
+                                        >
+                                          {item.icon && <item.icon className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" />}
+                                          <div>
+                                            <div className="flex items-center gap-2">
+                                              <span className="font-bold">{item.title}</span>
+                                              {item.isNew && <span className="bg-green-500 text-white text-[10px] px-1 py-0.5 rounded">New</span>}
+                                            </div>
+                                            {item.description && (
+                                              <p className="text-xs text-gray-400 mt-0.5">{item.description}</p>
+                                            )}
+                                          </div>
+                                        </Link>
+                                      )}
                                     </li>
                                   ))}
                                 </ul>

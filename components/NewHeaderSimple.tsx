@@ -155,7 +155,7 @@ const NewHeader = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex flex-1 bg-black text-white items-center justify-center">
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-6 dropdown-container">
             {navigationItems.map((item) => (
               <div key={item.title}>
                 {item.href && !item.children && !item.capabilities && !item.industries && !item.categories ? (

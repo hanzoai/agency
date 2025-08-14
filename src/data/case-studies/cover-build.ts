@@ -40,13 +40,13 @@ const coverBuild: CaseStudyData = {
   images: [
     "/images/cover/cover.jpg",
     "/images/cover/cover-1.png",
-    "/images/cover/cover-3.jpg",
+    "/images/cover/cover-2.jpg",
     "/images/cover/cover-3.jpg"
   ],
   socialLinks: {
     links: [
       { platform: "Website", url: "https://www.cover.build" },
-      { platform: "LinkedIn", url: "https://www.linkedin.com/company/coverbuild" },
+      { platform: "LinkedIn", url: "https://www.linkedin.com/company/cover-technologies" },
       { platform: "Instagram", url: "https://www.instagram.com/coverbuild" },
       { platform: "Facebook", url: "https://www.facebook.com/coverbuild" },
       { platform: "Twitter", url: "https://twitter.com/coverbuild" }

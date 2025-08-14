@@ -230,10 +230,10 @@ const Footer = () => {
           </div>
 
           <div className="flex space-x-6">
-            <a href="https://instagram.com/hanzoai" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors hover:scale-110 transform duration-200">
+            <a href="https://www.instagram.com/hanzoai" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors hover:scale-110 transform duration-200">
               <Instagram size={20} />
             </a>
-            <a href="https://facebook.com/hanzo-inc" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors hover:scale-110 transform duration-200">
+            <a href="https://www.facebook.com/hanzo-inc" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors hover:scale-110 transform duration-200">
               <Facebook size={20} />
             </a>
             <a href="https://x.com/hanzoai" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors hover:scale-110 transform duration-200">

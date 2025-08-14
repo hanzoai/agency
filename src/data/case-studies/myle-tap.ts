@@ -40,7 +40,7 @@ const myleTap: CaseStudyData = {
   images: [
     "/images/myle/myle-1.jpg",
     "/images/myle/myle-2.jpg",
-    "/images/myle/cover.jpg"
+    "/images/myle/myle-3.jpg"
   ],
 };
 

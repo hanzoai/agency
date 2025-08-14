@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Code, ArrowUpRight, BarChart3, Layers, Zap } from 'lucide-react';
 
 const Process = () => {
@@ -62,10 +63,10 @@ const Process = () => {
 
           <div className="mt-8 text-center">
             <p className="text-white/70 mb-4">Our versatile development capabilities extend across the full technology spectrum</p>
-            <a href="/technology-stack" className="inline-flex items-center text-primary hover:underline">
+            <Link to="/capabilities" className="inline-flex items-center text-primary hover:underline">
               View our technology stack
               <ArrowUpRight className="ml-1 h-4 w-4" />
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -76,10 +77,10 @@ const Process = () => {
               <p className="text-white/70 mb-6">
                 Augment your high-value teams with AI-powered workflows that multiply productivity, enhance capabilities, and drive innovation at unprecedented speed and scale.
               </p>
-              <a href="/solutions" className="inline-flex items-center bg-white text-black hover:bg-white/90 py-3 px-6 rounded-full font-medium transition-colors">
+              <Link to="/solutions" className="inline-flex items-center bg-white text-black hover:bg-white/90 py-3 px-6 rounded-full font-medium transition-colors">
                 Accelerate your business
                 <ArrowUpRight className="ml-2 h-4 w-4" />
-              </a>
+              </Link>
             </div>
 
             <div className="space-y-4">

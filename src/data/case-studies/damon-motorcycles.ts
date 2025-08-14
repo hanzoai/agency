@@ -48,7 +48,7 @@ const damonMotorcycles: CaseStudyData = {
       { platform: "LinkedIn", url: "https://www.linkedin.com/company/damonmotorcycles" },
       { platform: "Instagram", url: "https://www.instagram.com/damonmotorcycles" },
       { platform: "Facebook", url: "https://www.facebook.com/damonmotorcycles" },
-      { platform: "Twitter", url: "https://twitter.com/damonmotorcycles" },
+      { platform: "Twitter", url: "https://x.com/DamonMotorcycle" },
       { platform: "YouTube", url: "https://www.youtube.com/c/DamonMotorcycles" }
     ],
     totalFollowers: 85000

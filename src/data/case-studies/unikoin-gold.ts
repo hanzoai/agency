@@ -44,10 +44,7 @@ const unikoinGold: CaseStudyData = {
   ],
   socialLinks: {
     links: [
-      { platform: "Website", url: "https://www.unikoingold.com" },
-      { platform: "LinkedIn", url: "https://www.linkedin.com/company/unikoingold" },
-      { platform: "Twitter", url: "https://twitter.com/unikoingold" },
-      { platform: "Facebook", url: "https://www.facebook.com/unikoingold" }
+      { platform: "Website", url: "https://unikrn.com" }
     ]
   },
   relatedProjects: [

@@ -46,11 +46,11 @@ const bellabeat: CaseStudyData = {
   socialLinks: {
     links: [
       { platform: "Website", url: "https://www.bellabeat.com" },
-      { platform: "LinkedIn", url: "https://www.linkedin.com/company/bellabeat" },
+      { platform: "LinkedIn", url: "https://www.linkedin.com/company/bellabeat-inc" },
       { platform: "Instagram", url: "https://www.instagram.com/bellabeat" },
       { platform: "Facebook", url: "https://www.facebook.com/bellabeat" },
-      { platform: "Twitter", url: "https://twitter.com/bellabeat" },
-      { platform: "YouTube", url: "https://www.youtube.com/channel/UCX8u0w3VwZQk0jG5vH1V9zQ" }
+      { platform: "Twitter", url: "https://x.com/getbellabeat" },
+      { platform: "YouTube", url: "https://www.youtube.com/@bellabeat" }
     ],
     totalFollowers: 114000
   },

@@ -36,6 +36,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import EmailInvitation from "./pages/EmailInvitation";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancel from "./pages/PaymentCancel";
+import Platform from "./pages/Platform";
 import { initializeAnalytics, analytics } from "./utils/analytics";
 
 const queryClient = new QueryClient();
@@ -83,6 +84,7 @@ const App = () => (
           <Route path="/instant-site-form" element={<InstantSiteForm />} />
           <Route path="/instant-site-success" element={<InstantSiteSuccess />} />
           <Route path="/enterprise" element={<Enterprise />} />
+          <Route path="/platform" element={<Platform />} />
 
           {/* Credit System Routes */}
           <Route path="/login" element={<Login />} />

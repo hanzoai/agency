@@ -50,7 +50,7 @@ const OnboardingSuccess = () => {
                 
                 <Button
                   className="bg-accent hover:bg-accent/90 text-white"
-                  onClick={() => window.location.href = 'mailto:support@hanzo.io'}
+                  onClick={() => window.location.href = 'mailto:support@hanzo.ai'}
                 >
                   Contact Support
                 </Button>

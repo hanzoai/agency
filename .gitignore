@@ -42,3 +42,5 @@ rename-*.sh
 **/TestNavigation.tsx
 **/test-images.html
 .claude
+
+CLAUDE.md

@@ -66,7 +66,7 @@ const NewsletterSignup = () => {
                 />
                 <button
                   type="submit"
-                  className="bg-primary hover:bg-primary/90 text-white rounded-r-full px-5 py-3 flex items-center transition-colors disabled:opacity-70"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-r-full px-5 py-3 flex items-center transition-colors disabled:opacity-70"
                   disabled={loading}
                 >
                   {loading ? (

@@ -131,7 +131,7 @@ const ServicesPage: React.FC = () => {
               <div className="bg-gray-800 border border-gray-700 rounded-2xl overflow-hidden">
                 <div className="p-8 bg-blue-600 text-center">
                   <h3 className="text-3xl font-bold mb-2">Enterprise Plan</h3>
-                  <div className="text-5xl font-bold my-6">$5,000<span className="text-xl font-normal">/month</span></div>
+                  <div className="text-5xl font-bold my-6">$9,999<span className="text-xl font-normal">/month</span></div>
                   <p className="text-lg opacity-90">Billed monthly. Cancel anytime.</p>
                 </div>
 

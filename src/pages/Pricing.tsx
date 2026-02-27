@@ -1,81 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Footer from '@/components/Footer';
-import { PricingCard } from '@/components/ui/pricing-card';
-import { PricingToggle } from '@/components/ui/pricing-toggle';
-import GradientBackground from '@/components/GradientBackground';
 import { Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const pricingData = [
-  {
-    title: "Free",
-    price: "$0",
-    description: "Free for everyone",
-    features: [
-      { text: "Unlimited members" },
-      { text: "2 teams" },
-      { text: "250 issues" },
-      { text: "Slack and GitHub", link: "#integrations" },
-      { text: "API access" },
-    ],
-    ctaText: "Get started",
-    ctaLink: "/subscribe",
-  },
-  {
-    title: "Basic",
-    price: "$8",
-    description: "per user/month",
-    features: [
-      { text: "All Free features +" },
-      { text: "5 teams" },
-      { text: "Unlimited issues" },
-      { text: "Unlimited file uploads" },
-      { text: "Admin roles" },
-    ],
-    ctaText: "Get started",
-    ctaLink: "/subscribe",
-  },
-  {
-    title: "Business",
-    price: "$14",
-    description: "per user/month",
-    features: [
-      { text: "All Basic features +" },
-      { text: "Linear Asks", link: "#asks" },
-      { text: "Unlimited teams" },
-      { text: "Private teams and guests" },
-      { text: "Linear Insights", link: "#insights" },
-      { text: "Triage responsibility" },
-      { text: "Zendesk and Intercom integrations", link: "#integrations" },
-    ],
-    ctaText: "Get started",
-    ctaLink: "/subscribe",
-    secondaryAction: {
-      text: "contact sales",
-      link: "/contact",
-    },
-    highlighted: true,
-  },
-  {
-    title: "Enterprise",
-    price: "Custom pricing",
-    features: [
-      { text: "All Business features +" },
-      { text: "Advanced Linear Asks", link: "#asks" },
-      { text: "Issue SLAs", link: "#slas" },
-      { text: "SAML and SCIM", link: "#security" },
-      { text: "Advanced security" },
-      { text: "Migration and onboarding support" },
-    ],
-    ctaText: "Request trial",
-    ctaLink: "/contact",
-  },
-];
-
 export default function Pricing() {
-  const [yearlyBilling, setYearlyBilling] = useState(true);
-  
   return (
     <>
       {/* <NewHeader /> removed - using global NewHeader */}
@@ -88,8 +17,8 @@ export default function Pricing() {
               Start immediately with flexible terms and our quality guarantee.
             </p>
           </div>
-          
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12">
             {/* Instant Site */}
             <div className="flex flex-col h-full border-2 border-green-800 hover:border-green-700 rounded-xl overflow-hidden bg-gradient-to-b from-black to-green-950/30 backdrop-blur-sm relative shadow-lg shadow-green-900/10 transition-all duration-300">
               <div className="p-6 border-b border-border/20">
@@ -140,10 +69,6 @@ export default function Pricing() {
                     <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
                     <span className="text-foreground/80 text-sm">Lifetime ownership — no recurring fees</span>
                   </li>
-                  <li className="flex gap-3 items-start">
-                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
-                    <span className="text-foreground/80 text-sm">Ideal for creators, events, popups, and new businesses</span>
-                  </li>
                 </ul>
               </div>
 
@@ -156,7 +81,6 @@ export default function Pricing() {
 
             {/* Agency Service */}
             <div className="flex flex-col h-full border-2 border-blue-800 hover:border-blue-700 rounded-xl overflow-hidden bg-gradient-to-b from-black to-blue-950/30 backdrop-blur-sm relative shadow-lg shadow-blue-900/10 transition-all duration-300">
-
               <div className="p-6 border-b border-border/20">
                 <h3 className="text-xl font-semibold mb-1">Agency Service</h3>
                 <p className="text-sm text-foreground/70">Full-service creative & marketing team</p>
@@ -166,7 +90,7 @@ export default function Pricing() {
                 </div>
                 <p className="text-sm text-foreground/60 mt-2 font-bold">1 quarter minimum commitment</p>
               </div>
-              
+
               <div className="p-6 flex-grow">
                 <ul className="space-y-3">
                   <li className="flex gap-3 items-start">
@@ -205,13 +129,9 @@ export default function Pricing() {
                     <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
                     <span className="text-foreground/80 text-sm">Unlimited revisions & requests</span>
                   </li>
-                  <li className="flex gap-3 items-start">
-                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
-                    <span className="text-foreground/80 text-sm">4 hours of consultation per month</span>
-                  </li>
                 </ul>
               </div>
-              
+
               <div className="p-6 pt-2 mt-auto">
                 <Link to="/payment?plan=agency" className="w-full inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium bg-white text-black hover:bg-white/90 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2">
                   Get started now
@@ -219,9 +139,78 @@ export default function Pricing() {
               </div>
             </div>
 
+            {/* Enterprise */}
+            <div className="flex flex-col h-full border-2 border-purple-800 hover:border-purple-700 rounded-xl overflow-hidden bg-gradient-to-b from-black to-purple-950/30 backdrop-blur-sm relative shadow-lg shadow-purple-900/10 transition-all duration-300">
+              <div className="p-6 border-b border-border/20">
+                <h3 className="text-xl font-semibold mb-1">Enterprise</h3>
+                <p className="text-sm text-foreground/70">Dedicated team, custom AI, priority everything</p>
+                <div className="flex items-baseline gap-1 mt-2">
+                  <span className="text-3xl font-bold">$9,999</span>
+                  <span className="text-foreground/60 text-sm">/month</span>
+                </div>
+                <p className="text-sm text-foreground/60 mt-2 font-bold">Annual contract preferred</p>
+              </div>
+
+              <div className="p-6 flex-grow">
+                <ul className="space-y-3">
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Everything in Agency Service, plus:</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Dedicated full-stack team (4+ creatives)</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Unlimited custom AI agents trained on your brand</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">240+ hours dedicated per month</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Priority turnaround — same-day for urgent requests</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">Video production (up to 4 videos/month)</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">3D, AR, and immersive design</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">AI consulting and marketing strategy</span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check size={16} className="text-foreground/80 mt-1 flex-shrink-0" />
+                    <span className="text-foreground/80 text-sm">8 hours of executive consultation per month</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="p-6 pt-2 mt-auto">
+                <Link to="/payment?plan=enterprise" className="w-full inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium bg-white text-black hover:bg-white/90 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2">
+                  Get started now
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12 mb-8">
+            <p className="text-lg text-foreground/70 mb-4">Need more?</p>
+            <p className="text-foreground/60 mb-6 max-w-lg mx-auto">
+              For larger engagements, multi-brand portfolios, or fully embedded teams, let's talk.
+            </p>
+            <Link to="/contact" className="inline-flex items-center justify-center rounded-full px-8 py-3 text-base font-medium bg-white/10 hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2">
+              Call us for larger engagements
+            </Link>
           </div>
         </div>
-        
+
         <div className="container-custom mt-24">
           <h2 className="text-2xl font-bold mb-6 text-center">More Questions?</h2>
           <div className="max-w-4xl mx-auto text-center">

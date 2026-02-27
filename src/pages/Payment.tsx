@@ -3,13 +3,22 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Check, Lock, Mail, Loader2 } from 'lucide-react';
+import { Check, Lock, Mail, Loader2, CreditCard, Coins, Landmark } from 'lucide-react';
 import { useLocation, Link } from 'react-router-dom';
 import { createAgencyCheckout } from '@/lib/stripe';
+import { createCommerceCheckout, type PaymentMethod, type CommerceCheckoutResult } from '@/lib/stripe';
 import { useToast } from '@/hooks/use-toast';
+
+const PAYMENT_METHODS: { value: PaymentMethod; label: string; icon: React.ElementType; desc: string }[] = [
+  { value: 'card', label: 'Card (Square)', icon: CreditCard, desc: 'Visa, Mastercard, Amex' },
+  { value: 'crypto', label: 'Crypto', icon: Coins, desc: 'ETH, BTC, USDC' },
+  { value: 'wire', label: 'Wire Transfer', icon: Landmark, desc: 'Bank wire (ACH / SWIFT)' },
+];
 
 const Payment = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('card');
+  const [wireInstructions, setWireInstructions] = useState<Record<string, unknown> | null>(null);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const plan = (searchParams.get('plan') || 'agency') as 'agency' | 'instant-site' | 'enterprise';
@@ -32,14 +41,35 @@ const Payment = () => {
     if (!formData.email || !formData.name) return;
 
     setIsLoading(true);
+    setWireInstructions(null);
 
     try {
-      await createAgencyCheckout(plan, {
+      const result: CommerceCheckoutResult = await createCommerceCheckout(plan, {
         email: formData.email,
         name: formData.name,
+        paymentMethod,
       });
+
+      if (result.type === 'wire') {
+        setWireInstructions(result.instructions);
+        setIsLoading(false);
+      } else if (result.type === 'redirect') {
+        window.location.href = result.url;
+      }
     } catch (error) {
       console.error('Checkout error:', error);
+      // Fall back to legacy Stripe checkout for card payments
+      if (paymentMethod === 'card') {
+        try {
+          await createAgencyCheckout(plan, {
+            email: formData.email,
+            name: formData.name,
+          });
+          return; // Stripe will redirect
+        } catch (fallbackError) {
+          console.error('Stripe fallback error:', fallbackError);
+        }
+      }
       toast({
         title: 'Checkout Failed',
         description: 'Unable to start checkout. Please try again.',
@@ -114,7 +144,7 @@ const Payment = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-6">Get Started</h2>
                   <p className="text-sm text-gray-400 mb-6">
-                    Enter your details below. You'll be redirected to our secure payment provider to complete your purchase.
+                    Enter your details below and choose your preferred payment method.
                   </p>
                   <div className="space-y-4">
                     <div>
@@ -152,25 +182,109 @@ const Payment = () => {
                   </div>
                 </div>
 
-                {/* Submit Button */}
-                <Button
-                  type="submit"
-                  disabled={isLoading || !formData.email || !formData.name}
-                  className="w-full bg-white hover:bg-gray-100 text-black py-4 text-lg font-semibold rounded-lg transition-colors"
-                >
-                  {isLoading ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                      Redirecting to checkout...
-                    </span>
-                  ) : (
-                    `Continue to Payment`
-                  )}
-                </Button>
+                {/* Payment Method Selector */}
+                <div>
+                  <Label className="text-sm text-gray-300 mb-3 block">Payment Method</Label>
+                  <div className="grid grid-cols-3 gap-3">
+                    {PAYMENT_METHODS.map((method) => {
+                      const Icon = method.icon;
+                      const selected = paymentMethod === method.value;
+                      return (
+                        <button
+                          key={method.value}
+                          type="button"
+                          onClick={() => { setPaymentMethod(method.value); setWireInstructions(null); }}
+                          className={`flex flex-col items-center gap-2 p-4 rounded-lg border transition-colors ${
+                            selected
+                              ? 'border-white bg-white/10 text-white'
+                              : 'border-gray-800 bg-gray-900/30 text-gray-400 hover:border-gray-600'
+                          }`}
+                        >
+                          <Icon className="h-5 w-5" />
+                          <span className="text-sm font-medium">{method.label}</span>
+                          <span className="text-xs text-gray-500">{method.desc}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Wire Instructions (shown after submit when wire selected) */}
+                {wireInstructions && (
+                  <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-6 space-y-3">
+                    <h3 className="text-lg font-semibold mb-4">Wire Transfer Instructions</h3>
+                    {wireInstructions.bankName && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-400">Bank</span>
+                        <span className="font-mono">{String(wireInstructions.bankName)}</span>
+                      </div>
+                    )}
+                    {wireInstructions.routingNumber && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-400">Routing Number</span>
+                        <span className="font-mono">{String(wireInstructions.routingNumber)}</span>
+                      </div>
+                    )}
+                    {wireInstructions.accountNumber && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-400">Account Number</span>
+                        <span className="font-mono">{String(wireInstructions.accountNumber)}</span>
+                      </div>
+                    )}
+                    {wireInstructions.swift && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-400">SWIFT</span>
+                        <span className="font-mono">{String(wireInstructions.swift)}</span>
+                      </div>
+                    )}
+                    {wireInstructions.reference && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-400">Reference</span>
+                        <span className="font-mono">{String(wireInstructions.reference)}</span>
+                      </div>
+                    )}
+                    {wireInstructions.beneficiary && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-400">Beneficiary</span>
+                        <span className="font-mono">{String(wireInstructions.beneficiary)}</span>
+                      </div>
+                    )}
+                    <div className="pt-4 border-t border-gray-700">
+                      <p className="text-sm text-gray-400 mb-4">
+                        Please include the reference code above in your wire transfer memo.
+                        We will confirm receipt within 1-2 business days.
+                      </p>
+                      <Link
+                        to="/onboarding-success"
+                        className="w-full inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-medium bg-white text-black hover:bg-gray-100 transition-colors"
+                      >
+                        I've sent the wire
+                      </Link>
+                    </div>
+                  </div>
+                )}
+
+                {/* Submit Button (hidden when wire instructions are showing) */}
+                {!wireInstructions && (
+                  <Button
+                    type="submit"
+                    disabled={isLoading || !formData.email || !formData.name}
+                    className="w-full bg-white hover:bg-gray-100 text-black py-4 text-lg font-semibold rounded-lg transition-colors"
+                  >
+                    {isLoading ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        {paymentMethod === 'wire' ? 'Fetching wire instructions...' : 'Redirecting to checkout...'}
+                      </span>
+                    ) : (
+                      paymentMethod === 'wire' ? 'Get Wire Instructions' : 'Continue to Payment'
+                    )}
+                  </Button>
+                )}
 
                 <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
                   <Lock className="h-4 w-4" />
-                  <span>Secure payment powered by Stripe</span>
+                  <span>Secure payment via Hanzo Commerce</span>
                 </div>
               </form>
             </div>

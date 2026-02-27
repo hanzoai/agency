@@ -192,10 +192,11 @@ export default function Pricing() {
                 </ul>
               </div>
 
-              <div className="p-6 pt-2 mt-auto">
+              <div className="p-6 pt-2 mt-auto space-y-3">
                 <Link to="/payment?plan=enterprise" className="w-full inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium bg-white text-black hover:bg-white/90 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2">
                   Get started now
                 </Link>
+                <p className="text-xs text-center text-foreground/50">Pay with card, crypto, or wire transfer</p>
               </div>
             </div>
           </div>

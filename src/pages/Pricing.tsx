@@ -85,7 +85,7 @@ export default function Pricing() {
                 <h3 className="text-xl font-semibold mb-1">Agency Service</h3>
                 <p className="text-sm text-foreground/70">Full-service creative & marketing team</p>
                 <div className="flex items-baseline gap-1 mt-2">
-                  <span className="text-3xl font-bold">$5,000</span>
+                  <span className="text-3xl font-bold">$9,999</span>
                   <span className="text-foreground/60 text-sm">/month</span>
                 </div>
                 <p className="text-sm text-foreground/60 mt-2 font-bold">1 quarter minimum commitment</p>

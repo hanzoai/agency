@@ -87,7 +87,7 @@ const Pricing = () => {
 
             <CardContent className="p-8 flex-grow">
               <div className="flex justify-center items-baseline mb-2">
-                <span className="text-4xl font-bold text-white">$5,000</span>
+                <span className="text-4xl font-bold text-white">$9,999</span>
                 <span className="ml-2 text-white/70">/month</span>
               </div>
               <p className="text-center text-white/60 text-sm mb-6">1 quarter minimum</p>

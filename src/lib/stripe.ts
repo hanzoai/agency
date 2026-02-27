@@ -77,26 +77,86 @@ export const STRIPE_PRICE_IDS = {
 };
 
 // Plan configuration for agency checkout
-const PLAN_CONFIG = {
+const PLAN_CONFIG: Record<string, {
+  priceId: string;
+  mode: 'subscription' | 'payment';
+  name: string;
+  price: number;
+  amount: number;
+}> = {
   'agency': {
     priceId: STRIPE_PRICE_IDS.AGENCY_MONTHLY,
     mode: 'subscription' as const,
     name: 'Agency Service',
     price: 9999,
+    amount: 999900,
   },
   'instant-site': {
     priceId: STRIPE_PRICE_IDS.INSTANT_SITE,
     mode: 'payment' as const,
     name: 'Instant Site',
     price: 500,
+    amount: 50000,
   },
   'enterprise': {
     priceId: STRIPE_PRICE_IDS.ENTERPRISE_MONTHLY,
     mode: 'subscription' as const,
     name: 'Enterprise',
     price: 9999,
+    amount: 999900,
   },
-} as const;
+};
+
+// --- Commerce API (Square, crypto, wire) ---
+
+const COMMERCE_API = 'https://commerce.hanzo.ai/api/v1';
+
+export type PaymentMethod = 'card' | 'crypto' | 'wire';
+
+export type CommerceCheckoutResult =
+  | { type: 'redirect'; url: string; sessionId: string }
+  | { type: 'wire'; instructions: Record<string, unknown> };
+
+export async function createCommerceCheckout(
+  plan: string,
+  options: { email: string; name: string; paymentMethod?: PaymentMethod }
+): Promise<CommerceCheckoutResult> {
+  const { email, name, paymentMethod = 'card' } = options;
+
+  if (paymentMethod === 'wire') {
+    const res = await fetch(`${COMMERCE_API}/checkout/wire/instructions?org=hanzo`);
+    if (!res.ok) throw new Error(`Wire instructions request failed: ${res.status}`);
+    const data = await res.json();
+    return { type: 'wire' as const, instructions: data };
+  }
+
+  const config = PLAN_CONFIG[plan];
+  const res = await fetch(`${COMMERCE_API}/checkout/sessions`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      org: 'hanzo',
+      providerHint: paymentMethod === 'crypto' ? 'ethereum' : 'square',
+      currency: 'USD',
+      customer: { email, name },
+      items: [{
+        name: config?.name || plan,
+        amount: config?.amount || 999900,
+        quantity: 1,
+      }],
+      successUrl: `${window.location.origin}/onboarding-success`,
+      cancelUrl: `${window.location.origin}/pricing`,
+    }),
+  });
+
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`Commerce checkout failed: ${body}`);
+  }
+
+  const data = await res.json();
+  return { type: 'redirect' as const, url: data.checkoutUrl, sessionId: data.sessionId };
+}
 
 // Create a Stripe Checkout session for agency plans
 export const createAgencyCheckout = async (

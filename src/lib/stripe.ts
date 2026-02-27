@@ -3,7 +3,7 @@ import { analytics } from '@/utils/analytics';
 
 // Initialize Stripe with your publishable key
 const stripePromise = loadStripe(
-  import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 
+  import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY ||
   'pk_live_51Qv57WJ03IK6WYmUum87SddG7ofxE9uACRSRUfsMSkfpeBCorljB0T99XV1D9OeYQsfVDBa19VwUmUik2cr4Osyw00DIPd0X92'
 );
 
@@ -36,7 +36,7 @@ export const createCheckoutSession = async (
     }
 
     const { sessionId, url } = await response.json();
-    
+
     // Track checkout initiation
     analytics.trackBeginCheckout([{
       id: priceId,
@@ -53,7 +53,7 @@ export const createCheckoutSession = async (
       // Fallback to client-side redirect
       const stripe = await stripePromise;
       if (!stripe) throw new Error('Stripe failed to load');
-      
+
       const { error } = await stripe.redirectToCheckout({ sessionId });
       if (error) throw error;
     }
@@ -69,10 +69,97 @@ export const STRIPE_PRICE_IDS = {
   STARTER_100_CREDITS: 'price_1QvKqDJ03IK6WYmUxGzK5DXg', // $100
   PROFESSIONAL_500_CREDITS: 'price_1QvKqWJ03IK6WYmUJX9PqvHM', // $450
   ENTERPRISE_2000_CREDITS: 'price_1QvKqiJ03IK6WYmU7vwMNGLC', // $1,500
-  
+
   // Services (create these in Stripe)
-  AGENCY_MONTHLY: 'price_1QvKr3J03IK6WYmUbCwK4LFp', // $5,000/month recurring
+  AGENCY_MONTHLY: 'price_1QvKr3J03IK6WYmUbCwK4LFp', // $9,999/month recurring
   INSTANT_SITE: 'price_1QvKrHJ03IK6WYmUYKq0Zx8n', // $500 one-time
+  ENTERPRISE_MONTHLY: 'price_1QvKrZJ03IK6WYmUeNtP9Kx2', // $9,999/month recurring
+};
+
+// Plan configuration for agency checkout
+const PLAN_CONFIG = {
+  'agency': {
+    priceId: STRIPE_PRICE_IDS.AGENCY_MONTHLY,
+    mode: 'subscription' as const,
+    name: 'Agency Service',
+    price: 9999,
+  },
+  'instant-site': {
+    priceId: STRIPE_PRICE_IDS.INSTANT_SITE,
+    mode: 'payment' as const,
+    name: 'Instant Site',
+    price: 500,
+  },
+  'enterprise': {
+    priceId: STRIPE_PRICE_IDS.ENTERPRISE_MONTHLY,
+    mode: 'subscription' as const,
+    name: 'Enterprise',
+    price: 9999,
+  },
+} as const;
+
+// Create a Stripe Checkout session for agency plans
+export const createAgencyCheckout = async (
+  plan: keyof typeof PLAN_CONFIG,
+  customer: { email: string; name: string }
+) => {
+  const config = PLAN_CONFIG[plan];
+  if (!config) throw new Error(`Unknown plan: ${plan}`);
+
+  try {
+    const successPath = plan === 'instant-site' ? '/instant-site-form' : '/onboarding-success';
+
+    const response = await fetch(`${API_URL}/api/create-checkout-session`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        plan,
+        priceId: config.priceId,
+        mode: config.mode,
+        quantity: 1,
+        metadata: {
+          plan,
+          productName: config.name,
+          email: customer.email,
+          customerName: customer.name,
+        },
+        customerEmail: customer.email,
+        successUrl: `${window.location.origin}${successPath}?session_id={CHECKOUT_SESSION_ID}`,
+        cancelUrl: `${window.location.origin}/payment?plan=${plan}`,
+      }),
+    });
+
+    if (!response.ok) {
+      const errBody = await response.text();
+      throw new Error(`Checkout session failed: ${errBody}`);
+    }
+
+    const { sessionId, url } = await response.json();
+
+    // Track checkout initiation
+    analytics.trackBeginCheckout([{
+      id: config.priceId,
+      name: config.name,
+      category: 'agency_services',
+      price: config.price,
+      quantity: 1,
+    }], config.price);
+
+    // Redirect to Stripe Checkout
+    if (url) {
+      window.location.href = url;
+    } else {
+      const stripe = await stripePromise;
+      if (!stripe) throw new Error('Stripe failed to load');
+      const { error } = await stripe.redirectToCheckout({ sessionId });
+      if (error) throw error;
+    }
+  } catch (error) {
+    console.error('Agency checkout error:', error);
+    throw error;
+  }
 };
 
 // Helper to format currency

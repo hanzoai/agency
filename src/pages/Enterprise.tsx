@@ -237,7 +237,7 @@ const Enterprise = () => {
                       </li>
                     </ul>
                     <p className="text-sm text-foreground/70 mt-4">
-                      Flex subscriptions range from $5,000 to $100,000 USD/month.
+                      Flex subscriptions range from $9,999 to $100,000 USD/month.
                     </p>
                   </div>
                 </div>

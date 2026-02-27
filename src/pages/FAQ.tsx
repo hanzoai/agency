@@ -3,11 +3,11 @@ import Footer from '@/components/Footer';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-// Updated FAQ data with only one pricing plan at $5,000/mo
+// Updated FAQ data with only one pricing plan at $9,999/mo
 const faqData = [
   {
-    question: "What do I get for the $5,000/month Agency Service package?",
-    answer: "With our $5,000/month Agency Service, you get a full-service creative and marketing team. This includes a dedicated Creative Director, Project Manager, 2 specialized creatives working simultaneously, 120 hours of dedicated work per month, 2 custom brand-trained AI agents, 24-hour turnaround for basic requests, access to 100+ creative services, full copyright ownership, unlimited revisions & requests, and 4 hours of consultation per month."
+    question: "What do I get for the $9,999/month Agency Service package?",
+    answer: "With our $9,999/month Agency Service, you get a full-service creative and marketing team. This includes a dedicated Creative Director, Project Manager, 2 specialized creatives working simultaneously, 120 hours of dedicated work per month, 2 custom brand-trained AI agents, 24-hour turnaround for basic requests, access to 100+ creative services, full copyright ownership, unlimited revisions & requests, and 4 hours of consultation per month."
   },
   {
     question: "How many revisions can I get per project? Is there a limit?",
@@ -51,7 +51,7 @@ const faqData = [
   },
   {
     question: "Can I upgrade or downgrade my plan?",
-    answer: "Yes, you can upgrade your plan at any time. Downgrades can be processed at the end of your current billing cycle. Please note that the $5,000/month Agency Service plan is our standard offering, but we can customize solutions for larger enterprise needs with additional resources and capabilities."
+    answer: "Yes, you can upgrade your plan at any time. Downgrades can be processed at the end of your current billing cycle. Please note that the $9,999/month Agency Service plan is our standard offering, but we can customize solutions for larger enterprise needs with additional resources and capabilities."
   }
 ];
 

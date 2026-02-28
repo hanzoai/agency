@@ -230,7 +230,7 @@ const ServicesPage: React.FC = () => {
 
               <div className="flex flex-wrap justify-center gap-4">
                 <a href="https://auth.hanzo.ai" className="bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-white/90 inline-flex items-center text-lg">
-                  Sign Up for $5,000/month <ArrowRight className="ml-2 h-5 w-5" />
+                  Sign Up for $9,999/month <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
                 <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="border border-white px-8 py-4 rounded-full font-medium hover:bg-white/10 inline-flex items-center text-lg">
                   Schedule a Consultation

@@ -8,6 +8,7 @@ import unikoinGold from './case-studies/unikoin-gold';
 import coverBuild from './case-studies/cover-build';
 import casperBlockchain from './case-studies/casper-blockchain';
 import myleTap from './case-studies/myle-tap';
+import keekSocial from './case-studies/keek-social';
 
 // Combine all case studies into a single record with ID as the key
 const caseStudies: Record<string, CaseStudyData> = {
@@ -17,7 +18,8 @@ const caseStudies: Record<string, CaseStudyData> = {
   'unikoin-gold': unikoinGold,
   'cover-build': coverBuild,
   'casper-blockchain': casperBlockchain,
-  'myle-tap': myleTap
+  'myle-tap': myleTap,
+  'keek-social': keekSocial
 };
 
 export default caseStudies;

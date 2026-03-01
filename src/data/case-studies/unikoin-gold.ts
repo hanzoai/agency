@@ -3,7 +3,7 @@ import { CaseStudyData } from '@/types/caseStudy';
 const unikoinGold: CaseStudyData = {
   id: "unikoin-gold",
   title: "UNIKOIN GOLD",
-  subtitle: "BLOCKCHAIN-BASED ESPORTS BETTING",
+  subtitle: "120,000 ETH TOKEN LAUNCH",
   client: "Unikrn",
   services: [
     "Blockchain Integration",
@@ -12,7 +12,7 @@ const unikoinGold: CaseStudyData = {
     "Marketing Strategy"
   ],
   results: [
-    "$34.9 million raised in ICO",
+    "120,000 ETH raised in token sale",
     "300% increase in platform engagement",
     "15+ jurisdictions supported",
     "Successful integration with Ethereum blockchain",

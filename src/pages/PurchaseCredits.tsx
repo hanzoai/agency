@@ -10,7 +10,7 @@ import {
   TrendingUp,
   Shield
 } from 'lucide-react';
-import { createCheckoutSession, STRIPE_PRICE_IDS } from '@/lib/stripe';
+import { formatCurrency } from '@/lib/commerce';
 import { useToast } from '@/hooks/use-toast';
 import { analytics } from '@/utils/analytics';
 
@@ -40,7 +40,6 @@ const PurchaseCredits = () => {
       price: 100,
       perCredit: 1.00,
       icon: Zap,
-      priceId: STRIPE_PRICE_IDS.STARTER_100_CREDITS,
       features: [
         '100 credits',
         '$1 per credit',
@@ -55,7 +54,6 @@ const PurchaseCredits = () => {
       perCredit: 0.90,
       savings: 50,
       icon: TrendingUp,
-      priceId: STRIPE_PRICE_IDS.PROFESSIONAL_500_CREDITS,
       features: [
         '500 credits',
         '$0.90 per credit',
@@ -70,7 +68,6 @@ const PurchaseCredits = () => {
       perCredit: 0.75,
       savings: 500,
       icon: Star,
-      priceId: STRIPE_PRICE_IDS.ENTERPRISE_2000_CREDITS,
       features: [
         '2,000 credits',
         '$0.75 per credit',
@@ -111,38 +108,9 @@ const PurchaseCredits = () => {
     const pack = creditPacks.find(p => p.id === selectedPack);
     if (!pack) return;
 
-    try {
-      // Save purchase info for the success page
-      const purchaseData = {
-        packId: selectedPack,
-        credits: pack.credits * quantity,
-        amount: pack.price * quantity,
-        quantity: quantity,
-        productName: `${pack.credits} Credits Pack`,
-        unitPrice: pack.price
-      };
-      
-      localStorage.setItem('pendingPurchase', JSON.stringify(purchaseData));
-
-      // Create checkout session via API
-      await createCheckoutSession(pack.priceId, quantity, {
-        userId: localStorage.getItem('userId'),
-        email: localStorage.getItem('userEmail'),
-        packId: selectedPack,
-        credits: pack.credits * quantity,
-        productName: `${pack.credits} Credits Pack`,
-        price: pack.price,
-        totalPrice: pack.price * quantity
-      });
-    } catch (error) {
-      console.error('Checkout error:', error);
-      toast({
-        title: 'Checkout Failed',
-        description: 'Unable to process payment. Please try again.',
-        variant: 'destructive'
-      });
-      setIsLoading(false);
-    }
+    // Redirect to billing portal for credit purchases
+    window.location.href = `https://billing.hanzo.ai?pack=${selectedPack}&quantity=${quantity}`;
+    setIsLoading(false);
   };
 
   const selectedPackDetails = creditPacks.find(p => p.id === selectedPack);
@@ -294,7 +262,7 @@ const PurchaseCredits = () => {
 
                   <div className="mt-4 flex items-center justify-center gap-2 text-sm text-gray-400">
                     <Shield className="h-4 w-4" />
-                    <span>Secure payment powered by Stripe</span>
+                    <span>Secure payment via Hanzo Billing</span>
                   </div>
                 </div>
               </div>

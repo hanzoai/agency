@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Footer from '@/components/Footer';
 import { CheckCircle, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
-import { trackPurchaseSuccess } from '@/lib/stripe';
+import { trackPurchaseSuccess } from '@/lib/commerce';
 import { analytics } from '@/utils/analytics';
 
 const PaymentSuccess = () => {
@@ -47,7 +47,7 @@ const PaymentSuccess = () => {
             amount: details.amount,
             description: `Purchased ${details.credits} credits`,
             date: new Date().toISOString(),
-            stripeSessionId: sessionId
+            checkoutSessionId: sessionId
           });
           localStorage.setItem('creditHistory', JSON.stringify(history));
 

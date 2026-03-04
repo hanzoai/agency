@@ -5,8 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Check, Lock, Mail, Loader2, CreditCard, Coins, Landmark } from 'lucide-react';
 import { useLocation, Link } from 'react-router-dom';
-import { createAgencyCheckout } from '@/lib/stripe';
-import { createCommerceCheckout, type PaymentMethod, type CommerceCheckoutResult } from '@/lib/stripe';
+import { createCommerceCheckout, type PaymentMethod, type CommerceCheckoutResult } from '@/lib/commerce';
 import { useToast } from '@/hooks/use-toast';
 
 const PAYMENT_METHODS: { value: PaymentMethod; label: string; icon: React.ElementType; desc: string }[] = [
@@ -58,18 +57,6 @@ const Payment = () => {
       }
     } catch (error) {
       console.error('Checkout error:', error);
-      // Fall back to legacy Stripe checkout for card payments
-      if (paymentMethod === 'card') {
-        try {
-          await createAgencyCheckout(plan, {
-            email: formData.email,
-            name: formData.name,
-          });
-          return; // Stripe will redirect
-        } catch (fallbackError) {
-          console.error('Stripe fallback error:', fallbackError);
-        }
-      }
       toast({
         title: 'Checkout Failed',
         description: 'Unable to start checkout. Please try again.',

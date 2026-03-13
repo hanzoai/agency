@@ -134,8 +134,8 @@ export default {
         'pulse-glow': 'pulseGlow 8s ease-in-out infinite',
       },
       fontFamily: {
-        sans: ['"Inter"', 'sans-serif'],
-        inter: ['"Inter"', 'sans-serif'],
+        sans: ['"Geist Sans"', 'sans-serif'],
+        'geist-sans': ['"Geist Sans"', 'sans-serif'],
       },
     }
   },

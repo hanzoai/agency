@@ -24,7 +24,7 @@ const Hero = () => {
       {/* Main Hero Section */}
       <div className="min-h-screen flex flex-col pt-16">
         <div className="flex-grow flex items-center">
-          <div className="container-custom py-8">
+          <div className="container-custom pt-16 pb-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
               {/* Text Content - Centered on mobile */}
               <div className="relative z-10 text-center lg:text-left">

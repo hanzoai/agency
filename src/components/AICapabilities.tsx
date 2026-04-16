@@ -48,56 +48,28 @@ const LogoImage = ({ src, alt, label, index }: { src: string; alt: string; label
   );
 };
 
-// Feature card component with image error handling
-const FeatureCard = ({ 
-  imageSrc, 
-  imageAlt, 
-  title, 
-  description, 
-  applications 
-}: { 
-  imageSrc: string; 
-  imageAlt: string; 
-  title: string; 
-  description: string; 
-  applications: string; 
-}) => {
-  const [imageError, setImageError] = useState(false);
-  const [imageLoading, setImageLoading] = useState(true);
-
-  return (
-    <div className="bg-black border border-gray-700 rounded-[24px] p-8 hover:border-gray-600 transition-all">
-      <div className="flex items-center justify-center h-48 mb-6 overflow-hidden">
-        {imageError ? (
-          <div className="w-full h-full bg-gray-800 rounded-lg flex items-center justify-center">
-            <span className="text-gray-500 text-sm">{imageAlt}</span>
-          </div>
-        ) : (
-          <>
-            {imageLoading && (
-              <div className="w-full h-full bg-gray-800 rounded-lg animate-pulse" />
-            )}
-            <img
-              src={imageSrc}
-              alt={imageAlt}
-              className={`w-full h-auto ${imageLoading ? 'hidden' : ''}`}
-              onError={() => {
-                console.error(`Failed to load image: ${imageSrc}`);
-                setImageError(true);
-                setImageLoading(false);
-              }}
-              onLoad={() => setImageLoading(false)}
-              loading="lazy"
-            />
-          </>
-        )}
-      </div>
-      <h3 className="text-xl font-semibold mb-3">{title}</h3>
-      <p className="text-foreground/70 mb-4">{description}</p>
-      <p className="text-foreground/60 text-sm">{applications}</p>
+const FeatureCard = ({
+  imageSrc,
+  imageAlt,
+  title,
+  description,
+  applications
+}: {
+  imageSrc: string;
+  imageAlt: string;
+  title: string;
+  description: string;
+  applications: string;
+}) => (
+  <div className="bg-black border border-gray-700 rounded-[24px] p-8 hover:border-gray-600 transition-all">
+    <div className="flex items-center justify-center h-48 mb-6 overflow-hidden">
+      <img src={imageSrc} alt={imageAlt} className="w-full h-auto" />
     </div>
-  );
-};
+    <h3 className="text-xl font-semibold mb-3">{title}</h3>
+    <p className="text-foreground/70 mb-4">{description}</p>
+    <p className="text-foreground/60 text-sm">{applications}</p>
+  </div>
+);
 
 const AICapabilities = () => {
   const features = [

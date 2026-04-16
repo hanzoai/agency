@@ -11,7 +11,7 @@
 }
 
 .animate-marquee {
-  animation: smooth-marquee 40s linear infinite;
+  animation: smooth-marquee 80s linear infinite;
   display: flex;
   width: max-content;
 }

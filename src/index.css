@@ -382,7 +382,7 @@ button:hover + div {
   }
   
   .animate-marquee {
-    animation: marquee 30s linear infinite;
+    animation: marquee 80s linear infinite;
   }
   
   /* Mobile menu link focus styles for accessibility */

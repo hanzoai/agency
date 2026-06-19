@@ -1,0 +1,22 @@
+name: Build image
+
+# Builds + pushes ghcr.io/hanzoai/agency on a v* semver tag via the
+# canonical reusable workflow, natively on the self-hosted arcd fleet
+# (NO GitHub-hosted runners). Semver-only tags — no :latest/:sha to a
+# cluster. Deployable on the canonical DOKS pipeline.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+jobs:
+  docker:
+    uses: hanzoai/.github/.github/workflows/docker-build.yml@main
+    with:
+      image: ghcr.io/hanzoai/agency
+    secrets: inherit

@@ -116,3 +116,34 @@ Case studies are a key part of the website and follow a consistent pattern:
   - Console logging for debugging image load failures
 - All images stored in `public/images/logo/` and `public/images/graphics/`
 - Test page available at `/test-ai-capabilities-images.html` to verify all images load correctly
+
+## Checkout BFF (server-side, 0.1.1) — closes the P0 anon-mint regression
+
+The onboarding checkout used to POST the mint request straight from the browser
+to `commerce.hanzo.ai/api/v1/checkout/sessions` (old `src/lib/commerce.ts`).
+The commerce P0 fix (v1.46.4) closed that anonymous mint path — the browser POST
+now correctly 401s — so the site broke. It is now fixed by a server-side BFF:
+
+- **`server/`** — a small stdlib-only Go binary that serves the embedded Vite
+  SPA (`server/static`, populated from `dist/` at docker build) AND the ONE
+  checkout entry `POST /v1/checkout`.
+- The browser (`src/lib/commerce.ts`) POSTs `{plan,email,name,paymentMethod}`
+  to same-origin `/v1/checkout`. It holds NO token and can choose NO org, price,
+  or redirect.
+- The BFF authenticates to commerce with a per-org **Published storefront
+  token** (`COMMERCE_STOREFRONT_TOKEN`, minted via `POST /v1/store/storefront-token`,
+  stored in KMS, synced to the `agency-secrets` K8s Secret via KMSSecret). Org is
+  derived by commerce from the token; item prices come from the server-side
+  `plans` map; `successUrl`/`cancelUrl` are built from `PUBLIC_BASE_URL`
+  (`https://hanzo.agency`). Fails CLOSED (503) if the token is unset — never an
+  anon mint.
+- Config (env, KMS-sourced secret): `COMMERCE_URL` (default
+  `http://commerce.hanzo.svc:8001`), `COMMERCE_ORG` (default `hanzo`),
+  `PUBLIC_BASE_URL` (default `https://hanzo.agency`), `COMMERCE_STOREFRONT_TOKEN`.
+- commerce v1.46.7 adds `hanzo.agency` to the hanzo brand's checkout redirect
+  allowlist so the authed `successUrl` passes.
+- Deployed in DOKS (hanzo-k8s) as `ghcr.io/hanzoai/agency` — the site is no
+  longer a static GitHub Pages bundle (a static host can't hold the token).
+  Manifests: universe `infra/k8s/agency/`.
+- Tests: `server/checkout_test.go` (authed mint, no client price/org/redirect
+  override, fail-closed without token, unknown-plan reject, wire, non-POST).

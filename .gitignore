@@ -44,3 +44,7 @@ rename-*.sh
 .claude
 
 CLAUDE.md
+
+# Go
+/server/server
+/server/static/assets/

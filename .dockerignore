@@ -1,7 +1,12 @@
 node_modules
 dist
+dist-ssr
+server/static
+!server/static/index.html
 .git
 .github
 *.md
 .env*
 .vscode
+*.local
+.DS_Store

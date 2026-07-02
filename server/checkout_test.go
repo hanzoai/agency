@@ -20,6 +20,12 @@ func fakeCommerce(t *testing.T, wantToken string, capture *commerceSessionReques
 			w.WriteHeader(401)
 			return
 		}
+		// The BFF always pins its own org — the tenant is never client-chosen.
+		if got := r.Header.Get("X-Org-Id"); got != "hanzo" {
+			t.Errorf("upstream X-Org-Id = %q, want hanzo", got)
+			w.WriteHeader(400)
+			return
+		}
 		switch r.URL.Path {
 		case "/v1/checkout/sessions":
 			body, _ := io.ReadAll(r.Body)
@@ -40,10 +46,10 @@ func fakeCommerce(t *testing.T, wantToken string, capture *commerceSessionReques
 
 func newTestBFF(commerceURL, token string) *bff {
 	return newBFF(config{
-		commerceURL:     commerceURL,
-		org:             "hanzo",
-		publicBaseURL:   "https://hanzo.agency",
-		storefrontToken: token,
+		commerceURL:   commerceURL,
+		org:           "hanzo",
+		publicBaseURL: "https://hanzo.agency",
+		commerceToken: token,
 	})
 }
 

@@ -1,8 +1,16 @@
 import { analytics } from '@/utils/analytics';
 
-// --- Commerce API (Square, crypto, wire) ---
+// --- Checkout via the server-side BFF ---
+//
+// The browser NEVER talks to commerce directly and NEVER holds a token. It
+// POSTs the plan + buyer details to this app's OWN server (same origin,
+// /v1/checkout); that Go BFF authenticates to commerce with a per-org Published
+// storefront token it holds from KMS and mints the Square Payment Link. Org,
+// item prices, and the success/cancel redirect are all server-authoritative —
+// the client can only name a plan. This closes the P0 anonymous-mint hole while
+// keeping the onboarding checkout working end-to-end.
 
-const COMMERCE_API = 'https://commerce.hanzo.ai/api/v1';
+const CHECKOUT_BFF = '/v1/checkout';
 
 export type PaymentMethod = 'card' | 'crypto' | 'wire';
 
@@ -10,68 +18,28 @@ export type CommerceCheckoutResult =
   | { type: 'redirect'; url: string; sessionId: string }
   | { type: 'wire'; instructions: Record<string, unknown> };
 
-// Plan configuration for agency checkout
-const PLAN_CONFIG: Record<string, {
-  name: string;
-  price: number;
-  amount: number;
-}> = {
-  'agency': {
-    name: 'Agency Service',
-    price: 9999,
-    amount: 999900,
-  },
-  'instant-site': {
-    name: 'Instant Site',
-    price: 500,
-    amount: 50000,
-  },
-  'enterprise': {
-    name: 'Enterprise',
-    price: 9999,
-    amount: 999900,
-  },
-};
-
 export async function createCommerceCheckout(
   plan: string,
   options: { email: string; name: string; paymentMethod?: PaymentMethod }
 ): Promise<CommerceCheckoutResult> {
   const { email, name, paymentMethod = 'card' } = options;
 
-  if (paymentMethod === 'wire') {
-    const res = await fetch(`${COMMERCE_API}/checkout/wire/instructions?org=hanzo`);
-    if (!res.ok) throw new Error(`Wire instructions request failed: ${res.status}`);
-    const data = await res.json();
-    return { type: 'wire' as const, instructions: data };
-  }
-
-  const config = PLAN_CONFIG[plan];
-  const res = await fetch(`${COMMERCE_API}/checkout/sessions`, {
+  const res = await fetch(CHECKOUT_BFF, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      org: 'hanzo',
-      providerHint: paymentMethod === 'crypto' ? 'ethereum' : 'square',
-      currency: 'USD',
-      customer: { email, name },
-      items: [{
-        name: config?.name || plan,
-        amount: config?.amount || 999900,
-        quantity: 1,
-      }],
-      successUrl: `${window.location.origin}/onboarding-success`,
-      cancelUrl: `${window.location.origin}/pricing`,
-    }),
+    body: JSON.stringify({ plan, email, name, paymentMethod }),
   });
 
   if (!res.ok) {
     const body = await res.text();
-    throw new Error(`Commerce checkout failed: ${body}`);
+    throw new Error(`Checkout failed: ${body}`);
   }
 
   const data = await res.json();
-  return { type: 'redirect' as const, url: data.checkoutUrl, sessionId: data.sessionId };
+  if (data.type === 'wire') {
+    return { type: 'wire' as const, instructions: data.instructions };
+  }
+  return { type: 'redirect' as const, url: data.url, sessionId: data.sessionId };
 }
 
 // Helper to format currency

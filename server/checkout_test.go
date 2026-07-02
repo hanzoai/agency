@@ -69,10 +69,11 @@ func TestCheckout_CardMintsViaStorefrontToken(t *testing.T) {
 		t.Fatalf("unexpected response: %v", out)
 	}
 
-	// Server-authoritative invariants: price from the server map, redirect to
-	// the org's own site, provider square, currency USD. No client override.
-	if len(sent.Items) != 1 || sent.Items[0].Amount != 999900 {
-		t.Fatalf("item amount not server-authoritative: %+v", sent.Items)
+	// Server-authoritative invariants: the BFF sends a catalog REFERENCE (slug),
+	// never a price — commerce resolves the amount from its own listing. Redirect
+	// to the org's own site, provider square, currency USD. No client override.
+	if len(sent.Items) != 1 || sent.Items[0].ProductSlug != "agency" || sent.Items[0].Quantity != 1 {
+		t.Fatalf("item not a server-authoritative catalog reference: %+v", sent.Items)
 	}
 	if sent.SuccessURL != "https://hanzo.agency/onboarding-success" {
 		t.Fatalf("successUrl not server-built: %q", sent.SuccessURL)
@@ -91,17 +92,54 @@ func TestCheckout_ClientCannotOverridePriceOrRedirect(t *testing.T) {
 	defer up.Close()
 	b := newTestBFF(up.URL, "tok")
 
-	// Client tries to smuggle amount/org/successUrl — all must be ignored.
+	// Client tries to smuggle amount/org/successUrl — all must be ignored. The
+	// BFF forwards only a catalog reference (slug); there is no amount field for
+	// the client to influence, and the redirect is server-built.
 	rr := post(t, b, `{"plan":"instant-site","email":"a@b.com","name":"A",
 		"amount":1,"org":"victim","successUrl":"https://evil.com"}`)
 	if rr.Code != 200 {
 		t.Fatalf("status = %d, body=%s", rr.Code, rr.Body.String())
 	}
-	if sent.Items[0].Amount != 50000 {
-		t.Fatalf("client overrode price: %+v", sent.Items)
+	if sent.Items[0].ProductSlug != "instant-site" {
+		t.Fatalf("client overrode catalog reference: %+v", sent.Items)
 	}
 	if strings.Contains(sent.SuccessURL, "evil.com") {
 		t.Fatalf("client overrode redirect: %q", sent.SuccessURL)
+	}
+}
+
+func TestClientIP_TrustsOnlyIngressSetHops(t *testing.T) {
+	mk := func(realIP, xff, remote string) *http.Request {
+		r := httptest.NewRequest(http.MethodPost, "/v1/checkout", nil)
+		r.RemoteAddr = remote
+		if realIP != "" {
+			r.Header.Set("X-Real-IP", realIP)
+		}
+		if xff != "" {
+			r.Header.Set("X-Forwarded-For", xff)
+		}
+		return r
+	}
+	// X-Real-IP (set by hanzoai/ingress) is authoritative when present.
+	if got := clientIP(mk("203.0.113.7", "1.1.1.1, 203.0.113.7", "10.0.0.1:5")); got != "203.0.113.7" {
+		t.Fatalf("X-Real-IP not trusted: got %q", got)
+	}
+	// Without X-Real-IP, take the RIGHTMOST XFF hop (appended by our proxy),
+	// never the client-spoofable leftmost.
+	if got := clientIP(mk("", "1.1.1.1, 203.0.113.7", "10.0.0.1:5")); got != "203.0.113.7" {
+		t.Fatalf("did not take rightmost XFF hop: got %q", got)
+	}
+	// A forged leftmost XFF must NOT become the rate-limit key.
+	if got := clientIP(mk("", "evil-spoof, 203.0.113.7", "10.0.0.1:5")); got == "evil-spoof" {
+		t.Fatalf("leftmost spoof leaked into rate-limit key: %q", got)
+	}
+	// Single-entry XFF is honored.
+	if got := clientIP(mk("", "203.0.113.9", "10.0.0.1:5")); got != "203.0.113.9" {
+		t.Fatalf("single XFF entry not used: got %q", got)
+	}
+	// No proxy headers → RemoteAddr host.
+	if got := clientIP(mk("", "", "198.51.100.4:4444")); got != "198.51.100.4" {
+		t.Fatalf("RemoteAddr fallback wrong: got %q", got)
 	}
 }
 

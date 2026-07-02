@@ -13,20 +13,18 @@ import (
 	"time"
 )
 
-// plan is a server-authoritative product the agency onboarding flow can buy.
-// Prices live HERE, not in the browser: the client only names a plan, so a
-// tampered client can never change the amount charged. `name`/`amount` mirror
-// the agency pricing page (amount is in the currency's minor unit — cents).
-type plan struct {
-	name   string
-	amount int64
-}
-
-// plans is the ONE place agency checkout prices are defined.
-var plans = map[string]plan{
-	"agency":       {name: "Agency Service", amount: 999900},
-	"instant-site": {name: "Instant Site", amount: 50000},
-	"enterprise":   {name: "Enterprise", amount: 999900},
+// offeredPlans is the set of catalog slugs the agency onboarding flow sells.
+// It carries NO prices — pricing is SOLELY the commerce per-org catalog
+// (a store Listing keyed by this slug). The BFF only names a plan; commerce
+// resolves the authoritative price from its stored listing server-side, so a
+// tampered client can never change the amount charged AND the price can never
+// drift between two places. This is membership, not pricing: it lets the BFF
+// reject an unknown plan with a clean 400 without a commerce round-trip and
+// without duplicating (or ever contradicting) the catalog.
+var offeredPlans = map[string]struct{}{
+	"agency":       {},
+	"instant-site": {},
+	"enterprise":   {},
 }
 
 type bff struct {
@@ -71,10 +69,15 @@ type commerceCust struct {
 	Name  string `json:"name"`
 }
 
+// commerceItem is a catalog REFERENCE, never a price. The BFF sends only the
+// product slug and quantity; commerce resolves the authoritative unit price
+// from the org's own stored listing (Red/CTO: raw amounts were silently
+// ignored by commerce, so a $9,999 plan minted at the $50 hat-fallback). There
+// is deliberately NO amount/name field here — the per-org catalog is the sole
+// server-side price authority.
 type commerceItem struct {
-	Name     string `json:"name"`
-	Amount   int64  `json:"amount"`
-	Quantity int    `json:"quantity"`
+	ProductSlug string `json:"productSlug"`
+	Quantity    int    `json:"quantity"`
 }
 
 // handleCheckout is the server-side BFF. It authenticates to commerce with the
@@ -114,8 +117,7 @@ func (b *bff) handleCheckout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p, ok := plans[req.Plan]
-	if !ok {
+	if _, ok := offeredPlans[req.Plan]; !ok {
 		writeErr(w, http.StatusBadRequest, "unknown plan")
 		return
 	}
@@ -129,7 +131,9 @@ func (b *bff) handleCheckout(w http.ResponseWriter, r *http.Request) {
 		ProviderHint: providerHint,
 		Currency:     "USD",
 		Customer:     commerceCust{Email: req.Email, Name: req.Name},
-		Items:        []commerceItem{{Name: p.name, Amount: p.amount, Quantity: 1}},
+		// Catalog reference only — commerce prices this from the org's stored
+		// listing (slug == plan). No amount crosses the wire.
+		Items:        []commerceItem{{ProductSlug: req.Plan, Quantity: 1}},
 		SuccessURL:   b.cfg.publicBaseURL + "/onboarding-success",
 		CancelURL:    b.cfg.publicBaseURL + "/pricing",
 		CouponCode:   req.CouponCode,
@@ -273,13 +277,26 @@ func (l *ipLimiter) allow(ip string) bool {
 	return l.hits[ip] <= l.max
 }
 
+// clientIP returns the caller's IP for rate limiting, trusting ONLY hops our
+// own ingress set. hanzoai/ingress terminates the client connection and writes
+// the real client IP into X-Real-IP, so that is authoritative. The LEFTMOST
+// X-Forwarded-For entry is attacker-controlled (a client can prepend any value;
+// the proxy only appends), so keying rate limiting on it lets an attacker forge
+// unlimited distinct "IPs" and evade the mint limiter — Red LOW. When falling
+// back to XFF we therefore take the RIGHTMOST entry: the one appended by our
+// single trusted proxy, i.e. the real client as our ingress saw it.
 func clientIP(r *http.Request) string {
-	// Behind hanzoai/ingress the real client is in X-Forwarded-For (first hop).
+	if xr := strings.TrimSpace(r.Header.Get("X-Real-IP")); xr != "" {
+		return xr
+	}
 	if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
-		if i := strings.IndexByte(xff, ','); i >= 0 {
-			return strings.TrimSpace(xff[:i])
+		if i := strings.LastIndexByte(xff, ','); i >= 0 {
+			if last := strings.TrimSpace(xff[i+1:]); last != "" {
+				return last
+			}
+		} else if only := strings.TrimSpace(xff); only != "" {
+			return only
 		}
-		return strings.TrimSpace(xff)
 	}
 	host, _, err := net.SplitHostPort(r.RemoteAddr)
 	if err != nil {

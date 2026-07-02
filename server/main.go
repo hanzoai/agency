@@ -50,8 +50,8 @@ func main() {
 	}
 
 	go func() {
-		log.Printf("agency: listening on %s (commerce=%s org=%s base=%s storefront-token=%v)",
-			cfg.addr, cfg.commerceURL, cfg.org, cfg.publicBaseURL, cfg.storefrontToken != "")
+		log.Printf("agency: listening on %s (commerce=%s org=%s base=%s commerce-token=%v)",
+			cfg.addr, cfg.commerceURL, cfg.org, cfg.publicBaseURL, cfg.commerceToken != "")
 		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			log.Fatalf("agency: server error: %v", err)
 		}
@@ -81,20 +81,32 @@ func securityHeaders(next http.Handler) http.Handler {
 // config holds the deployment-varying knobs; secrets come from env sourced from
 // a KMS-synced K8s secret, never baked into the image.
 type config struct {
-	addr            string
-	commerceURL     string // in-cluster commerce API base, e.g. http://commerce.hanzo.svc:8001
-	org             string // IAM org slug (== tenant); default hanzo
-	publicBaseURL   string // server-authoritative redirect base, e.g. https://hanzo.agency
-	storefrontToken string // per-org Published storefront token (KMS)
+	addr          string
+	commerceURL   string // in-cluster commerce API base, e.g. http://commerce.hanzo.svc:8001
+	org           string // IAM org slug (== tenant); default hanzo
+	publicBaseURL string // server-authoritative redirect base, e.g. https://hanzo.agency
+	// commerceToken is the bearer the BFF authenticates to commerce with. It is
+	// EITHER a per-org Published storefront token (least-privilege, preferred —
+	// org derived from the token) OR the platform service token (org selected by
+	// the X-Org-Id header the BFF always stamps with cfg.org). One code path
+	// serves both; the browser never sees it.
+	commerceToken string
 }
 
 func loadConfig() config {
+	// COMMERCE_TOKEN is canonical; COMMERCE_STOREFRONT_TOKEN is accepted as an
+	// alias so a dedicated storefront-token secret can be dropped in later with
+	// no manifest churn.
+	token := strings.TrimSpace(os.Getenv("COMMERCE_TOKEN"))
+	if token == "" {
+		token = strings.TrimSpace(os.Getenv("COMMERCE_STOREFRONT_TOKEN"))
+	}
 	return config{
-		addr:            ":" + envOr("PORT", "3000"),
-		commerceURL:     strings.TrimRight(envOr("COMMERCE_URL", "http://commerce.hanzo.svc:8001"), "/"),
-		org:             envOr("COMMERCE_ORG", "hanzo"),
-		publicBaseURL:   strings.TrimRight(envOr("PUBLIC_BASE_URL", "https://hanzo.agency"), "/"),
-		storefrontToken: strings.TrimSpace(os.Getenv("COMMERCE_STOREFRONT_TOKEN")),
+		addr:          ":" + envOr("PORT", "3000"),
+		commerceURL:   strings.TrimRight(envOr("COMMERCE_URL", "http://commerce.hanzo.svc:8001"), "/"),
+		org:           envOr("COMMERCE_ORG", "hanzo"),
+		publicBaseURL: strings.TrimRight(envOr("PUBLIC_BASE_URL", "https://hanzo.agency"), "/"),
+		commerceToken: token,
 	}
 }
 

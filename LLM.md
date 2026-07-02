@@ -130,16 +130,24 @@ now correctly 401s — so the site broke. It is now fixed by a server-side BFF:
 - The browser (`src/lib/commerce.ts`) POSTs `{plan,email,name,paymentMethod}`
   to same-origin `/v1/checkout`. It holds NO token and can choose NO org, price,
   or redirect.
-- The BFF authenticates to commerce with a per-org **Published storefront
-  token** (`COMMERCE_STOREFRONT_TOKEN`, minted via `POST /v1/store/storefront-token`,
-  stored in KMS, synced to the `agency-secrets` K8s Secret via KMSSecret). Org is
-  derived by commerce from the token; item prices come from the server-side
-  `plans` map; `successUrl`/`cancelUrl` are built from `PUBLIC_BASE_URL`
-  (`https://hanzo.agency`). Fails CLOSED (503) if the token is unset — never an
-  anon mint.
+- The BFF authenticates to commerce with `COMMERCE_TOKEN` (env, KMS-sourced),
+  EITHER a per-org **Published storefront token** (least-privilege, preferred —
+  mint via `POST /v1/store/storefront-token`) OR the platform **service token**
+  (`COMMERCE_SERVICE_TOKEN`). ONE code path: the BFF ALWAYS stamps
+  `X-Org-Id: $COMMERCE_ORG`, which pins the tenant for the service token and is a
+  harmless no-op for a storefront token (commerce derives org from it). Item
+  prices come from the server-side `plans` map; `successUrl`/`cancelUrl` are built
+  from `PUBLIC_BASE_URL` (`https://hanzo.agency`). Fails CLOSED (503) if the token
+  is unset — never an anon mint. (`COMMERCE_STOREFRONT_TOKEN` is an accepted alias.)
 - Config (env, KMS-sourced secret): `COMMERCE_URL` (default
   `http://commerce.hanzo.svc:8001`), `COMMERCE_ORG` (default `hanzo`),
-  `PUBLIC_BASE_URL` (default `https://hanzo.agency`), `COMMERCE_STOREFRONT_TOKEN`.
+  `PUBLIC_BASE_URL` (default `https://hanzo.agency`), `COMMERCE_TOKEN`.
+- NOTE: the per-org storefront-token mint currently 500s on the prod Postgres
+  backend — the generic `_entities` table predates `PRIMARY KEY (id, kind,
+  tenant_id)`, so the org upsert's `ON CONFLICT (id, kind, tenant_id)` finds no
+  matching constraint (same defect breaks the catalog seed). Until that migration
+  lands, `COMMERCE_TOKEN` is wired to `COMMERCE_SERVICE_TOKEN`; swap to a
+  storefront token afterward with no code change.
 - commerce v1.46.7 adds `hanzo.agency` to the hanzo brand's checkout redirect
   allowlist so the authed `successUrl` passes.
 - Deployed in DOKS (hanzo-k8s) as `ghcr.io/hanzoai/agency` — the site is no

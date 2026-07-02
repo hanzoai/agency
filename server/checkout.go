@@ -101,10 +101,10 @@ func (b *bff) handleCheckout(w http.ResponseWriter, r *http.Request) {
 		method = "card"
 	}
 
-	if b.cfg.storefrontToken == "" {
-		// Fail closed: without the storefront token we cannot authenticate to
-		// commerce, and we must NEVER fall back to an anonymous mint.
-		log.Printf("agency: checkout refused — COMMERCE_STOREFRONT_TOKEN not configured")
+	if b.cfg.commerceToken == "" {
+		// Fail closed: without a commerce token we cannot authenticate, and we
+		// must NEVER fall back to an anonymous mint.
+		log.Printf("agency: checkout refused — COMMERCE_TOKEN not configured")
 		writeErr(w, http.StatusServiceUnavailable, "checkout temporarily unavailable")
 		return
 	}
@@ -201,7 +201,7 @@ func (b *bff) postCommerce(ctx context.Context, path string, body any) (int, []b
 		return 0, nil, err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+b.cfg.storefrontToken)
+	b.authHeaders(req)
 	return b.do(req)
 }
 
@@ -210,8 +210,18 @@ func (b *bff) getCommerce(ctx context.Context, path string) (int, []byte, error)
 	if err != nil {
 		return 0, nil, err
 	}
-	req.Header.Set("Authorization", "Bearer "+b.cfg.storefrontToken)
+	b.authHeaders(req)
 	return b.do(req)
+}
+
+// authHeaders stamps the commerce identity onto an upstream request. X-Org-Id
+// pins the tenant when the token is the platform service token; for a per-org
+// storefront token commerce derives the org from the token and the header is a
+// harmless no-op — so ONE code path serves both token kinds. The BFF ALWAYS
+// pins its own configured org: the browser can never choose the tenant.
+func (b *bff) authHeaders(req *http.Request) {
+	req.Header.Set("Authorization", "Bearer "+b.cfg.commerceToken)
+	req.Header.Set("X-Org-Id", b.cfg.org)
 }
 
 func (b *bff) do(req *http.Request) (int, []byte, error) {

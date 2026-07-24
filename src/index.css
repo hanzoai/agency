@@ -1,6 +1,8 @@
 
 @import url('https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.css');
 @import './components/SimpleDropdown.css';
+@import "tailwindcss";
+@config "../tailwind.config.ts";
 
 /* Navigation Menu Dropdown Fixes */
 [data-radix-popper-content-wrapper] {
@@ -25,10 +27,6 @@ button:hover + div {
   opacity: 1 !important;
   visibility: visible !important;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @layer base {
   :root {
@@ -243,15 +241,15 @@ button:hover + div {
   }
   
   .hover-grow {
-    @apply hover-transition hover:scale-[1.01] active:scale-[0.99];
+    @apply transition-all duration-200 hover:scale-[1.01] active:scale-[0.99];
   }
   
   .hover-lift {
-    @apply hover-transition hover:translate-y-[-1px];
+    @apply transition-all duration-200 hover:translate-y-[-1px];
   }
   
   .hover-highlight {
-    @apply hover-transition hover:brightness-110;
+    @apply transition-all duration-200 hover:brightness-110;
   }
   
   /* Dark theme for case studies */

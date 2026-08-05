@@ -1,0 +1,143 @@
+name: deploy
+
+# hanzo.agency is a SITE, not an App: a static export with no compute. It ships on the
+# Sites plane — enqueue, sync the bytes to S3, flip live. Not GitHub Pages, not
+# Cloudflare Pages, and not an image the cluster has to run to hand back files
+# that never execute.
+#
+#   build -> dist
+#     -> POST /v1/projects/agency/deploy {"source":"git"}   (202, queued)
+#     -> aws s3 sync dist s3://<bucket>/<prefix>        (bytes skip the API)
+#     -> POST .../deployments/<id>/complete {"status":"live"}
+#
+# Three steps because the bytes never pass through the API. BodyLimit is 16 MiB,
+# so an artifact POST of a real export is refused by fasthttp before any handler
+# runs — and it fails as an opaque 400 that reads like a malformed payload rather
+# than a size cap. cloud names the bucket and prefix in the 202, so CI writes
+# exactly where the site is served from; never hardcode them, prefix is
+# sitePrefix(org, slug) server-side and a local guess drifts the moment the org or
+# slug changes.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  site:
+    # NOT ubuntu-latest. This file lives in .hanzo/workflows, which GitHub never
+    # reads — git.hanzo.ai is the only thing that can run it, and its fleet
+    # advertises hanzo-build-linux-amd64. An unmatched label is not an error here,
+    # it is silence: the job queues until the 24h timeout and nothing says so.
+    runs-on: hanzo-build-linux-amd64
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: build the static export
+        env:
+          VITE_EVENT_INGEST_KEY: ${{ secrets.EVENT_INGEST_KEY }}
+        run: |
+          set -euo pipefail
+          # pnpm-lock.yaml is lockfileVersion 9.0 and package.json pins
+          # pnpm@9.15.4; pin the same major so CI and the lockfile cannot resolve
+          # different trees.
+          corepack enable && corepack prepare pnpm@9.15.4 --activate
+          pnpm install --frozen-lockfile
+          pnpm build
+          test -s dist/index.html || { echo "::error::vite build produced no dist/index.html"; exit 1; }
+          # 404.html IS index.html here, and only because this is a client-routed
+          # SPA: every route below / is resolved by react-router in the browser and
+          # has no file of its own, so a miss must still boot the app. A real
+          # per-route export must NEVER do this — it makes a broken link answer 404
+          # while rendering the front page.
+          cp dist/index.html dist/404.html
+          echo "exported $(find dist -type f | wc -l) files"
+
+      - name: enqueue the deployment
+        id: enqueue
+        env:
+          DEPLOY_TOKEN: ${{ secrets.HANZO_DEPLOY_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${DEPLOY_TOKEN:-}" ]; then
+            echo "::error::HANZO_DEPLOY_TOKEN is unset — it is configured org-wide on the forge."
+            exit 1
+          fi
+          CODE=$(curl -sS -o /tmp/enq.json -w '%{http_code}' \
+            -X POST "https://api.hanzo.ai/v1/projects/agency/deploy" \
+            -H "Authorization: Bearer ${DEPLOY_TOKEN}" \
+            -H 'Content-Type: application/json' \
+            -d "{\"source\":\"git\",\"commit\":\"${GITHUB_SHA}\",\"branch\":\"main\"}")
+          # 202 Accepted is the success code: the deployment is queued, not live.
+          if [ "$CODE" != "202" ]; then
+            echo "::error::enqueue returned HTTP $CODE — does project 'agency' exist?"
+            head -c 600 /tmp/enq.json; exit 1
+          fi
+          echo "id=$(jq -r .id /tmp/enq.json)"         >> "$GITHUB_OUTPUT"
+          echo "bucket=$(jq -r .bucket /tmp/enq.json)" >> "$GITHUB_OUTPUT"
+          echo "prefix=$(jq -r .prefix /tmp/enq.json)" >> "$GITHUB_OUTPUT"
+          jq -c '{id,version,status,bucket,prefix}' /tmp/enq.json
+
+      - name: sync the export to S3
+        id: sync
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.SITES_S3_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.SITES_S3_SECRET_ACCESS_KEY }}
+          BUCKET: ${{ steps.enqueue.outputs.bucket }}
+          PREFIX: ${{ steps.enqueue.outputs.prefix }}
+        run: |
+          set -euo pipefail
+          if [ -z "${AWS_ACCESS_KEY_ID:-}" ] || [ -z "${AWS_SECRET_ACCESS_KEY:-}" ]; then
+            echo "::error::SITES_S3_* secrets unset — cannot sync. These are the hanzo-sites bucket credentials."
+            exit 1
+          fi
+          # CNAME is a GitHub Pages artifact. It means nothing to S3 and would ship
+          # a stale hostname claim into the bucket, so it does not travel.
+          rm -f dist/CNAME
+          # --delete so a removed page actually disappears: without it the prefix
+          # only ever grows and deleted routes keep serving.
+          aws s3 sync dist "s3://${BUCKET}/${PREFIX}" \
+            --endpoint-url https://s3.hanzo.ai --delete --only-show-errors
+          echo "files=$(find dist -type f | wc -l | tr -d ' ')" >> "$GITHUB_OUTPUT"
+          echo "bytes=$(du -sk dist | awk '{print $1*1024}')"  >> "$GITHUB_OUTPUT"
+
+      - name: flip it live
+        env:
+          DEPLOY_TOKEN: ${{ secrets.HANZO_DEPLOY_TOKEN }}
+          DEP: ${{ steps.enqueue.outputs.id }}
+          FILES: ${{ steps.sync.outputs.files }}
+          BYTES: ${{ steps.sync.outputs.bytes }}
+        run: |
+          set -euo pipefail
+          CODE=$(curl -sS -o /tmp/done.json -w '%{http_code}' \
+            -X POST "https://api.hanzo.ai/v1/projects/agency/deployments/${DEP}/complete" \
+            -H "Authorization: Bearer ${DEPLOY_TOKEN}" \
+            -H 'Content-Type: application/json' \
+            -d "{\"status\":\"live\",\"commit\":\"${GITHUB_SHA}\",\"files\":${FILES},\"bytes\":${BYTES}}")
+          if [ "$CODE" != "200" ]; then
+            echo "::error::complete returned HTTP $CODE"; head -c 600 /tmp/done.json; exit 1
+          fi
+          jq -c '{status,liveUrl,version,files,bytes}' /tmp/done.json
+
+      # A build that dies after the enqueue would leave the deployment "queued"
+      # and the project stuck "building" forever. Report the failure so cloud
+      # records an honest terminal state instead of a lie by omission.
+      - name: report a failed build
+        if: failure() && steps.enqueue.outputs.id != ''
+        env:
+          DEPLOY_TOKEN: ${{ secrets.HANZO_DEPLOY_TOKEN }}
+          DEP: ${{ steps.enqueue.outputs.id }}
+        run: |
+          curl -sS -X POST "https://api.hanzo.ai/v1/projects/agency/deployments/${DEP}/complete" \
+            -H "Authorization: Bearer ${DEPLOY_TOKEN}" -H 'Content-Type: application/json' \
+            -d '{"status":"error","message":"CI build or sync failed"}' >/dev/null || true
+          echo "marked deployment ${DEP} as error"

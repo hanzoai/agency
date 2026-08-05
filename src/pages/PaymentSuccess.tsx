@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import Footer from '@/components/Footer';
 import { CheckCircle, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 import { trackPurchaseSuccess } from '@/lib/commerce';
-import { analytics } from '@/utils/analytics';
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();
@@ -16,9 +15,6 @@ const PaymentSuccess = () => {
   const sessionId = searchParams.get('session_id');
 
   useEffect(() => {
-    // Track page view
-    analytics.trackPageView('/success', 'Payment Success');
-
     const processPayment = async () => {
       if (!sessionId) {
         setError(true);
@@ -51,7 +47,9 @@ const PaymentSuccess = () => {
           });
           localStorage.setItem('creditHistory', JSON.stringify(history));
 
-          // Track successful purchase with analytics
+          // ONE order_completed for this purchase. The pack, the credits and the
+          // quantity are PROPERTIES of it — a second "credit_purchase_completed"
+          // event for the same moment would double every conversion count.
           trackPurchaseSuccess(
             sessionId,
             [{
@@ -59,18 +57,11 @@ const PaymentSuccess = () => {
               name: details.productName,
               category: 'credit_packs',
               price: details.unitPrice,
-              quantity: details.quantity
+              quantity: details.quantity,
+              credits: details.credits
             }],
             details.amount
           );
-
-          // Track custom conversion event
-          analytics.trackCustomEvent('credit_purchase_completed', {
-            pack_id: details.packId,
-            credits: details.credits,
-            value: details.amount,
-            quantity: details.quantity
-          });
 
           // Clear pending purchase
           localStorage.removeItem('pendingPurchase');

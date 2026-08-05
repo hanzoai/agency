@@ -9,38 +9,12 @@
     <meta property="og:image" content="/og-image.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate icon" href="/favicon.ico" />
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YL5C91SRDW"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-YL5C91SRDW');
-    </script>
-    
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1790308611893001');
-    fbq('track', 'PageView');
-    </script>
-    <!-- End Meta Pixel Code -->
+    <!-- No analytics tags here. Telemetry is @hanzo/event, mounted in src/App.tsx
+         and posted to api.hanzo.ai/v1/event — one client, one stream, no
+         third-party script loading from this page. -->
   </head>
 
   <body>
-    <!-- Meta Pixel noscript fallback -->
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1790308611893001&ev=PageView&noscript=1"
-    /></noscript>
-    
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

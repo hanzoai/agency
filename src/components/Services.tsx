@@ -39,91 +39,91 @@ const Services = () => {
       title: "Ad Creative",
       description: "AI-powered designs that drive measurable performance across all digital platforms and campaigns",
       price: "$500 USD",
-      image: "/images/carousel/ad creative.jpeg"
+      image: "/images/carousel/ad-creative.jpeg"
     },
     {
       category: "Creative Design",
       title: "Social Media Creative",
       description: "Algorithm-optimized assets for maximum engagement on Instagram, TikTok, LinkedIn, and more",
       price: "$500 USD",
-      image: "/images/carousel/social media creative.jpeg"
+      image: "/images/carousel/social-media-creative.jpeg"
     },
     {
       category: "Creative Design",
       title: "Presentation Design",
       description: "Strategic narratives that elevate your message with data visualization and compelling storytelling",
       price: "$1,000 USD",
-      image: "/images/carousel/presentation design.jpg"
+      image: "/images/carousel/presentation-design.jpg"
     },
     {
       category: "Creative Design",
       title: "Illustration Design",
       description: "Visual storytelling engineered for brand recognition through custom icons, infographics, and artwork",
       price: "$750 USD",
-      image: "/images/carousel/illustration design.jpeg"
+      image: "/images/carousel/illustration-design.jpeg"
     },
     {
       category: "Creative Design",
       title: "Web Design",
       description: "User-centric experiences built for conversions with responsive layouts and intuitive navigation",
       price: "$2,500 USD",
-      image: "/images/carousel/web design.jpeg"
+      image: "/images/carousel/web-design.jpeg"
     },
     {
       category: "Creative Design",
       title: "Branding Services",
       description: "Data-driven identity systems for market differentiation including logos, guidelines, and assets",
       price: "$5,000 USD",
-      image: "/images/carousel/branding services.jpeg"
+      image: "/images/carousel/branding-services.jpeg"
     },
     {
       category: "Specialized Production",
       title: "Video Production",
       description: "Streamlined production systems for cinematic quality at scale from concept to final delivery",
       price: "$3,000 USD",
-      image: "/images/carousel/video production.jpeg"
+      image: "/images/carousel/video-production.jpeg"
     },
     {
       category: "Specialized Production",
       title: "Motion Design",
       description: "Dynamic visual systems for digital environments including animations, transitions, and effects",
       price: "$1,500 USD",
-      image: "/images/carousel/motion design.jpg"
+      image: "/images/carousel/motion-design.jpg"
     },
     {
       category: "Specialized Production",
       title: "3D & AR Design",
       description: "Immersive experiences with practical implementation for products, spaces, and interactions",
       price: "$4,000 USD",
-      image: "/images/carousel/3D and AR Design .jpeg"
+      image: "/images/carousel/3d-and-ar-design.jpeg"
     },
     {
       category: "AI Engineering",
       title: "RAG System Implementation",
       description: "Custom knowledge systems for specialized applications with enterprise-grade retrieval accuracy",
       price: "$10,000 USD",
-      image: "/images/carousel/RAG system implementation.png"
+      image: "/images/carousel/rag-system-implementation.png"
     },
     {
       category: "AI Engineering",
       title: "LLM Fine-Tuning",
       description: "Precision model adaptation for domain-specific requirements with continuous optimization",
       price: "$15,000 USD",
-      image: "/images/carousel/LLM Fine Tuning.jpeg"
+      image: "/images/carousel/llm-fine-tuning.jpeg"
     },
     {
       category: "AI Engineering",
       title: "AI Pipeline Development",
       description: "End-to-end architecture from ingestion to deployment with scalable infrastructure design",
       price: "$20,000 USD",
-      image: "/images/carousel/ai pipeline development.jpeg"
+      image: "/images/carousel/ai-pipeline-development.jpeg"
     },
     {
       category: "AI Engineering",
       title: "AI-Enhanced Creative",
       description: "Human expertise multiplied by computational intelligence for unprecedented creative output",
       price: "$2,000 USD",
-      image: "/images/carousel/ai enhanced creative .jpg"
+      image: "/images/carousel/ai-enhanced-creative.jpg"
     }
   ];
 

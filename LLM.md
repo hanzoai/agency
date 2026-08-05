@@ -127,11 +127,11 @@ Case studies are a key part of the website and follow a consistent pattern:
   - Intelligent Systems (ai-nodes.svg)
   - Predictive Analytics (data-wave.svg)
   - Custom Development (code-blocks.svg)
-- Displays partner logos for AI models and cloud platforms
-- Implemented robust image error handling:
-  - Loading states with skeleton placeholders
-  - Error fallbacks showing label text if images fail to load
-  - Lazy loading for better performance
-  - Console logging for debugging image load failures
+- Displays the frontier models and platforms we build on (a tools-we-use strip,
+  not a partner claim)
+- The three feature-card graphics render as plain `<img>`. They deliberately
+  carry no `loading="lazy"` and no skeleton: a lazy image that starts life
+  `display:none` never fires `onLoad`, so the skeleton used to latch on
+  forever and the cards showed empty. These SVGs are bundled — there is
+  nothing to wait for and nothing to fall back to.
 - All images stored in `public/images/logo/` and `public/images/graphics/`
-- Test page available at `/test-ai-capabilities-images.html` to verify all images load correctly

@@ -187,9 +187,6 @@ const ServicesPage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-gray-800 p-8 rounded-lg border border-gray-700">
-                <div className="flex items-center gap-3 mb-6">
-                  <img src="/images/casper/logo.png" alt="Casper" className="h-8" />
-                </div>
                 <p className="text-gray-300 mb-4">
                   "Hanzo's AI-enhanced creative approach helped us increase our conversion rates by 65% while maintaining our brand identity."
                 </p>
@@ -197,9 +194,6 @@ const ServicesPage: React.FC = () => {
               </div>
 
               <div className="bg-gray-800 p-8 rounded-lg border border-gray-700">
-                <div className="flex items-center gap-3 mb-6">
-                  <img src="/images/triller/logo.png" alt="Triller" className="h-8" />
-                </div>
                 <p className="text-gray-300 mb-4">
                   "The team at Hanzo delivered exceptional creative assets that helped us stand out in a crowded marketplace."
                 </p>
@@ -207,9 +201,6 @@ const ServicesPage: React.FC = () => {
               </div>
 
               <div className="bg-gray-800 p-8 rounded-lg border border-gray-700">
-                <div className="flex items-center gap-3 mb-6">
-                  <img src="/images/damon/logo.png" alt="Damon Motorcycles" className="h-8" />
-                </div>
                 <p className="text-gray-300 mb-4">
                   "Hanzo's work on our brand and marketing materials directly contributed to our successful launch and funding rounds."
                 </p>

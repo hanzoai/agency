@@ -34,7 +34,7 @@ const Platform = () => {
       title: "Community-Driven",
       description: "Join thousands of developers building the future of deployment infrastructure together.",
       icon: <Users className="h-6 w-6" />,
-      link: "https://discord.gg/hanzoai"
+      link: "https://discord.gg/XthHQQj"
     }
   ];
 

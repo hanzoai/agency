@@ -1,4 +1,5 @@
-import { analytics } from '@/utils/analytics';
+import { EVENTS } from '@hanzo/event';
+import { analytics } from '@/analytics';
 
 // --- Commerce API (Square, crypto, wire) ---
 
@@ -82,7 +83,12 @@ export const formatCurrency = (amount: number): string => {
   }).format(amount / 100);
 };
 
-// Track successful purchase (to be called on success page)
+// Track successful purchase (to be called on success page). ONE event for the
+// moment money changed hands — the pack is a PROPERTY, never part of the name.
 export const trackPurchaseSuccess = (sessionId: string, products: any[], totalAmount: number) => {
-  analytics.trackPurchase(sessionId, products, totalAmount);
+  analytics.capture(
+    EVENTS.ORDER_COMPLETED,
+    { orderId: sessionId, items: products },
+    { revenue: totalAmount, currency: 'USD', quantity: products.length },
+  );
 };

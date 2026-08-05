@@ -1,0 +1,29 @@
+name: CI
+# Moved from .github/workflows/ci.yml. This forge collects workflows from the
+# FIRST of WORKFLOW_DIRS that exists, so once .hanzo/workflows/deploy.yml landed,
+# anything left under .github/workflows stopped running here — silently, with a
+# green repo. The PR gate lives where the deploy lives, and on our own pool
+# rather than ubuntu-latest, which no runner in this fleet answers.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: hanzo-build-linux-amd64
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build

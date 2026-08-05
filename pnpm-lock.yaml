@@ -15,6 +15,9 @@ importers:
 
   .:
     dependencies:
+      '@hanzo/event':
+        specifier: ^0.3.11
+        version: 0.3.11(react@18.3.1)
       '@hookform/resolvers':
         specifier: ^3.10.0
         version: 3.10.0(react-hook-form@7.71.2(react@18.3.1))
@@ -433,6 +436,14 @@ packages:
 
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
+
+  '@hanzo/event@0.3.11':
+    resolution: {integrity: sha512-HLdDWZPPonel3HPgmDOQ+LqXPV8hPEMZFGnXlFT2gPQq+MxcHgAY482Y9jHCCKwLFo8v805FZ81ylTlBAl5RVQ==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
 
   '@hookform/resolvers@3.10.0':
     resolution: {integrity: sha512-79Dv+3mDF7i+2ajj7SkypSKHhl1cbln1OGavqrsF7p6mbUv11xpqpacPsGDCTRvCSjEEIez2ef1NveSVL3b0Ag==}
@@ -2585,6 +2596,10 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
 
   '@floating-ui/utils@0.2.11': {}
+
+  '@hanzo/event@0.3.11(react@18.3.1)':
+    optionalDependencies:
+      react: 18.3.1
 
   '@hookform/resolvers@3.10.0(react-hook-form@7.71.2(react@18.3.1))':
     dependencies:

@@ -37,21 +37,18 @@ import EmailInvitation from "./pages/EmailInvitation";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancel from "./pages/PaymentCancel";
 import Platform from "./pages/Platform";
-import { initializeAnalytics, analytics } from "./utils/analytics";
+import { Analytics } from "./analytics";
 
 const queryClient = new QueryClient();
 
-// Initialize analytics
-initializeAnalytics();
-
-// Scroll to top component that will be used on route changes
+// Scroll position, and nothing else. Counting the navigation is <Analytics>'s
+// job — one component per concern, and one pageview per route change rather than
+// one from here and another from the provider.
 function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // Track page navigation
-    analytics.trackPageView(pathname, document.title);
   }, [pathname]);
 
   return null;
@@ -63,48 +60,52 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <ScrollToTop />
-        <NewHeader />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/subscribe" element={<Subscribe />} />
-          <Route path="/onboarding" element={<OnboardingForm />} />
-          <Route path="/onboarding-success" element={<OnboardingSuccess />} />
-          <Route path="/our-work" element={<OurWork />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/solutions" element={<SolutionsPage />} />
-          <Route path="/services/*" element={<ServicesPage />} />
-          <Route path="/capabilities/*" element={<SolutionsPage />} />
-          <Route path="/industries/*" element={<SolutionsPage />} />
-          <Route path="/case-studies" element={<Navigate to="/our-work" replace />} />
-          <Route path="/case-study/:id" element={<CaseStudy />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/instant-site-form" element={<InstantSiteForm />} />
-          <Route path="/instant-site-success" element={<InstantSiteSuccess />} />
-          <Route path="/enterprise" element={<Enterprise />} />
-          <Route path="/platform" element={<Platform />} />
+        {/* Inside the router: <Analytics> counts one pageview per client-side
+            route change, and a route change here never touches the network. */}
+        <Analytics>
+          <ScrollToTop />
+          <NewHeader />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/subscribe" element={<Subscribe />} />
+            <Route path="/onboarding" element={<OnboardingForm />} />
+            <Route path="/onboarding-success" element={<OnboardingSuccess />} />
+            <Route path="/our-work" element={<OurWork />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/solutions" element={<SolutionsPage />} />
+            <Route path="/services/*" element={<ServicesPage />} />
+            <Route path="/capabilities/*" element={<SolutionsPage />} />
+            <Route path="/industries/*" element={<SolutionsPage />} />
+            <Route path="/case-studies" element={<Navigate to="/our-work" replace />} />
+            <Route path="/case-study/:id" element={<CaseStudy />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/instant-site-form" element={<InstantSiteForm />} />
+            <Route path="/instant-site-success" element={<InstantSiteSuccess />} />
+            <Route path="/enterprise" element={<Enterprise />} />
+            <Route path="/platform" element={<Platform />} />
 
-          {/* Credit System Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/purchase-credits" element={<PurchaseCredits />} />
-          <Route path="/redeem/:serviceId" element={<RedeemService />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/add-payment-method" element={<AddPaymentMethod />} />
-          <Route path="/admin-invite" element={<EmailInvitation />} />
-          <Route path="/success" element={<PaymentSuccess />} />
-          <Route path="/cancel" element={<PaymentCancel />} />
+            {/* Credit System Routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/purchase-credits" element={<PurchaseCredits />} />
+            <Route path="/redeem/:serviceId" element={<RedeemService />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/add-payment-method" element={<AddPaymentMethod />} />
+            <Route path="/admin-invite" element={<EmailInvitation />} />
+            <Route path="/success" element={<PaymentSuccess />} />
+            <Route path="/cancel" element={<PaymentCancel />} />
 
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/cookies" element={<Cookies />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/cookies" element={<Cookies />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Analytics>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

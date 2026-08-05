@@ -12,7 +12,8 @@ import {
 } from 'lucide-react';
 import { formatCurrency } from '@/lib/commerce';
 import { useToast } from '@/hooks/use-toast';
-import { analytics } from '@/utils/analytics';
+import { EVENTS } from '@hanzo/event';
+import { analytics } from '@/analytics';
 
 const PurchaseCredits = () => {
   const navigate = useNavigate();
@@ -28,9 +29,6 @@ const PurchaseCredits = () => {
       navigate('/login');
       return;
     }
-
-    // Track page view
-    analytics.trackPageView('/purchase-credits', 'Purchase Credits');
   }, [navigate]);
 
   const creditPacks = [
@@ -82,22 +80,14 @@ const PurchaseCredits = () => {
     setSelectedPack(packId);
     const pack = creditPacks.find(p => p.id === packId);
     if (pack) {
-      // Track product selection
-      analytics.trackProductView({
-        id: pack.id,
-        name: `${pack.credits} Credits Pack`,
-        category: 'credit_packs',
-        price: pack.price
-      });
-
-      // Track add to cart
-      analytics.trackAddToCart({
-        id: pack.id,
-        name: `${pack.credits} Credits Pack`,
-        category: 'credit_packs',
-        price: pack.price,
-        quantity: 1
-      });
+      // ONE event for one click. "Viewed the pack" and "added it to a cart" are
+      // the same user-visible moment on this page — there is no cart — so
+      // emitting both would inflate intent twice over.
+      analytics.capture(
+        EVENTS.PLAN_CLICKED,
+        { plan: pack.id, credits: pack.credits, category: 'credit_packs' },
+        { productId: pack.id, quantity: 1, revenue: pack.price, currency: 'USD' },
+      );
     }
   };
 

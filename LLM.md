@@ -3,6 +3,17 @@
 ## Project Overview
 This project is a React application built with TypeScript, Vite, shadcn-ui, and Tailwind CSS. It's a portfolio website for Hanzo AI agency showcasing their case studies and services.
 
+## How it ships
+`.hanzo/workflows/deploy.yml` on the git.hanzo.ai forge (`hanzo-build-linux-amd64`):
+build `dist` -> `POST /v1/projects/agency/deploy` (202, queued) -> `aws s3 sync`
+to the bucket+prefix cloud names in that 202 -> `POST .../complete {"status":"live"}`.
+The bytes never pass through the API; BodyLimit is 16 MiB. No GitHub Pages, no
+Cloudflare Pages, and no image -- a static export has no compute to run.
+
+Telemetry is `@hanzo/event` (`src/analytics.tsx`, mounted inside the router in `src/App.tsx`) posting to `api.hanzo.ai/v1/event`. One
+client for pageviews, events and errors: no GA, no Meta Pixel, no Plausible, no
+separate error SDK.
+
 ## Project Structure
 - `/src`: Main source code
   - `/components`: Reusable UI components

@@ -13,7 +13,7 @@ const HOST = 'https://api.hanzo.ai'
  *  visitor here is logged out, so no bearer can ride the request and this
  *  write-only, bundle-safe key IS how anonymous pageviews and errors resolve to an
  *  org. Unset → events are best-effort and dropped at the edge. */
-const INGEST_KEY = import.meta.env.VITE_EVENT_INGEST_KEY?.trim() || undefined
+const INGEST_KEY = import.meta.env.VITE_PUBLISHABLE_KEY?.trim() || undefined
 
 /** Honor an explicit browser opt-out — Global Privacy Control first, then legacy
  *  DNT. Opting out suppresses pageviews AND errors. */

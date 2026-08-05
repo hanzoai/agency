@@ -46,7 +46,7 @@ jobs:
 
       - name: build the static export
         env:
-          VITE_EVENT_INGEST_KEY: ${{ secrets.EVENT_INGEST_KEY }}
+          VITE_PUBLISHABLE_KEY: ${{ secrets.PUBLISHABLE_KEY }}
         run: |
           set -euo pipefail
           # pnpm-lock.yaml is lockfileVersion 9.0 and package.json pins

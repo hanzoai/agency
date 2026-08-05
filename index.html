@@ -5,10 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hanzo | AI-Powered Solutions</title>
     <meta name="description" content="The human edge for AI. We build tomorrow's solutions with today's teams." />
-    <meta name="author" content="Hanzo Industries Inc." />
-    <meta property="og:image" content="/og-image.png" />
+    <meta name="author" content="Hanzo AI, Inc." />
+
+    <!-- Absolute, because scrapers do not resolve relative og:image. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hanzo.agency/" />
+    <meta property="og:title" content="Hanzo | AI-Powered Solutions" />
+    <meta property="og:description" content="The human edge for AI. We build tomorrow's solutions with today's teams." />
+    <meta property="og:image" content="https://hanzo.agency/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://hanzo.agency/og-image.png" />
+
+    <!-- The Hanzo mark, from @hanzo/logo. The SVG carries its own
+         prefers-color-scheme rule; the ICO is opaque so it stays legible
+         on a dark tab strip, where a transparent black mark disappears. -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="alternate icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <!-- No analytics tags here. Telemetry is @hanzo/event, mounted in src/App.tsx
          and posted to api.hanzo.ai/v1/event — one client, one stream, no
          third-party script loading from this page. -->

@@ -20,7 +20,11 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="bg-black text-white">
+    // overflow-x-clip: the decorative blurs below sit at -right-20 and animate
+    // outward, so their right edge lands past the viewport and the whole
+    // document scrolls sideways at >=sm. Clip rather than hide -- `hidden`
+    // would force overflow-y to auto and make this a scroll container.
+    <div className="bg-black text-white overflow-x-clip">
       {/* Main Hero Section */}
       <div className="min-h-screen flex flex-col pt-16">
         <div className="flex-grow flex items-center">

@@ -55,7 +55,7 @@ const Platform = () => {
               Hanzo Platform
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-              The open-source deployment platform that gives you the power of Vercel with the freedom to run anywhere.
+              The open-source deployment platform: push-to-deploy the moment you commit, with the freedom to run it anywhere.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="https://github.com/hanzoai/platform" target="_blank">

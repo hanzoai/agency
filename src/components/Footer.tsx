@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowUpRight, Instagram, Facebook, Twitter, Github, MessageSquare, Mail, MapPin, Phone, ArrowRight, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { contact } from '@/data/contact';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -197,18 +198,18 @@ const Footer = () => {
               <li className="flex items-start gap-3 group hover:translate-x-1 transition-transform duration-200">
                 <MapPin size={20} className="text-gray-400 mt-1 flex-shrink-0 group-hover:text-primary transition-colors duration-200" />
                 <span className="text-gray-400 group-hover:text-white transition-colors duration-200">
-                  Hanzo Industries, Inc.<br />
-                  1828 Golden Gate Ave<br />
-                  San Francisco, CA 94115
+                  {contact.entity}<br />
+                  {contact.address[0]}<br />
+                  {contact.address[1]}
                 </span>
               </li>
               <li className="flex items-center gap-3 group hover:translate-x-1 transition-transform duration-200">
                 <Mail size={20} className="text-gray-400 flex-shrink-0 group-hover:text-primary transition-colors duration-200" />
-                <a href="mailto:hi@hanzo.agency" className="text-gray-400 group-hover:text-white transition-colors duration-200">hi@hanzo.agency</a>
+                <a href={`mailto:${contact.email}`} className="text-gray-400 group-hover:text-white transition-colors duration-200">{contact.email}</a>
               </li>
               <li className="flex items-center gap-3 group hover:translate-x-1 transition-transform duration-200">
                 <Phone size={20} className="text-gray-400 flex-shrink-0 group-hover:text-primary transition-colors duration-200" />
-                <a href="tel:+14153732496" className="text-gray-400 group-hover:text-white transition-colors duration-200">+1 415 373 2496</a>
+                <a href={contact.phoneHref} className="text-gray-400 group-hover:text-white transition-colors duration-200">{contact.phone}</a>
               </li>
             </ul>
           </div>
@@ -217,7 +218,7 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-500 mb-6 md:mb-0 flex items-center">
-            <span>© {currentYear} Hanzo Industries Inc.</span>
+            <span>© {currentYear} {contact.entity}</span>
             <span className="mx-2 text-gray-700">•</span>
             <span className="flex items-center text-primary/80">
               <span className="mr-1">Made with</span>

@@ -2,6 +2,7 @@
 
 import Footer from '@/components/Footer';
 import { ArrowUpRight, Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { contact } from '@/data/contact';
 
 const Contact = () => {
   return (
@@ -17,14 +18,14 @@ const Contact = () => {
               <h2 className="text-2xl font-bold mb-4">Contact Information</h2>
               <div className="space-y-3 mb-8 text-primary/80">
                 <p>
-                  Hanzo Industries, Inc.<br/>
-                  500 Market Street, Suite 800<br/>
-                  San Francisco, CA 94105<br/>
+                  {contact.entity}<br/>
+                  {contact.address[0]}<br/>
+                  {contact.address[1]}<br/>
                   United States
                 </p>
                 <p>
-                  hello.verywell@gmail.com<br/>
-                  (+65) 13370-9976
+                  <a href={`mailto:${contact.email}`} className="hover:text-primary transition-colors">{contact.email}</a><br/>
+                  <a href={contact.phoneHref} className="hover:text-primary transition-colors">{contact.phone}</a>
                 </p>
               </div>
               <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="lets-talk-btn">

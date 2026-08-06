@@ -10,7 +10,6 @@ import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
 import AICapabilities from '@/components/AICapabilities';
-// import ModernTestimonials from '@/components/ModernTestimonials';
 import StatsSection from '@/components/StatsSection';
 
 const Index = () => {

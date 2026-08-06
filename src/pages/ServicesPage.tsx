@@ -175,43 +175,8 @@ const ServicesPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Testimonials */}
-        <div className="py-20 bg-gray-900 border-t border-gray-800">
-          <div className="container-custom">
-            <div className="max-w-4xl mx-auto text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">Trusted by Industry Leaders</h2>
-              <p className="text-xl text-gray-300">
-                Our solutions have helped companies achieve remarkable results.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-gray-800 p-8 rounded-lg border border-gray-700">
-                <p className="text-gray-300 mb-4">
-                  "Hanzo's AI-enhanced creative approach helped us increase our conversion rates by 65% while maintaining our brand identity."
-                </p>
-                <p className="font-medium">Marketing Director, Casper</p>
-              </div>
-
-              <div className="bg-gray-800 p-8 rounded-lg border border-gray-700">
-                <p className="text-gray-300 mb-4">
-                  "The team at Hanzo delivered exceptional creative assets that helped us stand out in a crowded marketplace."
-                </p>
-                <p className="font-medium">CMO, Triller</p>
-              </div>
-
-              <div className="bg-gray-800 p-8 rounded-lg border border-gray-700">
-                <p className="text-gray-300 mb-4">
-                  "Hanzo's work on our brand and marketing materials directly contributed to our successful launch and funding rounds."
-                </p>
-                <p className="font-medium">CEO, Damon Motorcycles</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* CTA Section */}
-        <div className="py-20 bg-black">
+        <div className="py-20 bg-black border-t border-gray-800">
           <div className="container-custom">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-4xl font-bold mb-4">Ready to Transform Your Creative Process?</h2>

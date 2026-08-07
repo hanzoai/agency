@@ -9,11 +9,25 @@ import { AnalyticsProvider, usePageview } from '@hanzo/event/react'
  *  never sends the org; Cloud resolves the tenant from the publishable key. */
 const HOST = 'https://api.hanzo.ai'
 
-/** Publishable ingest key (pk_…), minted per org via POST /v1/ingest/keys. Every
- *  visitor here is logged out, so no bearer can ride the request and this
- *  write-only, bundle-safe key IS how anonymous pageviews and errors resolve to an
- *  org. Unset → events are best-effort and dropped at the edge. */
-const INGEST_KEY = import.meta.env.VITE_PUBLISHABLE_KEY?.trim() || undefined
+/** Publishable ingest key. Every visitor here is logged out, so no bearer can ride
+ *  the request and this write-only, bundle-safe key IS how anonymous pageviews and
+ *  errors resolve to an org.
+ *
+ *  DECLARED, with the env var as an override rather than the source. It was only
+ *  `secrets.PUBLISHABLE_KEY` from the deploy lane, that secret is not set, and an
+ *  unset secret is the empty string — so every build has shipped `undefined` and
+ *  this site has recorded nothing. A fetched value reaches only the lanes that
+ *  remember to fetch it; a default reaches every lane, including one nobody edits.
+ *
+ *  A publishable key ships in the client bundle by construction, so it is site
+ *  identity rather than a credential — the same reason hanzo.ai declares its own.
+ *
+ *  The ORG key, deliberately, not a project key: `product: 'agency'` below is the
+ *  attribution this site wants, and a project key REPLACES product with its own
+ *  slug while the org key leaves it alone. */
+const INGEST_KEY =
+  import.meta.env.VITE_PUBLISHABLE_KEY?.trim() ||
+  'pk-live-3489a31d546129d700ed0ea66173c8d7'
 
 /** Honor an explicit browser opt-out — Global Privacy Control first, then legacy
  *  DNT. Opting out suppresses pageviews AND errors. */

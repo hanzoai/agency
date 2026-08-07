@@ -64,6 +64,31 @@ jobs:
           cp dist/index.html dist/404.html
           echo "exported $(find dist -type f | wc -l) files"
 
+          # Assert on the BYTES THAT SHIP, because everything upstream of here can
+          # look correct while the export carries no key. That is not
+          # hypothetical: VITE_PUBLISHABLE_KEY came from an unset secret, Vite
+          # substituted the empty string, and every build published a bundle that
+          # posts anonymously and is refused at the door — green, silent, dark.
+          key=$(grep -rhoE 'pk-[A-Za-z0-9_-]{16,}' dist/assets | head -1 || true)
+          [ -n "$key" ] || {
+            echo "::error::no pk- publishable key in dist/assets — this bundle would 401 every anonymous event; refusing to publish"
+            exit 1
+          }
+          # Shape is not liveness. A key can be perfectly formed and name a
+          # deleted project, which is how three other hosts went dark for weeks
+          # while their builds stayed green. An empty batch is a no-op the door
+          # still authenticates: 200 live, 403 naming no project, 401 unreadable.
+          # Fail closed on an answer, warn on none — an unreachable door is a fact
+          # about the network, not about the key.
+          code=$(curl -s -o /tmp/door.json -w '%{http_code}' --max-time 20 \
+            -X POST "https://api.hanzo.ai/v1/event?ingest_key=$key" \
+            -H 'content-type: application/json' -d '{"batch":[]}' || echo 000)
+          case "$code" in
+            200) echo "the publishable key in this bundle resolves at the ingest door (200)" ;;
+            000) echo "::warning::could not reach the ingest door; proceeding (network, not the key)" ;;
+            *)   echo "::error::the key in this bundle does not resolve: the door answered $code $(cat /tmp/door.json 2>/dev/null). Publishing would ship a site that loses every event."; exit 1 ;;
+          esac
+
       # ONE credential. The 202 carries a prefix-scoped, 30-minute presigned POST
       # grant, so nothing here holds a bucket key. Do NOT add SITES_S3_* — that is
       # the standing shared-bucket credential the grant replaced, and it could

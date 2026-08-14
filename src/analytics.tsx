@@ -13,21 +13,24 @@ const HOST = 'https://api.hanzo.ai'
  *  the request and this write-only, bundle-safe key IS how anonymous pageviews and
  *  errors resolve to an org.
  *
- *  DECLARED, with the env var as an override rather than the source. It was only
- *  `secrets.PUBLISHABLE_KEY` from the deploy lane, that secret is not set, and an
- *  unset secret is the empty string — so every build has shipped `undefined` and
- *  this site has recorded nothing. A fetched value reaches only the lanes that
- *  remember to fetch it; a default reaches every lane, including one nobody edits.
- *
  *  A publishable key ships in the client bundle by construction, so it is site
- *  identity rather than a credential — the same reason hanzo.ai declares its own.
+ *  identity rather than a credential.
  *
- *  The ORG key, deliberately, not a project key: `product: 'agency'` below is the
- *  attribution this site wants, and a project key REPLACES product with its own
- *  slug while the org key leaves it alone. */
-const INGEST_KEY =
-  import.meta.env.VITE_PUBLISHABLE_KEY?.trim() ||
-  'pk-live-3489a31d546129d700ed0ea66173c8d7'
+ *  This used to carry a literal as a default, on the reasoning that a fetched
+ *  value reaches only the lanes that remember to fetch it while a default reaches
+ *  every lane. True, and it still cost more than it paid: the literal named no
+ *  project, so `POST /v1/event` answered 403 ingest_key_unknown for it. A default
+ *  that does not resolve buys nothing — the site records exactly as little as it
+ *  would with no key — and it costs two things. Analytics fails quietly, in the
+ *  browser, where nobody is looking. And the deploy lane greps the built bundle
+ *  for the FIRST `pk-` it finds, so a second key sitting in the file could be the
+ *  one it tests, making the gate's verdict about a string nothing sends.
+ *
+ *  So: one key, from the lane that owns it, and no fallback. Absent means the
+ *  build fails naming the absence, which is the loud version of the same fact.
+ *  ⚠ A default here is only ever safe if something proves it still resolves;
+ *  restoring an unverified literal restores this bug. */
+const INGEST_KEY = import.meta.env.VITE_PUBLISHABLE_KEY?.trim() ?? ''
 
 /** Honor an explicit browser opt-out — Global Privacy Control first, then legacy
  *  DNT. Opting out suppresses pageviews AND errors. */

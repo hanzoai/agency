@@ -18,6 +18,9 @@ importers:
       '@hanzo/event':
         specifier: ^0.3.11
         version: 0.3.11(react@18.3.1)
+      '@hanzo/plans':
+        specifier: 1.4.12
+        version: 1.4.12
       '@hookform/resolvers':
         specifier: ^3.10.0
         version: 3.10.0(react-hook-form@7.71.2(react@18.3.1))
@@ -444,6 +447,9 @@ packages:
     peerDependenciesMeta:
       react:
         optional: true
+
+  '@hanzo/plans@1.4.12':
+    resolution: {integrity: sha512-jufyhOTaCyPAVUIb+kZuz42LvrDksSrkAev3gMoVSID2Dj4kOwpf9/rvxpUs2z1RhPwJjDH6cSeLHSzuTgqxvA==}
 
   '@hookform/resolvers@3.10.0':
     resolution: {integrity: sha512-79Dv+3mDF7i+2ajj7SkypSKHhl1cbln1OGavqrsF7p6mbUv11xpqpacPsGDCTRvCSjEEIez2ef1NveSVL3b0Ag==}
@@ -2600,6 +2606,8 @@ snapshots:
   '@hanzo/event@0.3.11(react@18.3.1)':
     optionalDependencies:
       react: 18.3.1
+
+  '@hanzo/plans@1.4.12': {}
 
   '@hookform/resolvers@3.10.0(react-hook-form@7.71.2(react@18.3.1))':
     dependencies:

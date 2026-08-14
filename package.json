@@ -1,7 +1,7 @@
 {
   "name": "hanzo-agency",
   "private": true,
-  "version": "0.1.4",
+  "version": "0.1.5",
   "packageManager": "pnpm@9.15.4",
   "type": "module",
   "scripts": {
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@hanzo/event": "^0.3.11",
+    "@hanzo/plans": "1.4.12",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",

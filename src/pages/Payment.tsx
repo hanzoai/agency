@@ -7,6 +7,7 @@ import { Check, Lock, Mail, Loader2, CreditCard, Coins, Landmark } from 'lucide-
 import { useLocation, Link } from 'react-router-dom';
 import { createCommerceCheckout, type PaymentMethod, type CommerceCheckoutResult } from '@/lib/commerce';
 import { useToast } from '@/hooks/use-toast';
+import { planById } from '@/data/plans';
 
 const PAYMENT_METHODS: { value: PaymentMethod; label: string; icon: React.ElementType; desc: string }[] = [
   { value: 'card', label: 'Card (Square)', icon: CreditCard, desc: 'Visa, Mastercard, Amex' },
@@ -20,7 +21,7 @@ const Payment = () => {
   const [wireInstructions, setWireInstructions] = useState<Record<string, unknown> | null>(null);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const plan = (searchParams.get('plan') || 'agency') as 'agency' | 'instant-site' | 'enterprise';
+  const plan = planById(searchParams.get('plan'));
   const { toast } = useToast();
 
   const [formData, setFormData] = useState({
@@ -43,7 +44,7 @@ const Payment = () => {
     setWireInstructions(null);
 
     try {
-      const result: CommerceCheckoutResult = await createCommerceCheckout(plan, {
+      const result: CommerceCheckoutResult = await createCommerceCheckout(plan.id, {
         email: formData.email,
         name: formData.name,
         paymentMethod,
@@ -66,58 +67,30 @@ const Payment = () => {
     }
   };
 
-  const getPlanDetails = () => {
-    if (plan === 'instant-site') {
-      return {
-        name: 'Instant Site',
-        price: 500,
-        recurring: false,
-        description: '3-page website in 24 hours',
-        features: [
-          'Custom-built 3-page website',
-          'Up to 10 premium images',
-          '24-hour turnaround',
-          '1 design revision',
-          'Lifetime ownership',
-        ],
-      };
-    }
-
-    if (plan === 'enterprise') {
-      return {
-        name: 'Enterprise',
-        price: 9999,
-        recurring: true,
-        description: 'Dedicated team, priority everything',
-        features: [
-          'Everything in Agency Service, plus:',
-          'Dedicated full-stack team (4+ creatives)',
-          'Unlimited custom AI agents',
-          '240+ hours dedicated per month',
-          'Same-day priority turnaround',
-          'Video production (up to 4/month)',
-          '3D, AR, and immersive design',
-          'AI consulting & marketing strategy',
-        ],
-      };
-    }
-
-    return {
-      name: 'Agency Service',
-      price: 9999,
-      recurring: true,
-      description: 'Full-service creative agency',
-      features: [
-        'Dedicated Creative Director',
-        'Dedicated Project Manager',
-        '120 hours per month',
-        'Unlimited revisions',
-        'Full copyright ownership',
-      ],
-    };
-  };
-
-  const planDetails = getPlanDetails();
+  // No plan, no checkout. A ?plan= that names nothing we sell has no price to
+  // put in front of someone, so ask for one rather than choose one for them.
+  if (!plan) {
+    return (
+      <>
+        <main className="pt-32 pb-20 bg-black text-white min-h-screen">
+          <div className="container-custom max-w-xl text-center">
+            <h1 className="text-3xl font-bold mb-4">Pick a plan first</h1>
+            <p className="text-gray-400 mb-8">
+              That link does not name a plan we sell. Our current plans and prices are on the
+              pricing page.
+            </p>
+            <Link
+              to="/pricing"
+              className="inline-flex items-center justify-center rounded-full px-8 py-3 text-base font-medium bg-white text-black hover:bg-white/90 transition-colors"
+            >
+              See pricing
+            </Link>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -287,12 +260,12 @@ const Payment = () => {
                     <span className="text-2xl font-bold text-white">H</span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold">{planDetails.name}</h3>
-                    <p className="text-sm text-gray-400">{planDetails.description}</p>
+                    <h3 className="font-semibold">{plan.name}</h3>
+                    <p className="text-sm text-gray-400">{plan.description}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold">${planDetails.price.toLocaleString()}</p>
-                    {planDetails.recurring && <p className="text-sm text-gray-400">/month</p>}
+                    <p className="font-semibold">${plan.priceMonthly.toLocaleString()}</p>
+                    {!plan.once && <p className="text-sm text-gray-400">/month</p>}
                   </div>
                 </div>
 
@@ -300,17 +273,17 @@ const Payment = () => {
                 <div className="mt-6 space-y-3">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-400">Subtotal</span>
-                    <span>${planDetails.price.toLocaleString()}</span>
+                    <span>${plan.priceMonthly.toLocaleString()}</span>
                   </div>
                   <div className="pt-3 border-t border-gray-800">
                     <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
                       <span className="flex items-center">
                         <span className="text-sm text-gray-400 mr-2">USD</span>
-                        ${planDetails.price.toLocaleString()}
+                        ${plan.priceMonthly.toLocaleString()}
                       </span>
                     </div>
-                    {planDetails.recurring && (
+                    {!plan.once && (
                       <p className="text-sm text-gray-400 text-right mt-1">
                         Billed monthly
                       </p>
@@ -322,7 +295,7 @@ const Payment = () => {
                 <div className="mt-8">
                   <h3 className="font-semibold mb-4">What's included:</h3>
                   <ul className="space-y-3">
-                    {planDetails.features.map((feature, index) => (
+                    {plan.features.map((feature, index) => (
                       <li key={index} className="flex items-start gap-3 text-sm">
                         <Check className="h-4 w-4 text-white mt-0.5 flex-shrink-0" />
                         <span className="text-gray-300">{feature}</span>

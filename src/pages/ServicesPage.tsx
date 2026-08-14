@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Check } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { services } from '@/data/services';
+import { planById, priceLabel } from '@/data/plans';
 import ServiceTemplate from './services/ServiceTemplate';
 
 // Service category interface
@@ -131,7 +132,7 @@ const ServicesPage: React.FC = () => {
               <div className="bg-gray-800 border border-gray-700 rounded-2xl overflow-hidden">
                 <div className="p-8 bg-blue-600 text-center">
                   <h3 className="text-3xl font-bold mb-2">Enterprise Plan</h3>
-                  <div className="text-5xl font-bold my-6">$9,999<span className="text-xl font-normal">/month</span></div>
+                  <div className="text-5xl font-bold my-6">{priceLabel(planById('enterprise'))}<span className="text-xl font-normal">/month</span></div>
                   <p className="text-lg opacity-90">Billed monthly. Cancel anytime.</p>
                 </div>
 
@@ -186,7 +187,7 @@ const ServicesPage: React.FC = () => {
 
               <div className="flex flex-wrap justify-center gap-4">
                 <a href="https://auth.hanzo.ai" className="bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-white/90 inline-flex items-center text-lg">
-                  Sign Up for $9,999/month <ArrowRight className="ml-2 h-5 w-5" />
+                  Sign Up for {priceLabel(planById('enterprise'))}/month <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
                 <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="border border-white px-8 py-4 rounded-full font-medium hover:bg-white/10 inline-flex items-center text-lg">
                   Schedule a Consultation

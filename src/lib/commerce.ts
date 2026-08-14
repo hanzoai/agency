@@ -1,5 +1,6 @@
 import { EVENTS } from '@hanzo/event';
 import { analytics } from '@/analytics';
+import { amount, planById } from '@/data/plans';
 
 // --- Commerce API (Square, crypto, wire) ---
 
@@ -11,31 +12,8 @@ export type CommerceCheckoutResult =
   | { type: 'redirect'; url: string; sessionId: string }
   | { type: 'wire'; instructions: Record<string, unknown> };
 
-// Plan configuration for agency checkout
-const PLAN_CONFIG: Record<string, {
-  name: string;
-  price: number;
-  amount: number;
-}> = {
-  'agency': {
-    name: 'Agency Service',
-    price: 9999,
-    amount: 999900,
-  },
-  'instant-site': {
-    name: 'Instant Site',
-    price: 500,
-    amount: 50000,
-  },
-  'enterprise': {
-    name: 'Enterprise',
-    price: 9999,
-    amount: 999900,
-  },
-};
-
 export async function createCommerceCheckout(
-  plan: string,
+  planId: string,
   options: { email: string; name: string; paymentMethod?: PaymentMethod }
 ): Promise<CommerceCheckoutResult> {
   const { email, name, paymentMethod = 'card' } = options;
@@ -47,7 +25,11 @@ export async function createCommerceCheckout(
     return { type: 'wire' as const, instructions: data };
   }
 
-  const config = PLAN_CONFIG[plan];
+  // Named plans only. An id outside the catalogue has no price, and a checkout
+  // is the last place to invent one.
+  const plan = planById(planId);
+  if (!plan) throw new Error(`Unknown plan: ${planId}`);
+
   const res = await fetch(`${COMMERCE_API}/checkout/sessions`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -57,8 +39,8 @@ export async function createCommerceCheckout(
       currency: 'USD',
       customer: { email, name },
       items: [{
-        name: config?.name || plan,
-        amount: config?.amount || 999900,
+        name: plan.name,
+        amount: amount(plan),
         quantity: 1,
       }],
       successUrl: `${window.location.origin}/onboarding-success`,

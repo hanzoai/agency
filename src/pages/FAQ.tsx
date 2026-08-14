@@ -2,12 +2,21 @@ import React, { useState } from 'react';
 import Footer from '@/components/Footer';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { planById, priceLabel, seatPrice } from '@/data/plans';
 
-// Updated FAQ data with only one pricing plan at $9,999/mo
+// Prices come from src/data/plans.ts. Typing them into an answer is how the FAQ
+// went on quoting a plan the pricing page had stopped selling.
+const agency = planById('agency');
+const advisory = planById('advisory');
+
 const faqData = [
   {
-    question: "What do I get for the $9,999/month Agency Service package?",
-    answer: "With our $9,999/month Agency Service, you get a full-service creative and marketing team. This includes a dedicated Creative Director, Project Manager, 2 specialized creatives working simultaneously, 120 hours of dedicated work per month, 2 custom brand-trained AI agents, 24-hour turnaround for basic requests, access to 100+ creative services, full copyright ownership, unlimited revisions & requests, and 4 hours of consultation per month."
+    question: `What is included in the ${priceLabel(agency)}/month Agency plan?`,
+    answer: `Agency bundles your cloud usage and your team into one subscription. It includes ${agency.seatsIncluded} seats; additional seats are $${seatPrice}/month each, the same price a Hanzo Team seat costs anywhere else. Seats carry org workspaces with shared history and projects, SSO via Hanzo IAM, and one unified bill.`
+  },
+  {
+    question: `What do I get on Advisory, ${priceLabel(advisory)}/month?`,
+    answer: `Advisory is human AI advisors and the team to build what they advise: a dedicated Creative Director, a Project Manager, 2 specialized creatives working simultaneously, 120 hours of dedicated work per month, 2 custom brand-trained AI agents, 24-hour turnaround for basic requests, access to 100+ creative services, full copyright ownership, unlimited revisions and requests, and 4 hours of consultation per month. ${priceLabel(advisory)} is where Advisory starts; larger engagements are scoped with you.`
   },
   {
     question: "How many revisions can I get per project? Is there a limit?",
@@ -19,7 +28,7 @@ const faqData = [
   },
   {
     question: "What if I want to stop the engagement, how do I cancel?",
-    answer: "Our Agency Service plan requires a 1 quarter (3 month) minimum commitment. After that, you can cancel anytime with 30 days notice. Simply let us know via email or through your client portal, and we'll coordinate the handover of all your assets and materials."
+    answer: "Advisory requires a 1 quarter (3 month) minimum commitment. After that, you can cancel anytime with 30 days notice. Simply let us know via email or through your client portal, and we'll coordinate the handover of all your assets and materials."
   },
   {
     question: "What is your customer support like? What's your office hours?",
@@ -35,7 +44,7 @@ const faqData = [
   },
   {
     question: "How quickly will I receive my designs?",
-    answer: "Basic design requests are delivered within 24 hours with our Agency Service plan. More complex projects like websites or videos follow a detailed timeline established at the beginning of your project. Your Project Manager will provide specific timelines for each deliverable."
+    answer: "Basic design requests are delivered within 24 hours on Advisory. More complex projects like websites or videos follow a detailed timeline established at the beginning of your project. Your Project Manager will provide specific timelines for each deliverable."
   },
   {
     question: "Who owns the copyright to the work?",
@@ -51,7 +60,7 @@ const faqData = [
   },
   {
     question: "Can I upgrade or downgrade my plan?",
-    answer: "Yes, you can upgrade your plan at any time. Downgrades can be processed at the end of your current billing cycle. Please note that the $9,999/month Agency Service plan is our standard offering, but we can customize solutions for larger enterprise needs with additional resources and capabilities."
+    answer: `Yes, you can upgrade at any time. Downgrades take effect at the end of your current billing cycle. Most customers start on Agency at ${priceLabel(agency)}/month and move up to Advisory when they want advisors and a team; larger engagements are scoped with you.`
   }
 ];
 

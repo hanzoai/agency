@@ -7,6 +7,7 @@ import { buttonModifiers } from '@/lib/button-utils';
 import ScrollReveal from '@/utils/ScrollReveal';
 import GlobalMuteButton from '@/components/GlobalMuteButton';
 import { Link } from 'react-router-dom';
+import { planById, priceLabel } from '@/data/plans';
 
 const Enterprise = () => {
   useEffect(() => {
@@ -237,7 +238,7 @@ const Enterprise = () => {
                       </li>
                     </ul>
                     <p className="text-sm text-foreground/70 mt-4">
-                      Flex subscriptions range from $9,999 to $100,000 USD/month.
+                      Flex subscriptions range from ${planById('enterprise').priceMonthly.toLocaleString()} to $100,000 USD/month.
                     </p>
                   </div>
                 </div>

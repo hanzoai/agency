@@ -41,7 +41,7 @@ const Platform = () => {
   const stats = [
     { value: "4.8M+", label: "Deploys per month", trend: "+23%" },
     { value: "150K+", label: "Active developers", trend: "+45%" },
-    { value: "99.9%", label: "Uptime SLA", trend: "Stable" },
+    { value: "Multi-region", label: "Redundancy with automated failover", trend: "Stable" },
     { value: "50ms", label: "Avg deploy time", trend: "-12%" }
   ];
 

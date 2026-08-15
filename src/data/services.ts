@@ -106,7 +106,7 @@ export const engineeringServices: Record<string, Service> = {
     ],
     features: [
       'Multi-cloud expertise (AWS, Azure, GCP)',
-      '99.9% uptime guarantee',
+      'Multi-region redundancy with automated failover',
       'Auto-scaling infrastructure',
       'Cost optimization strategies',
       '24/7 monitoring and support',

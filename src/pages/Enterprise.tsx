@@ -287,7 +287,7 @@ const Enterprise = () => {
                     </li>
                     <li className="flex items-start">
                       <Check className="mr-3 h-5 w-5 text-accent shrink-0 mt-0.5" />
-                      <span>SOC-2 compliance</span>
+                      <span>SOC 2 Type II controls</span>
                     </li>
                     <li className="flex items-start">
                       <Check className="mr-3 h-5 w-5 text-accent shrink-0 mt-0.5" />

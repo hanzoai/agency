@@ -6,9 +6,9 @@ name: deploy
 # image, a push, a tag pinned in a CR and running pods, all to hand back bytes.
 #
 #   build -> dist
-#     -> sitedeploy
+#     -> site
 #
-# The publish mechanics are NOT here. They are bin/sitedeploy in hanzoai/ci,
+# The publish mechanics are NOT here. They are bin/site in hanzoai/ci,
 # reached through its action, and every static surface in the fleet calls that one
 # script — ensure-project, enqueue, presigned per-file upload, complete. A
 # contract transcribed per repo is a contract that drifts, and this file used to
@@ -98,7 +98,7 @@ jobs:
       # the standing shared-bucket credential the grant replaced, and it could
       # overwrite every other org's site.
       - name: Publish to the Sites plane
-        uses: hanzoai/ci/.github/actions/sitedeploy@v1
+        uses: hanzoai/ci/.github/actions/site@v1
         with:
           slug: agency
           dir: dist

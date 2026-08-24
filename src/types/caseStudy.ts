@@ -35,6 +35,6 @@ export interface CaseStudyData {
     links: SocialLink[];
     totalFollowers?: number;
   };
-  relatedProjects: RelatedProject[];
+  relatedProjects?: RelatedProject[];
   ctaTitle?: string;
 }

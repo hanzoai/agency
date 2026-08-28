@@ -4,7 +4,7 @@ const luxNetwork: CaseStudyData = {
   id: "lux-network",
   title: "LUX NETWORK",
   subtitle: "POST-QUANTUM BLOCKCHAIN — SUB-SECOND FINALITY",
-  client: "Lux Partners",
+  client: "Lux Industries Inc",
   services: [
     "Blockchain Architecture",
     "Consensus Engineering",
@@ -33,7 +33,7 @@ const luxNetwork: CaseStudyData = {
   testimonial: {
     quote: "Hanzo built a blockchain that will still be secure when quantum computers arrive. The engineering depth in consensus, cryptography, and infrastructure operations is world-class. Sub-second finality with post-quantum security — no other chain has both.",
     author: "Zach Kelling",
-    role: "Co-founder, Lux Partners"
+    role: "Co-founder, Lux Industries Inc"
   },
   images: [
     "/images/graphics/ai-nodes.svg",

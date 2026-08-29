@@ -39,7 +39,7 @@ jobs:
     # reads — git.hanzo.ai is the only thing that can run it, and its fleet
     # advertises hanzo-build-linux-amd64. An unmatched label is not an error here,
     # it is silence: the job queues until the 24h timeout and nothing says so.
-    runs-on: hanzo-build-linux-amd64
+    runs-on: [hanzo-build-linux-amd64]
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4

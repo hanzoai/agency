@@ -13,8 +13,14 @@ export default defineConfig(({ mode }) => ({
     react(),
   ].filter(Boolean),
   resolve: {
+    // @hanzo/gui renders through react-native-web on the web, and every RNW app
+    // carries these two: react-native-svg's web build imports bare `react-native`,
+    // and its entry only reaches that build when `.web.js` outranks `.js`.
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "react-native": "react-native-web",
+      "@react-native/assets-registry/registry": "react-native-web/dist/modules/AssetRegistry",
     },
+    extensions: ['.web.js', '.web.jsx', '.web.ts', '.web.tsx', '.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json'],
   },
 }));

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { ArrowRight, Github, BookOpen, Cloud, Code, Users, Zap, Server, GitBranch, Database, Shield, Globe } from 'lucide-react';
+import { ArrowRight, BookOpen, Cloud, Code, Users, Zap, Server, GitBranch, Database, Shield, Globe } from 'lucide-react'
+import { Github } from '@hanzo/ui/brands';
 import { Link } from 'react-router-dom';
 
 const Platform = () => {

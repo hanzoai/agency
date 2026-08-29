@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { ArrowUpRight, Instagram, Facebook, Twitter, Github, MessageSquare, Mail, MapPin, Phone, ArrowRight, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, MessageSquare, Mail, MapPin, Phone, ArrowRight, ChevronRight } from 'lucide-react'
+import { Instagram, Facebook, Twitter, Github } from '@hanzo/ui/brands';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {

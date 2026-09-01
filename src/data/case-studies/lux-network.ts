@@ -32,7 +32,7 @@ const luxNetwork: CaseStudyData = {
   ],
   testimonial: {
     quote: "Hanzo built a blockchain that will still be secure when quantum computers arrive. The engineering depth in consensus, cryptography, and infrastructure operations is world-class. Sub-second finality with post-quantum security — no other chain has both.",
-    author: "Zach Kelling",
+    author: "Hanzo AI",
     role: "Co-founder, Lux Industries Inc"
   },
   images: [

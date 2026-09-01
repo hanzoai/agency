@@ -32,7 +32,7 @@ const zooFoundation: CaseStudyData = {
   ],
   testimonial: {
     quote: "Zoo proves that frontier AI research does not require a billion-dollar budget. With the right infrastructure and governance, an open community can push the boundaries of AI while keeping development transparent and accountable. Hanzo built that infrastructure from scratch.",
-    author: "Zach Kelling",
+    author: "Hanzo AI",
     role: "Co-founder, Zoo Labs Foundation"
   },
   images: [

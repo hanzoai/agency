@@ -1,7 +1,8 @@
 
 
 import Footer from '@/components/Footer';
-import { ArrowUpRight, Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react'
+import { Instagram, Facebook, Twitter, Linkedin } from '@hanzo/ui/brands';
 import { contact } from '@/data/contact';
 
 const Contact = () => {

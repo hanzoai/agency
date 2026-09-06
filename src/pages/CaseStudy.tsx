@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 
 import Footer from '@/components/Footer';
-import { ArrowLeft, Globe, Linkedin, Instagram, Facebook, Twitter, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, Globe, ArrowUpRight } from 'lucide-react'
+import { Linkedin, Instagram, Facebook, Twitter } from '@hanzo/ui/brands';
 import GlobalMuteButton from '@/components/GlobalMuteButton';
 import VideoMuteButton from '@/components/VideoMuteButton';
 import caseStudies from '@/data/caseStudies';

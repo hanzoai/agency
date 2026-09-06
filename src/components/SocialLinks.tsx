@@ -1,5 +1,6 @@
 import React from 'react';
-import { Globe, Linkedin, Instagram, Facebook, Twitter, Youtube, MessageCircle, Hash } from 'lucide-react';
+import { Globe, MessageCircle, Hash } from 'lucide-react'
+import { Linkedin, Instagram, Facebook, Twitter, Youtube } from '@hanzo/ui/brands';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export interface SocialLink {

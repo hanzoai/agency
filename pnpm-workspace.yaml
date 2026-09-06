@@ -159,10 +159,14 @@ catalog:
   'simple-icons': '^16.29.0'
   'sonner': '^2.0.8'
   'tailwind-merge': '^3.6.0'
-  'tailwindcss': '^4.3.3'
+  'tailwindcss': '^3.4.17'
   'tailwindcss-animate': '^1.0.7'
   'typescript': '7.0.2'
   'typescript-eslint': '^8.68.0'
   'vaul': '^1.1.2'
   'vite': '^8.2.2'
   'zod': '^4.5.2'
+
+allowBuilds:
+  '@swc/core': true
+  esbuild: true

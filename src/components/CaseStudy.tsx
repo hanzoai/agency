@@ -100,7 +100,7 @@ const CaseStudy = () => {
                         <span className="font-normal italic text-gray-400">{study.subtitle}</span>
                       </h3>
                       <p className="text-gray-400 text-sm leading-[1.6]">
-                        {study.description}
+                        {study.overview[0]}
                       </p>
                       <div className="mt-6 inline-flex items-center text-white hover:text-gray-300 transition-colors">
                         <span className="text-sm font-medium">Explore Case Study</span>

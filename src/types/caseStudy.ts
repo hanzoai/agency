@@ -35,6 +35,7 @@ export interface CaseStudyData {
     links: SocialLink[];
     totalFollowers?: number;
   };
-  relatedProjects: RelatedProject[];
+  /** Derived at read time by getRelatedProjects, not authored. */
+  relatedProjects?: RelatedProject[];
   ctaTitle?: string;
 }

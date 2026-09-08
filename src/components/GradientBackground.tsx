@@ -6,7 +6,7 @@ interface GradientBackgroundProps {
   variant?: GradientVariant;
   intensity?: 'subtle' | 'medium' | 'strong';
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const GradientBackground: React.FC<GradientBackgroundProps> = ({

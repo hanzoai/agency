@@ -1,32 +1,12 @@
-import { useState } from 'react';
 import { ArrowUpRight, Instagram, Facebook, Twitter, Github, MessageSquare, Mail, MapPin, Phone, ArrowRight, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { contact } from '@/data/contact';
-import { analytics } from '@/analytics';
-import { EVENTS } from '@hanzo/event';
+import { WaitlistJoin } from '@hanzo/waitlist';
+import '@hanzo/waitlist/styles.css';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const [email, setEmail] = useState('');
-  const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) return;
-
-    setSubscribeStatus('loading');
-    try {
-      // The address goes to the one telemetry endpoint this site already posts to.
-      // There is no public subscribe endpoint — commerce's subscriber route needs
-      // a token no static site should hold — so this records the intent where
-      // marketing reads it, and says so rather than reporting a list signup.
-      await analytics.capture(EVENTS.WAITLIST_JOINED, { email, source: 'agency-footer' });
-      setSubscribeStatus('success');
-      setEmail('');
-    } catch {
-      setSubscribeStatus('error');
-    }
-  };
 
   return (
     <footer
@@ -52,48 +32,16 @@ const Footer = () => {
           </div>
 
           <div className="flex items-center">
-            <form onSubmit={handleSubscribe} className="w-full max-w-md">
-              <div className="relative">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  className="w-full bg-gray-900 border border-gray-700 text-white px-6 py-4 rounded-full pr-12 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                  disabled={subscribeStatus === 'loading' || subscribeStatus === 'success'}
-                />
-                <button
-                  type="submit"
-                  disabled={subscribeStatus === 'loading' || subscribeStatus === 'success'}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-white p-3 rounded-full hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-150 ease-in-out"
-                >
-                  {subscribeStatus === 'loading' ? (
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  ) : subscribeStatus === 'success' ? (
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  ) : (
-                    <ArrowRight className="w-5 h-5" />
-                  )}
-                </button>
-              </div>
-
-              {subscribeStatus === 'success' && (
-                <p className="mt-2 text-green-500 text-sm animate-fade-in">
-                  Thanks for subscribing! Check your inbox soon.
-                </p>
-              )}
-              {subscribeStatus === 'error' && (
-                <p className="mt-2 text-red-500 text-sm animate-fade-in">
-                  Something went wrong. Please try again.
-                </p>
-              )}
-
-              <p className="mt-3 text-gray-500 text-xs">
-                By subscribing, you agree to our privacy policy and allow us to send you emails. You can unsubscribe at any time.
-              </p>
-            </form>
+            {/* The waitlist is its own product: @hanzo/waitlist speaks
+                 POST /v1/waitlist/join, which Hanzo Base serves. This site
+                 renders it and owns none of the transport. */}
+            <WaitlistJoin
+              waitlist="agency"
+              baseUrl="https://api.hanzo.ai"
+              title=""
+              subtitle=""
+              submitLabel="Subscribe"
+            />
           </div>
         </div>
 

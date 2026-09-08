@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { navigationItems } from "../src/data/navigationItems";
 import { ArrowUpRight, ExternalLink, FileImage, Book, HelpCircle, Palette, Coffee, ChevronDown, Menu, X } from "lucide-react";
 import React from "react";
+import { Wordmark } from "../src/components/Wordmark";
 import "./HeaderDropdown.css";
 
 const NewHeader = () => {
@@ -12,7 +13,6 @@ const NewHeader = () => {
   const [mobileExpandedItems, setMobileExpandedItems] = useState<string[]>([]);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const logoMenuRef = useRef<HTMLDivElement>(null);
-  const logoRef = useRef<HTMLImageElement>(null);
   const navigate = useNavigate();
 
   // Check authentication status
@@ -116,16 +116,7 @@ const NewHeader = () => {
     <div className="w-full bg-black fixed top-0 z-50 border-b border-border/40" role="banner">
       <div className="header-container w-full max-w-[1920px] px-4 mx-auto flex h-16 items-center">
         <div className="logo-container relative mr-6">
-          <Link to="/" className="flex items-center gap-2">
-            <img
-              ref={logoRef}
-              src="/images/logo/logo.png"
-              alt="Hanzo"
-              className="h-6 w-auto object-contain"
-              onContextMenu={handleLogoContextMenu}
-            />
-            <span className="font-bold text-lg text-white whitespace-nowrap">Hanzo</span>
-          </Link>
+          <Wordmark onContextMenu={handleLogoContextMenu} />
 
           {/* Logo context menu */}
           {showLogoMenu && (

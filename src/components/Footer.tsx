@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { contact } from '@/data/contact';
 import { WaitlistJoin } from '@hanzo/waitlist';
 import '@hanzo/waitlist/styles.css';
+import { Wordmark } from './Wordmark';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -50,8 +51,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-4 space-y-6">
             <div className="flex items-center gap-3 group transition-all duration-300 ease-in-out transform hover:translate-x-1">
-              <img src="/images/logo/logo.png" alt="Hanzo" className="h-10 w-auto" />
-              <span className="text-2xl font-semibold tracking-tight text-white">Hanzo</span>
+              <Wordmark size={40} />
             </div>
 
             <p className="text-gray-400 text-lg max-w-md leading-relaxed">

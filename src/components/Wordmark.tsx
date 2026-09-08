@@ -1,3 +1,4 @@
+import type React from 'react';
 import { Link } from 'react-router-dom';
 
 /**
@@ -10,15 +11,24 @@ import { Link } from 'react-router-dom';
  *
  * The mark is the canonical asset. Never redraw it.
  */
-export function Wordmark({ to = '/' }: { to?: string }) {
+export function Wordmark({
+  to = '/',
+  size = 26,
+  onContextMenu,
+}: {
+  to?: string
+  size?: number
+  onContextMenu?: (e: React.MouseEvent) => void
+}) {
   return (
     <Link
       to={to}
       aria-label="Hanzo Agency — home"
+      onContextMenu={onContextMenu}
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: 10,
+        gap: size * 0.38,
         textDecoration: 'none',
         color: 'inherit',
         flexShrink: 0,
@@ -27,8 +37,8 @@ export function Wordmark({ to = '/' }: { to?: string }) {
       <span
         aria-hidden
         style={{
-          width: 26,
-          height: 26,
+          width: size,
+          height: size,
           flexShrink: 0,
           backgroundColor: 'currentColor',
           WebkitMaskImage: 'url(/images/logo/hanzo-logo-white.svg)',
@@ -43,7 +53,7 @@ export function Wordmark({ to = '/' }: { to?: string }) {
       />
       <span
         style={{
-          fontSize: 19,
+          fontSize: size * 0.73,
           letterSpacing: '-0.02em',
           whiteSpace: 'nowrap',
           lineHeight: 1,

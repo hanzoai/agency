@@ -10,7 +10,7 @@ import {
   TrendingUp,
   Shield
 } from 'lucide-react';
-import { formatCurrency } from '@/lib/commerce';
+import { formatCurrency, checkoutUrl } from '@/lib/commerce';
 import { useToast } from '@/hooks/use-toast';
 import { EVENTS } from '@hanzo/event';
 import { analytics } from '@/analytics';
@@ -99,7 +99,7 @@ const PurchaseCredits = () => {
     if (!pack) return;
 
     // Redirect to billing portal for credit purchases
-    window.location.href = `https://billing.hanzo.ai?pack=${selectedPack}&quantity=${quantity}`;
+    window.location.href = checkoutUrl(selectedPack, '/payment-success');
     setIsLoading(false);
   };
 

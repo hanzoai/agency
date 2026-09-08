@@ -1,76 +1,65 @@
 import { EVENTS } from '@hanzo/event';
 import { analytics } from '@/analytics';
-import { amount, planById } from '@/data/plans';
 
-// --- Commerce API (Square, crypto, wire) ---
+/**
+ * Where money changes hands: the pay site, which is the one host that answers.
+ *
+ * It takes `?plan=` and `?return=` and comes back to the return address. The
+ * return must be a host commerce allows — `GET api.hanzo.ai/v1/commerce/org`
+ * publishes that allowlist, and hanzo.agency is on it.
+ */
+const PAY = 'https://pay.hanzo.ai';
 
-const COMMERCE_API = 'https://commerce.hanzo.ai/api/v1';
+/** The public commerce read a checkout page boots from. Needs no credential. */
+const COMMERCE = 'https://api.hanzo.ai/v1/commerce';
 
-export type PaymentMethod = 'card' | 'crypto' | 'wire';
+/** The brand this site sells under. */
+const ORG = 'hanzo';
 
-export type CommerceCheckoutResult =
-  | { type: 'redirect'; url: string; sessionId: string }
-  | { type: 'wire'; instructions: Record<string, unknown> };
-
-export async function createCommerceCheckout(
-  planId: string,
-  options: { email: string; name: string; paymentMethod?: PaymentMethod }
-): Promise<CommerceCheckoutResult> {
-  const { email, name, paymentMethod = 'card' } = options;
-
-  if (paymentMethod === 'wire') {
-    const res = await fetch(`${COMMERCE_API}/checkout/wire/instructions?org=hanzo`);
-    if (!res.ok) throw new Error(`Wire instructions request failed: ${res.status}`);
-    const data = await res.json();
-    return { type: 'wire' as const, instructions: data };
-  }
-
-  // Named plans only. An id outside the catalogue has no price, and a checkout
-  // is the last place to invent one.
-  const plan = planById(planId);
-  if (!plan) throw new Error(`Unknown plan: ${planId}`);
-
-  const res = await fetch(`${COMMERCE_API}/checkout/sessions`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      org: 'hanzo',
-      providerHint: paymentMethod === 'crypto' ? 'ethereum' : 'square',
-      currency: 'USD',
-      customer: { email, name },
-      items: [{
-        name: plan.name,
-        amount: amount(plan),
-        quantity: 1,
-      }],
-      successUrl: `${window.location.origin}/onboarding-success`,
-      cancelUrl: `${window.location.origin}/pricing`,
-    }),
-  });
-
-  if (!res.ok) {
-    const body = await res.text();
-    throw new Error(`Commerce checkout failed: ${body}`);
-  }
-
-  const data = await res.json();
-  return { type: 'redirect' as const, url: data.checkoutUrl, sessionId: data.sessionId };
+/**
+ * The checkout address for a plan.
+ *
+ * ONE writer for this address. A plan id only selects the card a reader clicked
+ * if every writer spells the query the same way.
+ */
+export function checkoutUrl(planId?: string, returnPath = '/payment-success'): string {
+  if (!planId) return PAY;
+  const back = new URL(returnPath, window.location.origin).toString();
+  return `${PAY}/?plan=${encodeURIComponent(planId)}&return=${encodeURIComponent(back)}`;
 }
 
-// Helper to format currency
-export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(amount / 100);
+export type PaymentProvider = { name: string; enabled: boolean };
+
+export type CheckoutConfig = {
+  brand: { displayName: string; legalName: string; termsUrl: string; privacyUrl: string };
+  providers: PaymentProvider[];
 };
 
-// Track successful purchase (to be called on success page). ONE event for the
-// moment money changed hands — the pack is a PROPERTY, never part of the name.
-export const trackPurchaseSuccess = (sessionId: string, products: any[], totalAmount: number) => {
+/**
+ * What the pay site will offer, read from commerce rather than assumed.
+ *
+ * The provider list is the deployment's, so a method this site advertises and a
+ * method checkout accepts cannot disagree. Callers that only need a link do not
+ * need this.
+ */
+export async function checkoutConfig(): Promise<CheckoutConfig> {
+  const res = await fetch(`${COMMERCE}/org?org=${ORG}`);
+  if (!res.ok) throw new Error(`commerce org config: ${res.status}`);
+  return res.json();
+}
+
+/** Cents to a display string. */
+export const formatCurrency = (amount: number): string =>
+  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount / 100);
+
+/**
+ * The moment money changed hands. ONE event; the pack is a PROPERTY, never part
+ * of the name.
+ */
+export const trackPurchaseSuccess = (orderId: string, products: unknown[], totalAmount: number) => {
   analytics.capture(
     EVENTS.ORDER_COMPLETED,
-    { orderId: sessionId, items: products },
+    { orderId, items: products },
     { revenue: totalAmount, currency: 'USD', quantity: products.length },
   );
 };

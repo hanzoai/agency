@@ -5,11 +5,15 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Check, Lock, Mail, Loader2, CreditCard, Coins, Landmark } from 'lucide-react';
 import { useLocation, Link } from 'react-router-dom';
-import { createCommerceCheckout, type PaymentMethod, type CommerceCheckoutResult } from '@/lib/commerce';
+import { checkoutUrl } from '@/lib/commerce';
 import { useToast } from '@/hooks/use-toast';
 import { planById } from '@/data/plans';
 
-const PAYMENT_METHODS: { value: PaymentMethod; label: string; icon: React.ElementType; desc: string }[] = [
+type Method = 'card' | 'crypto' | 'wire';
+
+// What the pay site accepts, shown so a reader knows before they leave. The pay
+// site collects the details and settles; this page only hands off.
+const PAYMENT_METHODS: { value: Method; label: string; icon: React.ElementType; desc: string }[] = [
   { value: 'card', label: 'Card (Square)', icon: CreditCard, desc: 'Visa, Mastercard, Amex' },
   { value: 'crypto', label: 'Crypto', icon: Coins, desc: 'ETH, BTC, USDC' },
   { value: 'wire', label: 'Wire Transfer', icon: Landmark, desc: 'Bank wire (ACH / SWIFT)' },
@@ -17,8 +21,7 @@ const PAYMENT_METHODS: { value: PaymentMethod; label: string; icon: React.Elemen
 
 const Payment = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('card');
-  const [wireInstructions, setWireInstructions] = useState<Record<string, unknown> | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<Method>('card');
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const plan = planById(searchParams.get('plan'));
@@ -36,35 +39,13 @@ const Payment = () => {
     };
   }, []);
 
-  const handlePayment = async (e: React.FormEvent) => {
+  const handlePayment = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.email || !formData.name) return;
-
+    if (!plan) return;
     setIsLoading(true);
-    setWireInstructions(null);
-
-    try {
-      const result: CommerceCheckoutResult = await createCommerceCheckout(plan.id, {
-        email: formData.email,
-        name: formData.name,
-        paymentMethod,
-      });
-
-      if (result.type === 'wire') {
-        setWireInstructions(result.instructions);
-        setIsLoading(false);
-      } else if (result.type === 'redirect') {
-        window.location.href = result.url;
-      }
-    } catch (error) {
-      console.error('Checkout error:', error);
-      toast({
-        title: 'Checkout Failed',
-        description: 'Unable to start checkout. Please try again.',
-        variant: 'destructive',
-      });
-      setIsLoading(false);
-    }
+    // The pay site takes the plan and returns here. It collects the payment
+    // details and settles; this page never handles them.
+    window.location.href = checkoutUrl(plan.id, '/payment-success');
   };
 
   // No plan, no checkout. A ?plan= that names nothing we sell has no price to
@@ -153,7 +134,7 @@ const Payment = () => {
                         <button
                           key={method.value}
                           type="button"
-                          onClick={() => { setPaymentMethod(method.value); setWireInstructions(null); }}
+                          onClick={() => setPaymentMethod(method.value)}
                           className={`flex flex-col items-center gap-2 p-4 rounded-lg border transition-colors ${
                             selected
                               ? 'border-white bg-white/10 text-white'
@@ -169,63 +150,7 @@ const Payment = () => {
                   </div>
                 </div>
 
-                {/* Wire Instructions (shown after submit when wire selected) */}
-                {wireInstructions && (
-                  <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-6 space-y-3">
-                    <h3 className="text-lg font-semibold mb-4">Wire Transfer Instructions</h3>
-                    {wireInstructions.bankName && (
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-400">Bank</span>
-                        <span className="font-mono">{String(wireInstructions.bankName)}</span>
-                      </div>
-                    )}
-                    {wireInstructions.routingNumber && (
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-400">Routing Number</span>
-                        <span className="font-mono">{String(wireInstructions.routingNumber)}</span>
-                      </div>
-                    )}
-                    {wireInstructions.accountNumber && (
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-400">Account Number</span>
-                        <span className="font-mono">{String(wireInstructions.accountNumber)}</span>
-                      </div>
-                    )}
-                    {wireInstructions.swift && (
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-400">SWIFT</span>
-                        <span className="font-mono">{String(wireInstructions.swift)}</span>
-                      </div>
-                    )}
-                    {wireInstructions.reference && (
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-400">Reference</span>
-                        <span className="font-mono">{String(wireInstructions.reference)}</span>
-                      </div>
-                    )}
-                    {wireInstructions.beneficiary && (
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-400">Beneficiary</span>
-                        <span className="font-mono">{String(wireInstructions.beneficiary)}</span>
-                      </div>
-                    )}
-                    <div className="pt-4 border-t border-gray-700">
-                      <p className="text-sm text-gray-400 mb-4">
-                        Please include the reference code above in your wire transfer memo.
-                        We will confirm receipt within 1-2 business days.
-                      </p>
-                      <Link
-                        to="/onboarding-success"
-                        className="w-full inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-medium bg-white text-black hover:bg-gray-100 transition-colors"
-                      >
-                        I've sent the wire
-                      </Link>
-                    </div>
-                  </div>
-                )}
-
-                {/* Submit Button (hidden when wire instructions are showing) */}
-                {!wireInstructions && (
+                {/* Submit: hand off to the pay site */}
                   <Button
                     type="submit"
                     disabled={isLoading || !formData.email || !formData.name}
@@ -234,13 +159,12 @@ const Payment = () => {
                     {isLoading ? (
                       <span className="flex items-center justify-center gap-2">
                         <Loader2 className="h-5 w-5 animate-spin" />
-                        {paymentMethod === 'wire' ? 'Fetching wire instructions...' : 'Redirecting to checkout...'}
+                        {'Redirecting to checkout…'}
                       </span>
                     ) : (
-                      paymentMethod === 'wire' ? 'Get Wire Instructions' : 'Continue to Payment'
+                      'Continue to payment'
                     )}
                   </Button>
-                )}
 
                 <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
                   <Lock className="h-4 w-4" />

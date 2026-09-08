@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Wordmark } from '@/components/Wordmark';
 import { Link } from "react-router-dom";
 import {
   NavigationMenu,
@@ -97,10 +98,7 @@ function MainNavigation() {
       <style dangerouslySetInnerHTML={{ __html: rainbowGradientStyle }} />
       <div className="w-full bg-black fixed top-0 z-50 border-b border-border/40" role="banner">
       <div className="w-full max-w-full px-4 mx-auto flex h-16 items-center">
-        <Link to="/" className="mr-6 flex items-center space-x-2">
-          <img src="/images/logo/logo.png" alt="Hanzo" className="h-7 w-auto" />
-          <span className="font-bold text-xl truncate">Hanzo</span>
-        </Link>
+        <Wordmark />
         
         <NavigationMenu className="w-full bg-black text-white">
           <NavigationMenuList className="w-full justify-start">
@@ -396,10 +394,9 @@ function MainNavigation() {
       {isMenuOpen && (
         <div className="lg:hidden fixed inset-0 top-0 left-0 right-0 bottom-0 w-full h-full bg-black/95 backdrop-blur-lg z-[999] overflow-auto transition-all duration-300">
           <div className="flex items-center justify-between p-4 border-b border-white/10">
-            <Link to="/" className="flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
-              <img src="/images/logo/logo.png" alt="Hanzo" className="h-7 w-auto" />
-              <span className="font-bold text-xl text-white">Hanzo</span>
-            </Link>
+            <span onClick={() => setIsMenuOpen(false)}>
+              <Wordmark />
+            </span>
             <button 
               className="p-2 text-primary hover:text-white" 
               onClick={() => setIsMenuOpen(false)}

@@ -96,8 +96,29 @@ function MainNavigation() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: rainbowGradientStyle }} />
-      <div className="w-full bg-black fixed top-0 z-50 border-b border-border/40" role="banner">
-      <div className="w-full max-w-full px-4 mx-auto flex h-16 items-center">
+      <div
+        role="banner"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          background: 'var(--chrome)',
+          backdropFilter: 'var(--chrome-blur)',
+          WebkitBackdropFilter: 'var(--chrome-blur)',
+          borderBottom: '1px solid var(--pane-edge)',
+        }}
+      >
+      <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            height: 'var(--header)',
+            paddingInline: 'var(--page-gutter)',
+            gap: 24,
+          }}
+        >
         <Wordmark />
         
         <NavigationMenu className="w-full bg-black text-white">

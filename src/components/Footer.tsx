@@ -2,37 +2,42 @@ import { useState } from 'react';
 import { ArrowUpRight, Instagram, Facebook, Twitter, Github, MessageSquare, Mail, MapPin, Phone, ArrowRight, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { contact } from '@/data/contact';
+import { analytics } from '@/analytics';
+import { EVENTS } from '@hanzo/event';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
   const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) return;
 
     setSubscribeStatus('loading');
-
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      // The address goes to the one telemetry endpoint this site already posts to.
+      // There is no public subscribe endpoint — commerce's subscriber route needs
+      // a token no static site should hold — so this records the intent where
+      // marketing reads it, and says so rather than reporting a list signup.
+      await analytics.capture(EVENTS.WAITLIST_JOINED, { email, source: 'agency-footer' });
       setSubscribeStatus('success');
       setEmail('');
-
-      // Reset after 3 seconds
-      setTimeout(() => {
-        setSubscribeStatus('idle');
-      }, 3000);
-    }, 1000);
+    } catch {
+      setSubscribeStatus('error');
+    }
   };
 
   return (
-    <footer className="relative bg-black pt-20 pb-12 border-t border-gray-800 overflow-hidden">
-      {/* Animated background gradients */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[30%] -right-[20%] w-[60%] h-[60%] bg-gradient-to-br from-purple-500/10 via-indigo-500/5 to-transparent rounded-full blur-3xl transform rotate-12 animate-pulse-glow"></div>
-        <div className="absolute -bottom-[30%] -left-[20%] w-[60%] h-[60%] bg-gradient-to-tr from-blue-500/10 via-cyan-500/5 to-transparent rounded-full blur-3xl transform rotate-12 animate-pulse-glow"></div>
-      </div>
+    <footer
+      style={{
+        position: 'relative',
+        background: 'var(--background, #000)',
+        paddingBlock: 'var(--band) calc(var(--band) / 2)',
+        borderTop: '1px solid var(--pane-edge)',
+        overflow: 'hidden',
+      }}
+    >
 
       <div className="container-custom relative z-10">
         {/* Top Section with Newsletter */}

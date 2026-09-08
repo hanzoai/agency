@@ -62,6 +62,18 @@ button:hover + div {
     --ring: 220 13% 25%;
 
     --radius: 0.375rem;
+
+  /* Shell geometry — the same primitives hanzo.ai's chrome is built on, so the
+     two surfaces share a rhythm instead of each inventing one. Geometry only:
+     the colour tokens above stay shadcn's until the components move. */
+  --header: 60px;
+  --page-gutter: clamp(20px, 4vw, 72px);
+  --band: clamp(48px, 7vw, 88px);
+  --chrome: rgb(9 9 11 / 0.72);
+  --chrome-blur: blur(20px) saturate(1.8);
+  --pane-edge: rgb(255 255 255 / 0.07);
+  --pane-round: 14px;
+
   }
 
   * {

@@ -2,7 +2,7 @@
 // both render these, so they cannot drift apart again.
 export const contact = {
   entity: 'Hanzo AI, Inc.',
-  address: ['1828 Golden Gate Ave', 'San Francisco, CA 94115'],
+  address: ['995 Market St', 'San Francisco, CA 94103'],
   email: 'hi@hanzo.agency',
   phone: '+1 415 373 2496',
   phoneHref: 'tel:+14153732496',

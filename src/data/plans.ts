@@ -60,9 +60,10 @@ export interface Plan {
 export const plans: Plan[] = [
   {
     id: 'agency',
-    name: 'Agency',
-    description: 'Cloud usage and a team, on one bill.',
-    priceMonthly: 999,
+    name: 'Agency Service',
+    description: 'Full-service creative team',
+    priceMonthly: 4995,
+    terms: '1 quarter minimum',
     category: 'agency',
     bundles: ['team'],
     seatsIncluded: 5,
@@ -102,7 +103,7 @@ export const plans: Plan[] = [
     id: 'enterprise',
     name: 'Enterprise',
     description: 'Dedicated team, custom AI, priority everything.',
-    priceMonthly: 8999,
+    priceMonthly: 9995,
     category: 'enterprise',
     from: true,
     terms: 'Annual contract preferred',

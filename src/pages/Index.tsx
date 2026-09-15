@@ -11,6 +11,8 @@ import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
 import AICapabilities from '@/components/AICapabilities';
 import StatsSection from '@/components/StatsSection';
+import { AIEmployees } from '@/components/AIEmployees';
+import { AgenticCompanies } from '@/components/AgenticCompanies';
 
 const Index = () => {
   const [isBannerVisible, setIsBannerVisible] = useState(true); // Set to true by default
@@ -68,6 +70,8 @@ const Index = () => {
     <ScrollReveal>
       <div className="min-h-screen flex flex-col">
         <Hero />
+        <AIEmployees />
+        <AgenticCompanies />
         <Services />
         <AICapabilities />
         <Pricing />

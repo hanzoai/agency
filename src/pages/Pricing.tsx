@@ -1,8 +1,9 @@
 import React from 'react';
 
 import Footer from '@/components/Footer';
-import { Check } from 'lucide-react';
+import { Check, ArrowUpRight, ExternalLink, Sparkles, Bot, BarChart3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { aiEmployees, agenticCompanies } from '@/data/plans';
 
 export default function Pricing() {
   return (
@@ -272,15 +273,16 @@ export default function Pricing() {
           </div>
 
           {/* Section 03: AI Automation — AI Employees */}
-          <div className="text-center mt-24 mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-3">
-              03 · AI Automation — AI Employees
+          <div className="text-center mt-24 mb-10" id="pricing-automation">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-3">
+              <Bot className="w-3.5 h-3.5" />
+              <span>03 · AI Automation — Preset AI Employees</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              Autonomous AI Employees from €80 a month
+              Autonomous AI Employees from $49 a month
             </h2>
             <p className="text-base text-foreground/80 max-w-2xl mx-auto">
-              Easily automated with Hanzo AI Cloud on the backend. Log in and access your agents, tasks, and analytics at{' '}
+              Trained on preset Hanzo personas with matching memojis and sub-second execution. Automated by Hanzo AI Cloud and managed directly in your workspace on{' '}
               <a
                 href="https://hanzo.team"
                 target="_blank"
@@ -291,182 +293,161 @@ export default function Pricing() {
               </a>
               .
             </p>
-            <p className="text-xs text-foreground/50 mt-2">
-              Monthly prices below · Setup is quoted on your free call · 30-day rolling · GDPR compliant · EU hosted · Monthly reporting
+            <p className="text-xs text-foreground/50 mt-2 font-mono">
+              Pure USD pricing · Scalable compute tiers $49/mo to $999/mo · 30-day rolling · Zero vendor lock-in
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
-            {/* AI Marketing Assistant */}
-            <div className="flex flex-col h-full border-2 border-amber-800/70 hover:border-amber-600 rounded-xl overflow-hidden bg-gradient-to-b from-black to-amber-950/20 backdrop-blur-sm relative shadow-lg shadow-amber-900/10 transition-all duration-300">
-              <div className="p-6 border-b border-border/20">
-                <div className="inline-block px-2.5 py-0.5 rounded text-[11px] font-mono font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30 mb-2">
-                  Growth &amp; Social
-                </div>
-                <h3 className="text-xl font-semibold mb-1">AI Marketing Assistant</h3>
-                <p className="text-xs uppercase tracking-wide text-foreground/50 mt-2">FROM</p>
-                <div className="flex items-baseline gap-1 mt-0.5">
-                  <span className="text-3xl font-bold text-white">€80</span>
-                  <span className="text-foreground/60 text-sm">/month</span>
-                </div>
-                <p className="text-xs text-foreground/50 mt-1">30-day rolling · 0% lock-in</p>
-              </div>
-
-              <div className="p-6 flex-grow flex flex-col justify-between space-y-4">
-                <div>
-                  <p className="text-sm text-foreground/80 leading-relaxed mb-4">
-                    Writes and schedules your social content, captures enquiries from your posts, and drops them into your CRM. The cheapest way to be visible every week without doing it yourself.
-                  </p>
-                  <div className="bg-white/5 border border-white/10 rounded-lg p-3 mb-5 text-xs text-foreground/80">
-                    <span className="font-semibold text-white">Best for:</span> Sole traders and small teams who never get round to posting.
+          {/* AI Employees Grid */}
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-20">
+            {aiEmployees.slice(0, 6).map((emp) => (
+              <div
+                key={emp.id}
+                className="flex flex-col h-full border border-white/10 hover:border-white/25 rounded-2xl overflow-hidden bg-[#18181b]/80 backdrop-blur-sm relative shadow-xl transition-all duration-300 group"
+              >
+                <div className="p-6 border-b border-white/10">
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div className="w-14 h-14 rounded-2xl overflow-hidden bg-black border border-white/15 shadow-md flex-shrink-0 group-hover:scale-105 transition-transform">
+                      {emp.avatar ? (
+                        <img src={emp.avatar} alt={emp.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center font-bold">{emp.name.charAt(0)}</div>
+                      )}
+                    </div>
+                    <div className="text-right">
+                      {emp.badge && (
+                        <div className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/30 mb-1">
+                          {emp.badge}
+                        </div>
+                      )}
+                      <div className="text-2xl font-bold text-white font-mono">
+                        ${emp.priceMonthly}
+                        <span className="text-foreground/60 text-xs font-normal">/mo</span>
+                      </div>
+                      <span className="text-[10px] text-emerald-400 font-mono block">from $49-$999 compute</span>
+                    </div>
                   </div>
-                  <ul className="space-y-3">
-                    <li className="flex gap-3 items-start">
-                      <Check size={16} className="text-amber-400 mt-1 flex-shrink-0" />
-                      <span className="text-foreground/80 text-sm">Social posts written in your voice and scheduled</span>
-                    </li>
-                    <li className="flex gap-3 items-start">
-                      <Check size={16} className="text-amber-400 mt-1 flex-shrink-0" />
-                      <span className="text-foreground/80 text-sm">Lead capture into your CRM</span>
-                    </li>
-                    <li className="flex gap-3 items-start">
-                      <Check size={16} className="text-amber-400 mt-1 flex-shrink-0" />
-                      <span className="text-foreground/80 text-sm">Weekly management and a monthly report</span>
-                    </li>
-                    <li className="flex gap-3 items-start">
-                      <Check size={16} className="text-amber-400 mt-1 flex-shrink-0" />
-                      <span className="text-foreground/80 text-sm">Manage queues &amp; approvals on hanzo.team</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
 
-              <div className="p-6 pt-2 mt-auto">
-                <Link
-                  to="/payment?plan=ai-marketing-assistant"
-                  className="w-full inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium bg-white text-black hover:bg-white/90 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2"
-                >
-                  Hire this role
-                </Link>
-              </div>
-            </div>
-
-            {/* AI Chat Agent */}
-            <div className="flex flex-col h-full border-2 border-teal-800/70 hover:border-teal-600 rounded-xl overflow-hidden bg-gradient-to-b from-black to-teal-950/20 backdrop-blur-sm relative shadow-lg shadow-teal-900/10 transition-all duration-300">
-              <div className="p-6 border-b border-border/20">
-                <div className="inline-block px-2.5 py-0.5 rounded text-[11px] font-mono font-bold uppercase tracking-wider bg-teal-500/20 text-teal-300 border border-teal-500/30 mb-2">
-                  24/7 Web Concierge
+                  <h3 className="text-lg font-bold text-white mb-0.5">{emp.name}</h3>
+                  <p className="text-xs font-mono text-zinc-400">{emp.roleTitle}</p>
                 </div>
-                <h3 className="text-xl font-semibold mb-1">AI Chat Agent</h3>
-                <p className="text-xs uppercase tracking-wide text-foreground/50 mt-2">FROM</p>
-                <div className="flex items-baseline gap-1 mt-0.5">
-                  <span className="text-3xl font-bold text-white">€150</span>
-                  <span className="text-foreground/60 text-sm">/month</span>
-                </div>
-                <p className="text-xs text-foreground/50 mt-1">30-day rolling · 0% lock-in</p>
-              </div>
 
-              <div className="p-6 flex-grow flex flex-col justify-between space-y-4">
-                <div>
-                  <p className="text-sm text-foreground/80 leading-relaxed mb-4">
-                    Sits on your website and answers questions 24 hours a day: prices, opening hours, areas covered, availability. Captures the lead and books the appointment while you are working.
-                  </p>
-                  <div className="bg-white/5 border border-white/10 rounded-lg p-3 mb-5 text-xs text-foreground/80">
-                    <span className="font-semibold text-white">Best for:</span> Any business that gets enquiries out of hours.
+                <div className="p-6 flex-grow flex flex-col justify-between space-y-4">
+                  <div>
+                    <p className="text-xs text-foreground/80 leading-relaxed mb-4">
+                      {emp.description}
+                    </p>
+
+                    {emp.benchmark && (
+                      <div className="bg-black/60 border border-white/10 rounded-xl p-3 mb-4 text-xs font-mono">
+                        <div className="flex justify-between text-zinc-400 text-[11px] mb-0.5">
+                          <span>{emp.benchmark.metric}</span>
+                          <span className="text-emerald-400 font-bold">{emp.benchmark.value}</span>
+                        </div>
+                        <p className="text-[10px] text-zinc-500">{emp.benchmark.detail}</p>
+                      </div>
+                    )}
+
+                    <ul className="space-y-2">
+                      {emp.features.slice(0, 3).map((feat, idx) => (
+                        <li key={idx} className="flex gap-2 items-start text-xs text-zinc-300">
+                          <Check size={14} className="text-emerald-400 mt-0.5 flex-shrink-0" />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="space-y-3">
-                    <li className="flex gap-3 items-start">
-                      <Check size={16} className="text-teal-400 mt-1 flex-shrink-0" />
-                      <span className="text-foreground/80 text-sm">Trained on your services and prices</span>
-                    </li>
-                    <li className="flex gap-3 items-start">
-                      <Check size={16} className="text-teal-400 mt-1 flex-shrink-0" />
-                      <span className="text-foreground/80 text-sm">Books into your calendar</span>
-                    </li>
-                    <li className="flex gap-3 items-start">
-                      <Check size={16} className="text-teal-400 mt-1 flex-shrink-0" />
-                      <span className="text-foreground/80 text-sm">Hands off to WhatsApp or email when needed</span>
-                    </li>
-                    <li className="flex gap-3 items-start">
-                      <Check size={16} className="text-teal-400 mt-1 flex-shrink-0" />
-                      <span className="text-foreground/80 text-sm">Real-time transcripts &amp; logs on hanzo.team</span>
-                    </li>
-                  </ul>
+                </div>
+
+                <div className="p-6 pt-2 mt-auto grid grid-cols-2 gap-2">
+                  <Link
+                    to={`/payment?plan=${emp.id}`}
+                    className="w-full inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-xs font-bold bg-white text-black hover:bg-white/90 transition-all uppercase tracking-wider"
+                  >
+                    Hire Role
+                  </Link>
+                  <a
+                    href="https://hanzo.team"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-xs font-medium bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors"
+                  >
+                    hanzo.team
+                  </a>
                 </div>
               </div>
+            ))}
+          </div>
 
-              <div className="p-6 pt-2 mt-auto">
-                <Link
-                  to="/payment?plan=ai-chat-agent"
-                  className="w-full inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium bg-white text-black hover:bg-white/90 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2"
-                >
-                  Hire this role
-                </Link>
-              </div>
+          {/* Section 04: Turnkey Agentic Companies */}
+          <div className="text-center mt-20 mb-10" id="pricing-companies">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-widest bg-purple-500/10 text-purple-300 border border-purple-500/20 mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>04 · Turnkey Autonomous Companies</span>
             </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              Deploy an Agentic Company from $199–$499/mo
+            </h2>
+            <p className="text-base text-foreground/80 max-w-2xl mx-auto">
+              Self-operating businesses powered by multi-agent networks, proven on live benchmarks, with built-in client acquisition and delivery.
+            </p>
+          </div>
 
-            {/* AI Phone Receptionist */}
-            <div className="flex flex-col h-full border-2 border-rose-800/80 hover:border-rose-600 rounded-xl overflow-hidden bg-gradient-to-b from-black to-rose-950/25 backdrop-blur-sm relative shadow-lg shadow-rose-900/15 transition-all duration-300">
-              <div className="absolute top-0 right-0 bg-rose-600 text-white px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-bl-lg">
-                Never Miss a Call
-              </div>
-              <div className="p-6 border-b border-border/20">
-                <div className="inline-block px-2.5 py-0.5 rounded text-[11px] font-mono font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/30 mb-2">
-                  Voice Automation
-                </div>
-                <h3 className="text-xl font-semibold mb-1">AI Phone Receptionist</h3>
-                <p className="text-xs uppercase tracking-wide text-foreground/50 mt-2">FROM</p>
-                <div className="flex items-baseline gap-1 mt-0.5">
-                  <span className="text-3xl font-bold text-white">€350</span>
-                  <span className="text-foreground/60 text-sm">/month</span>
-                </div>
-                <p className="text-xs text-foreground/50 mt-1">30-day rolling · 0% lock-in</p>
-              </div>
-
-              <div className="p-6 flex-grow flex flex-col justify-between space-y-4">
-                <div>
-                  <p className="text-sm text-foreground/80 leading-relaxed mb-4">
-                    Answers every call in a natural voice, takes the details, books the job and texts back any call it cannot take. No more customers hearing voicemail and ringing the next name on Google.
-                  </p>
-                  <div className="bg-white/5 border border-white/10 rounded-lg p-3 mb-5 text-xs text-foreground/80">
-                    <span className="font-semibold text-white">Best for:</span> Trades, clinics, garages and recovery firms.
+          {/* Companies Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-16">
+            {agenticCompanies.slice(0, 4).map((comp) => (
+              <div
+                key={comp.id}
+                className="flex flex-col h-full border border-white/15 hover:border-white/30 rounded-2xl overflow-hidden bg-zinc-950 p-6 shadow-2xl transition-all relative"
+              >
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <div>
+                    {comp.badge && (
+                      <span className="inline-block px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-300 border border-amber-500/20 mb-2">
+                        {comp.badge}
+                      </span>
+                    )}
+                    <h3 className="text-xl font-bold text-white">{comp.name}</h3>
+                    <p className="text-xs font-mono text-zinc-400">{comp.roleTitle}</p>
                   </div>
-                  <ul className="space-y-3">
-                    <li className="flex gap-3 items-start">
-                      <Check size={16} className="text-rose-400 mt-1 flex-shrink-0" />
-                      <span className="text-foreground/80 text-sm">24/7 call answering with call notes sent to you</span>
-                    </li>
-                    <li className="flex gap-3 items-start">
-                      <Check size={16} className="text-rose-400 mt-1 flex-shrink-0" />
-                      <span className="text-foreground/80 text-sm">Missed-call text-back included</span>
-                    </li>
-                    <li className="flex gap-3 items-start">
-                      <Check size={16} className="text-rose-400 mt-1 flex-shrink-0" />
-                      <span className="text-foreground/80 text-sm">Emergency calls flagged to your mobile</span>
-                    </li>
-                    <li className="flex gap-3 items-start">
-                      <Check size={16} className="text-rose-400 mt-1 flex-shrink-0" />
-                      <span className="text-foreground/80 text-sm">Call audio, logs &amp; controls on hanzo.team</span>
-                    </li>
-                  </ul>
+                  {comp.avatar && (
+                    <div className="w-14 h-14 rounded-2xl overflow-hidden bg-zinc-900 border border-white/15 flex-shrink-0">
+                      <img src={comp.avatar} alt={comp.name} className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                </div>
+
+                <p className="text-xs text-zinc-300 mb-4">{comp.description}</p>
+
+                {comp.benchmark && (
+                  <div className="bg-zinc-900/90 border border-white/10 rounded-xl p-3.5 mb-4">
+                    <div className="flex justify-between items-center text-xs font-mono mb-1">
+                      <span className="text-zinc-400 flex items-center gap-1">
+                        <BarChart3 className="w-3.5 h-3.5 text-emerald-400" />
+                        {comp.benchmark.metric}
+                      </span>
+                      <span className="text-emerald-400 font-bold">{comp.benchmark.value}</span>
+                    </div>
+                    <p className="text-[11px] text-zinc-400">{comp.benchmark.detail}</p>
+                  </div>
+                )}
+
+                <div className="mt-auto pt-4 border-t border-white/10 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-mono text-zinc-400 block uppercase">Subscription</span>
+                    <span className="text-2xl font-black text-white font-mono">${comp.priceMonthly}</span>
+                    <span className="text-xs text-zinc-400">/mo</span>
+                  </div>
+                  <Link
+                    to={`/payment?plan=${comp.id}`}
+                    className="bg-white hover:bg-zinc-200 text-black px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-1.5"
+                  >
+                    <span>Deploy</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
                 </div>
               </div>
-
-              <div className="p-6 pt-2 mt-auto space-y-2">
-                <Link
-                  to="/payment?plan=ai-phone-receptionist"
-                  className="w-full inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium bg-white text-black hover:bg-white/90 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2"
-                >
-                  Hire this role
-                </Link>
-                <Link
-                  to="/contact?subject=AI+Phone+Receptionist"
-                  className="w-full inline-flex items-center justify-center rounded-full px-4 py-2 text-xs font-medium text-foreground/60 hover:text-white transition-colors"
-                >
-                  READ MORE
-                </Link>
-              </div>
-            </div>
+            ))}
           </div>
 
           <div className="text-center mt-12 mb-8">

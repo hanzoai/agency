@@ -29,14 +29,16 @@ import {
   Check,
   Layers,
   Zap,
-  Users
+  Users,
+  BarChart3
 } from 'lucide-react';
+import { aiEmployees, agenticCompanies } from '@/data/plans';
 
 const HANZO_ID_LOGIN = 'https://hanzo.id/login?redirect=https%3A%2F%2Fhanzo.agency%2Fdashboard';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'overview' | 'employees' | 'builder' | 'services' | 'chat'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'employees' | 'companies' | 'builder' | 'services' | 'chat'>('overview');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userCredits, setUserCredits] = useState(500);
   const [userName, setUserName] = useState('Partner');
@@ -320,16 +322,20 @@ const Dashboard = () => {
                 </p>
                 <div className="space-y-2 text-xs">
                   <div className="flex justify-between py-1.5 border-b border-zinc-800">
-                    <span className="text-gray-400">Marketing Assistant</span>
-                    <span className="text-amber-400 font-mono">from €80/mo</span>
+                    <span className="text-gray-400">Marketing Lead (Creative)</span>
+                    <span className="text-amber-400 font-mono">from $49/mo</span>
                   </div>
                   <div className="flex justify-between py-1.5 border-b border-zinc-800">
-                    <span className="text-gray-400">24/7 Chat Agent</span>
-                    <span className="text-teal-400 font-mono">from €150/mo</span>
+                    <span className="text-gray-400">24/7 Concierge (Nora)</span>
+                    <span className="text-teal-400 font-mono">from $99/mo</span>
+                  </div>
+                  <div className="flex justify-between py-1.5 border-b border-zinc-800">
+                    <span className="text-gray-400">Voice Phone EA (Maya)</span>
+                    <span className="text-rose-400 font-mono">from $199/mo</span>
                   </div>
                   <div className="flex justify-between py-1.5">
-                    <span className="text-gray-400">Voice Receptionist</span>
-                    <span className="text-rose-400 font-mono">from €350/mo</span>
+                    <span className="text-gray-400">Turnkey AAA Company</span>
+                    <span className="text-purple-400 font-mono">$41.4k margin bench</span>
                   </div>
                 </div>
               </div>
@@ -360,13 +366,25 @@ const Dashboard = () => {
             </button>
             <button
               onClick={() => setActiveTab('employees')}
-              className={`pb-3 px-4 text-sm font-semibold whitespace-nowrap transition-all border-b-2 cursor-pointer ${
+              className={`pb-3 px-4 text-sm font-semibold whitespace-nowrap transition-all border-b-2 cursor-pointer flex items-center gap-1.5 ${
                 activeTab === 'employees'
                   ? 'border-white text-white'
                   : 'border-transparent text-gray-400 hover:text-white'
               }`}
             >
-              AI Employees (hanzo.team)
+              <Bot className="w-3.5 h-3.5" />
+              <span>AI Employees</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('companies')}
+              className={`pb-3 px-4 text-sm font-semibold whitespace-nowrap transition-all border-b-2 cursor-pointer flex items-center gap-1.5 ${
+                activeTab === 'companies'
+                  ? 'border-white text-white'
+                  : 'border-transparent text-gray-400 hover:text-white'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+              <span>Agentic Companies</span>
             </button>
             <button
               onClick={() => setActiveTab('builder')}
@@ -488,149 +506,175 @@ const Dashboard = () => {
               </div>
 
               <div className="grid md:grid-cols-3 gap-6">
-                {/* Marketing Assistant */}
-                <div className="bg-gradient-to-b from-black to-amber-950/20 border border-amber-500/30 rounded-2xl p-6 flex flex-col justify-between shadow-xl">
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">
-                        Growth &amp; Social
-                      </span>
-                      <span className="text-sm font-bold text-white font-mono">FROM €80/mo</span>
+                {aiEmployees.slice(0, 6).map((emp) => (
+                  <div
+                    key={emp.id}
+                    className="bg-gradient-to-b from-black to-zinc-900/60 border border-white/10 rounded-2xl p-6 flex flex-col justify-between shadow-xl relative overflow-hidden group hover:border-white/30 transition-all"
+                  >
+                    {emp.badge && (
+                      <div className="absolute top-0 right-0 bg-rose-600 text-white px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider font-mono rounded-bl-lg">
+                        {emp.badge}
+                      </div>
+                    )}
+                    <div>
+                      <div className="flex items-start justify-between gap-3 mb-4">
+                        <div className="w-14 h-14 rounded-2xl overflow-hidden bg-black border border-white/15 shadow-md flex-shrink-0 group-hover:scale-105 transition-transform">
+                          {emp.avatar ? (
+                            <img src={emp.avatar} alt={emp.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center font-bold">{emp.name.charAt(0)}</div>
+                          )}
+                        </div>
+                        <div className="text-right">
+                          <div className="text-xl font-bold text-white font-mono">
+                            ${emp.priceMonthly}
+                            <span className="text-xs text-gray-400 font-normal">/mo</span>
+                          </div>
+                          <span className="text-[10px] font-mono text-emerald-400 block">from $49-$999/mo</span>
+                        </div>
+                      </div>
+
+                      <h3 className="text-lg font-bold text-white mb-0.5">{emp.name}</h3>
+                      <p className="text-xs font-mono text-zinc-400 mb-3">{emp.roleTitle}</p>
+                      <p className="text-xs text-gray-300 leading-relaxed mb-4">
+                        {emp.description}
+                      </p>
+
+                      {emp.benchmark && (
+                        <div className="bg-black/60 border border-white/10 rounded-xl p-3 mb-4 text-xs font-mono">
+                          <div className="flex justify-between text-zinc-400 text-[11px] mb-0.5">
+                            <span>{emp.benchmark.metric}</span>
+                            <span className="text-emerald-400 font-bold">{emp.benchmark.value}</span>
+                          </div>
+                          <p className="text-[10px] text-zinc-500">{emp.benchmark.detail}</p>
+                        </div>
+                      )}
+
+                      <ul className="space-y-2 text-xs text-gray-400 mb-6">
+                        {emp.features.slice(0, 3).map((feat, idx) => (
+                          <li key={idx} className="flex items-center gap-2">
+                            <Check className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2">AI Marketing Assistant</h3>
-                    <p className="text-xs text-gray-300 leading-relaxed mb-4">
-                      Writes and schedules your social posts in your voice, captures enquiry comments, and drops leads straight into your CRM.
-                    </p>
-                    <ul className="space-y-2 text-xs text-gray-400 mb-6">
-                      <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-amber-400" />
-                        <span>Autonomous multi-platform post scheduling</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-amber-400" />
-                        <span>CRM lead capture &amp; pipeline sync</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-amber-400" />
-                        <span>Weekly queues &amp; monthly ROI report</span>
-                      </li>
-                    </ul>
-                  </div>
 
-                  <div className="space-y-2">
-                    <Link
-                      to="/payment?plan=ai-marketing-assistant"
-                      className="w-full bg-white hover:bg-gray-100 text-black py-2.5 px-4 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
-                    >
-                      <span>Hire this role (€80/mo)</span>
-                    </Link>
-                    <a
-                      href="https://hanzo.team"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full block text-center text-xs text-gray-400 hover:text-white py-1 transition-colors"
-                    >
-                      Open in hanzo.team →
-                    </a>
-                  </div>
-                </div>
-
-                {/* AI Chat Agent */}
-                <div className="bg-gradient-to-b from-black to-teal-950/20 border border-teal-500/30 rounded-2xl p-6 flex flex-col justify-between shadow-xl">
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 font-bold">
-                        24/7 Web Concierge
-                      </span>
-                      <span className="text-sm font-bold text-white font-mono">FROM €150/mo</span>
+                    <div className="space-y-2 pt-4 border-t border-white/10">
+                      <Link
+                        to={`/payment?plan=${emp.id}`}
+                        className="w-full bg-white hover:bg-gray-100 text-black py-2.5 px-4 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors shadow-md"
+                      >
+                        <span>Hire Role (${emp.priceMonthly}/mo)</span>
+                      </Link>
+                      <a
+                        href="https://hanzo.team"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full block text-center text-xs text-gray-400 hover:text-white py-1 transition-colors"
+                      >
+                        Open in hanzo.team →
+                      </a>
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2">AI Chat Agent</h3>
-                    <p className="text-xs text-gray-300 leading-relaxed mb-4">
-                      Sits on your website answering visitor questions 24/7: services, pricing, availability, and books calendar appointments.
-                    </p>
-                    <ul className="space-y-2 text-xs text-gray-400 mb-6">
-                      <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-teal-400" />
-                        <span>Trained on your services &amp; live prices</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-teal-400" />
-                        <span>Direct Google/Outlook calendar booking</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-teal-400" />
-                        <span>WhatsApp &amp; email escalation handover</span>
-                      </li>
-                    </ul>
                   </div>
+                ))}
+              </div>
+            </div>
+          )}
 
-                  <div className="space-y-2">
-                    <Link
-                      to="/payment?plan=ai-chat-agent"
-                      className="w-full bg-white hover:bg-gray-100 text-black py-2.5 px-4 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
-                    >
-                      <span>Hire this role (€150/mo)</span>
-                    </Link>
-                    <a
-                      href="https://hanzo.team"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full block text-center text-xs text-gray-400 hover:text-white py-1 transition-colors"
-                    >
-                      Open in hanzo.team →
-                    </a>
-                  </div>
+          {/* TAB 3: AGENTIC COMPANIES */}
+          {activeTab === 'companies' && (
+            <div className="space-y-8">
+              <div className="flex items-center justify-between flex-wrap gap-4 pb-4 border-b border-zinc-800">
+                <div>
+                  <h2 className="text-xl font-bold text-white uppercase tracking-tight">Turnkey Agentic Companies</h2>
+                  <p className="text-xs text-gray-400 mt-1">
+                    Self-operating bot businesses proven by live market benchmarks. Automated by Hanzo AI Cloud.
+                  </p>
                 </div>
+                <a
+                  href="https://hanzo.team"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white text-black px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-gray-100 transition-colors shadow-md"
+                >
+                  <Sparkles className="w-4 h-4 text-purple-600" />
+                  <span>Deploy on hanzo.team</span>
+                  <ExternalLink className="w-3 h-3 opacity-60" />
+                </a>
+              </div>
 
-                {/* AI Phone Receptionist */}
-                <div className="bg-gradient-to-b from-black to-rose-950/20 border border-rose-500/40 rounded-2xl p-6 flex flex-col justify-between shadow-xl relative">
-                  <div className="absolute top-0 right-0 bg-rose-600 text-white px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-bl-lg">
-                    Never Miss a Call
-                  </div>
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">
-                        Voice AI
-                      </span>
-                      <span className="text-sm font-bold text-white font-mono">FROM €350/mo</span>
+              <div className="grid md:grid-cols-2 gap-6">
+                {agenticCompanies.map((comp) => (
+                  <div
+                    key={comp.id}
+                    className="bg-zinc-950 border border-white/10 rounded-2xl p-6 flex flex-col justify-between shadow-xl relative overflow-hidden group hover:border-white/30 transition-all"
+                  >
+                    <div>
+                      <div className="flex items-start justify-between gap-4 mb-4">
+                        <div>
+                          {comp.badge && (
+                            <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-300 border border-amber-500/20 mb-2">
+                              {comp.badge}
+                            </span>
+                          )}
+                          <h3 className="text-lg font-bold text-white">{comp.name}</h3>
+                          <p className="text-xs font-mono text-zinc-400">{comp.roleTitle}</p>
+                        </div>
+                        {comp.avatar && (
+                          <div className="w-12 h-12 rounded-xl overflow-hidden bg-zinc-900 border border-white/15 flex-shrink-0">
+                            <img src={comp.avatar} alt={comp.name} className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                      </div>
+
+                      <p className="text-xs text-zinc-300 mb-4">{comp.description}</p>
+
+                      {comp.benchmark && (
+                        <div className="bg-zinc-900/90 border border-white/10 rounded-xl p-3 mb-4">
+                          <div className="flex justify-between items-center text-xs font-mono mb-1">
+                            <span className="text-zinc-400 flex items-center gap-1">
+                              <BarChart3 className="w-3.5 h-3.5 text-emerald-400" />
+                              {comp.benchmark.metric}
+                            </span>
+                            <span className="text-emerald-400 font-bold">{comp.benchmark.value}</span>
+                          </div>
+                          <p className="text-[11px] text-zinc-400">{comp.benchmark.detail}</p>
+                        </div>
+                      )}
+
+                      {comp.estimatedRevenue && (
+                        <div className="text-xs text-amber-300 bg-amber-500/10 border border-amber-500/20 rounded-lg p-2 mb-4 font-mono">
+                          Est. Revenue: {comp.estimatedRevenue}
+                        </div>
+                      )}
+
+                      <ul className="space-y-1.5 text-xs text-zinc-400 mb-6">
+                        {comp.features.slice(0, 3).map((feat, idx) => (
+                          <li key={idx} className="flex items-start gap-2">
+                            <Check className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2">AI Phone Receptionist</h3>
-                    <p className="text-xs text-gray-300 leading-relaxed mb-4">
-                      Answers every phone call in a natural voice, takes details, schedules appointments, and sends instant missed-call text-backs.
-                    </p>
-                    <ul className="space-y-2 text-xs text-gray-400 mb-6">
-                      <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-rose-400" />
-                        <span>24/7 conversational voice call answering</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-rose-400" />
-                        <span>Instant SMS text-back with self-booking</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-rose-400" />
-                        <span>Emergency calls flagged straight to mobile</span>
-                      </li>
-                    </ul>
-                  </div>
 
-                  <div className="space-y-2">
-                    <Link
-                      to="/payment?plan=ai-phone-receptionist"
-                      className="w-full bg-white hover:bg-gray-100 text-black py-2.5 px-4 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
-                    >
-                      <span>Hire this role (€350/mo)</span>
-                    </Link>
-                    <a
-                      href="https://hanzo.team"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full block text-center text-xs text-gray-400 hover:text-white py-1 transition-colors"
-                    >
-                      Open in hanzo.team →
-                    </a>
+                    <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                      <div>
+                        <span className="text-[10px] font-mono text-zinc-400 block uppercase">Subscription</span>
+                        <span className="text-2xl font-black text-white font-mono">${comp.priceMonthly}</span>
+                        <span className="text-xs text-zinc-400">/mo</span>
+                      </div>
+                      <Link
+                        to={`/payment?plan=${comp.id}`}
+                        className="bg-white hover:bg-zinc-200 text-black px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-1.5"
+                      >
+                        <span>Deploy Company</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           )}

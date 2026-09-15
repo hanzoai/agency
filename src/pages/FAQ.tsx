@@ -15,8 +15,8 @@ const faqData = [
     answer: `Agency bundles your cloud usage and your team into one subscription. It includes ${agency.seatsIncluded} seats; additional seats are $${seatPrice}/month each, the same price a Hanzo Team seat costs anywhere else. Seats carry org workspaces with shared history and projects, SSO via Hanzo IAM, and one unified bill.`
   },
   {
-    question: "How do Autonomous AI Employees work, and how do we access them?",
-    answer: "AI Employees (Marketing Assistant from €80/mo, 24/7 Chat Agent from €150/mo, Phone Receptionist from €350/mo) are autonomous digital workers powered by Hanzo AI Cloud. You log in and manage your agents, review content queues, see caller transcripts, and track live conversion metrics at hanzo.team. All AI employee plans run on flexible 30-day rolling terms, are 100% GDPR compliant, and are securely hosted in the EU and globally."
+    question: "How do Autonomous AI Employees and Turnkey Companies work, and how do we access them?",
+    answer: "AI Employees (Growth Marketer from $49/mo, 24/7 Concierge from $99/mo, Phone Receptionist from $199/mo, Software Engineer from $149/mo) and Turnkey Agentic Companies (AI Automation Agency from $499/mo, Faceless Media Company from $299/mo, SEO/GEO Agency from $399/mo) are autonomous digital teammates and businesses powered by Hanzo AI Cloud. You log in and manage your agents, review content queues, see caller transcripts, track live revenue benchmarks, and execute workflows at hanzo.team. All plans run on flexible 30-day rolling terms with zero vendor lock-in."
   },
   {
     question: `What do I get on Advisory, ${priceLabel(advisory)}/month?`,

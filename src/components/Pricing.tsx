@@ -260,43 +260,47 @@ const Pricing = () => {
 
         {/* 03 · AI AUTOMATION — AI EMPLOYEES */}
         <div className="text-center mt-16 mb-8 reveal">
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest bg-amber-500/10 text-amber-800 font-bold mb-2">
-            03 · AI Automation — AI Employees
+          <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest bg-amber-500/10 text-amber-400 font-bold mb-2">
+            03 · AI Automation — AI Employees &amp; Companies
           </span>
-          <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-primary">
-            Autonomous AI Employees from €80/mo
+          <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-white">
+            Autonomous AI Employees from $49/mo
           </h3>
-          <p className="text-sm text-primary/70 max-w-2xl mx-auto mt-2">
-            Easily automated with Hanzo AI Cloud on the backend. Log in and access your agents, tasks, and analytics at{' '}
-            <a href="https://hanzo.team" target="_blank" rel="noopener noreferrer" className="underline font-semibold text-accent">
+          <p className="text-sm text-zinc-400 max-w-2xl mx-auto mt-2">
+            Automated with Hanzo AI Cloud backend. Scalable compute from $49/mo to $999/mo. 
+            Access and manage tasks, post queues, and live analytics on{' '}
+            <a href="https://hanzo.team" target="_blank" rel="noopener noreferrer" className="underline font-semibold text-white">
               hanzo.team
             </a>
-            . 30-day rolling, GDPR compliant, EU hosted.
+            . 30-day rolling, zero lock-in.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 reveal-slide-up max-w-6xl mx-auto mb-12">
-          {/* AI Marketing Assistant */}
-          <Card className="border border-black/10 overflow-hidden flex flex-col h-full bg-[#282828]">
-            <CardHeader className="bg-black p-6 text-white text-center">
-              <span className="text-xs uppercase font-mono tracking-wider text-amber-400 font-bold">Growth &amp; Social</span>
-              <h3 className="text-xl font-bold mb-1 uppercase mt-1">AI Marketing</h3>
-              <p className="opacity-90 text-sm">Writes &amp; schedules social, captures CRM leads</p>
+          {/* AI Marketing Assistant (Creative) */}
+          <Card className="border border-white/10 overflow-hidden flex flex-col h-full bg-[#1c1c1e] text-white">
+            <CardHeader className="bg-black/60 p-6 text-white text-center border-b border-white/10 relative">
+              <div className="w-16 h-16 rounded-2xl overflow-hidden bg-zinc-900 border border-white/15 mx-auto mb-3 shadow-lg">
+                <img src="/agents/creative.png" alt="Creative" className="w-full h-full object-cover" />
+              </div>
+              <span className="text-xs uppercase font-mono tracking-wider text-amber-400 font-bold">Creative · Growth</span>
+              <h3 className="text-xl font-bold mb-1 uppercase mt-1">AI Marketing Lead</h3>
+              <p className="opacity-70 text-xs font-mono">Writes &amp; schedules social, syncs CRM leads</p>
             </CardHeader>
 
             <CardContent className="p-6 flex-grow">
               <p className="text-center text-white/50 text-xs uppercase tracking-wide mb-1">Starting at</p>
               <div className="flex justify-center items-baseline mb-2">
-                <span className="text-4xl font-bold text-white">€80</span>
+                <span className="text-4xl font-bold text-white font-mono">$49</span>
                 <span className="ml-2 text-white/70">/month</span>
               </div>
-              <p className="text-center text-white/60 text-xs mb-6">30-day rolling · EU hosted</p>
+              <p className="text-center text-emerald-400 text-xs font-mono mb-6">30-day rolling · 1M tokens</p>
 
               <ul className="space-y-3 mb-6">
                 {marketingFeatures.map((feature, index) => (
                   <li key={index} className="flex items-start text-sm">
                     <Check size={18} className="text-amber-400 mr-2.5 mt-0.5 flex-shrink-0" />
-                    <span className="text-white">{feature}</span>
+                    <span className="text-zinc-200">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -304,33 +308,36 @@ const Pricing = () => {
 
             <CardFooter className="p-6 pt-0">
               <Link to="/payment?plan=ai-marketing-assistant" className="lets-talk-btn w-full justify-center text-base py-3">
-                Hire this role
+                Hire Creative ($49/mo)
                 <ArrowUpRight size={18} className="ml-2" />
               </Link>
             </CardFooter>
           </Card>
 
-          {/* AI Chat Agent */}
-          <Card className="border border-black/10 overflow-hidden flex flex-col h-full bg-[#282828]">
-            <CardHeader className="bg-black p-6 text-white text-center">
-              <span className="text-xs uppercase font-mono tracking-wider text-teal-400 font-bold">24/7 Web Concierge</span>
-              <h3 className="text-xl font-bold mb-1 uppercase mt-1">AI Chat Agent</h3>
-              <p className="opacity-90 text-sm">Answers questions, books calendar appointments</p>
+          {/* AI Chat Agent (Nora) */}
+          <Card className="border border-white/10 overflow-hidden flex flex-col h-full bg-[#1c1c1e] text-white">
+            <CardHeader className="bg-black/60 p-6 text-white text-center border-b border-white/10 relative">
+              <div className="w-16 h-16 rounded-2xl overflow-hidden bg-zinc-900 border border-white/15 mx-auto mb-3 shadow-lg">
+                <img src="/agents/nora.png" alt="Nora" className="w-full h-full object-cover" />
+              </div>
+              <span className="text-xs uppercase font-mono tracking-wider text-teal-400 font-bold">Nora · Concierge</span>
+              <h3 className="text-xl font-bold mb-1 uppercase mt-1">24/7 AI Concierge</h3>
+              <p className="opacity-70 text-xs font-mono">Answers inquiries, books calendar meetings</p>
             </CardHeader>
 
             <CardContent className="p-6 flex-grow">
               <p className="text-center text-white/50 text-xs uppercase tracking-wide mb-1">Starting at</p>
               <div className="flex justify-center items-baseline mb-2">
-                <span className="text-4xl font-bold text-white">€150</span>
+                <span className="text-4xl font-bold text-white font-mono">$99</span>
                 <span className="ml-2 text-white/70">/month</span>
               </div>
-              <p className="text-center text-white/60 text-xs mb-6">30-day rolling · EU hosted</p>
+              <p className="text-center text-emerald-400 text-xs font-mono mb-6">30-day rolling · 3M tokens</p>
 
               <ul className="space-y-3 mb-6">
                 {chatFeatures.map((feature, index) => (
                   <li key={index} className="flex items-start text-sm">
                     <Check size={18} className="text-teal-400 mr-2.5 mt-0.5 flex-shrink-0" />
-                    <span className="text-white">{feature}</span>
+                    <span className="text-zinc-200">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -338,36 +345,39 @@ const Pricing = () => {
 
             <CardFooter className="p-6 pt-0">
               <Link to="/payment?plan=ai-chat-agent" className="lets-talk-btn w-full justify-center text-base py-3">
-                Hire this role
+                Hire Nora ($99/mo)
                 <ArrowUpRight size={18} className="ml-2" />
               </Link>
             </CardFooter>
           </Card>
 
-          {/* AI Phone Receptionist */}
-          <Card className="border-2 border-rose-500/40 overflow-hidden flex flex-col h-full shadow-lg relative bg-[#282828]">
-            <div className="absolute top-0 right-0 bg-rose-600 text-white px-3 py-0.5 text-xs font-bold uppercase tracking-wider">
+          {/* AI Phone Receptionist (Maya) */}
+          <Card className="border-2 border-rose-500/40 overflow-hidden flex flex-col h-full shadow-lg relative bg-[#1c1c1e] text-white">
+            <div className="absolute top-0 right-0 bg-rose-600 text-white px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider font-mono">
               Never Miss a Call
             </div>
-            <CardHeader className="bg-black p-6 text-white text-center">
-              <span className="text-xs uppercase font-mono tracking-wider text-rose-400 font-bold">Voice AI</span>
+            <CardHeader className="bg-black/60 p-6 text-white text-center border-b border-white/10 relative">
+              <div className="w-16 h-16 rounded-2xl overflow-hidden bg-zinc-900 border border-white/15 mx-auto mb-3 shadow-lg">
+                <img src="/agents/maya.png" alt="Maya" className="w-full h-full object-cover" />
+              </div>
+              <span className="text-xs uppercase font-mono tracking-wider text-rose-400 font-bold">Maya · Voice AI</span>
               <h3 className="text-xl font-bold mb-1 uppercase mt-1">Phone Receptionist</h3>
-              <p className="opacity-90 text-sm">Answers calls in human voice &amp; texts back</p>
+              <p className="opacity-70 text-xs font-mono">Answers calls in human voice &amp; texts back</p>
             </CardHeader>
 
             <CardContent className="p-6 flex-grow">
               <p className="text-center text-white/50 text-xs uppercase tracking-wide mb-1">Starting at</p>
               <div className="flex justify-center items-baseline mb-2">
-                <span className="text-4xl font-bold text-white">€350</span>
+                <span className="text-4xl font-bold text-white font-mono">$199</span>
                 <span className="ml-2 text-white/70">/month</span>
               </div>
-              <p className="text-center text-white/60 text-xs mb-6">30-day rolling · EU hosted</p>
+              <p className="text-center text-emerald-400 text-xs font-mono mb-6">30-day rolling · 300 voice mins</p>
 
               <ul className="space-y-3 mb-6">
                 {phoneFeatures.map((feature, index) => (
                   <li key={index} className="flex items-start text-sm">
                     <Check size={18} className="text-rose-400 mr-2.5 mt-0.5 flex-shrink-0" />
-                    <span className="text-white">{feature}</span>
+                    <span className="text-zinc-200">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -375,11 +385,26 @@ const Pricing = () => {
 
             <CardFooter className="p-6 pt-0">
               <Link to="/payment?plan=ai-phone-receptionist" className="lets-talk-btn w-full justify-center text-base py-3">
-                Hire this role
+                Hire Maya ($199/mo)
                 <ArrowUpRight size={18} className="ml-2" />
               </Link>
             </CardFooter>
           </Card>
+        </div>
+
+        {/* Banner linking to Agentic Companies */}
+        <div className="max-w-4xl mx-auto mb-16 p-6 rounded-2xl bg-zinc-900 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="space-y-1 text-center sm:text-left">
+            <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold">Turnkey Bot-Powered Companies</span>
+            <h4 className="text-lg font-bold text-white uppercase">Want to launch a complete autonomous company?</h4>
+            <p className="text-xs text-zinc-400">Deploy an AI Automation Agency ($41k margin benchmark), Faceless Media Company, or SEO Agency.</p>
+          </div>
+          <a
+            href="#agentic-companies"
+            className="whitespace-nowrap px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors"
+          >
+            Explore Company Templates →
+          </a>
         </div>
 
         <div className="mt-12 text-center">

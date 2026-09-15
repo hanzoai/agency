@@ -188,7 +188,7 @@ const Payment = () => {
                     <p className="text-sm text-gray-400">{plan.description}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold">{plan.currency === 'EUR' ? '€' : '$'}{plan.priceMonthly.toLocaleString()}</p>
+                    <p className="font-semibold">${plan.priceMonthly.toLocaleString()}</p>
                     {!plan.once && <p className="text-sm text-gray-400">/month</p>}
                   </div>
                 </div>
@@ -197,14 +197,14 @@ const Payment = () => {
                 <div className="mt-6 space-y-3">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-400">Subtotal</span>
-                    <span>{plan.currency === 'EUR' ? '€' : '$'}{plan.priceMonthly.toLocaleString()}</span>
+                    <span>${plan.priceMonthly.toLocaleString()}</span>
                   </div>
                   <div className="pt-3 border-t border-gray-800">
                     <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
                       <span className="flex items-center">
-                        <span className="text-sm text-gray-400 mr-2">{plan.currency || 'USD'}</span>
-                        {plan.currency === 'EUR' ? '€' : '$'}{plan.priceMonthly.toLocaleString()}
+                        <span className="text-sm text-gray-400 mr-2">USD</span>
+                        ${plan.priceMonthly.toLocaleString()}
                       </span>
                     </div>
                     {!plan.once && (

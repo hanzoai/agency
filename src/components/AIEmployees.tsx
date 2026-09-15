@@ -128,19 +128,6 @@ export function AIEmployees() {
                   {emp.description}
                 </p>
 
-                {/* Benchmark Tag if available */}
-                {emp.benchmark && (
-                  <div className="bg-black/50 border border-white/10 rounded-xl p-3 mb-5">
-                    <div className="flex items-center justify-between text-[11px] font-mono mb-1">
-                      <span className="text-zinc-400">{emp.benchmark.metric}</span>
-                      <span className="text-emerald-400 font-bold">{emp.benchmark.value}</span>
-                    </div>
-                    <p className="text-[11px] text-zinc-500 leading-tight">
-                      {emp.benchmark.detail}
-                    </p>
-                  </div>
-                )}
-
                 {/* Features */}
                 <div className="space-y-2 mb-6">
                   {emp.features.slice(0, 3).map((feat, idx) => (

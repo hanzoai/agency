@@ -62,13 +62,6 @@ export interface Plan {
   persona?: string;
   roleTitle?: string;
   usageTier?: string;
-  benchmark?: {
-    metric: string;
-    value: string;
-    detail: string;
-    multiple?: string;
-  };
-  estimatedRevenue?: string;
 }
 
 export const plans: Plan[] = [
@@ -167,13 +160,6 @@ export const plans: Plan[] = [
     usageTier: '$49/mo (1M tokens) · $149/mo (5M tokens) · $499/mo (25M tokens + multi-channel)',
     terms: '30-day rolling · Hanzo AI Cloud backend · Deploy on hanzo.team',
     bestFor: 'Founders and growth teams needing autonomous daily organic distribution.',
-    benchmark: {
-      metric: 'Median Views / Post',
-      value: '3,820',
-      multiple: '3.6× control',
-      detail: 'Weekly autonomous publishing across TikTok, YouTube Shorts & Instagram Reels',
-    },
-    estimatedRevenue: '$2,500 – $8,000/mo organic traffic & lead value',
     features: [
       'Autonomous copy generation tuned to your exact brand voice',
       'Scheduled distribution across X, LinkedIn, TikTok & Instagram',
@@ -197,13 +183,6 @@ export const plans: Plan[] = [
     usageTier: '$99/mo (3M tokens) · $199/mo (10M tokens) · $499/mo (30M tokens + priority queue)',
     terms: '30-day rolling · Hanzo AI Cloud backend · Deploy on hanzo.team',
     bestFor: 'Any business wanting to convert visitors and answer questions 24/7.',
-    benchmark: {
-      metric: 'Task Completion Rate',
-      value: '94%',
-      multiple: 'Sub-second latency',
-      detail: 'Zero drop-off on customer inquiries with instant CRM & calendar sync',
-    },
-    estimatedRevenue: '$3,000 – $12,000/mo in saved headcount & recovered leads',
     features: [
       'Trained on your live docs, past tickets, services & pricing tables',
       'Automated qualification & direct calendar booking integration',
@@ -228,13 +207,6 @@ export const plans: Plan[] = [
     usageTier: '$199/mo (300 mins) · $399/mo (1,000 mins) · $999/mo (Enterprise 3,500+ mins)',
     terms: '30-day rolling · Hanzo AI Cloud Voice · Deploy on hanzo.team',
     bestFor: 'Clinics, legal firms, service agencies, and businesses where missed calls mean lost clients.',
-    benchmark: {
-      metric: 'Voice Turn Latency',
-      value: '<800ms',
-      multiple: '100% call capture',
-      detail: 'Human-parity audio synthesis with instant SMS follow-up',
-    },
-    estimatedRevenue: '$5,000 – $25,000/mo in recovered missed-call bookings',
     features: [
       '24/7 human-sounding natural voice synthesis with sub-second response',
       'Immediate audio recording, transcription & structured summary sent to mobile',
@@ -258,13 +230,6 @@ export const plans: Plan[] = [
     usageTier: '$149/mo (5M tokens) · $349/mo (15M tokens) · $999/mo (50M tokens + auto-PRs)',
     terms: '30-day rolling · Hanzo AI Cloud · Deploy on hanzo.team',
     bestFor: 'Startups and engineering teams needing an tireless autonomous developer.',
-    benchmark: {
-      metric: 'Verified PR Pass Rate',
-      value: '91%',
-      multiple: '187ns runtime boot',
-      detail: 'Tested across GitHub pull requests, linting, unit tests and builds',
-    },
-    estimatedRevenue: '$8,000 – $20,000/mo engineering output equivalent',
     features: [
       'Connects directly to GitHub/GitLab repositories and local branches',
       'Autonomous feature implementation, bug triage, and refactoring',
@@ -288,13 +253,6 @@ export const plans: Plan[] = [
     usageTier: '$99/mo (1,000 assets) · $249/mo (3,500 assets) · $699/mo (Unlimited vector + 3D)',
     terms: '30-day rolling · Hanzo AI Cloud · Deploy on hanzo.team',
     bestFor: 'Agencies and founders needing rapid, high-fidelity design production.',
-    benchmark: {
-      metric: 'Asset Turnaround',
-      value: '<60s',
-      multiple: 'Vector & Figma sync',
-      detail: 'Instant production-ready CSS, SVG, and component code',
-    },
-    estimatedRevenue: '$4,000 – $10,000/mo design retainer value',
     features: [
       'Tailwind CSS, React, and Figma-compatible component generation',
       'Brand style consistency enforcement across all deliverables',
@@ -318,13 +276,6 @@ export const plans: Plan[] = [
     usageTier: '$149/mo · $399/mo · $799/mo dedicated SRE monitor',
     terms: '30-day rolling · Hanzo Cloud · Deploy on hanzo.team',
     bestFor: 'Teams running cloud infrastructure needing 24/7 uptime vigilance.',
-    benchmark: {
-      metric: 'Mean Time to Detect (MTTD)',
-      value: '<15s',
-      multiple: 'Zero false alarms',
-      detail: 'Autonomous incident diagnosis and automated rollback triggers',
-    },
-    estimatedRevenue: '$6,000 – $15,000/mo in downtime prevention & SRE coverage',
     features: [
       '24/7 cluster telemetry, anomaly detection, and automated mitigation',
       'CI/CD pipeline triage, broken build repair, and dependency updates',
@@ -345,7 +296,6 @@ export const plans: Plan[] = [
     roleTitle: 'Turnkey Client Acquisition & Delivery Business',
     persona: 'creative',
     avatar: '/agents/creative.png',
-    badge: 'CASE STUDY VERIFIED · $100M+ SCALE',
     description: 'Autonomous agency dropped into your market to prospect, qualify, send cold outreach, close deals, and deliver client work.',
     priceMonthly: 499,
     category: 'company',
@@ -353,13 +303,6 @@ export const plans: Plan[] = [
     usageTier: '$499/mo (Starter: 50 outreach/day) · $999/mo (Pro: 200 outreach/day + full delivery engine)',
     terms: 'Turnkey autonomous business template · Managed on hanzo.team',
     bestFor: 'Entrepreneurs and agencies wanting an autonomous cash-flow business.',
-    benchmark: {
-      metric: 'Cumulative Client Revenue',
-      value: '$100M+',
-      multiple: '500× campaign ROI',
-      detail: 'Verified customer case study: Damon Motorcycles EV launch powered by Hanzo agency engine',
-    },
-    estimatedRevenue: '$10,000 – $40,000+/mo booked margin',
     features: [
       'Autonomous prospect discovery and targeted email/Slack outreach',
       'Adaptive qualification playbook that refines based on market replies',
@@ -377,7 +320,6 @@ export const plans: Plan[] = [
     roleTitle: 'Autonomous Short-Form Media Network',
     persona: 'jobs',
     avatar: '/agents/jobs.png',
-    badge: '169M+ VIEWERS REACHED',
     description: 'Runs TikTok, YouTube Shorts, and Instagram Reels channels from nothing with original AI-generated video and adaptive hooks.',
     priceMonthly: 299,
     category: 'company',
@@ -385,13 +327,6 @@ export const plans: Plan[] = [
     usageTier: '$299/mo (5 posts/wk) · $599/mo (15 posts/wk) · $899/mo (Multi-channel network)',
     terms: 'Turnkey autonomous business template · Managed on hanzo.team',
     bestFor: 'Media creators, affiliate marketers, and brands wanting viral organic reach.',
-    benchmark: {
-      metric: 'Broadcast Reach (Media)',
-      value: '169M+',
-      multiple: '82M+ MAUs',
-      detail: 'Verified customer case study: Triller & TrillerFest live video distribution and multi-channel campaign',
-    },
-    estimatedRevenue: '150,000+ views/mo · Creator fund & affiliate monetization',
     features: [
       'Automated viral scriptwriting, voiceover generation, and b-roll assembly',
       'Adaptive hook library that rewrites from top 10% performing posts',
@@ -409,7 +344,6 @@ export const plans: Plan[] = [
     roleTitle: 'Viral Content Syndication Network',
     persona: 'dario',
     avatar: '/agents/dario.png',
-    badge: 'DOGFOODED ON HANZO.AI',
     description: 'Mines long-form podcasts, webinars, and back catalogues for high-engagement moments, reframes, captions, and posts across channels.',
     priceMonthly: 299,
     category: 'company',
@@ -417,13 +351,6 @@ export const plans: Plan[] = [
     usageTier: '$299/mo (25 clips/mo) · $549/mo (75 clips/mo) · $799/mo (Unlimited catalogue)',
     terms: 'Turnkey autonomous business template · Managed on hanzo.team',
     bestFor: 'Podcasters, educators, streamers, and media companies with video archives.',
-    benchmark: {
-      metric: 'Viral Clip Discovery',
-      value: 'Sub-second',
-      multiple: '100% automated hold',
-      detail: 'Dogfooded on Hanzo internal podcasts, dev chats & developer media via /v1/benchmark telemetry',
-    },
-    estimatedRevenue: '200,000+ views/mo · Sponsorship & audience funneling',
     features: [
       'Automated transcript analysis & virality heat-mapping',
       'Smart 9:16 vertical reframing with active speaker auto-tracking',
@@ -441,7 +368,6 @@ export const plans: Plan[] = [
     roleTitle: 'Search Engine & AI Answer Engine Retainer',
     persona: 'feynman',
     avatar: '/agents/feynman.png',
-    badge: 'NATIVE DOGFOODING',
     description: 'Complete organic search & generative engine optimization agency: technical audits, keyword research, long-form guides, and citation blocks.',
     priceMonthly: 399,
     category: 'company',
@@ -449,13 +375,6 @@ export const plans: Plan[] = [
     usageTier: '$399/mo (20 articles/mo) · $699/mo (50 articles/mo) · $999/mo (Enterprise GEO)',
     terms: 'Turnkey autonomous business template · Managed on hanzo.team',
     bestFor: 'Businesses wanting to rank in both Google Search and AI Answer Engines (Perplexity, ChatGPT, Claude).',
-    benchmark: {
-      metric: 'Answer Engine Citation',
-      value: 'Top 3',
-      multiple: 'Zero hallucination',
-      detail: 'Live tracking across Perplexity, ChatGPT & Claude via Hanzo /v1/benchmark & /v1/research',
-    },
-    estimatedRevenue: '$5,000 – $15,000/mo organic traffic value',
     features: [
       'Comprehensive keyword gap audits and competitor term mapping',
       'Autonomous authoring of publication-grade, hallucination-free articles',
@@ -480,7 +399,6 @@ export const plans: Plan[] = [
     usageTier: '$349/mo (Single publication) · $649/mo (3 publications) · $999/mo (Network of 10)',
     terms: 'Turnkey autonomous business template · Managed on hanzo.team',
     bestFor: 'Digital publishers building automated web properties with compounding traffic.',
-    estimatedRevenue: '$3,000 – $12,000/mo programmatic ad yield',
     features: [
       'Automated static site deployment on high-speed CDN edge',
       'Programmatic content pipelines targeting long-tail commercial intent',
@@ -498,7 +416,6 @@ export const plans: Plan[] = [
     roleTitle: 'Curated Digest & Audience Monetizer',
     persona: 'teresa',
     avatar: '/agents/teresa.png',
-    badge: '250K SUBSCRIBERS',
     description: 'Curates, writes, and sends weekly industry newsletters, runs automated subscriber growth loops, and matches paid sponsors.',
     priceMonthly: 199,
     category: 'company',
@@ -506,13 +423,6 @@ export const plans: Plan[] = [
     usageTier: '$199/mo (Weekly digest) · $399/mo (Daily dispatch + referral loop) · $699/mo (Multi-publication)',
     terms: 'Turnkey autonomous business template · Managed on hanzo.team',
     bestFor: 'Niche operators wanting a loyal, monetization-ready email audience.',
-    benchmark: {
-      metric: 'Pre-Launch Audience',
-      value: '250,000',
-      multiple: 'Viral waitlist loop',
-      detail: 'Verified customer case study: Bellabeat LEAF referral growth engine',
-    },
-    estimatedRevenue: '$2,500 – $10,000/mo in sponsorships & paid subs',
     features: [
       'Automated web crawling of industry news, papers, and breaking trends',
       'Editorial curation and formatting in engaging markdown newsletters',
@@ -529,7 +439,6 @@ export const plans: Plan[] = [
     roleTitle: 'Multi-Channel ROAS Optimization Agency',
     persona: 'altman',
     avatar: '/agents/altman.png',
-    badge: '6.75× BLENDED ROAS',
     description: 'Tests hundreds of ad creative variations, allocates budget dynamically, and drives blended ROAS across Meta, Google, and TikTok Ads.',
     priceMonthly: 499,
     category: 'company',
@@ -537,13 +446,6 @@ export const plans: Plan[] = [
     usageTier: '$499/mo (Up to $10k ad spend) · $999/mo (Up to $50k+ ad spend)',
     terms: 'Turnkey autonomous business template · Managed on hanzo.team',
     bestFor: 'E-commerce and SaaS brands scaling paid customer acquisition.',
-    benchmark: {
-      metric: 'Blended ROAS',
-      value: '6.75×',
-      multiple: '$135K on $20K spend',
-      detail: 'Verified customer case study: STONED Wireless Audio direct-response acquisition',
-    },
-    estimatedRevenue: '6.75× Blended ROAS ($135k generated on $20k initial spend)',
     features: [
       'Generates copy, headlines, and visuals for multivariate testing',
       'Real-time budget allocation shifting spend to highest-converting ad sets',
@@ -567,7 +469,6 @@ export const plans: Plan[] = [
     usageTier: '$399/mo (2 active searches) · $699/mo (5 active searches) · $999/mo (Unlimited searches)',
     terms: 'Turnkey autonomous business template · Managed on hanzo.team',
     bestFor: 'Fast-growing startups and agencies needing senior talent fast.',
-    estimatedRevenue: '$8,000 – $25,000/mo saved in external recruiter fees',
     features: [
       'Automated candidate discovery across technical communities and job boards',
       'Precision screening against technical requirements and portfolio review',

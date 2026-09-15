@@ -30,7 +30,6 @@ import {
   Layers,
   Zap,
   Users,
-  BarChart3
 } from 'lucide-react';
 import { aiEmployees, agenticCompanies } from '@/data/plans';
 
@@ -540,16 +539,6 @@ const Dashboard = () => {
                         {emp.description}
                       </p>
 
-                      {emp.benchmark && (
-                        <div className="bg-black/60 border border-white/10 rounded-xl p-3 mb-4 text-xs font-mono">
-                          <div className="flex justify-between text-zinc-400 text-[11px] mb-0.5">
-                            <span>{emp.benchmark.metric}</span>
-                            <span className="text-emerald-400 font-bold">{emp.benchmark.value}</span>
-                          </div>
-                          <p className="text-[10px] text-zinc-500">{emp.benchmark.detail}</p>
-                        </div>
-                      )}
-
                       <ul className="space-y-2 text-xs text-gray-400 mb-6">
                         {emp.features.slice(0, 3).map((feat, idx) => (
                           <li key={idx} className="flex items-center gap-2">
@@ -629,25 +618,6 @@ const Dashboard = () => {
                       </div>
 
                       <p className="text-xs text-zinc-300 mb-4">{comp.description}</p>
-
-                      {comp.benchmark && (
-                        <div className="bg-zinc-900/90 border border-white/10 rounded-xl p-3 mb-4">
-                          <div className="flex justify-between items-center text-xs font-mono mb-1">
-                            <span className="text-zinc-400 flex items-center gap-1">
-                              <BarChart3 className="w-3.5 h-3.5 text-emerald-400" />
-                              {comp.benchmark.metric}
-                            </span>
-                            <span className="text-emerald-400 font-bold">{comp.benchmark.value}</span>
-                          </div>
-                          <p className="text-[11px] text-zinc-400">{comp.benchmark.detail}</p>
-                        </div>
-                      )}
-
-                      {comp.estimatedRevenue && (
-                        <div className="text-xs text-amber-300 bg-amber-500/10 border border-amber-500/20 rounded-lg p-2 mb-4 font-mono">
-                          Est. Revenue: {comp.estimatedRevenue}
-                        </div>
-                      )}
 
                       <ul className="space-y-1.5 text-xs text-zinc-400 mb-6">
                         {comp.features.slice(0, 3).map((feat, idx) => (

@@ -63,7 +63,6 @@ const phoneFeatures = [
   "Missed-call instant SMS text-back included",
   "Emergency calls flagged to your mobile",
   "Call audio, logs & controls on hanzo.team",
-  "Sub-second latency on Hanzo AI Cloud",
 ];
 
 const Pricing = () => {
@@ -397,7 +396,7 @@ const Pricing = () => {
           <div className="space-y-1 text-center sm:text-left">
             <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold">Turnkey Bot-Powered Companies</span>
             <h4 className="text-lg font-bold text-white uppercase">Want to launch a complete autonomous company?</h4>
-            <p className="text-xs text-zinc-400">Deploy an AI Automation Agency ($41k margin benchmark), Faceless Media Company, or SEO Agency.</p>
+            <p className="text-xs text-zinc-400">Deploy an AI Automation Agency, Faceless Media Company, or SEO Agency.</p>
           </div>
           <a
             href="#agentic-companies"

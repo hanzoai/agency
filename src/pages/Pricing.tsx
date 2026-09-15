@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Footer from '@/components/Footer';
-import { Check, ArrowUpRight, ExternalLink, Sparkles, Bot, BarChart3 } from 'lucide-react';
+import { Check, ArrowUpRight, ExternalLink, Sparkles, Bot } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { aiEmployees, agenticCompanies } from '@/data/plans';
 
@@ -338,16 +338,6 @@ export default function Pricing() {
                       {emp.description}
                     </p>
 
-                    {emp.benchmark && (
-                      <div className="bg-black/60 border border-white/10 rounded-xl p-3 mb-4 text-xs font-mono">
-                        <div className="flex justify-between text-zinc-400 text-[11px] mb-0.5">
-                          <span>{emp.benchmark.metric}</span>
-                          <span className="text-emerald-400 font-bold">{emp.benchmark.value}</span>
-                        </div>
-                        <p className="text-[10px] text-zinc-500">{emp.benchmark.detail}</p>
-                      </div>
-                    )}
-
                     <ul className="space-y-2">
                       {emp.features.slice(0, 3).map((feat, idx) => (
                         <li key={idx} className="flex gap-2 items-start text-xs text-zinc-300">
@@ -389,7 +379,7 @@ export default function Pricing() {
               Deploy an Agentic Company from $199–$499/mo
             </h2>
             <p className="text-base text-foreground/80 max-w-2xl mx-auto">
-              Self-operating businesses powered by multi-agent networks, proven on live benchmarks, with built-in client acquisition and delivery.
+              Self-operating businesses powered by multi-agent networks, with built-in client acquisition and delivery.
             </p>
           </div>
 
@@ -418,19 +408,6 @@ export default function Pricing() {
                 </div>
 
                 <p className="text-xs text-zinc-300 mb-4">{comp.description}</p>
-
-                {comp.benchmark && (
-                  <div className="bg-zinc-900/90 border border-white/10 rounded-xl p-3.5 mb-4">
-                    <div className="flex justify-between items-center text-xs font-mono mb-1">
-                      <span className="text-zinc-400 flex items-center gap-1">
-                        <BarChart3 className="w-3.5 h-3.5 text-emerald-400" />
-                        {comp.benchmark.metric}
-                      </span>
-                      <span className="text-emerald-400 font-bold">{comp.benchmark.value}</span>
-                    </div>
-                    <p className="text-[11px] text-zinc-400">{comp.benchmark.detail}</p>
-                  </div>
-                )}
 
                 <div className="mt-auto pt-4 border-t border-white/10 flex items-center justify-between">
                   <div>

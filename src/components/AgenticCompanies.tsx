@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, Check, ExternalLink, Sparkles, TrendingUp, BarChart3, Bot, Zap, DollarSign, Shield } from 'lucide-react';
+import { ArrowUpRight, Check, ExternalLink, Sparkles, TrendingUp, Bot, Zap, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { agenticCompanies } from '@/data/plans';
+
+/** Launch results from the case studies, each opening its study on hanzo.ai/customers. */
+const CASES = [
+  { id: 'damon-motorcycles', who: 'Damon Motorcycles', value: '$8.4M', label: 'in bikes sold in 30 days' },
+  { id: 'trillerfest', who: 'Triller', value: '169M', label: 'people watched TrillerFest' },
+  { id: 'stoned', who: 'STONED Audio', value: '$135K', label: 'in sales from a $20K budget' },
+  { id: 'bellabeat', who: 'Bellabeat', value: '250,000', label: 'email signups for LEAF' },
+];
 
 export function AgenticCompanies() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'media' | 'agency' | 'publishing'>('all');
@@ -38,7 +46,7 @@ export function AgenticCompanies() {
 
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed">
             Full bot-powered company templates run autonomously by frontier models and specialized agent teams. 
-            Backed by live benchmarks, market-tested playbooks, and self-improving feedback loops.
+            Built on the playbooks behind the launches in our case studies.
           </p>
 
           {/* Filter Pills */}
@@ -86,45 +94,20 @@ export function AgenticCompanies() {
           </div>
         </div>
 
-        {/* Highlight Benchmark Banner */}
+        {/* Figures from the case studies at hanzo.ai/customers */}
         <div className="bg-gradient-to-r from-zinc-900 via-zinc-900/90 to-zinc-900 border border-white/15 rounded-2xl p-6 sm:p-8 mb-16 shadow-2xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-white/10">
-            <div className="pb-4 md:pb-0 md:pr-6">
-              <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 block mb-1">
-                Agency Revenue Scale
-              </span>
-              <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">$100M+</div>
-              <p className="text-xs text-zinc-400 mt-1">
-                Cumulative sales &amp; 500× campaign ROI powered by Hanzo (Damon Motorcycles)
-              </p>
-            </div>
-            <div className="py-4 md:py-0 md:px-6">
-              <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 block mb-1">
-                Media Broadcast Reach
-              </span>
-              <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">169M+</div>
-              <p className="text-xs text-zinc-400 mt-1">
-                Global unique viewers reached with zero downtime (Triller &amp; TrillerFest)
-              </p>
-            </div>
-            <div className="py-4 md:py-0 md:px-6">
-              <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 block mb-1">
-                Blended Paid ROAS
-              </span>
-              <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">6.75×</div>
-              <p className="text-xs text-zinc-400 mt-1">
-                Direct-response return on ad spend ($135k revenue on $20k initial spend)
-              </p>
-            </div>
-            <div className="pt-4 md:pt-0 md:pl-6">
-              <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 block mb-1">
-                Audience Growth Loop
-              </span>
-              <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">250,000</div>
-              <p className="text-xs text-zinc-400 mt-1">
-                Pre-launch waitlist subscribers generated via automated referral mechanics (Bellabeat)
-              </p>
-            </div>
+            {CASES.map((c, i) => (
+              <a
+                key={c.who}
+                href={`https://hanzo.ai/customers#${c.id}`}
+                className={i === 0 ? 'pb-4 md:pb-0 md:pr-6' : i === CASES.length - 1 ? 'pt-4 md:pt-0 md:pl-6' : 'py-4 md:py-0 md:px-6'}
+              >
+                <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 block mb-1">{c.who}</span>
+                <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">{c.value}</div>
+                <p className="text-xs text-zinc-400 mt-1">{c.label}</p>
+              </a>
+            ))}
           </div>
         </div>
 
@@ -168,37 +151,6 @@ export function AgenticCompanies() {
                 <p className="text-sm text-zinc-300 mb-6 leading-relaxed">
                   {company.description}
                 </p>
-
-                {/* Benchmark Performance Card */}
-                {company.benchmark && (
-                  <div className="bg-zinc-900/90 border border-white/10 rounded-xl p-4 mb-6">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 flex items-center gap-1.5">
-                        <BarChart3 className="w-3.5 h-3.5 text-emerald-400" />
-                        {company.benchmark.metric}
-                      </span>
-                      {company.benchmark.multiple && (
-                        <span className="text-[11px] font-bold font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
-                          {company.benchmark.multiple}
-                        </span>
-                      )}
-                    </div>
-                    <div className="text-2xl font-black text-white font-mono tracking-tight">
-                      {company.benchmark.value}
-                    </div>
-                    <p className="text-xs text-zinc-400 mt-1">
-                      {company.benchmark.detail}
-                    </p>
-                  </div>
-                )}
-
-                {/* Estimated Revenue / Yield */}
-                {company.estimatedRevenue && (
-                  <div className="flex items-center gap-2 text-xs font-medium text-amber-300 bg-amber-500/5 border border-amber-500/15 rounded-lg px-3 py-2 mb-6">
-                    <DollarSign className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
-                    <span>Estimated Impact: <strong>{company.estimatedRevenue}</strong></span>
-                  </div>
-                )}
 
                 {/* Features List */}
                 <div className="space-y-2.5 mb-8">

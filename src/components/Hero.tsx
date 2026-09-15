@@ -38,7 +38,7 @@ const Hero = () => {
                 </div>
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                   <span className="animated-text-container">
-                    <span className="animated-text">AI is our</span>
+                    <span className="animated-text">AI is our</span>{' '}
                     <Link to="/onboarding" className="animated-text animated-underline hover:no-underline">super power.</Link>
                   </span>
                 </h1>

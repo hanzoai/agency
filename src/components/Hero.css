@@ -43,11 +43,15 @@ span:hover .sparkle-emoji {
   display: inline;
 }
 
-/* White highlight box with rainbow gradient on hover for "super power" */
+/* The highlight box for "super power". inline-block, so the box the ::before
+   fills is the phrase's own: as a plain inline, a wrapped phrase left the
+   absolutely positioned box on the first line fragment, a few pixels wide, and
+   the hover painted black text on a black page beside a rainbow sliver. */
 .animated-underline {
   position: relative;
   z-index: 1;
-  display: inline;
+  display: inline-block;
+  margin-left: 0.25em;
   color: white;
   cursor: pointer;
   transition: color 0.3s ease;

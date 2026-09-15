@@ -180,87 +180,10 @@ const Pricing = () => {
           </Card>
         </div>
 
-        {/* 02 · Dedicated Teams */}
-        <div className="text-center mt-16 mb-8 reveal">
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest bg-blue-500/10 text-blue-800 font-bold mb-2">
-            02 · Dedicated Teams — Agency & Enterprise
-          </span>
-          <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-primary">
-            Full-Service Creative & Engineering
-          </h3>
-        </div>
-
-        {/* Agency / Enterprise */}
-        <div className="grid md:grid-cols-2 gap-8 reveal-slide-up max-w-4xl mx-auto mb-16">
-          {/* Agency Service */}
-          <Card className="border-2 border-accent overflow-hidden flex flex-col h-full shadow-lg relative bg-[#282828]">
-            <div className="absolute top-0 right-0 bg-accent text-white px-4 py-1 text-sm font-bold">
-              POPULAR
-            </div>
-            <CardHeader className="bg-accent p-8 text-white text-center">
-              <h3 className="text-2xl font-bold mb-2 uppercase">Agency Service</h3>
-              <p className="opacity-90">Full-service creative team</p>
-            </CardHeader>
-
-            <CardContent className="p-8 flex-grow">
-              <div className="flex justify-center items-baseline mb-2">
-                <span className="text-4xl font-bold text-white">$4,995</span>
-                <span className="ml-2 text-white/70">/month</span>
-              </div>
-              <p className="text-center text-white/60 text-sm mb-6">1 quarter minimum</p>
-
-              <ul className="space-y-4 mb-8">
-                {agencyFeatures.map((feature, index) => <li key={index} className="flex items-start">
-                    <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
-                    <span className="text-white">{feature}</span>
-                  </li>)}
-              </ul>
-            </CardContent>
-
-            <CardFooter className="p-6 pt-0">
-              <Link to="/payment?plan=agency" className="lets-talk-btn w-full justify-center text-lg py-3 bg-accent hover:bg-accent/90">
-                Get started
-                <ArrowUpRight size={20} className="ml-2" />
-              </Link>
-            </CardFooter>
-          </Card>
-
-          {/* Enterprise */}
-          <Card className="border border-black/10 overflow-hidden flex flex-col h-full bg-[#282828]">
-            <CardHeader className="bg-black p-8 text-white text-center">
-              <h3 className="text-2xl font-bold mb-2 uppercase">Enterprise</h3>
-              <p className="opacity-90">Dedicated team, priority everything</p>
-            </CardHeader>
-
-            <CardContent className="p-8 flex-grow">
-              <p className="text-center text-white/50 text-xs uppercase tracking-wide mb-1">Starting at</p>
-              <div className="flex justify-center items-baseline mb-2">
-                <span className="text-4xl font-bold text-white">$9,995</span>
-                <span className="ml-2 text-white/70">/month</span>
-              </div>
-              <p className="text-center text-white/60 text-sm mb-6">annual contract preferred</p>
-
-              <ul className="space-y-4 mb-8">
-                {enterpriseFeatures.map((feature, index) => <li key={index} className="flex items-start">
-                    <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
-                    <span className="text-white">{feature}</span>
-                  </li>)}
-              </ul>
-            </CardContent>
-
-            <CardFooter className="p-6 pt-0">
-              <Link to="/payment?plan=enterprise" className="lets-talk-btn w-full justify-center text-lg py-3">
-                Get started
-                <ArrowUpRight size={20} className="ml-2" />
-              </Link>
-            </CardFooter>
-          </Card>
-        </div>
-
-        {/* 03 · AI AUTOMATION — AI EMPLOYEES */}
+        {/* AI AUTOMATION — AI EMPLOYEES */}
         <div className="text-center mt-16 mb-8 reveal">
           <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest bg-amber-500/10 text-amber-400 font-bold mb-2">
-            03 · AI Automation — AI Employees &amp; Companies
+            AI Automation — AI Employees &amp; Companies
           </span>
           <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-white">
             Autonomous AI Employees from $49/mo
@@ -406,12 +329,93 @@ const Pricing = () => {
           </a>
         </div>
 
-        <div className="mt-12 text-center">
+        {/* Need more? 02 · DEDICATED TEAMS */}
+        <div className="text-center mt-20 mb-8 reveal">
+          <p className="text-xs font-mono uppercase tracking-widest text-primary/60 font-bold mb-2">Need more?</p>
+          <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest bg-blue-500/10 text-blue-800 font-bold mb-2">
+            02 · DEDICATED TEAMS — AGENCY &amp; ENTERPRISE
+          </span>
+          <h3 className="text-xl md:text-3xl font-bold uppercase tracking-tight text-primary mb-2">
+            Full-Service Creative &amp; Engineering
+          </h3>
+          <p className="text-sm md:text-base text-primary/70 max-w-2xl mx-auto">
+            Dedicated multidisciplinary teams, unlimited brand-trained AI agents, and comprehensive delivery.
+          </p>
+        </div>
+
+        {/* Agency / Enterprise */}
+        <div className="grid md:grid-cols-2 gap-8 reveal-slide-up max-w-4xl mx-auto mb-12">
+          {/* Agency Service */}
+          <Card className="border-2 border-accent overflow-hidden flex flex-col h-full shadow-lg relative bg-[#282828]">
+            <div className="absolute top-0 right-0 bg-accent text-white px-4 py-1 text-sm font-bold">
+              POPULAR
+            </div>
+            <CardHeader className="bg-accent p-8 text-white text-center">
+              <h3 className="text-2xl font-bold mb-2 uppercase">Agency Service</h3>
+              <p className="opacity-90">Full-service creative team</p>
+            </CardHeader>
+
+            <CardContent className="p-8 flex-grow">
+              <div className="flex justify-center items-baseline mb-2">
+                <span className="text-4xl font-bold text-white">$4,995</span>
+                <span className="ml-2 text-white/70">/month</span>
+              </div>
+              <p className="text-center text-white/60 text-sm mb-6">1 quarter minimum</p>
+
+              <ul className="space-y-4 mb-8">
+                {agencyFeatures.map((feature, index) => <li key={index} className="flex items-start">
+                    <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
+                    <span className="text-white">{feature}</span>
+                  </li>)}
+              </ul>
+            </CardContent>
+
+            <CardFooter className="p-6 pt-0">
+              <Link to="/payment?plan=agency" className="lets-talk-btn w-full justify-center text-lg py-3 bg-accent hover:bg-accent/90">
+                Get started
+                <ArrowUpRight size={20} className="ml-2" />
+              </Link>
+            </CardFooter>
+          </Card>
+
+          {/* Enterprise */}
+          <Card className="border border-black/10 overflow-hidden flex flex-col h-full bg-[#282828]">
+            <CardHeader className="bg-black p-8 text-white text-center">
+              <h3 className="text-2xl font-bold mb-2 uppercase">Enterprise</h3>
+              <p className="opacity-90">Dedicated team, priority everything</p>
+            </CardHeader>
+
+            <CardContent className="p-8 flex-grow">
+              <p className="text-center text-white/50 text-xs uppercase tracking-wide mb-1">Starting at</p>
+              <div className="flex justify-center items-baseline mb-2">
+                <span className="text-4xl font-bold text-white">$9,995</span>
+                <span className="ml-2 text-white/70">/month</span>
+              </div>
+              <p className="text-center text-white/60 text-sm mb-6">annual contract preferred</p>
+
+              <ul className="space-y-4 mb-8">
+                {enterpriseFeatures.map((feature, index) => <li key={index} className="flex items-start">
+                    <Check size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
+                    <span className="text-white">{feature}</span>
+                  </li>)}
+              </ul>
+            </CardContent>
+
+            <CardFooter className="p-6 pt-0">
+              <Link to="/payment?plan=enterprise" className="lets-talk-btn w-full justify-center text-lg py-3">
+                Get started
+                <ArrowUpRight size={20} className="ml-2" />
+              </Link>
+            </CardFooter>
+          </Card>
+        </div>
+
+        <div className="mt-8 text-center">
           <p className="text-sm text-primary/70 mb-4">
-            Need more? Contact us for larger engagements.
+            For custom enterprise scope, multi-brand portfolios, or RFP submissions, let's talk.
           </p>
           <Link to="/contact" className="lets-talk-btn">
-            Contact us
+            Talk to an advisor
             <ArrowUpRight size={16} className="ml-1" />
           </Link>
         </div>

@@ -58,12 +58,6 @@ const Hero = () => {
                   >
                     <span>Deploy a Company</span>
                   </a>
-                  <Link 
-                    to="/dashboard" 
-                    className="bg-white/10 hover:bg-white/20 border border-white/15 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-white font-medium transition text-center w-full sm:w-auto text-sm"
-                  >
-                    Client Dashboard
-                  </Link>
                 </div>
               </div>
 

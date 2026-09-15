@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, Check, ExternalLink, Bot, PhoneCall, MessageSquare, Code2, Sparkles, Cpu } from 'lucide-react';
+import { ArrowUpRight, Check, Bot, PhoneCall, MessageSquare, Code2, Sparkles, Cpu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { aiEmployees } from '@/data/plans';
 
@@ -139,25 +139,15 @@ export function AIEmployees() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="pt-4 border-t border-white/10 grid grid-cols-2 gap-2">
+              {/* Action Button */}
+              <div className="pt-4 border-t border-white/10">
                 <Link
                   to={`/payment?plan=${emp.id}`}
-                  className="w-full bg-white hover:bg-white/90 text-black py-2 px-3 text-xs font-bold uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-1 shadow-md group cursor-pointer"
+                  className="w-full bg-white hover:bg-white/90 text-black py-2.5 px-3 text-xs font-bold uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-1 shadow-md group cursor-pointer"
                 >
-                  <span>Hire Role</span>
+                  <span>Hire {emp.roleTitle?.split(' ')[0] || 'Role'} (${emp.priceMonthly}/mo)</span>
                   <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </Link>
-
-                <a
-                  href="https://hanzo.team"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full bg-white/5 hover:bg-white/10 border border-white/10 text-white py-2 px-3 text-xs font-medium rounded-xl transition-all flex items-center justify-center gap-1"
-                >
-                  <span>hanzo.team</span>
-                  <ExternalLink className="w-3 h-3 opacity-60" />
-                </a>
               </div>
             </div>
           ))}

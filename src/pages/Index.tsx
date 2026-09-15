@@ -70,10 +70,12 @@ const Index = () => {
         <Hero />
         <Services />
         <AICapabilities />
+        <Pricing />
         <WhyHanzo />
         <CaseStudy />
         <StatsSection />
         <Process />
+        <FAQ />
         <Footer />
       </div>
     </ScrollReveal>

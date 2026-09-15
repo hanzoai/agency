@@ -259,25 +259,21 @@ export function AIChatWidget() {
         <button
           onClick={() => (isOpen ? setIsOpen(false) : handleOpen())}
           aria-label="Hanzo AI Assistant — Sales & Scheduling"
-          className="relative group w-14 h-14 rounded-full bg-black border-2 border-white/30 hover:border-white shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/40 cursor-pointer overflow-hidden"
-          style={{
-            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.1)',
-          }}
+          className="relative group p-2 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none cursor-pointer"
         >
           {isOpen ? (
-            <X className="w-6 h-6 text-white transition-transform group-hover:rotate-90" />
-          ) : (
-            <div className="flex items-center justify-center w-full h-full p-2.5">
-              <HanzoLogo size={32} className="[&>svg]:w-full [&>svg]:h-full text-white transition-transform group-hover:scale-110" />
+            <div className="w-10 h-10 rounded-lg bg-zinc-900/90 border border-white/20 flex items-center justify-center text-white shadow-xl">
+              <X className="w-5 h-5 text-white transition-transform group-hover:rotate-90" />
             </div>
-          )}
-
-          {/* Active online indicator */}
-          {!isOpen && (
-            <span className="absolute top-1.5 right-1.5 flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border border-black" />
-            </span>
+          ) : (
+            <div className="relative flex items-center justify-center">
+              <HanzoLogo size={36} className="[&>svg]:w-9 [&>svg]:h-9 text-white drop-shadow-[0_4px_14px_rgba(0,0,0,0.9)] transition-transform group-hover:scale-110" />
+              {/* Active online indicator */}
+              <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+              </span>
+            </div>
           )}
         </button>
       </div>

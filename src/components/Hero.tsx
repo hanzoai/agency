@@ -32,29 +32,39 @@ const Hero = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
               {/* Text Content - Centered on mobile */}
               <div className="relative z-10 text-center lg:text-left">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-mono mb-6 backdrop-blur-md">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Autonomous AI Employees from €80/mo · Manage on hanzo.team</span>
+                </div>
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                   <span className="animated-text-container">
                     <span className="animated-text">AI is our</span>
                     <Link to="/onboarding" className="animated-text animated-underline hover:no-underline"> super power.</Link>
                   </span>
                 </h1>
-                <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-12 max-w-xl mx-auto lg:mx-0 mt-6 lg:mt-10">
-                  Transforming traditional creative paradigms with an AI-enhanced approach that delivers measurable outcomes.
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 max-w-xl mx-auto lg:mx-0 mt-6 lg:mt-8">
+                  Hire autonomous AI employees, spin up dedicated creative teams, or build bespoke apps and instant sites on Hanzo AI Cloud.
                 </p>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start">
+                  <Link 
+                    to="/pricing" 
+                    className="bg-white text-black px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-semibold transition hover:bg-white/90 flex items-center justify-center rainbow-hover-btn w-full sm:w-auto text-sm shadow-lg"
+                  >
+                    <span>Hire AI Employee</span> <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
                   <a 
                     href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="bg-white text-black px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-medium transition hover:bg-white/90 flex items-center justify-center rainbow-hover-btn w-full sm:w-auto"
+                    className="border border-white/60 hover:border-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-white font-medium transition hover:bg-white/10 text-center w-full sm:w-auto text-sm"
                   >
-                    <span>Schedule a Consultation</span> <ArrowRight className="ml-2 h-5 w-5" />
+                    Schedule Consultation
                   </a>
                   <Link 
-                    to="/services" 
-                    className="border border-white/60 hover:border-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-white font-medium transition hover:bg-white/10 text-center w-full sm:w-auto"
+                    to="/dashboard" 
+                    className="bg-white/10 hover:bg-white/20 border border-white/15 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-white font-medium transition text-center w-full sm:w-auto text-sm"
                   >
-                    Explore Services
+                    Client Dashboard
                   </Link>
                 </div>
               </div>
@@ -87,6 +97,30 @@ const Hero = () => {
                     <div className="bg-gray-800/50 rounded-lg p-3 lg:p-4 text-center">
                       <div className="text-2xl lg:text-3xl font-bold text-white">11+</div>
                       <div className="text-xs lg:text-sm text-gray-400">years experience</div>
+                    </div>
+                  </div>
+
+                  {/* AI Employees Quick Bar */}
+                  <div className="mt-6 pt-5 border-t border-gray-800">
+                    <div className="flex items-center justify-between mb-2.5 text-xs">
+                      <span className="text-white font-semibold uppercase tracking-wider font-mono">Autonomous AI Employees</span>
+                      <a href="https://hanzo.team" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline flex items-center gap-1 font-mono text-[11px]">
+                        Launch on hanzo.team ↗
+                      </a>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                      <Link to="/pricing" className="p-2.5 rounded-lg bg-gray-800/60 hover:bg-gray-800 border border-amber-500/30 transition-colors">
+                        <div className="font-bold text-white text-sm">€80<span className="text-[10px] text-gray-400 font-normal">/mo</span></div>
+                        <div className="text-[11px] text-amber-300 font-medium mt-0.5 truncate">Marketing</div>
+                      </Link>
+                      <Link to="/pricing" className="p-2.5 rounded-lg bg-gray-800/60 hover:bg-gray-800 border border-teal-500/30 transition-colors">
+                        <div className="font-bold text-white text-sm">€150<span className="text-[10px] text-gray-400 font-normal">/mo</span></div>
+                        <div className="text-[11px] text-teal-300 font-medium mt-0.5 truncate">Chat Agent</div>
+                      </Link>
+                      <Link to="/pricing" className="p-2.5 rounded-lg bg-gray-800/60 hover:bg-gray-800 border border-rose-500/30 transition-colors">
+                        <div className="font-bold text-white text-sm">€350<span className="text-[10px] text-gray-400 font-normal">/mo</span></div>
+                        <div className="text-[11px] text-rose-300 font-medium mt-0.5 truncate">Voice Phone</div>
+                      </Link>
                     </div>
                   </div>
                 </div>

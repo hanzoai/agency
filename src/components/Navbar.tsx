@@ -424,14 +424,14 @@ const Navbar = () => {
             </div>
 
             <div className="hidden lg:flex items-center gap-3">
-              <Link to="/login" className="text-foreground/90 hover:text-white font-medium transition px-3 py-2">
-                Log In
+              <Link to="/dashboard" className="text-foreground/90 hover:text-white font-medium transition px-3 py-2 text-sm">
+                Dashboard
               </Link>
-              <a href="https://cloud.hanzo.ai" className="border border-white/60 hover:border-white px-5 py-2 rounded-full text-foreground/90 hover:text-white font-medium transition">
-                Console
-              </a>
-              <Link to="/onboarding" className="bg-white text-black px-6 py-2 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap">
-                Sign Up
+              <Link to="/login" className="border border-white/40 hover:border-white px-5 py-2 rounded-full text-foreground/90 hover:text-white font-medium transition text-sm">
+                Sign In
+              </Link>
+              <Link to="/pricing" className="bg-white text-black px-6 py-2 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap text-sm">
+                Get Started
               </Link>
             </div>
 

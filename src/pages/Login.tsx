@@ -1,152 +1,64 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '@/components/Footer';
-import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { ArrowRight, ShieldCheck, ExternalLink } from 'lucide-react';
+import { HanzoLogo } from '@hanzo/logo';
+
+const HANZO_ID_LOGIN = 'https://hanzo.id/login?redirect=https%3A%2F%2Fhanzo.agency%2Fdashboard';
+const HANZO_ID_SIGNUP = 'https://hanzo.id/signup?redirect=https%3A%2F%2Fhanzo.agency%2Fdashboard';
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    // Simulate login
-    setTimeout(() => {
-      // Store auth token (in real app, this would come from backend)
-      localStorage.setItem('authToken', 'demo-token');
-      localStorage.setItem('userEmail', formData.email);
-      
-      // Check if admin
-      const adminEmails = ['a@hanzo.ai', 'z@hanzo.ai'];
-      const isAdmin = adminEmails.includes(formData.email);
-      localStorage.setItem('isAdmin', isAdmin.toString());
-      
-      // Initialize user credits if new user
-      if (!localStorage.getItem('userCredits')) {
-        localStorage.setItem('userCredits', '0');
-      }
-      
-      // Simulate sending email notification for admin login
-      if (isAdmin) {
-        console.log('Email sent to admins: Admin login detected');
-        // In production, this would be an API call to send email
-      }
-      
-      navigate(isAdmin ? '/admin' : '/dashboard');
-    }, 1000);
-  };
-
   return (
     <>
-      <main className="pt-32 pb-20 bg-black text-white min-h-screen">
-        <div className="container-custom max-w-md">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Welcome Back</h1>
-            <p className="text-gray-400">
-              Log in to manage your credits and services
+      <main className="pt-32 pb-24 bg-black text-white min-h-screen flex items-center justify-center">
+        <div className="container-custom max-w-md w-full px-4">
+          <div className="text-center mb-8">
+            <div className="w-14 h-14 rounded-2xl bg-zinc-900 border border-white/20 flex items-center justify-center mx-auto mb-5 p-2.5 shadow-2xl">
+              <HanzoLogo size={32} className="[&>svg]:w-full [&>svg]:h-full text-white" />
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-bold mb-2">Sign in to Hanzo</h1>
+            <p className="text-sm text-gray-400">
+              One account for Hanzo Agency, AI Employees, and hanzo.team
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="bg-gray-900/30 border border-gray-800 rounded-xl p-8">
+          <div className="bg-zinc-900/60 border border-white/10 rounded-2xl p-8 backdrop-blur-xl shadow-2xl space-y-6">
+            <div className="space-y-3">
               <a
-                href="https://hanzo.id/login?redirect=https%3A%2F%2Fhanzo.agency%2Fdashboard"
-                className="w-full bg-white hover:bg-gray-100 text-black py-3 text-base font-semibold rounded-lg transition-colors flex items-center justify-center gap-2 mb-6"
+                href={HANZO_ID_LOGIN}
+                className="w-full bg-white hover:bg-white/90 text-black py-3.5 px-6 text-sm font-semibold rounded-full transition-all flex items-center justify-center gap-2.5 shadow-lg group cursor-pointer"
               >
-                <img src="/images/logo/logo.png" alt="Hanzo ID" className="h-5 w-auto invert" />
-                Continue with Hanzo ID
+                <span>Continue with Hanzo ID</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
 
-              <div className="relative flex items-center justify-center mb-6">
-                <div className="border-t border-gray-800 w-full" />
-                <span className="bg-[#0c0c0c] px-3 text-xs uppercase text-gray-500 font-mono tracking-wider absolute">or</span>
-              </div>
-
-              <div className="space-y-5">
-                <div>
-                  <Label htmlFor="email" className="text-gray-300 mb-2 block">
-                    Email Address
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      id="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="bg-gray-900/50 border-gray-700 text-white pl-12 pr-4 py-3 rounded-lg w-full"
-                      placeholder="you@example.com"
-                    />
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="password" className="text-gray-300 mb-2 block">
-                    Password
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      id="password"
-                      type={showPassword ? 'text' : 'password'}
-                      required
-                      value={formData.password}
-                      onChange={(e) => setFormData({...formData, password: e.target.value})}
-                      className="bg-gray-900/50 border-gray-700 text-white pl-12 pr-12 py-3 rounded-lg w-full"
-                      placeholder="••••••••"
-                    />
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
-                    >
-                      {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      className="rounded border-gray-700 bg-gray-900/50 text-white focus:ring-white"
-                    />
-                    <span className="text-sm text-gray-400">Remember me</span>
-                  </label>
-                  <Link to="/forgot-password" className="text-sm text-white hover:text-gray-300">
-                    Forgot password?
-                  </Link>
-                </div>
-              </div>
-
-              <Button
-                type="submit"
-                disabled={isLoading}
-                className="w-full bg-white hover:bg-gray-100 text-black py-3 text-lg font-semibold rounded-lg transition-colors mt-8"
+              <a
+                href="https://hanzo.team"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full bg-white/5 hover:bg-white/10 border border-white/10 text-white py-3 px-6 text-xs font-medium rounded-full transition-colors flex items-center justify-center gap-2"
               >
-                {isLoading ? 'Signing in...' : 'Sign In'}
-              </Button>
+                <span>Launch hanzo.team workspace</span>
+                <ExternalLink className="w-3.5 h-3.5 opacity-60" />
+              </a>
+            </div>
 
-              <div className="mt-6 text-center">
-                <p className="text-gray-400">
-                  Don't have an account?{' '}
-                  <Link to="/signup" className="text-white hover:text-gray-300">
-                    Sign up
-                  </Link>
-                </p>
+            <div className="pt-4 border-t border-white/10 text-center space-y-3">
+              <p className="text-xs text-gray-400">
+                Don't have a Hanzo ID yet?{' '}
+                <a
+                  href={HANZO_ID_SIGNUP}
+                  className="text-white hover:underline font-medium"
+                >
+                  Create Hanzo ID
+                </a>
+              </p>
+              <div className="flex items-center justify-center gap-2 text-[11px] text-gray-500">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Encrypted OAuth2 / SSO via Hanzo IAM</span>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </main>
       <Footer />

@@ -244,18 +244,7 @@ export function AIChatWidget() {
   return (
     <>
       {/* Floating Bottom-Right Trigger Button */}
-      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 select-none">
-        {/* Teaser pill (when closed) */}
-        {!isOpen && !hasInteracted && (
-          <button
-            onClick={handleOpen}
-            className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-white/20 text-white text-xs font-medium shadow-xl backdrop-blur-md hover:bg-zinc-800 transition-all cursor-pointer animate-in fade-in slide-in-from-right-4 duration-500"
-          >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>AI Sales & Scheduling</span>
-          </button>
-        )}
-
+      <div className="fixed bottom-6 right-6 z-50 flex items-center select-none">
         <button
           onClick={() => (isOpen ? setIsOpen(false) : handleOpen())}
           aria-label="Hanzo AI Assistant — Sales & Scheduling"
@@ -268,11 +257,6 @@ export function AIChatWidget() {
           ) : (
             <div className="relative flex items-center justify-center">
               <HanzoLogo size={36} className="[&>svg]:w-9 [&>svg]:h-9 text-white drop-shadow-[0_4px_14px_rgba(0,0,0,0.9)] transition-transform group-hover:scale-110" />
-              {/* Active online indicator */}
-              <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-              </span>
             </div>
           )}
         </button>

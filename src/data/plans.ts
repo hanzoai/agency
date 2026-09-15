@@ -208,7 +208,7 @@ export const plans: Plan[] = [
     terms: '30-day rolling · Hanzo AI Cloud Voice · Deploy on hanzo.team',
     bestFor: 'Clinics, legal firms, service agencies, and businesses where missed calls mean lost clients.',
     features: [
-      '24/7 human-sounding natural voice synthesis with sub-second response',
+      '24/7 human-sounding natural voice synthesis',
       'Immediate audio recording, transcription & structured summary sent to mobile',
       'Instant SMS text-back with direct calendar booking links',
       'VIP and emergency caller routing directly to your personal line',

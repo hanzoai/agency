@@ -282,7 +282,7 @@ export default function Pricing() {
               Autonomous AI Employees from $49 a month
             </h2>
             <p className="text-base text-foreground/80 max-w-2xl mx-auto">
-              Trained on preset Hanzo personas with matching memojis and sub-second execution. Automated by Hanzo AI Cloud and managed directly in your workspace on{' '}
+              Trained on preset Hanzo personas with matching memojis. Automated by Hanzo AI Cloud and managed directly in your workspace on{' '}
               <a
                 href="https://hanzo.team"
                 target="_blank"

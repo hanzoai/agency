@@ -24,7 +24,7 @@ export function AIEmployees() {
       label: 'Heavy / Enterprise AI Usage',
       range: '$499 – $999/mo',
       tokens: '30M – 50M+ tokens/mo + dedicated queues',
-      desc: 'Maximum model context, sub-second latency, custom tool APIs, and SLA.',
+      desc: 'Maximum model context, custom tool APIs, and SLA.',
     },
   };
 
@@ -43,7 +43,7 @@ export function AIEmployees() {
           </h2>
 
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed">
-            Specialized autonomous teammates with matching personas, distinct domain capabilities, and sub-second execution. 
+            Specialized autonomous teammates with matching personas and distinct domain capabilities. 
             Automated by Hanzo AI Cloud and managed directly in your workspace on{' '}
             <a href="https://hanzo.team" target="_blank" rel="noopener noreferrer" className="text-white hover:underline font-semibold">
               hanzo.team

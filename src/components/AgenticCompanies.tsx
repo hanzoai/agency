@@ -3,12 +3,12 @@ import { ArrowUpRight, Check, ExternalLink, Sparkles, TrendingUp, Bot, Zap, Shie
 import { Link } from 'react-router-dom';
 import { agenticCompanies } from '@/data/plans';
 
-/** Launch results from the case studies, each opening its study on hanzo.ai/customers. */
+/** Launch results from the case studies, each opening its study on hanzo.ai. */
 const CASES = [
-  { id: 'damon-motorcycles', who: 'Damon Motorcycles', value: '$8.4M', label: 'in bikes sold in 30 days' },
-  { id: 'trillerfest', who: 'Triller', value: '169M', label: 'people watched TrillerFest' },
-  { id: 'stoned', who: 'STONED Audio', value: '$135K', label: 'in sales from a $20K budget' },
-  { id: 'bellabeat', who: 'Bellabeat', value: '250,000', label: 'email signups for LEAF' },
+  { href: 'https://hanzo.ai/customers/damon-motorcycles', who: 'Damon Motorcycles', value: '$8.4M', label: 'in bikes sold in 30 days' },
+  { href: 'https://hanzo.ai/customers#trillerfest', who: 'Triller', value: '169M', label: 'people watched TrillerFest' },
+  { href: 'https://hanzo.ai/customers#stoned', who: 'STONED Audio', value: '$135K', label: 'in sales from a $20K budget' },
+  { href: 'https://hanzo.ai/customers#bellabeat', who: 'Bellabeat', value: '250,000', label: 'email signups for LEAF' },
 ];
 
 export function AgenticCompanies() {
@@ -100,7 +100,7 @@ export function AgenticCompanies() {
             {CASES.map((c, i) => (
               <a
                 key={c.who}
-                href={`https://hanzo.ai/customers#${c.id}`}
+                href={c.href}
                 className={i === 0 ? 'pb-4 md:pb-0 md:pr-6' : i === CASES.length - 1 ? 'pt-4 md:pt-0 md:pl-6' : 'py-4 md:py-0 md:px-6'}
               >
                 <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 block mb-1">{c.who}</span>

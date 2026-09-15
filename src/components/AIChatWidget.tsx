@@ -128,7 +128,7 @@ export function AIChatWidget() {
       text.includes('how much')
     ) {
       return {
-        text: "We offer clear, transparent pricing with no hidden fees and no long-term lock-in:\n\n• **Agency Service**: $4,995/month — One active request at a time, pause or cancel anytime, access to 100+ creative & AI capabilities with 48h turnaround.\n• **Enterprise Service**: Starting at $9,995/month — Dedicated 4+ person full-stack team, custom AI agents trained on your proprietary data, 240+ dedicated hours/mo, and same-day turnaround.\n\nWhich engagement model aligns best with your roadmap?",
+        text: "We offer clear, transparent pricing with no hidden fees and no long-term lock-in:\n\n• **Autonomous AI Employees**: From €80/mo (Marketing Assistant €80/mo, 24/7 Chat Agent €150/mo, Voice Phone Receptionist €350/mo) — automated with Hanzo AI Cloud and managed via hanzo.team.\n• **Agency Service**: $4,995/month — Full-service creative & AI team, 120 hrs/mo, 2 specialized creatives, 2 brand-trained AI agents.\n• **Enterprise Service**: Starting at $9,995/month — Dedicated 4+ person full-stack team, unlimited brand AI agents, 240+ dedicated hrs/mo, same-day turnaround.\n\nWhich engagement model aligns best with your roadmap?",
         actions: { type: 'pricing' as const },
       };
     }

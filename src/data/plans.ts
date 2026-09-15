@@ -40,8 +40,9 @@ export interface Plan {
   id: string;
   name: string;
   description: string;
-  /** USD, whole dollars, as @hanzo/plans writes prices. */
+  /** USD or EUR, whole units, as @hanzo/plans writes prices. */
   priceMonthly: number;
+  currency?: string;
   category: string;
   features: string[];
   /** Child plan slugs this plan grants. @hanzo/plans plan.schema.json. */
@@ -55,6 +56,8 @@ export interface Plan {
   once?: boolean;
   /** Not in the canonical schema: `bundles` grants a plan, it cannot say how many seats. */
   seatsIncluded?: number;
+  badge?: string;
+  bestFor?: string;
 }
 
 export const plans: Plan[] = [
@@ -140,6 +143,65 @@ export const plans: Plan[] = [
     ],
     cta: 'Get your site in 24 hours',
   },
+  {
+    id: 'ai-marketing-assistant',
+    name: 'AI Marketing Assistant',
+    description: 'Writes and schedules social content, captures inbound enquiries, and syncs directly to your CRM.',
+    priceMonthly: 80,
+    currency: 'EUR',
+    category: 'automation',
+    from: true,
+    terms: '30-day rolling · GDPR compliant · EU hosted',
+    bestFor: 'Sole traders and small teams who never get round to posting.',
+    features: [
+      'Social posts written in your voice and scheduled autonomously',
+      'Inbound comment and enquiry capture synced into your CRM',
+      'Weekly queue management and monthly ROI report',
+      'Manage tasks, review posts, and track analytics on hanzo.team',
+      'Automated backend powered by Hanzo AI Cloud',
+    ],
+    cta: 'Hire this role',
+  },
+  {
+    id: 'ai-chat-agent',
+    name: 'AI Chat Agent',
+    description: '24/7 website concierge that answers questions, qualifies visitors, and books appointments.',
+    priceMonthly: 150,
+    currency: 'EUR',
+    category: 'automation',
+    from: true,
+    terms: '30-day rolling · GDPR compliant · EU hosted',
+    bestFor: 'Any business that gets customer enquiries out of hours.',
+    features: [
+      'Trained on your services, documentation, and live pricing',
+      'Direct calendar booking & automated lead qualification',
+      'Intelligent hand-off to WhatsApp, Slack, or email when needed',
+      'Real-time conversation logs & lead insights on hanzo.team',
+      'Fast plug-and-play embed powered by Hanzo AI Cloud',
+    ],
+    cta: 'Hire this role',
+  },
+  {
+    id: 'ai-phone-receptionist',
+    name: 'AI Phone Receptionist',
+    description: 'Lifelike conversational voice AI that answers calls, books jobs, and texts back callers 24/7.',
+    priceMonthly: 350,
+    currency: 'EUR',
+    category: 'automation',
+    from: true,
+    badge: 'NEVER MISS A CALL',
+    terms: '30-day rolling · GDPR compliant · EU hosted',
+    bestFor: 'Trades, clinics, garages, recovery firms, and businesses where missed calls mean lost revenue.',
+    features: [
+      '24/7 human-like voice call answering with sub-second latency',
+      'Full call audio recording, transcripts & structured notes sent instantly',
+      'Missed-call instant SMS text-back with booking links included',
+      'Emergency & VIP calls flagged directly to your mobile',
+      'Phone numbers, voice personas & metrics managed on hanzo.team',
+      'High-throughput telephony powered by Hanzo AI Cloud',
+    ],
+    cta: 'Hire this role',
+  },
 ];
 
 /** The recurring plans, in the order they are sold. */
@@ -162,8 +224,10 @@ export const planById = (id: string | null | undefined): Plan | undefined =>
 /** Cents, for commerce. Derived, so the card and the charge cannot disagree. */
 export const amount = (p: Plan): number => p.priceMonthly * 100;
 
-/** "$999", or "from $8,999" where the price is a starting point. */
-export const priceLabel = (p: Plan): string =>
-  `${p.from ? 'from ' : ''}$${p.priceMonthly.toLocaleString()}`;
+/** "$999", "from $8,999", or "from €80" where the price is a starting point. */
+export const priceLabel = (p: Plan): string => {
+  const sym = p.currency === 'EUR' ? '€' : '$';
+  return `${p.from ? 'from ' : ''}${sym}${p.priceMonthly.toLocaleString()}`;
+};
 
 export const intervalLabel = (p: Plan): string => (p.once ? '/one-time' : '/month');

@@ -15,6 +15,10 @@ const faqData = [
     answer: `Agency bundles your cloud usage and your team into one subscription. It includes ${agency.seatsIncluded} seats; additional seats are $${seatPrice}/month each, the same price a Hanzo Team seat costs anywhere else. Seats carry org workspaces with shared history and projects, SSO via Hanzo IAM, and one unified bill.`
   },
   {
+    question: "How do Autonomous AI Employees work, and how do we access them?",
+    answer: "AI Employees (Marketing Assistant from €80/mo, 24/7 Chat Agent from €150/mo, Phone Receptionist from €350/mo) are autonomous digital workers powered by Hanzo AI Cloud. You log in and manage your agents, review content queues, see caller transcripts, and track live conversion metrics at hanzo.team. All AI employee plans run on flexible 30-day rolling terms, are 100% GDPR compliant, and are securely hosted in the EU and globally."
+  },
+  {
     question: `What do I get on Advisory, ${priceLabel(advisory)}/month?`,
     answer: `Advisory is human AI advisors and the team to build what they advise: a dedicated Creative Director, a Project Manager, 2 specialized creatives working simultaneously, 120 hours of dedicated work per month, 2 custom brand-trained AI agents, 24-hour turnaround for basic requests, access to 100+ creative services, full copyright ownership, unlimited revisions and requests, and 4 hours of consultation per month. ${priceLabel(advisory)} is where Advisory starts; larger engagements are scoped with you.`
   },

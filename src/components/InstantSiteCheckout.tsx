@@ -89,7 +89,7 @@ const InstantSiteCheckout = ({ formData, onSubmit }: InstantSiteCheckoutProps) =
             id="discountCode"
             value={discountCode}
             onChange={(e) => setDiscountCode(e.target.value)}
-            placeholder="Enter code (e.g. testtest)"
+            placeholder="Promo code"
             className="bg-black/50 border-gray-700 text-white"
             disabled={discountApplied}
           />

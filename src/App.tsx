@@ -38,6 +38,7 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancel from "./pages/PaymentCancel";
 import Platform from "./pages/Platform";
 import { Analytics } from "./analytics";
+import { AIChatWidget } from "./components/AIChatWidget";
 
 const queryClient = new QueryClient();
 
@@ -112,6 +113,7 @@ const App = () => (
             <Route path="/faq" element={<FAQ />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <AIChatWidget />
         </Analytics>
       </BrowserRouter>
     </TooltipProvider>

@@ -11,29 +11,58 @@ const Services = () => {
   const [canScrollRight, setCanScrollRight] = useState(true);
 
   // Left card content
+  // Left card content
   const leftCardContent = {
-    badge: "STARTING AT $10,000 PER MONTH",
+    badge: "STARTING AT $4,995 PER MONTH",
     title: "Flexible plans for every business",
-    description: "From basic asset production and motion graphics to video ads and brand strategy, a Superside subscription lets you choose how you want to use your budget every month based on your business needs.",
-    subtext: "Typical subscriptions range from $10,000 to $100,000 USD/month."
+    description: "From custom AI pipelines and autonomous agents to high-impact web design, branding, and motion graphics, Hanzo lets you scale your engineering and creative capacity on demand.",
+    subtext: "Agency plans at $4,995/mo and dedicated Enterprise teams starting at $9,995/mo."
   };
 
   // Right card features - separate first line and subtext
   const includedFeatures = [
-    { text: "Access to all creative services.", isBold: true },
-    { text: "(based on available dollars in monthly subscription)", isSubtext: true },
-    { text: "Dedicated creative project manager and customer success" },
-    { text: "Turnaround times starting at 12 hours" },
-    { text: "Global timezone coverage" },
-    { text: "AI-enhanced services" },
-    { text: "Unlimited API calls to integrations" },
-    { text: "Unlimited users and asset storage" },
-    { text: "Support for multiple brands" },
-    { text: "Access to Superspace platform" }
+    { text: "Access to 100+ creative and AI services.", isBold: true },
+    { text: "(unlimited revisions and requests on active projects)", isSubtext: true },
+    { text: "Dedicated creative director and technical lead" },
+    { text: "Rapid turnaround starting within 24 to 48 hours" },
+    { text: "Full copyright ownership and source code access" },
+    { text: "Autonomous AI agents and custom fine-tuned models" },
+    { text: "Seamless integrations and API pipelines" },
+    { text: "Unlimited users, projects, and asset storage" },
+    { text: "Support for multiple brands and products" },
+    { text: "Access to Hanzo platform" }
   ];
 
-  // Service cards data with extended descriptions
+  // Service cards data with AI solutions first
   const serviceCards = [
+    {
+      category: "AI Engineering",
+      title: "AI Pipeline Development",
+      description: "End-to-end architecture from data ingestion to deployment with high-throughput, low-latency infrastructure",
+      price: "$20,000 USD",
+      image: "/images/carousel/ai-pipeline-development.jpeg"
+    },
+    {
+      category: "AI Engineering",
+      title: "LLM Fine-Tuning",
+      description: "Precision model adaptation and alignment for domain-specific intelligence with continuous evaluation",
+      price: "$15,000 USD",
+      image: "/images/carousel/llm-fine-tuning.jpeg"
+    },
+    {
+      category: "AI Engineering",
+      title: "RAG System Implementation",
+      description: "Enterprise retrieval-augmented generation across proprietary knowledge bases with verified semantic accuracy",
+      price: "$10,000 USD",
+      image: "/images/carousel/rag-system-implementation.png"
+    },
+    {
+      category: "AI Engineering",
+      title: "AI-Enhanced Creative",
+      description: "Human expertise multiplied by computational intelligence for unprecedented creative velocity and precision",
+      price: "$2,000 USD",
+      image: "/images/carousel/ai-enhanced-creative.jpg"
+    },
     {
       category: "Creative Design",
       title: "Ad Creative",
@@ -50,20 +79,6 @@ const Services = () => {
     },
     {
       category: "Creative Design",
-      title: "Presentation Design",
-      description: "Strategic narratives that elevate your message with data visualization and compelling storytelling",
-      price: "$1,000 USD",
-      image: "/images/carousel/presentation-design.jpg"
-    },
-    {
-      category: "Creative Design",
-      title: "Illustration Design",
-      description: "Visual storytelling engineered for brand recognition through custom icons, infographics, and artwork",
-      price: "$750 USD",
-      image: "/images/carousel/illustration-design.jpeg"
-    },
-    {
-      category: "Creative Design",
       title: "Web Design",
       description: "User-centric experiences built for conversions with responsive layouts and intuitive navigation",
       price: "$2,500 USD",
@@ -75,6 +90,20 @@ const Services = () => {
       description: "Data-driven identity systems for market differentiation including logos, guidelines, and assets",
       price: "$5,000 USD",
       image: "/images/carousel/branding-services.jpeg"
+    },
+    {
+      category: "Creative Design",
+      title: "Presentation Design",
+      description: "Strategic narratives that elevate your message with data visualization and compelling storytelling",
+      price: "$1,000 USD",
+      image: "/images/carousel/presentation-design.jpg"
+    },
+    {
+      category: "Creative Design",
+      title: "Illustration Design",
+      description: "Visual storytelling engineered for brand recognition through custom icons, infographics, and artwork",
+      price: "$750 USD",
+      image: "/images/carousel/illustration-design.jpeg"
     },
     {
       category: "Specialized Production",
@@ -96,34 +125,6 @@ const Services = () => {
       description: "Immersive experiences with practical implementation for products, spaces, and interactions",
       price: "$4,000 USD",
       image: "/images/carousel/3d-and-ar-design.jpeg"
-    },
-    {
-      category: "AI Engineering",
-      title: "RAG System Implementation",
-      description: "Custom knowledge systems for specialized applications with enterprise-grade retrieval accuracy",
-      price: "$10,000 USD",
-      image: "/images/carousel/rag-system-implementation.png"
-    },
-    {
-      category: "AI Engineering",
-      title: "LLM Fine-Tuning",
-      description: "Precision model adaptation for domain-specific requirements with continuous optimization",
-      price: "$15,000 USD",
-      image: "/images/carousel/llm-fine-tuning.jpeg"
-    },
-    {
-      category: "AI Engineering",
-      title: "AI Pipeline Development",
-      description: "End-to-end architecture from ingestion to deployment with scalable infrastructure design",
-      price: "$20,000 USD",
-      image: "/images/carousel/ai-pipeline-development.jpeg"
-    },
-    {
-      category: "AI Engineering",
-      title: "AI-Enhanced Creative",
-      description: "Human expertise multiplied by computational intelligence for unprecedented creative output",
-      price: "$2,000 USD",
-      image: "/images/carousel/ai-enhanced-creative.jpg"
     }
   ];
 
@@ -197,12 +198,19 @@ const Services = () => {
               </p>
             </div>
             <div className="mt-8">
-              <Button
-                size="lg"
-                className="bg-white hover:bg-gray-100 text-black w-full px-8 py-6 rounded-full text-base md:text-lg font-semibold transition-all border border-gray-700"
+              <a
+                href="https://calendar.app.google/z1YsZQrqR4s6jQqD8"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
               >
-                Book a call
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-white hover:bg-gray-100 text-black w-full px-8 py-6 rounded-full text-base md:text-lg font-semibold transition-all border border-gray-700 cursor-pointer"
+                >
+                  Book a call
+                </Button>
+              </a>
             </div>
           </div>
 
@@ -256,7 +264,7 @@ const Services = () => {
             <div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3">Our Services</h2>
               <p className="text-lg md:text-xl text-foreground/70">
-                Comprehensive creative and technical solutions powered by AI
+                Frontier AI engineering, autonomous systems, and category-defining design — built for speed and scale.
               </p>
             </div>
             <a href="/services" className="hidden md:block">

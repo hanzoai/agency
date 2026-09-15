@@ -1,23 +1,23 @@
 import type React from 'react';
 import { Link } from 'react-router-dom';
+import { HanzoLogo } from '@hanzo/logo';
 
 /**
  * The site wordmark: the canonical Hanzo mark and the product name, top left.
  *
- * The mark is drawn as a CSS mask filled with the current text colour, so the
- * one source SVG follows the theme instead of needing a light and a dark file.
+ * Uses HanzoLogo from @hanzo/logo, inheriting currentColor so it adapts to the theme.
  * The name is two words with two weights — "Hanzo" carries the brand, "Agency"
  * names this surface — which is how hanzo.ai spells "Hanzo AI".
- *
- * The mark is the canonical asset. Never redraw it.
  */
 export function Wordmark({
   to = '/',
   size = 26,
+  showMark = false,
   onContextMenu,
 }: {
   to?: string
   size?: number
+  showMark?: boolean
   onContextMenu?: (e: React.MouseEvent) => void
 }) {
   return (
@@ -34,23 +34,9 @@ export function Wordmark({
         flexShrink: 0,
       }}
     >
-      <span
-        aria-hidden
-        style={{
-          width: size,
-          height: size,
-          flexShrink: 0,
-          backgroundColor: 'currentColor',
-          WebkitMaskImage: 'url(/images/logo/hanzo-logo-white.svg)',
-          maskImage: 'url(/images/logo/hanzo-logo-white.svg)',
-          WebkitMaskRepeat: 'no-repeat',
-          maskRepeat: 'no-repeat',
-          WebkitMaskPosition: 'center',
-          maskPosition: 'center',
-          WebkitMaskSize: 'contain',
-          maskSize: 'contain',
-        }}
-      />
+      {showMark && (
+        <HanzoLogo size={size} className="[&>svg]:w-full [&>svg]:h-full flex-shrink-0" />
+      )}
       <span
         style={{
           fontSize: size * 0.73,

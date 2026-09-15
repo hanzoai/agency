@@ -24,9 +24,15 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <!-- No analytics tags here. Telemetry is @hanzo/event, mounted in src/App.tsx
-         and posted to api.hanzo.ai/v1/event — one client, one stream, no
-         third-party script loading from this page. -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BCXWVKFL1K"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-BCXWVKFL1K');
+    </script>
   </head>
 
   <body>

@@ -64,7 +64,7 @@ const Footer = () => {
                 Schedule a Consultation
                 <ArrowUpRight className="ml-2 h-5 w-5 transition-transform duration-300 ease-in-out group-hover:translate-x-1 group-hover:-translate-y-1" />
               </a>
-              <a href="https://auth.hanzo.ai"
+              <a href="https://hanzo.id"
                 className="group bg-transparent text-white border border-gray-700 hover:border-white px-8 py-3.5 rounded-full font-medium hover:bg-black/20 transition-all duration-200 ease-in-out inline-flex items-center justify-between whitespace-nowrap">
                 Login / Sign Up
                 <ArrowRight className="h-5 w-5 transition-transform duration-300 ease-in-out group-hover:translate-x-1" />

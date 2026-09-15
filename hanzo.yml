@@ -1,0 +1,49 @@
+name: agency
+slug: agency
+version: 0.1.6
+type: site
+
+framework:
+  name: vite
+  preset: react
+  buildCommand: pnpm build
+  outputDir: dist
+  singlePageApp: true
+
+routing:
+  domain: hanzo.agency
+  aliases:
+    - www.hanzo.agency
+    - agency.hanzo.ai
+
+deploy:
+  plane: sites
+  publishScript: https://git.hanzo.ai/hanzoai/ci/.github/actions/site@v1
+  image: ghcr.io/hanzoai/agency
+  kubernetes:
+    namespace: hanzo
+    service: agency
+    port: 3000
+
+commerce:
+  org: hanzo
+  checkoutUrl: https://pay.hanzo.ai
+  commerceApi: https://api.hanzo.ai/v1/commerce
+  providers:
+    - square
+    - crypto
+    - wire
+  disallowed:
+    - stripe
+
+iam:
+  issuer: https://hanzo.id
+  clientId: hanzo-agency
+  billingPortal: https://billing.hanzo.ai
+
+calendar:
+  bookingUrl: https://calendar.app.google/z1YsZQrqR4s6jQqD8
+
+analytics:
+  googleAnalyticsId: G-BCXWVKFL1K
+  insightsUrl: https://api.hanzo.ai/v1/event

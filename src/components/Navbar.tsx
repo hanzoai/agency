@@ -423,11 +423,14 @@ const Navbar = () => {
               </nav>
             </div>
 
-            <div className="hidden lg:flex items-center gap-4">
-              <a href="https://cloud.hanzo.ai" className="border border-white/60 hover:border-white px-6 py-2.5 rounded-full text-foreground/90 hover:text-white font-medium transition">
+            <div className="hidden lg:flex items-center gap-3">
+              <Link to="/login" className="text-foreground/90 hover:text-white font-medium transition px-3 py-2">
+                Log In
+              </Link>
+              <a href="https://cloud.hanzo.ai" className="border border-white/60 hover:border-white px-5 py-2 rounded-full text-foreground/90 hover:text-white font-medium transition">
                 Console
               </a>
-              <Link to="/onboarding" className="bg-white text-black px-7 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap">
+              <Link to="/onboarding" className="bg-white text-black px-6 py-2 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap">
                 Sign Up
               </Link>
             </div>
@@ -562,6 +565,7 @@ const Navbar = () => {
 
               <Link to="/faq" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>FAQ</Link>
               <Link to="/pricing" className="text-foreground/90 hover:text-foreground py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
+              <Link to="/login" className="text-foreground/90 hover:text-white py-2 font-medium transition" onClick={() => setIsMenuOpen(false)}>Log In</Link>
               <a href="https://cloud.hanzo.ai" className="text-foreground/90 hover:text-white py-2 font-medium transition border border-white/60 hover:border-white rounded-full px-6 py-2.5 inline-block mt-4" onClick={handleMobileLinkClick}>Console</a>
               <Link to="/onboarding" className="bg-white text-black px-7 py-2.5 rounded-full font-medium hover:bg-white/90 inline-flex items-center whitespace-nowrap mt-4" onClick={() => setIsMenuOpen(false)}>
                 Sign Up

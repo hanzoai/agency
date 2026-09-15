@@ -15,7 +15,9 @@ import {
   Globe,
   Briefcase,
   Image,
-  Shield
+  Shield,
+  ExternalLink,
+  Calendar
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -116,6 +118,15 @@ const Dashboard = () => {
                   </Button>
                 </Link>
               )}
+              <a
+                href="https://hanzo.id"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors text-sm"
+              >
+                <span>Hanzo ID Account</span>
+                <ExternalLink className="h-3.5 w-3.5 opacity-70" />
+              </a>
               <button
                 onClick={handleLogout}
                 className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
@@ -134,7 +145,7 @@ const Dashboard = () => {
                 <p className="text-5xl font-bold">{userCredits.toLocaleString()}</p>
                 <p className="text-gray-400 mt-2">1 credit = $1</p>
               </div>
-              <div className="mt-6 md:mt-0 flex gap-4">
+              <div className="mt-6 md:mt-0 flex flex-wrap gap-3">
                 <Link to="/purchase-credits">
                   <Button className="bg-white hover:bg-gray-100 text-black px-6 py-3 rounded-lg flex items-center gap-2">
                     <Plus className="h-5 w-5" />
@@ -142,11 +153,25 @@ const Dashboard = () => {
                   </Button>
                 </Link>
                 <Link to="/history">
-                  <Button className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-lg flex items-center gap-2">
+                  <Button className="bg-gray-800 hover:bg-gray-700 text-white px-5 py-3 rounded-lg flex items-center gap-2">
                     <History className="h-5 w-5" />
                     View History
                   </Button>
                 </Link>
+                <a href="https://billing.hanzo.ai" target="_blank" rel="noopener noreferrer">
+                  <Button className="bg-gray-800 hover:bg-gray-700 text-white px-5 py-3 rounded-lg flex items-center gap-2">
+                    <CreditCard className="h-5 w-5" />
+                    Manage Billing & Orders
+                    <ExternalLink className="h-4 w-4 ml-1 opacity-70" />
+                  </Button>
+                </a>
+                <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" target="_blank" rel="noopener noreferrer">
+                  <Button className="bg-gray-800 hover:bg-gray-700 text-white px-5 py-3 rounded-lg flex items-center gap-2">
+                    <Calendar className="h-5 w-5" />
+                    Schedule Call
+                    <ExternalLink className="h-4 w-4 ml-1 opacity-70" />
+                  </Button>
+                </a>
               </div>
             </div>
           </div>

@@ -58,6 +58,19 @@ const Login = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="bg-gray-900/30 border border-gray-800 rounded-xl p-8">
+              <a
+                href="https://hanzo.id/login?redirect=https%3A%2F%2Fhanzo.agency%2Fdashboard"
+                className="w-full bg-white hover:bg-gray-100 text-black py-3 text-base font-semibold rounded-lg transition-colors flex items-center justify-center gap-2 mb-6"
+              >
+                <img src="/images/logo/logo.png" alt="Hanzo ID" className="h-5 w-auto invert" />
+                Continue with Hanzo ID
+              </a>
+
+              <div className="relative flex items-center justify-center mb-6">
+                <div className="border-t border-gray-800 w-full" />
+                <span className="bg-[#0c0c0c] px-3 text-xs uppercase text-gray-500 font-mono tracking-wider absolute">or</span>
+              </div>
+
               <div className="space-y-5">
                 <div>
                   <Label htmlFor="email" className="text-gray-300 mb-2 block">

@@ -91,38 +91,38 @@ export function AgenticCompanies() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-white/10">
             <div className="pb-4 md:pb-0 md:pr-6">
               <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 block mb-1">
-                Market Proven
+                Agency Revenue Scale
               </span>
-              <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">$41,407</div>
+              <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">$100M+</div>
               <p className="text-xs text-zinc-400 mt-1">
-                Margin booked per agency over 12 weeks (1.9× vs human-written control)
+                Cumulative sales &amp; 500× campaign ROI powered by Hanzo (Damon Motorcycles)
               </p>
             </div>
             <div className="py-4 md:py-0 md:px-6">
               <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 block mb-1">
-                Short-Form Reach
+                Media Broadcast Reach
               </span>
-              <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">3,820</div>
+              <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">169M+</div>
               <p className="text-xs text-zinc-400 mt-1">
-                Median views / post across 80 autonomous channel runs (3.6× control)
+                Global unique viewers reached with zero downtime (Triller &amp; TrillerFest)
               </p>
             </div>
             <div className="py-4 md:py-0 md:px-6">
               <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 block mb-1">
-                Viral Retention
+                Blended Paid ROAS
               </span>
-              <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">67%</div>
+              <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">6.75×</div>
               <p className="text-xs text-zinc-400 mt-1">
-                3-second hold rate on autonomous clips with 5,240 median views/clip
+                Direct-response return on ad spend ($135k revenue on $20k initial spend)
               </p>
             </div>
             <div className="pt-4 md:pt-0 md:pl-6">
               <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 block mb-1">
-                GEO / SEO Dominance
+                Audience Growth Loop
               </span>
-              <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">31 / 60</div>
+              <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">250,000</div>
               <p className="text-xs text-zinc-400 mt-1">
-                Terms in top-10 + 34% citation share across AI answer engines
+                Pre-launch waitlist subscribers generated via automated referral mechanics (Bellabeat)
               </p>
             </div>
           </div>

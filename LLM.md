@@ -4,7 +4,7 @@
 This project is a React application built with TypeScript, Vite, shadcn-ui, and Tailwind CSS. It's a portfolio website for Hanzo AI agency showcasing their case studies and services.
 
 ## How it ships
-`.hanzo/workflows/deploy.yml` on the git.hanzo.ai forge (`hanzo-build-linux-amd64`):
+`.hanzo/workflows/deploy.yml` on the git.hanzo.ai forge (`linux-amd64`):
 build `dist` -> `POST /v1/projects/agency/deploy` (202, carrying a presigned
 upload grant) -> POST each file under that grant -> `POST .../complete` with the
 file manifest as `keys`. The bytes never pass through the API; BodyLimit is

@@ -1,11 +1,14 @@
 
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { planById, priceLabel } from '@/data/plans';
+
+const advisory = planById('advisory');
 
 const faqs = [
   {
-    question: "What do I get for the $3,500/month package?",
-    answer: "You get unlimited graphic design and web development services. This includes UI/UX design, brand design, website & landing page design, and implementation. You'll have a dedicated team of designers, funnel builders, and project managers to help realize your vision."
+    question: `What do I get on Advisory, ${priceLabel(advisory)}/month?`,
+    answer: `${advisory.description} Included: ${advisory.features.join(', ')}.`
   },
   {
     question: "How many revisions can I get per project? Is there a limit?",
@@ -17,7 +20,7 @@ const faqs = [
   },
   {
     question: "What if I want to stop the engagement, how do I cancel?",
-    answer: "You can cancel anytime with no penalty. Simply let us know via email or through your client portal, and we'll stop your subscription right away. There are no long-term contracts or cancellation fees."
+    answer: "Advisory has a 1 quarter (3 month) minimum commitment. After that, you can cancel anytime with 30 days notice. Simply let us know via email or through your client portal, and we'll coordinate the handover of all your assets and materials."
   },
   {
     question: "What is your customer support like? What's your office hours?",

@@ -26,18 +26,17 @@ import {
   PhoneCall,
   Send,
   Code2,
-  Check,
   Layers,
   Zap,
   Users,
 } from 'lucide-react';
-import { aiEmployees, agenticCompanies } from '@/data/plans';
+import { plans, planHref, priceLabel } from '@/data/plans';
 
 const HANZO_ID_LOGIN = 'https://hanzo.id/login?redirect=https%3A%2F%2Fhanzo.agency%2Fdashboard';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'overview' | 'employees' | 'companies' | 'builder' | 'services' | 'chat'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'builder' | 'services' | 'chat'>('overview');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userCredits, setUserCredits] = useState(500);
   const [userName, setUserName] = useState('Partner');
@@ -293,7 +292,7 @@ const Dashboard = () => {
                 <Link to="/pricing">
                   <Button className="bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-medium px-4 py-2.5 rounded-lg flex items-center gap-1.5">
                     <Layers className="w-4 h-4 text-purple-400" />
-                    Subscribe to Agency Retainer
+                    Subscribe to a plan
                   </Button>
                 </Link>
                 <a
@@ -316,27 +315,9 @@ const Dashboard = () => {
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   <h3 className="font-semibold text-sm text-white">Hanzo Cloud &amp; Agents</h3>
                 </div>
-                <p className="text-xs text-gray-400 mb-4 leading-relaxed">
+                <p className="text-xs text-gray-400 leading-relaxed">
                   Your autonomous bots execute in the cloud. Access transcripts, edit prompts, and review queued actions in the unified workspace.
                 </p>
-                <div className="space-y-2 text-xs">
-                  <div className="flex justify-between py-1.5 border-b border-zinc-800">
-                    <span className="text-gray-400">Marketing Lead (Creative)</span>
-                    <span className="text-amber-400 font-mono">from $49/mo</span>
-                  </div>
-                  <div className="flex justify-between py-1.5 border-b border-zinc-800">
-                    <span className="text-gray-400">24/7 Concierge (Nora)</span>
-                    <span className="text-teal-400 font-mono">from $99/mo</span>
-                  </div>
-                  <div className="flex justify-between py-1.5 border-b border-zinc-800">
-                    <span className="text-gray-400">Voice Phone EA (Maya)</span>
-                    <span className="text-rose-400 font-mono">from $199/mo</span>
-                  </div>
-                  <div className="flex justify-between py-1.5">
-                    <span className="text-gray-400">Turnkey AAA Company</span>
-                    <span className="text-purple-400 font-mono">$41.4k margin bench</span>
-                  </div>
-                </div>
               </div>
 
               <a
@@ -362,28 +343,6 @@ const Dashboard = () => {
               }`}
             >
               Overview &amp; Services
-            </button>
-            <button
-              onClick={() => setActiveTab('employees')}
-              className={`pb-3 px-4 text-sm font-semibold whitespace-nowrap transition-all border-b-2 cursor-pointer flex items-center gap-1.5 ${
-                activeTab === 'employees'
-                  ? 'border-white text-white'
-                  : 'border-transparent text-gray-400 hover:text-white'
-              }`}
-            >
-              <Bot className="w-3.5 h-3.5" />
-              <span>AI Employees</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('companies')}
-              className={`pb-3 px-4 text-sm font-semibold whitespace-nowrap transition-all border-b-2 cursor-pointer flex items-center gap-1.5 ${
-                activeTab === 'companies'
-                  ? 'border-white text-white'
-                  : 'border-transparent text-gray-400 hover:text-white'
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-              <span>Agentic Companies</span>
             </button>
             <button
               onClick={() => setActiveTab('builder')}
@@ -474,177 +433,6 @@ const Dashboard = () => {
                     );
                   })}
                 </div>
-              </div>
-            </div>
-          )}
-
-          {/* 2. AI EMPLOYEES */}
-          {activeTab === 'employees' && (
-            <div className="space-y-8">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div>
-                  <h2 className="text-xl font-bold tracking-tight">Autonomous AI Employees Fleet</h2>
-                  <p className="text-xs text-gray-400 mt-1">
-                    Powered by Hanzo AI Cloud. Launch and manage your active bots inside{' '}
-                    <a href="https://hanzo.team" target="_blank" rel="noopener noreferrer" className="text-white underline">
-                      hanzo.team
-                    </a>
-                    .
-                  </p>
-                </div>
-                <a
-                  href="https://hanzo.team"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white text-black px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-gray-100 transition-colors shadow-md"
-                >
-                  <Bot className="w-4 h-4" />
-                  <span>Manage on hanzo.team</span>
-                  <ExternalLink className="w-3 h-3 opacity-60" />
-                </a>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-6">
-                {aiEmployees.slice(0, 6).map((emp) => (
-                  <div
-                    key={emp.id}
-                    className="bg-gradient-to-b from-black to-zinc-900/60 border border-white/10 rounded-2xl p-6 flex flex-col justify-between shadow-xl relative overflow-hidden group hover:border-white/30 transition-all"
-                  >
-                    {emp.badge && (
-                      <div className="absolute top-0 right-0 bg-rose-600 text-white px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider font-mono rounded-bl-lg">
-                        {emp.badge}
-                      </div>
-                    )}
-                    <div>
-                      <div className="flex items-start justify-between gap-3 mb-4">
-                        <div className="w-14 h-14 rounded-2xl overflow-hidden bg-black border border-white/15 shadow-md flex-shrink-0 group-hover:scale-105 transition-transform">
-                          {emp.avatar ? (
-                            <img src={emp.avatar} alt={emp.name} className="w-full h-full object-cover" />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center font-bold">{emp.name.charAt(0)}</div>
-                          )}
-                        </div>
-                        <div className="text-right">
-                          <div className="text-xl font-bold text-white font-mono">
-                            ${emp.priceMonthly}
-                            <span className="text-xs text-gray-400 font-normal">/mo</span>
-                          </div>
-                          <span className="text-[10px] font-mono text-emerald-400 block">from $49-$999/mo</span>
-                        </div>
-                      </div>
-
-                      <h3 className="text-lg font-bold text-white mb-0.5">{emp.name}</h3>
-                      <p className="text-xs font-mono text-zinc-400 mb-3">{emp.roleTitle}</p>
-                      <p className="text-xs text-gray-300 leading-relaxed mb-4">
-                        {emp.description}
-                      </p>
-
-                      <ul className="space-y-2 text-xs text-gray-400 mb-6">
-                        {emp.features.slice(0, 3).map((feat, idx) => (
-                          <li key={idx} className="flex items-center gap-2">
-                            <Check className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-                            <span>{feat}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="space-y-2 pt-4 border-t border-white/10">
-                      <Link
-                        to={`/payment?plan=${emp.id}`}
-                        className="w-full bg-white hover:bg-gray-100 text-black py-2.5 px-4 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors shadow-md"
-                      >
-                        <span>Hire Role (${emp.priceMonthly}/mo)</span>
-                      </Link>
-                      <a
-                        href="https://hanzo.team"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full block text-center text-xs text-gray-400 hover:text-white py-1 transition-colors"
-                      >
-                        Open in hanzo.team →
-                      </a>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* TAB 3: AGENTIC COMPANIES */}
-          {activeTab === 'companies' && (
-            <div className="space-y-8">
-              <div className="flex items-center justify-between flex-wrap gap-4 pb-4 border-b border-zinc-800">
-                <div>
-                  <h2 className="text-xl font-bold text-white uppercase tracking-tight">Turnkey Agentic Companies</h2>
-                  <p className="text-xs text-gray-400 mt-1">
-                    Self-operating bot businesses proven by live market benchmarks. Automated by Hanzo AI Cloud.
-                  </p>
-                </div>
-                <a
-                  href="https://hanzo.team"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white text-black px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-gray-100 transition-colors shadow-md"
-                >
-                  <Sparkles className="w-4 h-4 text-purple-600" />
-                  <span>Deploy on hanzo.team</span>
-                  <ExternalLink className="w-3 h-3 opacity-60" />
-                </a>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                {agenticCompanies.map((comp) => (
-                  <div
-                    key={comp.id}
-                    className="bg-zinc-950 border border-white/10 rounded-2xl p-6 flex flex-col justify-between shadow-xl relative overflow-hidden group hover:border-white/30 transition-all"
-                  >
-                    <div>
-                      <div className="flex items-start justify-between gap-4 mb-4">
-                        <div>
-                          {comp.badge && (
-                            <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-300 border border-amber-500/20 mb-2">
-                              {comp.badge}
-                            </span>
-                          )}
-                          <h3 className="text-lg font-bold text-white">{comp.name}</h3>
-                          <p className="text-xs font-mono text-zinc-400">{comp.roleTitle}</p>
-                        </div>
-                        {comp.avatar && (
-                          <div className="w-12 h-12 rounded-xl overflow-hidden bg-zinc-900 border border-white/15 flex-shrink-0">
-                            <img src={comp.avatar} alt={comp.name} className="w-full h-full object-cover" />
-                          </div>
-                        )}
-                      </div>
-
-                      <p className="text-xs text-zinc-300 mb-4">{comp.description}</p>
-
-                      <ul className="space-y-1.5 text-xs text-zinc-400 mb-6">
-                        {comp.features.slice(0, 3).map((feat, idx) => (
-                          <li key={idx} className="flex items-start gap-2">
-                            <Check className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                            <span>{feat}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                      <div>
-                        <span className="text-[10px] font-mono text-zinc-400 block uppercase">Subscription</span>
-                        <span className="text-2xl font-black text-white font-mono">${comp.priceMonthly}</span>
-                        <span className="text-xs text-zinc-400">/mo</span>
-                      </div>
-                      <Link
-                        to={`/payment?plan=${comp.id}`}
-                        className="bg-white hover:bg-zinc-200 text-black px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-1.5"
-                      >
-                        <span>Deploy Company</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           )}
@@ -742,42 +530,24 @@ const Dashboard = () => {
                   Engage senior human directors, creatives, and engineers under our flexible retainer.
                 </p>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-zinc-900/40 border border-blue-500/30 rounded-2xl p-6 flex flex-col justify-between">
-                    <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-blue-400 font-bold px-2 py-0.5 rounded bg-blue-500/10">
-                        Monthly Retainer
-                      </span>
-                      <h3 className="text-xl font-bold text-white mt-3 mb-1">Agency Service</h3>
-                      <div className="text-3xl font-bold text-white mb-3">$4,995<span className="text-sm font-normal text-gray-400">/month</span></div>
-                      <p className="text-xs text-gray-300 leading-relaxed mb-4">
-                        Full-service creative &amp; engineering team: 120 hours dedicated per month, 2 custom AI agents, dedicated Creative Director and PM.
-                      </p>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {plans.map((plan) => (
+                    <div key={plan.id} className="bg-zinc-900/40 border border-white/15 rounded-2xl p-6 flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-xl font-bold text-white mb-1">{plan.name}</h3>
+                        <div className="text-3xl font-bold text-white mb-3">
+                          {priceLabel(plan)}
+                          {plan.priceMonthly !== null && <span className="text-sm font-normal text-gray-400">/month</span>}
+                        </div>
+                        <p className="text-xs text-gray-300 leading-relaxed mb-4">{plan.description}</p>
+                      </div>
+                      <Link to={planHref(plan)}>
+                        <Button className="w-full bg-white hover:bg-gray-100 text-black text-xs font-semibold py-3 rounded-lg">
+                          {plan.cta}
+                        </Button>
+                      </Link>
                     </div>
-                    <Link to="/payment?plan=agency">
-                      <Button className="w-full bg-white hover:bg-gray-100 text-black text-xs font-semibold py-3 rounded-lg">
-                        Subscribe to Agency Retainer
-                      </Button>
-                    </Link>
-                  </div>
-
-                  <div className="bg-zinc-900/40 border border-purple-500/30 rounded-2xl p-6 flex flex-col justify-between">
-                    <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-purple-400 font-bold px-2 py-0.5 rounded bg-purple-500/10">
-                        Dedicated Fleet
-                      </span>
-                      <h3 className="text-xl font-bold text-white mt-3 mb-1">Enterprise Service</h3>
-                      <div className="text-3xl font-bold text-white mb-3">$9,995<span className="text-sm font-normal text-gray-400">/month</span></div>
-                      <p className="text-xs text-gray-300 leading-relaxed mb-4">
-                        Dedicated 4+ person full-stack team, unlimited brand AI agents, 240+ dedicated hours/mo, same-day priority turnaround.
-                      </p>
-                    </div>
-                    <Link to="/payment?plan=enterprise">
-                      <Button className="w-full bg-white hover:bg-gray-100 text-black text-xs font-semibold py-3 rounded-lg">
-                        Subscribe to Enterprise Fleet
-                      </Button>
-                    </Link>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>

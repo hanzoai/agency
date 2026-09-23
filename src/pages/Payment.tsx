@@ -7,7 +7,7 @@ import { Check, Lock, Mail, Loader2, CreditCard, Coins, Landmark } from 'lucide-
 import { useLocation, Link } from 'react-router-dom';
 import { checkoutUrl } from '@/lib/commerce';
 import { useToast } from '@/hooks/use-toast';
-import { planById } from '@/data/plans';
+import { planById, priceLabel } from '@/data/plans';
 
 type Method = 'card' | 'crypto' | 'wire';
 
@@ -24,7 +24,9 @@ const Payment = () => {
   const [paymentMethod, setPaymentMethod] = useState<Method>('card');
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const plan = planById(searchParams.get('plan'));
+  // Only a priced plan has a checkout; Enterprise is priced per engagement.
+  const found = planById(searchParams.get('plan'));
+  const plan = found?.priceMonthly === null ? undefined : found;
   const { toast } = useToast();
 
   const [formData, setFormData] = useState({
@@ -188,8 +190,8 @@ const Payment = () => {
                     <p className="text-sm text-gray-400">{plan.description}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold">${plan.priceMonthly.toLocaleString()}</p>
-                    {!plan.once && <p className="text-sm text-gray-400">/month</p>}
+                    <p className="font-semibold">{priceLabel(plan)}</p>
+                    <p className="text-sm text-gray-400">/month</p>
                   </div>
                 </div>
 
@@ -197,21 +199,19 @@ const Payment = () => {
                 <div className="mt-6 space-y-3">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-400">Subtotal</span>
-                    <span>${plan.priceMonthly.toLocaleString()}</span>
+                    <span>{priceLabel(plan)}</span>
                   </div>
                   <div className="pt-3 border-t border-gray-800">
                     <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
                       <span className="flex items-center">
                         <span className="text-sm text-gray-400 mr-2">USD</span>
-                        ${plan.priceMonthly.toLocaleString()}
+                        {priceLabel(plan)}
                       </span>
                     </div>
-                    {!plan.once && (
-                      <p className="text-sm text-gray-400 text-right mt-1">
-                        Billed monthly
-                      </p>
-                    )}
+                    <p className="text-sm text-gray-400 text-right mt-1">
+                      Billed monthly
+                    </p>
                   </div>
                 </div>
 

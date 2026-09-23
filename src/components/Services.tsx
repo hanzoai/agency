@@ -2,7 +2,10 @@ import { ArrowUpRight, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { buttonModifiers } from '@/lib/button-utils';
 import { useState, useRef, useEffect } from 'react';
+import { plans, priceLabel } from '@/data/plans';
 import './Services.css';
+
+const priced = plans.filter((p) => p.priceMonthly !== null);
 
 const Services = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -11,12 +14,11 @@ const Services = () => {
   const [canScrollRight, setCanScrollRight] = useState(true);
 
   // Left card content
-  // Left card content
   const leftCardContent = {
-    badge: "STARTING AT $4,995 PER MONTH",
+    badge: `Plans at ${priced.map(priceLabel).join(' and ')} per month`,
     title: "Flexible plans for every business",
     description: "From custom AI pipelines and autonomous agents to high-impact web design, branding, and motion graphics, Hanzo lets you scale your engineering and creative capacity on demand.",
-    subtext: "Agency plans at $4,995/mo and dedicated Enterprise teams starting at $9,995/mo."
+    subtext: `${plans.map((p) => (p.priceMonthly === null ? `${p.name} priced with you` : `${p.name} at ${priceLabel(p)}/month`)).join(', ')}.`
   };
 
   // Right card features - separate first line and subtext
@@ -39,91 +41,78 @@ const Services = () => {
       category: "AI Engineering",
       title: "AI Pipeline Development",
       description: "End-to-end architecture from data ingestion to deployment with high-throughput, low-latency infrastructure",
-      price: "$20,000 USD",
       image: "/images/carousel/ai-pipeline-development.jpeg"
     },
     {
       category: "AI Engineering",
       title: "LLM Fine-Tuning",
       description: "Precision model adaptation and alignment for domain-specific intelligence with continuous evaluation",
-      price: "$15,000 USD",
       image: "/images/carousel/llm-fine-tuning.jpeg"
     },
     {
       category: "AI Engineering",
       title: "RAG System Implementation",
       description: "Enterprise retrieval-augmented generation across proprietary knowledge bases with verified semantic accuracy",
-      price: "$10,000 USD",
       image: "/images/carousel/rag-system-implementation.png"
     },
     {
       category: "AI Engineering",
       title: "AI-Enhanced Creative",
       description: "Human expertise multiplied by computational intelligence for unprecedented creative velocity and precision",
-      price: "$2,000 USD",
       image: "/images/carousel/ai-enhanced-creative.jpg"
     },
     {
       category: "Creative Design",
       title: "Ad Creative",
       description: "AI-powered designs that drive measurable performance across all digital platforms and campaigns",
-      price: "$500 USD",
       image: "/images/carousel/ad-creative.jpeg"
     },
     {
       category: "Creative Design",
       title: "Social Media Creative",
       description: "Algorithm-optimized assets for maximum engagement on Instagram, TikTok, LinkedIn, and more",
-      price: "$500 USD",
       image: "/images/carousel/social-media-creative.jpeg"
     },
     {
       category: "Creative Design",
       title: "Web Design",
       description: "User-centric experiences built for conversions with responsive layouts and intuitive navigation",
-      price: "$2,500 USD",
       image: "/images/carousel/web-design.jpeg"
     },
     {
       category: "Creative Design",
       title: "Branding Services",
       description: "Data-driven identity systems for market differentiation including logos, guidelines, and assets",
-      price: "$5,000 USD",
       image: "/images/carousel/branding-services.jpeg"
     },
     {
       category: "Creative Design",
       title: "Presentation Design",
       description: "Strategic narratives that elevate your message with data visualization and compelling storytelling",
-      price: "$1,000 USD",
       image: "/images/carousel/presentation-design.jpg"
     },
     {
       category: "Creative Design",
       title: "Illustration Design",
       description: "Visual storytelling engineered for brand recognition through custom icons, infographics, and artwork",
-      price: "$750 USD",
       image: "/images/carousel/illustration-design.jpeg"
     },
     {
       category: "Specialized Production",
       title: "Video Production",
       description: "Streamlined production systems for cinematic quality at scale from concept to final delivery",
-      price: "$3,000 USD",
       image: "/images/carousel/video-production.jpeg"
     },
     {
       category: "Specialized Production",
       title: "Motion Design",
       description: "Dynamic visual systems for digital environments including animations, transitions, and effects",
-      price: "$1,500 USD",
       image: "/images/carousel/motion-design.jpg"
     },
     {
       category: "Specialized Production",
       title: "3D & AR Design",
       description: "Immersive experiences with practical implementation for products, spaces, and interactions",
-      price: "$4,000 USD",
       image: "/images/carousel/3d-and-ar-design.jpeg"
     }
   ];

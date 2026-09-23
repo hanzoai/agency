@@ -1,4 +1,4 @@
-import { ArrowUpRight, Mail } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 const features = [
   {
@@ -49,11 +49,11 @@ const WhyHanzo = () => {
             <ArrowUpRight size={16} className="ml-1" />
           </a>
           <a
-            href="/subscribe"
+            href="/pricing"
             className="lets-talk-btn bg-black hover:bg-black/0 text-white hover:text-black transition-all duration-300 px-12 border border-white rainbow-hover-btn"
           >
-            Sign Up
-            <Mail size={16} className="ml-2" />
+            See pricing
+            <ArrowUpRight size={16} className="ml-2" />
           </a>
         </div>
       </div>

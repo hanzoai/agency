@@ -19,6 +19,7 @@ import {
   MessageSquare
 } from 'lucide-react';
 import { contact } from '@/data/contact';
+import { plans, planHref, priceLabel } from '@/data/plans';
 
 const CALENDAR_URL = 'https://calendar.app.google/z1YsZQrqR4s6jQqD8';
 
@@ -128,7 +129,9 @@ export function AIChatWidget() {
       text.includes('how much')
     ) {
       return {
-        text: "We offer transparent, purely USD pricing with no hidden fees and no long-term lock-in:\n\n• **Autonomous AI Employees**: Scalable compute from $49/mo to $999/mo (Growth Marketer from $49/mo, 24/7 Concierge from $99/mo, Voice Phone EA from $199/mo, Senior Full-Stack Coder from $149/mo) — automated with Hanzo AI Cloud and managed via hanzo.team.\n• **Turnkey Agentic Companies**: From $199/mo to $999/mo (AI Automation Agency, Faceless Media Company, Clipping Channel, SEO/GEO Agency).\n• **Agency Retainer**: $4,995/month — Full-service creative & AI team, 120 hrs/mo, 2 specialized creatives, 2 brand-trained AI agents.\n• **Enterprise Retainer**: Starting at $9,995/month — Dedicated 4+ person full-stack team, unlimited brand AI agents, 240+ dedicated hrs/mo, same-day turnaround.\n\nWhich engagement model aligns best with your roadmap?",
+        text: `Three ways to work with us, priced in USD:\n\n${plans
+          .map((p) => `• ${p.name}: ${priceLabel(p)}${p.priceMonthly === null ? '' : '/month'}. ${p.description}`)
+          .join('\n')}\n\nWhich one fits your roadmap?`,
         actions: { type: 'pricing' as const },
       };
     }
@@ -381,36 +384,25 @@ export function AIChatWidget() {
 
                   {/* Interactive Pricing Card */}
                   {msg.actions?.type === 'pricing' && (
-                    <div className="grid grid-cols-2 gap-2 pt-1 animate-in fade-in duration-300">
-                      <div className="p-3 rounded-xl bg-zinc-900 border border-white/10 flex flex-col justify-between">
-                        <div>
-                          <div className="text-[11px] text-white/60 uppercase tracking-wider font-semibold">Agency</div>
-                          <div className="text-base font-bold text-white mt-0.5">$4,995<span className="text-xs font-normal text-white/60">/mo</span></div>
-                          <p className="text-[11px] text-white/70 mt-1">One active request, 100+ capabilities, 48h turnaround.</p>
+                    <div className="grid gap-2 pt-1 animate-in fade-in duration-300">
+                      {plans.map((p) => (
+                        <div key={p.id} className="p-3 rounded-xl bg-zinc-900 border border-white/10 flex items-center justify-between gap-3">
+                          <div className="min-w-0">
+                            <div className="text-[11px] text-white/60 uppercase tracking-wider font-semibold">{p.name}</div>
+                            <div className="text-base font-bold text-white mt-0.5">
+                              {priceLabel(p)}
+                              {p.priceMonthly !== null && <span className="text-xs font-normal text-white/60">/mo</span>}
+                            </div>
+                          </div>
+                          <Link
+                            to={planHref(p)}
+                            onClick={() => setIsOpen(false)}
+                            className="flex-shrink-0 inline-flex items-center justify-center px-2.5 py-1.5 rounded-md text-[11px] font-medium bg-white text-black hover:bg-white/90 transition-colors"
+                          >
+                            {p.cta}
+                          </Link>
                         </div>
-                        <Link
-                          to="/payment?plan=agency"
-                          onClick={() => setIsOpen(false)}
-                          className="mt-3 inline-flex items-center justify-center px-2.5 py-1.5 rounded-md text-[11px] font-medium bg-white text-black hover:bg-white/90 transition-colors"
-                        >
-                          Get Started
-                        </Link>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-gradient-to-b from-purple-950/40 to-zinc-900 border border-purple-800/40 flex flex-col justify-between">
-                        <div>
-                          <div className="text-[11px] text-purple-400 uppercase tracking-wider font-semibold">Enterprise</div>
-                          <div className="text-base font-bold text-white mt-0.5">$9,995<span className="text-xs font-normal text-white/60">/mo</span></div>
-                          <p className="text-[11px] text-white/70 mt-1">Dedicated 4+ team, custom brand AI models, 240+ hrs.</p>
-                        </div>
-                        <Link
-                          to="/payment?plan=enterprise"
-                          onClick={() => setIsOpen(false)}
-                          className="mt-3 inline-flex items-center justify-center px-2.5 py-1.5 rounded-md text-[11px] font-medium bg-white text-black hover:bg-white/90 transition-colors"
-                        >
-                          Get Started
-                        </Link>
-                      </div>
+                      ))}
                     </div>
                   )}
                 </div>

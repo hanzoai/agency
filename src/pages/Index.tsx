@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
 import WhyHanzo from '@/components/WhyHanzo';
@@ -11,37 +11,9 @@ import Footer from '@/components/Footer';
 import ScrollReveal from '@/utils/ScrollReveal';
 import AICapabilities from '@/components/AICapabilities';
 import StatsSection from '@/components/StatsSection';
-import { AIEmployees } from '@/components/AIEmployees';
-import { AgenticCompanies } from '@/components/AgenticCompanies';
 
 const Index = () => {
-  const [isBannerVisible, setIsBannerVisible] = useState(true); // Set to true by default
-
   useEffect(() => {
-    // Check if trial was used - in that case don't show the banner
-    const trialUsed = localStorage.getItem('trialUsed');
-    if (trialUsed === 'true') {
-      setIsBannerVisible(false);
-    }
-
-    // Listen for banner visibility changes
-    const handleBannerVisibilityChanged = (e: Event) => {
-      const customEvent = e as CustomEvent;
-      setIsBannerVisible(customEvent.detail.visible);
-    };
-
-    window.addEventListener('bannerVisibilityChanged', handleBannerVisibilityChanged);
-
-    // Listen for storage changes to update banner visibility
-    const handleStorageChange = () => {
-      const trialUsed = localStorage.getItem('trialUsed');
-      if (trialUsed === 'true') {
-        setIsBannerVisible(false);
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -59,19 +31,12 @@ const Index = () => {
         });
       });
     });
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('bannerVisibilityChanged', handleBannerVisibilityChanged);
-    };
   }, []);
 
   return (
     <ScrollReveal>
       <div className="min-h-screen flex flex-col">
         <Hero />
-        <AIEmployees />
-        <AgenticCompanies />
         <Services />
         <AICapabilities />
         <Pricing />

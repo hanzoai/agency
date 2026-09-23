@@ -34,7 +34,7 @@ const Hero = () => {
               <div className="relative z-10 text-center lg:text-left">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-mono mb-6 backdrop-blur-md">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Autonomous AI Employees from $49/mo · Turnkey Companies on hanzo.team</span>
+                  <span>AI advisors and dedicated teams on Hanzo AI Cloud</span>
                 </div>
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                   <span className="animated-text-container">
@@ -43,21 +43,21 @@ const Hero = () => {
                   </span>
                 </h1>
                 <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 max-w-xl mx-auto lg:mx-0 mt-6 lg:mt-8">
-                  Hire autonomous AI employees, deploy complete agentic companies, or engage dedicated teams on Hanzo AI Cloud.
+                  Human AI advisors and dedicated creative and engineering teams, building on Hanzo AI Cloud.
                 </p>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start">
                   <a 
-                    href="#ai-employees" 
+                    href="#pricing" 
                     className="bg-white text-black px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-semibold transition hover:bg-white/90 flex items-center justify-center rainbow-hover-btn w-full sm:w-auto text-sm shadow-lg cursor-pointer"
                   >
-                    <span>Hire AI Employee</span> <ArrowRight className="ml-2 h-4 w-4" />
+                    <span>See pricing</span> <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
-                  <a 
-                    href="#agentic-companies" 
+                  <Link 
+                    to="/contact" 
                     className="bg-purple-600/30 hover:bg-purple-600/40 border border-purple-500/40 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-purple-200 font-semibold transition text-center w-full sm:w-auto text-sm cursor-pointer"
                   >
-                    <span>Deploy a Company</span>
-                  </a>
+                    <span>Talk to us</span>
+                  </Link>
                 </div>
               </div>
 
@@ -81,41 +81,6 @@ const Hero = () => {
                     <div className="bg-gray-800/50 rounded-lg p-3 lg:p-4 text-center">
                       <div className="text-2xl lg:text-3xl font-bold text-white">100M+</div>
                       <div className="text-xs lg:text-sm text-gray-400">users acquired</div>
-                    </div>
-                    <div className="bg-gray-800/50 rounded-lg p-3 lg:p-4 text-center">
-                      <div className="text-2xl lg:text-3xl font-bold text-white">$41.4K</div>
-                      <div className="text-xs lg:text-sm text-emerald-400 font-mono">AAA 12-wk margin</div>
-                    </div>
-                    <div className="bg-gray-800/50 rounded-lg p-3 lg:p-4 text-center">
-                      <div className="text-2xl lg:text-3xl font-bold text-white">3.6×</div>
-                      <div className="text-xs lg:text-sm text-amber-400 font-mono">social reach bench</div>
-                    </div>
-                  </div>
-
-                  {/* AI Employees Quick Bar */}
-                  <div className="mt-6 pt-5 border-t border-gray-800">
-                    <div className="flex items-center justify-between mb-2.5 text-xs">
-                      <span className="text-white font-semibold uppercase tracking-wider font-mono">Preset AI Employees</span>
-                      <a href="https://hanzo.team" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline flex items-center gap-1 font-mono text-[11px]">
-                        Launch on hanzo.team ↗
-                      </a>
-                    </div>
-                    <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                      <Link to="/pricing#pricing-automation" className="p-2.5 rounded-xl bg-gray-800/60 hover:bg-gray-800 border border-amber-500/30 transition-colors flex flex-col items-center">
-                        <img src="/agents/creative.png" alt="Creative" className="w-8 h-8 rounded-full mb-1 object-cover" />
-                        <div className="font-bold text-white text-xs font-mono">$49<span className="text-[10px] text-gray-400 font-normal">/mo</span></div>
-                        <div className="text-[10px] text-amber-300 font-medium mt-0.5 truncate">Creative</div>
-                      </Link>
-                      <Link to="/pricing#pricing-automation" className="p-2.5 rounded-xl bg-gray-800/60 hover:bg-gray-800 border border-teal-500/30 transition-colors flex flex-col items-center">
-                        <img src="/agents/nora.png" alt="Nora" className="w-8 h-8 rounded-full mb-1 object-cover" />
-                        <div className="font-bold text-white text-xs font-mono">$99<span className="text-[10px] text-gray-400 font-normal">/mo</span></div>
-                        <div className="text-[10px] text-teal-300 font-medium mt-0.5 truncate">Nora</div>
-                      </Link>
-                      <Link to="/pricing#pricing-automation" className="p-2.5 rounded-xl bg-gray-800/60 hover:bg-gray-800 border border-rose-500/30 transition-colors flex flex-col items-center">
-                        <img src="/agents/maya.png" alt="Maya" className="w-8 h-8 rounded-full mb-1 object-cover" />
-                        <div className="font-bold text-white text-xs font-mono">$199<span className="text-[10px] text-gray-400 font-normal">/mo</span></div>
-                        <div className="text-[10px] text-rose-300 font-medium mt-0.5 truncate">Maya Voice</div>
-                      </Link>
                     </div>
                   </div>
                 </div>

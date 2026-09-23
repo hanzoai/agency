@@ -14,7 +14,7 @@ const OnboardingSuccess = () => {
     const hasOnboarded = sessionStorage.getItem('onboardingComplete');
     if (!hasOnboarded) {
       // If they try to access this page directly, redirect them
-      navigate('/subscribe');
+      navigate('/onboarding');
     }
   }, [navigate]);
   

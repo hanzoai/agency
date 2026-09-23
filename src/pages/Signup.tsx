@@ -18,7 +18,7 @@ const Signup = () => {
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold mb-2">Create Hanzo Account</h1>
             <p className="text-sm text-gray-400">
-              One identity for Hanzo Agency, AI Employees, and hanzo.team
+              One identity for Hanzo Agency and hanzo.team
             </p>
           </div>
 

@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import NewHeader from "../components/NewHeaderSimple";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import Subscribe from "./pages/Subscribe";
 import OnboardingForm from "./pages/Onboarding";
 import OnboardingSuccess from "./pages/OnboardingSuccess";
 import OurWork from "./pages/OurWork";
@@ -22,8 +21,6 @@ import Payment from "./pages/Payment";
 import Enterprise from "./pages/Enterprise";
 import ServicesPage from "./pages/ServicesPage";
 import SolutionsPage from "./pages/SolutionsPage";
-import InstantSiteForm from "./pages/InstantSiteForm";
-import InstantSiteSuccess from "./pages/InstantSiteSuccess";
 // Credit System Pages
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -75,7 +72,7 @@ const App = () => (
           <NewHeader />
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/subscribe" element={<Subscribe />} />
+            <Route path="/subscribe" element={<Navigate to="/pricing" replace />} />
             <Route path="/onboarding" element={<OnboardingForm />} />
             <Route path="/onboarding-success" element={<OnboardingSuccess />} />
             <Route path="/our-work" element={<OurWork />} />
@@ -89,8 +86,7 @@ const App = () => (
             <Route path="/case-study/:id" element={<CaseStudy />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/payment" element={<Payment />} />
-            <Route path="/instant-site-form" element={<InstantSiteForm />} />
-            <Route path="/instant-site-success" element={<InstantSiteSuccess />} />
+            <Route path="/instant-site-form" element={<Navigate to="/pricing" replace />} />
             <Route path="/enterprise" element={<Enterprise />} />
             <Route path="/platform" element={<Platform />} />
 

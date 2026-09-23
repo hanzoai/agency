@@ -7,7 +7,6 @@ import { buttonModifiers } from '@/lib/button-utils';
 import ScrollReveal from '@/utils/ScrollReveal';
 import GlobalMuteButton from '@/components/GlobalMuteButton';
 import { Link } from 'react-router-dom';
-import { planById, priceLabel } from '@/data/plans';
 
 const Enterprise = () => {
   useEffect(() => {
@@ -185,11 +184,8 @@ const Enterprise = () => {
                   <div>
                     <h3 className="text-2xl font-bold mb-4">FULL-FLEXIBILITY</h3>
                     <h4 className="text-xl font-bold mb-6">Customize your plan to fit your needs</h4>
-                    <p className="text-lg mb-6">
+                    <p className="text-lg mb-8">
                       We'll partner with you to build the right plan with the right team for your business. Whether you need maximum flexibility or a fully dedicated team, we can work however you work.
-                    </p>
-                    <p className="text-sm text-foreground/70 mb-8">
-                      *Dedicated team subscriptions start at $50,000 USD/month.
                     </p>
                     <Link to="/contact">
                       <Button
@@ -237,9 +233,6 @@ const Enterprise = () => {
                         <span>Support for multiple brands</span>
                       </li>
                     </ul>
-                    <p className="text-sm text-foreground/70 mt-4">
-                      Flex subscriptions range from ${planById('enterprise').priceMonthly.toLocaleString()} to $100,000 USD/month.
-                    </p>
                   </div>
                 </div>
               </div>
@@ -339,18 +332,18 @@ const Enterprise = () => {
               </div>
               
               <div className="text-center mt-24">
-                <Link to="/payment?plan=enterprise">
+                <Link to="/contact">
                   <Button
                     variant="primary"
                     size="lg"
                     className={buttonModifiers.interactive + " font-medium"}
                   >
-                    Get Started Now
+                    Contact us
                     <ArrowUpRight size={16} className="ml-1" />
                   </Button>
                 </Link>
                 <p className="mt-4 text-foreground/70">
-                  Or <Link to="/contact" className="text-accent hover:underline">contact us</Link> for a custom plan
+                  Enterprise is priced per engagement. <Link to="/pricing" className="text-accent hover:underline">See all plans</Link>
                 </p>
               </div>
             </div>

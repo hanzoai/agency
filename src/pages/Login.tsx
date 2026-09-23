@@ -18,7 +18,7 @@ const Login = () => {
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold mb-2">Sign in to Hanzo</h1>
             <p className="text-sm text-gray-400">
-              One account for Hanzo Agency, AI Employees, and hanzo.team
+              One account for Hanzo Agency and hanzo.team
             </p>
           </div>
 

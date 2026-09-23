@@ -71,6 +71,7 @@ const OnboardingForm = () => {
         title: "Onboarding complete!",
         description: "Thank you for providing your information. We'll be in touch soon!",
       });
+      sessionStorage.setItem('onboardingComplete', 'true');
       navigate('/onboarding-success');
     }, 2000);
   };

@@ -2,25 +2,26 @@ import React, { useState } from 'react';
 import Footer from '@/components/Footer';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { planById, priceLabel, seatPrice } from '@/data/plans';
+import { planById, priceLabel } from '@/data/plans';
 
-// Prices come from src/data/plans.ts. Typing them into an answer is how the FAQ
-// went on quoting a plan the pricing page had stopped selling.
-const agency = planById('agency');
+// Prices and plan contents come from src/data/plans.ts, so an answer quotes
+// exactly what the pricing page sells.
 const advisory = planById('advisory');
+const dedicated = planById('dedicated');
+const enterprise = planById('enterprise');
 
 const faqData = [
   {
-    question: `What is included in the ${priceLabel(agency)}/month Agency plan?`,
-    answer: `Agency bundles your cloud usage and your team into one subscription. It includes ${agency.seatsIncluded} seats; additional seats are $${seatPrice}/month each, the same price a Hanzo Team seat costs anywhere else. Seats carry org workspaces with shared history and projects, SSO via Hanzo IAM, and one unified bill.`
+    question: `What do I get on ${advisory.name}, ${priceLabel(advisory)}/month?`,
+    answer: `${advisory.description} Included: ${advisory.features.join(', ')}.`
   },
   {
-    question: "How do Autonomous AI Employees and Turnkey Companies work, and how do we access them?",
-    answer: "AI Employees (Growth Marketer from $49/mo, 24/7 Concierge from $99/mo, Phone Receptionist from $199/mo, Software Engineer from $149/mo) and Turnkey Agentic Companies (AI Automation Agency from $499/mo, Faceless Media Company from $299/mo, SEO/GEO Agency from $399/mo) are autonomous digital teammates and businesses powered by Hanzo AI Cloud. You log in and manage your agents, review content queues, see caller transcripts, track live revenue benchmarks, and execute workflows at hanzo.team. All plans run on flexible 30-day rolling terms with zero vendor lock-in."
+    question: `What does ${dedicated.name} add, at ${priceLabel(dedicated)}/month?`,
+    answer: `${dedicated.features[0]} ${dedicated.features.slice(1).join(', ')}.`
   },
   {
-    question: `What do I get on Advisory, ${priceLabel(advisory)}/month?`,
-    answer: `Advisory is human AI advisors and the team to build what they advise: a dedicated Creative Director, a Project Manager, 2 specialized creatives working simultaneously, 120 hours of dedicated work per month, 2 custom brand-trained AI agents, 24-hour turnaround for basic requests, access to 100+ creative services, full copyright ownership, unlimited revisions and requests, and 4 hours of consultation per month. ${priceLabel(advisory)} is where Advisory starts; larger engagements are scoped with you.`
+    question: `How is ${enterprise.name} priced?`,
+    answer: `${enterprise.name} is priced per engagement, with scope, team and terms set with you. ${enterprise.features[0]} ${enterprise.features.slice(1).join(', ')}. Contact us to scope it.`
   },
   {
     question: "How many revisions can I get per project? Is there a limit?",
@@ -64,7 +65,7 @@ const faqData = [
   },
   {
     question: "Can I upgrade or downgrade my plan?",
-    answer: `Yes, you can upgrade at any time. Downgrades take effect at the end of your current billing cycle. Most customers start on Agency at ${priceLabel(agency)}/month and move up to Advisory when they want advisors and a team; larger engagements are scoped with you.`
+    answer: `Yes, you can upgrade at any time. Downgrades take effect at the end of your current billing cycle. Most customers start on ${advisory.name} at ${priceLabel(advisory)}/month and move up to ${dedicated.name} at ${priceLabel(dedicated)}/month when they want a full-stack team; ${enterprise.name} is priced with you.`
   }
 ];
 

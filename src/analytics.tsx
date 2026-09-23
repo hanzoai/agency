@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
-import { createAnalytics } from '@hanzo/event'
+import { createAnalytics, ORG_KEY } from '@hanzo/event'
 import { AnalyticsProvider, usePageview } from '@hanzo/event/react'
 
 /** The ONE Hanzo telemetry front door — POST api.hanzo.ai/v1/event. Cloud fans the
@@ -9,28 +9,21 @@ import { AnalyticsProvider, usePageview } from '@hanzo/event/react'
  *  never sends the org; Cloud resolves the tenant from the publishable key. */
 const HOST = 'https://api.hanzo.ai'
 
-/** Publishable ingest key. Every visitor here is logged out, so no bearer can ride
- *  the request and this write-only, bundle-safe key IS how anonymous pageviews and
- *  errors resolve to an org.
+/** Publishable ingest key: the hanzo org's, from the keyring @hanzo/event carries
+ *  for its brands. Every visitor here is logged out, so this write-only,
+ *  bundle-safe key is how pageviews and errors resolve to an org. hanzo.agency
+ *  sells under the hanzo org (ORG in src/lib/commerce.ts) but is not a host the
+ *  SDK maps to an org, so the key is named here rather than resolved from the
+ *  hostname.
  *
- *  A publishable key ships in the client bundle by construction, so it is site
- *  identity rather than a credential.
+ *  With a key the SDK sends each batch as a CORS-simple request: the key rides
+ *  ?ingest_key=, the body is text/plain, and credentials are omitted. api.hanzo.ai
+ *  accepts exactly that from this origin. Without one the SDK sends a
+ *  credentialed JSON POST, which the API refuses for this origin.
  *
- *  This used to carry a literal as a default, on the reasoning that a fetched
- *  value reaches only the lanes that remember to fetch it while a default reaches
- *  every lane. True, and it still cost more than it paid: the literal named no
- *  project, so `POST /v1/event` answered 403 ingest_key_unknown for it. A default
- *  that does not resolve buys nothing — the site records exactly as little as it
- *  would with no key — and it costs two things. Analytics fails quietly, in the
- *  browser, where nobody is looking. And the deploy lane greps the built bundle
- *  for the FIRST `pk-` it finds, so a second key sitting in the file could be the
- *  one it tests, making the gate's verdict about a string nothing sends.
- *
- *  So: one key, from the lane that owns it, and no fallback. Absent means the
- *  build fails naming the absence, which is the loud version of the same fact.
- *  ⚠ A default here is only ever safe if something proves it still resolves;
- *  restoring an unverified literal restores this bug. */
-const INGEST_KEY = import.meta.env.VITE_PUBLISHABLE_KEY?.trim() ?? ''
+ *  The deploy workflow asserts this key resolves at the ingest endpoint before it
+ *  publishes. */
+const INGEST_KEY = ORG_KEY.hanzo
 
 /** Honor an explicit browser opt-out — Global Privacy Control first, then legacy
  *  DNT. Opting out suppresses pageviews AND errors. */

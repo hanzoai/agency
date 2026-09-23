@@ -51,8 +51,6 @@ jobs:
           cache: pnpm
 
       - name: build the static export
-        env:
-          VITE_PUBLISHABLE_KEY: ${{ secrets.PUBLISHABLE_KEY }}
         run: |
           set -euo pipefail
           # pnpm-lock.yaml is lockfileVersion 9.0 and package.json pins
@@ -69,11 +67,9 @@ jobs:
           cp dist/index.html dist/404.html
           echo "exported $(find dist -type f | wc -l) files"
 
-          # Assert on the BYTES THAT SHIP, because everything upstream of here can
-          # look correct while the export carries no key. That is not
-          # hypothetical: VITE_PUBLISHABLE_KEY came from an unset secret, Vite
-          # substituted the empty string, and every build published a bundle that
-          # posts anonymously and is refused at the door — green, silent, dark.
+          # Assert on the BYTES THAT SHIP. src/analytics.tsx sends with
+          # ORG_KEY.hanzo from @hanzo/event, the first pk- in the bundle's keyring,
+          # so the key tested here is the key every pageview carries.
           key=$(grep -rhoE 'pk-[A-Za-z0-9_-]{16,}' dist/assets | head -1 || true)
           [ -n "$key" ] || {
             echo "::error::no pk- publishable key in dist/assets — this bundle would 401 every anonymous event; refusing to publish"

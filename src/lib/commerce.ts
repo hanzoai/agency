@@ -4,9 +4,11 @@ import { analytics } from '@/analytics';
 /**
  * Where money changes hands: the pay site, which is the one host that answers.
  *
- * It takes `?plan=` and `?return=` and comes back to the return address. The
- * return must be a host commerce allows — `GET api.hanzo.ai/v1/commerce/org`
- * publishes that allowlist, and hanzo.agency is on it.
+ * Its cart takes `?plan=` and `?returnUrl=`, charges the plan the billing
+ * catalog prices under that slug, and comes back to the return address with
+ * `?checkout=<status>&plan=<slug>` appended. The return must be a host commerce
+ * allows: `GET api.hanzo.ai/v1/commerce/org` publishes that allowlist, and
+ * hanzo.agency is on it.
  */
 const PAY = 'https://pay.hanzo.ai';
 
@@ -25,7 +27,7 @@ const ORG = 'hanzo';
 export function checkoutUrl(planId?: string, returnPath = '/payment-success'): string {
   if (!planId) return PAY;
   const back = new URL(returnPath, window.location.origin).toString();
-  return `${PAY}/?plan=${encodeURIComponent(planId)}&return=${encodeURIComponent(back)}`;
+  return `${PAY}/cart?plan=${encodeURIComponent(planId)}&returnUrl=${encodeURIComponent(back)}`;
 }
 
 export type PaymentProvider = { name: string; enabled: boolean };

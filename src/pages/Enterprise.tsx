@@ -71,32 +71,7 @@ const Enterprise = () => {
                 </div>
                 
                 <div className="bg-background/5 rounded-xl p-8 border border-border/20 flex items-center justify-center">
-                  <img src="/images/graphics/enterprise-diagram.svg" alt="Enterprise Solutions" className="max-w-full" />
-                </div>
-              </div>
-              
-              <div className="text-center mb-16">
-                <h2 className="text-3xl font-bold mb-6">Trusted by 150+ enterprise brands</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-                  {/* Enterprise logos would go here */}
-                  <div className="flex items-center justify-center p-4">
-                    <img src="/images/logo/enterprise-1.svg" alt="Enterprise Client" className="h-12 w-auto opacity-70" />
-                  </div>
-                  <div className="flex items-center justify-center p-4">
-                    <img src="/images/logo/enterprise-2.svg" alt="Enterprise Client" className="h-12 w-auto opacity-70" />
-                  </div>
-                  <div className="flex items-center justify-center p-4">
-                    <img src="/images/logo/enterprise-3.svg" alt="Enterprise Client" className="h-12 w-auto opacity-70" />
-                  </div>
-                  <div className="flex items-center justify-center p-4">
-                    <img src="/images/logo/enterprise-4.svg" alt="Enterprise Client" className="h-12 w-auto opacity-70" />
-                  </div>
-                  <div className="flex items-center justify-center p-4">
-                    <img src="/images/logo/enterprise-5.svg" alt="Enterprise Client" className="h-12 w-auto opacity-70" />
-                  </div>
-                  <div className="flex items-center justify-center p-4">
-                    <img src="/images/logo/enterprise-6.svg" alt="Enterprise Client" className="h-12 w-auto opacity-70" />
-                  </div>
+                  <img src="/images/graphics/ai-nodes.svg" alt="Enterprise Solutions" className="max-w-full" />
                 </div>
               </div>
             </div>

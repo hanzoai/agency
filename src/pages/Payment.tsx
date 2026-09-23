@@ -45,8 +45,8 @@ const Payment = () => {
     e.preventDefault();
     if (!plan) return;
     setIsLoading(true);
-    // The pay site takes the plan and returns here. It collects the payment
-    // details and settles; this page never handles them.
+    // The pay site takes the plan, collects the payment details and settles,
+    // then returns to /payment-success. This page never handles them.
     window.location.href = checkoutUrl(plan.id, '/payment-success');
   };
 

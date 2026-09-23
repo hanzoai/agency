@@ -18,6 +18,7 @@ import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Cookies from "./pages/Cookies";
 import Payment from "./pages/Payment";
+import Subscribed from "./pages/Subscribed";
 import Enterprise from "./pages/Enterprise";
 import ServicesPage from "./pages/ServicesPage";
 import SolutionsPage from "./pages/SolutionsPage";
@@ -86,6 +87,7 @@ const App = () => (
             <Route path="/case-study/:id" element={<CaseStudy />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/payment" element={<Payment />} />
+            <Route path="/payment-success" element={<Subscribed />} />
             <Route path="/instant-site-form" element={<Navigate to="/pricing" replace />} />
             <Route path="/enterprise" element={<Enterprise />} />
             <Route path="/platform" element={<Platform />} />

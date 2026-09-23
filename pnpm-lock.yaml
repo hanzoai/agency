@@ -19,8 +19,8 @@ importers:
         specifier: ^0.5.21
         version: 0.5.21
       '@hanzo/event':
-        specifier: ^0.3.11
-        version: 0.3.11(react@19.2.8)
+        specifier: ^0.3.41
+        version: 0.3.41(react@19.2.8)
       '@hanzo/logo':
         specifier: ^1.0.26
         version: 1.0.26(react@19.2.8)
@@ -359,13 +359,16 @@ packages:
     resolution: {integrity: sha512-E2g6DZCn2IUf2AQKqPMwlVV5fz2wvIpAagFRLx33gIsJfmpyubFnx0LINjFs7UoMI1ajnwSa73k7rPteVSemUw==}
     hasBin: true
 
-  '@hanzo/event@0.3.11':
-    resolution: {integrity: sha512-HLdDWZPPonel3HPgmDOQ+LqXPV8hPEMZFGnXlFT2gPQq+MxcHgAY482Y9jHCCKwLFo8v805FZ81ylTlBAl5RVQ==}
+  '@hanzo/event@0.3.41':
+    resolution: {integrity: sha512-xchy5iI06LFJhOwV7VyhFmweyGp5D41DzJNJopP13qZX/jI7K914EZngceI+6cQIU0BPMEEeWFObkZWJDKtG+g==}
     peerDependencies:
-      react: ^18.0.0 || ^19.0.0
+      react: '>=19.2.8'
     peerDependenciesMeta:
       react:
         optional: true
+
+  '@hanzo/events@0.2.2':
+    resolution: {integrity: sha512-jF800OFibLfnuEqMJUpTyLIs4fmezzXFKGGUPAHjK40FrTWsiAb4j3j1N5sbqBLAv5Ty7FA56dOo67Y+kUSqyA==}
 
   '@hanzo/logo@1.0.26':
     resolution: {integrity: sha512-acPRsdTD/pfsDLUias989cDZCCg4Q9rCCrlOWVqlAzcN7xyoi3Vl4DjM7Z+feOL5SDPxWY1M0hJn9B1xqGjK4g==}
@@ -2178,9 +2181,13 @@ snapshots:
 
   '@hanzo/design@0.5.21': {}
 
-  '@hanzo/event@0.3.11(react@19.2.8)':
+  '@hanzo/event@0.3.41(react@19.2.8)':
+    dependencies:
+      '@hanzo/events': 0.2.2
     optionalDependencies:
       react: 19.2.8
+
+  '@hanzo/events@0.2.2': {}
 
   '@hanzo/logo@1.0.26(react@19.2.8)':
     optionalDependencies:

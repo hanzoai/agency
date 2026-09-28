@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { plans, priceLabel, planHref, ladder } from '@/data/plans';
 import './Hero.css';
 
 const clientLogos = [
@@ -29,35 +28,35 @@ const Hero = () => {
       {/* Main Hero Section */}
       <div className="min-h-screen flex flex-col pt-16">
         <div className="flex-grow flex items-center">
-          <div className="container-custom pt-16 pb-28 sm:pb-8">
+          <div className="container-custom pt-16 pb-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
               {/* Text Content - Centered on mobile */}
               <div className="relative z-10 text-center lg:text-left">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-mono mb-6 backdrop-blur-md">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>{ladder}</span>
+                  <span>AI, engineering, design and growth</span>
                 </div>
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                   <span className="animated-text-container">
-                    <span className="animated-text">Simple pricing.</span>{' '}
-                    <span className="animated-text">Serious execution.</span>
+                    <span className="animated-text">Give your team</span>{' '}
+                    <span className="animated-text animated-underline">AI super powers.</span>
                   </span>
                 </h1>
                 <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 max-w-xl mx-auto lg:mx-0 mt-6 lg:mt-8">
-                  One place for AI, engineering, product, design and growth. We do the work, we join your team, or we bring a team.
+                  Engineering, product, design and growth, working beside your team on Hanzo AI Cloud.
                 </p>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start">
-                  <Link
-                    to="/payment?plan=agency"
-                    className="bg-white text-black px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-semibold transition hover:bg-white/90 flex items-center justify-center w-full sm:w-auto text-sm shadow-lg cursor-pointer"
+                  <a
+                    href="#pricing"
+                    className="bg-white text-black px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-semibold transition hover:bg-white/90 flex items-center justify-center rainbow-hover-btn w-full sm:w-auto text-sm shadow-lg cursor-pointer"
                   >
-                    <span>Get started</span> <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
+                    <span>See pricing</span> <ArrowRight className="ml-2 h-4 w-4" />
+                  </a>
                   <Link
                     to="/contact"
-                    className="bg-white/10 hover:bg-white/15 border border-white/20 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-white font-semibold transition text-center w-full sm:w-auto text-sm cursor-pointer"
+                    className="bg-purple-600/30 hover:bg-purple-600/40 border border-purple-500/40 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-purple-200 font-semibold transition text-center w-full sm:w-auto text-sm cursor-pointer"
                   >
-                    <span>Contact us</span>
+                    <span>Talk to us</span>
                   </Link>
                 </div>
               </div>
@@ -67,50 +66,39 @@ const Hero = () => {
                 <div className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-float -z-10"></div>
                 <div className="absolute bottom-10 -left-10 w-48 h-48 bg-gradient-to-tr from-green-500/20 to-cyan-500/20 rounded-full blur-3xl animate-float-delayed -z-10"></div>
 
-                <div className="relative bg-gradient-to-br from-gray-900 to-black border border-white/15 rounded-2xl p-6 lg:p-8 shadow-2xl">
-                  <div className="space-y-3">
-                    {plans.map((plan) => (
-                      <Link key={plan.id} to={planHref(plan)} className="flex items-baseline justify-between gap-4 rounded-xl border border-white/10 px-4 py-3 hover:bg-white/5">
-                        <span>
-                          <span className="block text-sm text-gray-400">{plan.name}</span>
-                          <span className="text-sm text-gray-200">{plan.description}</span>
-                        </span>
-                        <span className="text-xl font-bold whitespace-nowrap">{priceLabel(plan)}<span className="text-xs font-normal text-gray-400">/mo</span></span>
-                      </Link>
-                    ))}
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 mt-6 pt-5 border-t border-white/10">
-                    <div>
-                      <div className="text-2xl font-bold">12+</div>
-                      <div className="text-xs text-gray-400">years of AI experience</div>
+                <div className="relative bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-6 lg:p-8 shadow-2xl">
+                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg blur-lg opacity-20 animate-pulse-slow -z-10"></div>
+                  <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-lg blur-lg opacity-20 animate-pulse-slow-delayed -z-10"></div>
+
+                  <div className="text-sm text-gray-400 mb-2 text-center lg:text-left">THE AI-POWERED ENGINE</div>
+                  <h3 className="text-xl lg:text-2xl font-bold mb-4 text-center lg:text-left">$1B+ in client revenue, 100M+ users acquired for our partners</h3>
+
+                  <div className="grid grid-cols-2 gap-3 lg:gap-4 mt-6 lg:mt-8">
+                    <div className="bg-gray-800/50 rounded-lg p-3 lg:p-4 text-center">
+                      <div className="text-2xl lg:text-3xl font-bold text-white">$1B+</div>
+                      <div className="text-xs lg:text-sm text-gray-400">client revenue</div>
                     </div>
-                    <div>
-                      <div className="text-2xl font-bold">100+</div>
-                      <div className="text-xs text-gray-400">venture-funded startups</div>
+                    <div className="bg-gray-800/50 rounded-lg p-3 lg:p-4 text-center">
+                      <div className="text-2xl lg:text-3xl font-bold text-white">100M+</div>
+                      <div className="text-xs lg:text-sm text-gray-400">users acquired</div>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Mobile Stats - Visible only on small screens */}
-              <div className="sm:hidden mt-8 mb-16">
-                <div className="bg-gradient-to-br from-gray-900 to-black border border-white/15 rounded-2xl p-6 text-left">
-                  <div className="space-y-3">
-                    {plans.map((plan) => (
-                      <div key={plan.id} className="flex items-baseline justify-between gap-3">
-                        <span className="text-sm">{plan.name}</span>
-                        <span className="font-bold">{priceLabel(plan)}<span className="text-xs font-normal text-gray-400">/mo</span></span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 mt-4 pr-12">
-                    <div>
-                      <div className="text-xl font-bold">12+</div>
-                      <div className="text-xs text-gray-400">years of AI experience</div>
+              <div className="sm:hidden mt-8">
+                <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-6">
+                  <div className="text-sm text-gray-400 mb-2 text-center">THE AI-POWERED ENGINE</div>
+                  <h3 className="text-xl font-bold mb-4 text-center">$1B+ in client revenue generated</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-gray-800/50 rounded-lg p-3 text-center">
+                      <div className="text-2xl font-bold text-white">$1B+</div>
+                      <div className="text-xs text-gray-400">client revenue</div>
                     </div>
-                    <div>
-                      <div className="text-xl font-bold">100+</div>
-                      <div className="text-xs text-gray-400">venture-funded startups</div>
+                    <div className="bg-gray-800/50 rounded-lg p-3 text-center">
+                      <div className="text-2xl font-bold text-white">100M+</div>
+                      <div className="text-xs text-gray-400">users acquired</div>
                     </div>
                   </div>
                 </div>

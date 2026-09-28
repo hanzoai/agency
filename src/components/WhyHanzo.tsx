@@ -2,16 +2,16 @@ import { ArrowUpRight } from 'lucide-react';
 
 const features = [
   {
-    title: "One workstream",
-    description: "Anything we do is available. One thing moves at a time. A large job is a sequence of milestones."
+    title: "Agency",
+    description: "$4,999 a month. Send us the work. We ship it. One active workstream."
   },
   {
-    title: "Your brand",
-    description: "Run ads on the platform and resell the work to your clients, white-labeled as your own AI agency."
+    title: "Forward Deployed",
+    description: "$9,999 a month. A named lead joins your team and pulls in Hanzo specialists."
   },
   {
-    title: "Then call us",
-    description: "A named team, more than one workstream, or a program starts with a call. There is no second price."
+    title: "Embedded Pod",
+    description: "$24,999 a month. A named pod with reserved capacity and several workstreams."
   },
 ];
 
@@ -26,7 +26,7 @@ const WhyHanzo = () => {
             Your forward-deployed AI team.
           </h2>
           <p className="text-lg text-primary/80 reveal">
-            Twelve years of AI work. A hundred venture-funded startups. One team for engineering, AI, product, design, research, and growth.
+            Twelve years of AI work. A hundred venture-funded startups. Agency from $4,999. Forward Deployed from $9,999. Embedded teams from $24,999.
           </p>
         </div>
 
@@ -45,14 +45,14 @@ const WhyHanzo = () => {
 
         <div className="mt-14 text-center reveal flex flex-wrap gap-4 justify-center">
           <a href="/payment?plan=agency" className="lets-talk-btn px-12">
-            Start for $999
+            Get started
             <ArrowUpRight size={16} className="ml-1" />
           </a>
           <a
             href="/contact"
             className="lets-talk-btn bg-black hover:bg-black/0 text-white hover:text-black transition-all duration-300 px-12 border border-white"
           >
-            Call us
+            Contact us
             <ArrowUpRight size={16} className="ml-2" />
           </a>
         </div>

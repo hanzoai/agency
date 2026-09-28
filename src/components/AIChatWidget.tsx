@@ -129,7 +129,7 @@ export function AIChatWidget() {
       text.includes('how much')
     ) {
       return {
-        text: `One plan, then a call:\n\n${plans
+        text: `Three plans. Anything larger is a conversation.\n\n${plans
           .map((p) => `• ${p.name}: ${priceLabel(p)}${p.priceMonthly === null ? '' : '/month'}. ${p.description}`)
           .join('\n')}\n\nWhich one fits your roadmap?`,
         actions: { type: 'pricing' as const },

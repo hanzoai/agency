@@ -1,15 +1,16 @@
 
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { planById, priceLabel } from '@/data/plans';
-
-const agency = planById('agency');
-if (!agency) throw new Error('agency plan missing');
+import { plans, priceLabel } from '@/data/plans';
 
 const faqs = [
+  ...plans.map((plan) => ({
+    question: `What is ${plan.name}, ${priceLabel(plan)} a month?`,
+    answer: `${plan.description} Included: ${plan.features.join(', ')}.`
+  })),
   {
-    question: `What do I get for ${priceLabel(agency)} a month?`,
-    answer: `${agency.description} Included: ${agency.features.join(', ')}. ${agency.terms}. A bigger team starts with a call.`
+    question: 'What if we need more than a pod?',
+    answer: 'Dedicated full-time personnel, multiple pods, onsite work, enterprise SLAs or private infrastructure. Contact us.'
   },
   {
     question: "How many revisions can I get per project? Is there a limit?",

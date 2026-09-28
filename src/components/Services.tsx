@@ -2,12 +2,8 @@ import { ArrowUpRight, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { buttonModifiers } from '@/lib/button-utils';
 import { useState, useRef, useEffect } from 'react';
-import { plans, priceLabel } from '@/data/plans';
+import { ladder } from '@/data/plans';
 import './Services.css';
-
-const priced = plans.filter((p) => p.priceMonthly !== null);
-const agency = priced[0];
-if (!agency) throw new Error('agency plan missing');
 
 const Services = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -17,24 +13,19 @@ const Services = () => {
 
   // Left card content
   const leftCardContent = {
-    badge: `${priceLabel(agency)} PER MONTH`,
-    title: "One plan. Then call us.",
-    description: "White-label Hanzo as your own AI agency. Run ads on the platform and resell it to your clients. One workstream at a time.",
-    subtext: "Anything past one workstream starts with a call."
+    badge: "THREE PLANS",
+    title: "Simple pricing. Serious execution.",
+    description: ladder,
+    subtext: "We do the work. We join your team. We bring a team. Anything larger is a conversation."
   };
 
   // Right card features - separate first line and subtext
-  const includedFeatures = [
-    { text: "Access to 100+ creative and AI services.", isBold: true },
-    { text: "(unlimited revisions and requests on active projects)", isSubtext: true },
-    { text: "Dedicated creative director and technical lead" },
-    { text: "Rapid turnaround starting within 24 to 48 hours" },
-    { text: "Full copyright ownership and source code access" },
-    { text: "Autonomous AI agents and custom fine-tuned models" },
-    { text: "Seamless integrations and API pipelines" },
-    { text: "Unlimited users, projects, and asset storage" },
-    { text: "Support for multiple brands and products" },
-    { text: "Access to Hanzo platform" }
+  const includedFeatures: { text: string; isBold?: boolean; isSubtext?: boolean }[] = [
+    { text: "AI, engineering, product, design and growth", isBold: true },
+    { text: "Unlimited requests and revisions on the active work" },
+    { text: "Production-ready deliverables" },
+    { text: "Full source code and IP ownership" },
+    { text: "Hanzo AI Cloud included" }
   ];
 
   // Service cards data with AI solutions first
@@ -189,17 +180,12 @@ const Services = () => {
               </p>
             </div>
             <div className="mt-8">
-              <a
-                href="https://calendar.app.google/z1YsZQrqR4s6jQqD8"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
+              <a href="/payment?plan=agency" className="block">
                 <Button
                   size="lg"
                   className="bg-white hover:bg-gray-100 text-black w-full px-8 py-6 rounded-full text-base md:text-lg font-semibold transition-all border border-gray-700 cursor-pointer"
                 >
-                  Book a call
+                  Get started
                 </Button>
               </a>
             </div>
@@ -209,7 +195,7 @@ const Services = () => {
           <div className="services-right-card services-card rounded-3xl p-8 md:p-10 lg:p-12 flex flex-col justify-between border border-gray-700">
             <div>
               <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 text-black">
-                Included in <em className="services-italic-text">all plans:</em>
+                On every <em className="services-italic-text">plan.</em>
               </h3>
               <div className="space-y-3 services-feature-list">
                 {includedFeatures.map((feature, index) => (
@@ -235,12 +221,12 @@ const Services = () => {
               </div>
             </div>
             <div className="mt-8">
-              <a href="/onboarding" className="block">
+              <a href="/pricing" className="block">
                 <Button
                   size="lg"
                   className="w-full bg-black hover:bg-gray-900 text-white px-8 py-6 rounded-full text-base md:text-lg font-semibold transition-all border border-gray-700"
                 >
-                  Sign up
+                  See pricing
                 </Button>
               </a>
             </div>

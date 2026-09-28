@@ -2,21 +2,20 @@ import React, { useState } from 'react';
 import Footer from '@/components/Footer';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { planById, priceLabel } from '@/data/plans';
-
-// Prices and plan contents come from src/data/plans.ts, so an answer quotes
-// exactly what the pricing page sells.
-const agency = planById('agency');
-if (!agency) throw new Error('agency plan missing');
+import { plans, priceLabel } from '@/data/plans';
 
 const faqData = [
+  ...plans.map((plan) => ({
+    question: `What is ${plan.name} at ${priceLabel(plan)} a month?`,
+    answer: `${plan.description} Included: ${plan.features.join(', ')}.`
+  })),
   {
-    question: `What is included at ${priceLabel(agency)} a month?`,
-    answer: `${agency.description} Included: ${agency.features.join(', ')}. ${agency.terms}.`
+    question: 'When is it a conversation instead of a plan?',
+    answer: 'Dedicated full-time personnel, multiple pods, onsite work, enterprise SLAs, private infrastructure, or a larger program. Contact us and we build the engagement around the people and the margin.'
   },
   {
-    question: 'Can I use this as my own agency?',
-    answer: 'Yes. The $999 plan is white-label. You run ads on the platform and resell the work to your clients under your brand. More than one workstream starts with a call.'
+    question: 'Can you work under our brand?',
+    answer: 'White-label delivery starts on Forward Deployed. Embedded Pod is client-facing and fully white-label. Agency ships the work to you.'
   },
   {
     question: "How many revisions can I get per project? Is there a limit?",
@@ -40,11 +39,11 @@ const faqData = [
   },
   {
     question: "How does your onboarding process work?",
-    answer: "After signing up, you'll be assigned a dedicated team within 24 hours. Our onboarding specialist will walk you through our platform, gather your brand assets, and help you submit your first creative request to get you up and running quickly. The entire onboarding process typically takes 2-3 days."
+    answer: "After you subscribe, we start from your brief, your tools and your first requests. Onboarding usually takes a couple of days."
   },
   {
     question: "How quickly will I receive my designs?",
-    answer: "One workstream moves at a time. Send the backlog. A larger job is a sequence of milestones. More than one workstream at a time starts with a call."
+    answer: "Agency moves one workstream at a time. Forward Deployed runs multiple priorities with a named lead. Embedded Pod runs multiple workstreams at once."
   },
   {
     question: "Who owns the copyright to the work?",
@@ -60,7 +59,7 @@ const faqData = [
   },
   {
     question: "Can I upgrade or downgrade my plan?",
-    answer: `There is one plan, Agency at ${priceLabel(agency)} a month. A named team, more than one workstream, or a program starts with a call. There is no second price.`
+    answer: 'Yes. Move between Agency, Forward Deployed and Embedded Pod at the end of the month. Dedicated full-time people are a conversation, not a public package.'
   }
 ];
 

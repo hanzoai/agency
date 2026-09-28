@@ -122,9 +122,9 @@ const ServicesPage: React.FC = () => {
         <div className="py-20 bg-gradient-to-b from-black to-gray-900">
           <div className="container-custom">
             <div className="max-w-4xl mx-auto text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">One plan. Then call us.</h2>
+              <h2 className="text-4xl font-bold mb-4">Simple pricing. Serious execution.</h2>
               <p className="text-xl text-gray-300">
-                White-label the platform. Run ads. Resell it as your own AI agency.
+                Agency from $4,999. Forward Deployed from $9,999. Embedded teams from $24,999.
               </p>
             </div>
 

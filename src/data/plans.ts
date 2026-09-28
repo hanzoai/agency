@@ -25,34 +25,68 @@ export const plans: Plan[] = [
   {
     id: 'agency',
     name: 'Agency',
-    description: 'The platform to run ads and resell Hanzo, white-labeled as your own AI agency.',
-    priceMonthly: 999,
-    terms: 'Pause or cancel anytime',
+    description: 'Send us the work. We ship it.',
+    priceMonthly: 4999,
+    terms: 'Monthly',
     features: [
-      'White-label Hanzo as your own AI agency',
-      'Run ads on the platform',
-      'Resell to your clients under your brand',
-      'Unlimited requests, one workstream at a time',
-      'Engineering, AI, design, research, and growth',
-      'Full ownership of everything we create',
+      'Access to Hanzo\'s full agency',
+      'AI, engineering, product, design and growth',
+      'One active workstream at a time',
+      'Unlimited requests and revisions',
+      'Work directly in your existing tools and repositories',
+      'Production-ready deliverables',
+      'Full source code and IP ownership',
+      'Hanzo AI Cloud included',
     ],
-    cta: 'Start for $999',
+    cta: 'Get started',
   },
   {
-    id: 'call',
-    name: 'Call us',
-    description: 'More than one workstream, a named team, or a program.',
-    priceMonthly: null,
-    terms: 'No second price',
+    id: 'forward',
+    name: 'Forward Deployed',
+    description: 'We join your team.',
+    priceMonthly: 9999,
+    terms: 'Monthly',
     features: [
-      'A named team inside your company',
-      'More than one workstream at a time',
-      'Client-facing work under your brand',
-      'A program, not a queue',
+      'Everything in Agency, plus:',
+      'Named forward-deployed lead',
+      'Embedded in Slack, GitHub, Linear, Jira and your existing workflow',
+      'Multiple active priorities',
+      'Weekly planning and working sessions',
+      'Architecture and technical leadership',
+      'Production implementation and deployment',
+      'Priority execution',
+      'White-label delivery',
+      'Work directly with your customers under your brand',
+      'Hanzo specialists pulled in as required',
     ],
-    cta: 'Call us',
+    cta: 'Deploy Hanzo',
+  },
+  {
+    id: 'pod',
+    name: 'Embedded Pod',
+    description: 'We bring the team.',
+    priceMonthly: 24999,
+    terms: 'Monthly',
+    features: [
+      'Everything in Forward Deployed, plus:',
+      'Named cross-functional pod',
+      'Reserved engineering, AI, product and creative capacity',
+      'Multiple concurrent workstreams',
+      'Senior technical leadership',
+      'Product and roadmap ownership',
+      'Client-facing and fully white-label operation',
+      'Faster turnaround and priority capacity',
+      'Production support',
+      'Custom AI systems and infrastructure',
+      'Multi-product and multi-brand support',
+    ],
+    cta: 'Build your pod',
   },
 ];
+
+/** The line under the homepage headline. */
+export const ladder =
+  'Agency from $4,999. Forward Deployed from $9,999. Embedded teams from $24,999.';
 
 /**
  * A plan by id, or undefined.
@@ -65,7 +99,7 @@ export const plans: Plan[] = [
 export const planById = (id: string | null | undefined): Plan | undefined =>
   plans.find((p) => p.id === id);
 
-/** "$999", or "Talk" when the next step is a call. USD only. */
+/** "$4,999", or "Talk" when the price is set in a conversation. USD only. */
 export const priceLabel = (p: Plan): string =>
   p.priceMonthly === null ? 'Talk' : `$${p.priceMonthly.toLocaleString('en-US')}`;
 

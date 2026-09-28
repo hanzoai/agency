@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { plans, priceLabel, planHref, ladder } from '@/data/plans';
 import './Hero.css';
 
 const clientLogos = [
@@ -34,29 +35,29 @@ const Hero = () => {
               <div className="relative z-10 text-center lg:text-left">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-mono mb-6 backdrop-blur-md">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>One plan. $999 a month. Then call us.</span>
+                  <span>{ladder}</span>
                 </div>
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                   <span className="animated-text-container">
-                    <span className="animated-text">Your forward-deployed</span>{' '}
-                    <span className="animated-text">AI team.</span>
+                    <span className="animated-text">Simple pricing.</span>{' '}
+                    <span className="animated-text">Serious execution.</span>
                   </span>
                 </h1>
                 <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 max-w-xl mx-auto lg:mx-0 mt-6 lg:mt-8">
-                  Run ads and resell Hanzo, white-labeled as your own AI agency. One workstream at a time. More than that, call us.
+                  One place for AI, engineering, product, design and growth. We do the work, we join your team, or we bring a team.
                 </p>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start">
                   <Link
                     to="/payment?plan=agency"
                     className="bg-white text-black px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-semibold transition hover:bg-white/90 flex items-center justify-center w-full sm:w-auto text-sm shadow-lg cursor-pointer"
                   >
-                    <span>Start for $999</span> <ArrowRight className="ml-2 h-4 w-4" />
+                    <span>Get started</span> <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                   <Link
                     to="/contact"
                     className="bg-white/10 hover:bg-white/15 border border-white/20 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-white font-semibold transition text-center w-full sm:w-auto text-sm cursor-pointer"
                   >
-                    <span>Call us</span>
+                    <span>Contact us</span>
                   </Link>
                 </div>
               </div>
@@ -67,20 +68,17 @@ const Hero = () => {
                 <div className="absolute bottom-10 -left-10 w-48 h-48 bg-gradient-to-tr from-green-500/20 to-cyan-500/20 rounded-full blur-3xl animate-float-delayed -z-10"></div>
 
                 <div className="relative bg-gradient-to-br from-gray-900 to-black border border-white/15 rounded-2xl p-6 lg:p-8 shadow-2xl">
-                  <div className="flex items-baseline justify-between gap-4">
-                    <div>
-                      <div className="text-sm text-gray-400">Agency</div>
-                      <div className="text-5xl font-bold tracking-tight">$999</div>
-                    </div>
-                    <div className="text-right text-sm text-gray-400">per month<br />pause anytime</div>
+                  <div className="space-y-3">
+                    {plans.map((plan) => (
+                      <Link key={plan.id} to={planHref(plan)} className="flex items-baseline justify-between gap-4 rounded-xl border border-white/10 px-4 py-3 hover:bg-white/5">
+                        <span>
+                          <span className="block text-sm text-gray-400">{plan.name}</span>
+                          <span className="text-sm text-gray-200">{plan.description}</span>
+                        </span>
+                        <span className="text-xl font-bold whitespace-nowrap">{priceLabel(plan)}<span className="text-xs font-normal text-gray-400">/mo</span></span>
+                      </Link>
+                    ))}
                   </div>
-                  <ul className="mt-6 space-y-2.5 text-sm text-gray-200">
-                    <li>White-label Hanzo as your own AI agency</li>
-                    <li>Run ads and resell under your brand</li>
-                    <li>Unlimited requests, one workstream at a time</li>
-                    <li>Engineering, AI, design, research, and growth</li>
-                    <li>You own everything we ship</li>
-                  </ul>
                   <div className="grid grid-cols-2 gap-3 mt-6 pt-5 border-t border-white/10">
                     <div>
                       <div className="text-2xl font-bold">12+</div>
@@ -91,21 +89,20 @@ const Hero = () => {
                       <div className="text-xs text-gray-400">venture-funded startups</div>
                     </div>
                   </div>
-                  <Link
-                    to="/payment?plan=agency"
-                    className="mt-6 bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-white/90 flex items-center justify-center"
-                  >
-                    Start for $999 <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
                 </div>
               </div>
 
               {/* Mobile Stats - Visible only on small screens */}
               <div className="sm:hidden mt-8 mb-16">
                 <div className="bg-gradient-to-br from-gray-900 to-black border border-white/15 rounded-2xl p-6 text-left">
-                  <div className="text-sm text-gray-400">Agency</div>
-                  <div className="text-4xl font-bold">$999<span className="text-base font-normal text-gray-400">/mo</span></div>
-                  <p className="text-sm text-gray-300 mt-3">White-label the platform. Run ads. Resell it as your agency. One workstream at a time.</p>
+                  <div className="space-y-3">
+                    {plans.map((plan) => (
+                      <div key={plan.id} className="flex items-baseline justify-between gap-3">
+                        <span className="text-sm">{plan.name}</span>
+                        <span className="font-bold">{priceLabel(plan)}<span className="text-xs font-normal text-gray-400">/mo</span></span>
+                      </div>
+                    ))}
+                  </div>
                   <div className="grid grid-cols-2 gap-3 mt-4 pr-12">
                     <div>
                       <div className="text-xl font-bold">12+</div>

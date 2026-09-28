@@ -6,22 +6,17 @@ import { planById, priceLabel } from '@/data/plans';
 
 // Prices and plan contents come from src/data/plans.ts, so an answer quotes
 // exactly what the pricing page sells.
-const advisory = planById('advisory');
-const dedicated = planById('dedicated');
-const enterprise = planById('enterprise');
+const agency = planById('agency');
+if (!agency) throw new Error('agency plan missing');
 
 const faqData = [
   {
-    question: `What do I get on ${advisory.name}, ${priceLabel(advisory)}/month?`,
-    answer: `${advisory.description} Included: ${advisory.features.join(', ')}.`
+    question: `What is included at ${priceLabel(agency)} a month?`,
+    answer: `${agency.description} Included: ${agency.features.join(', ')}. ${agency.terms}.`
   },
   {
-    question: `What does ${dedicated.name} add, at ${priceLabel(dedicated)}/month?`,
-    answer: `${dedicated.features[0]} ${dedicated.features.slice(1).join(', ')}.`
-  },
-  {
-    question: `How is ${enterprise.name} priced?`,
-    answer: `${enterprise.name} is priced per engagement, with scope, team and terms set with you. ${enterprise.features[0]} ${enterprise.features.slice(1).join(', ')}. Contact us to scope it.`
+    question: 'Can I use this as my own agency?',
+    answer: 'Yes. The $999 plan is white-label. You run ads on the platform and resell the work to your clients under your brand. More than one workstream starts with a call.'
   },
   {
     question: "How many revisions can I get per project? Is there a limit?",
@@ -33,7 +28,7 @@ const faqData = [
   },
   {
     question: "What if I want to stop the engagement, how do I cancel?",
-    answer: "Advisory requires a 1 quarter (3 month) minimum commitment. After that, you can cancel anytime with 30 days notice. Simply let us know via email or through your client portal, and we'll coordinate the handover of all your assets and materials."
+    answer: "Pause or cancel anytime. We hand over the work and the source."
   },
   {
     question: "What is your customer support like? What's your office hours?",
@@ -49,7 +44,7 @@ const faqData = [
   },
   {
     question: "How quickly will I receive my designs?",
-    answer: "Basic design requests are delivered within 24 hours on Advisory. More complex projects like websites or videos follow a detailed timeline established at the beginning of your project. Your Project Manager will provide specific timelines for each deliverable."
+    answer: "One workstream moves at a time. Send the backlog. A larger job is a sequence of milestones. More than one workstream at a time starts with a call."
   },
   {
     question: "Who owns the copyright to the work?",
@@ -65,7 +60,7 @@ const faqData = [
   },
   {
     question: "Can I upgrade or downgrade my plan?",
-    answer: `Yes, you can upgrade at any time. Downgrades take effect at the end of your current billing cycle. Most customers start on ${advisory.name} at ${priceLabel(advisory)}/month and move up to ${dedicated.name} at ${priceLabel(dedicated)}/month when they want a full-stack team; ${enterprise.name} is priced with you.`
+    answer: `There is one plan, Agency at ${priceLabel(agency)} a month. A named team, more than one workstream, or a program starts with a call. There is no second price.`
   }
 ];
 

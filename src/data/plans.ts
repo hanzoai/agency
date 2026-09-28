@@ -23,59 +23,34 @@ export interface Plan {
 
 export const plans: Plan[] = [
   {
-    id: 'advisory',
-    name: 'Advisory',
-    description: 'Human AI advisors, and the team to build what they advise.',
-    priceMonthly: 4999,
-    terms: '1 quarter minimum commitment',
+    id: 'agency',
+    name: 'Agency',
+    description: 'The platform to run ads and resell Hanzo, white-labeled as your own AI agency.',
+    priceMonthly: 999,
+    terms: 'Pause or cancel anytime',
     features: [
-      'Dedicated Creative Director',
-      'Dedicated Project Manager',
-      '2 specialized creatives simultaneously',
-      '120 hours dedicated per month',
-      '2 custom brand-trained AI agents',
-      '24-hour turnaround for basic requests',
-      'Access to 100+ creative services',
-      'Full copyright ownership',
-      'Unlimited revisions & requests',
-      '4 hours of consultation per month',
+      'White-label Hanzo as your own AI agency',
+      'Run ads on the platform',
+      'Resell to your clients under your brand',
+      'Unlimited requests, one workstream at a time',
+      'Engineering, AI, design, research, and growth',
+      'Full ownership of everything we create',
     ],
-    cta: 'Get started',
+    cta: 'Start for $999',
   },
   {
-    id: 'dedicated',
-    name: 'Dedicated Team',
-    description: 'Dedicated team, custom AI, priority everything.',
-    priceMonthly: 9999,
-    terms: 'Annual contract preferred',
-    features: [
-      'Everything in Advisory, plus:',
-      'Dedicated full-stack team (4+ creatives)',
-      'Unlimited custom AI agents trained on your brand',
-      '240+ hours dedicated per month',
-      'Priority turnaround, same-day for urgent requests',
-      'Video production (up to 4 videos/month)',
-      '3D, AR, and immersive design',
-      'AI consulting and marketing strategy',
-      '8 hours of executive consultation per month',
-    ],
-    cta: 'Get started',
-  },
-  {
-    id: 'enterprise',
-    name: 'Enterprise',
-    description: 'Scope, team and terms built around your organization.',
+    id: 'call',
+    name: 'Call us',
+    description: 'More than one workstream, a named team, or a program.',
     priceMonthly: null,
+    terms: 'No second price',
     features: [
-      'Everything in Dedicated Team, plus:',
-      'Team size and hours set to your roadmap',
-      'Multi-brand and multi-department portfolios',
-      'Fully embedded teams',
-      'Dedicated account manager',
-      'Centralized invoicing and spend control',
-      'RFP submissions',
+      'A named team inside your company',
+      'More than one workstream at a time',
+      'Client-facing work under your brand',
+      'A program, not a queue',
     ],
-    cta: 'Contact us',
+    cta: 'Call us',
   },
 ];
 
@@ -90,9 +65,9 @@ export const plans: Plan[] = [
 export const planById = (id: string | null | undefined): Plan | undefined =>
   plans.find((p) => p.id === id);
 
-/** "$4,999", or "Custom pricing" for a plan priced per engagement. USD only. */
+/** "$999", or "Talk" when the next step is a call. USD only. */
 export const priceLabel = (p: Plan): string =>
-  p.priceMonthly === null ? 'Custom pricing' : `$${p.priceMonthly.toLocaleString('en-US')}`;
+  p.priceMonthly === null ? 'Talk' : `$${p.priceMonthly.toLocaleString('en-US')}`;
 
 /** Where a plan's call to action goes: checkout for a priced plan, the contact page otherwise. */
 export const planHref = (p: Plan): string =>

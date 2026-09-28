@@ -8,9 +8,9 @@ export default function Pricing() {
       <main className="pt-32 pb-20 bg-black text-white">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Pricing</h1>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">One plan. Then call us.</h1>
             <p className="text-xl text-foreground/80 max-w-3xl mx-auto">
-              Human AI advisors, a dedicated team, or an enterprise engagement priced with you.
+              $999 a month is the platform: run ads and resell Hanzo, white-labeled as your own AI agency. One workstream at a time.
             </p>
           </div>
 

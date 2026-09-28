@@ -6,6 +6,8 @@ import { plans, priceLabel } from '@/data/plans';
 import './Services.css';
 
 const priced = plans.filter((p) => p.priceMonthly !== null);
+const agency = priced[0];
+if (!agency) throw new Error('agency plan missing');
 
 const Services = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,10 +17,10 @@ const Services = () => {
 
   // Left card content
   const leftCardContent = {
-    badge: `Plans at ${priced.map(priceLabel).join(' and ')} per month`,
-    title: "Flexible plans for every business",
-    description: "From custom AI pipelines and autonomous agents to high-impact web design, branding, and motion graphics, Hanzo lets you scale your engineering and creative capacity on demand.",
-    subtext: `${plans.map((p) => (p.priceMonthly === null ? `${p.name} priced with you` : `${p.name} at ${priceLabel(p)}/month`)).join(', ')}.`
+    badge: `${priceLabel(agency)} PER MONTH`,
+    title: "One plan. Then call us.",
+    description: "White-label Hanzo as your own AI agency. Run ads on the platform and resell it to your clients. One workstream at a time.",
+    subtext: "Anything past one workstream starts with a call."
   };
 
   // Right card features - separate first line and subtext

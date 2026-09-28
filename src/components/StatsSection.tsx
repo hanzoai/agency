@@ -78,11 +78,9 @@ const StatsSection = () => {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl opacity-30"></div>
       
       <div className="container-custom relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
-          <StatItem value={98} label="Client Satisfaction Rate" symbol="%" />
-          <StatItem value={35} label="AI-Powered Projects" symbol="+" />
-          <StatItem value={12} label="Industry Partnerships" symbol="+" />
-          <StatItem value={5} label="Years of AI Expertise" symbol="+" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-4 max-w-3xl mx-auto">
+          <StatItem value={12} label="Years of AI experience" symbol="+" />
+          <StatItem value={100} label="Venture-funded startups" symbol="+" />
         </div>
       </div>
     </section>

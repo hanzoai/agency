@@ -2,16 +2,16 @@ import { ArrowUpRight } from 'lucide-react';
 
 const features = [
   {
-    title: "AI-Powered Innovation Engine",
-    description: "Our proprietary AI systems analyze market trends, customer behavior, and performance data to deliver tailored solutions for your specific business challenges."
+    title: "One workstream",
+    description: "Anything we do is available. One thing moves at a time. A large job is a sequence of milestones."
   },
   {
-    title: "Applied Research Methodology",
-    description: "We blend academic rigor with practical execution, translating cutting-edge research into tangible business outcomes with measurable ROI."
+    title: "Your brand",
+    description: "Run ads on the platform and resell the work to your clients, white-labeled as your own AI agency."
   },
   {
-    title: "Cross-Functional Expertise",
-    description: "Our team combines AI specialists, engineers, designers, and growth strategists to deliver holistic solutions that push boundaries."
+    title: "Then call us",
+    description: "A named team, more than one workstream, or a program starts with a call. There is no second price."
   },
 ];
 
@@ -23,10 +23,10 @@ const WhyHanzo = () => {
       <div className="container-custom">
         <div className="text-center max-w-3xl mb-16 mx-auto">
           <h2 className="text-3xl md:text-6xl font-black tracking-tighter mb-8 reveal">
-            Pioneering the future of AI-powered solutions
+            Your forward-deployed AI team.
           </h2>
           <p className="text-lg text-primary/80 reveal">
-            Hanzo combines advanced AI research with practical business applications, delivering transformative solutions that drive measurable growth.
+            Twelve years of AI work. A hundred venture-funded startups. One team for engineering, AI, product, design, research, and growth.
           </p>
         </div>
 
@@ -44,15 +44,15 @@ const WhyHanzo = () => {
         </div>
 
         <div className="mt-14 text-center reveal flex flex-wrap gap-4 justify-center">
-          <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="lets-talk-btn px-12">
-            Let's talk
+          <a href="/payment?plan=agency" className="lets-talk-btn px-12">
+            Start for $999
             <ArrowUpRight size={16} className="ml-1" />
           </a>
           <a
-            href="/pricing"
-            className="lets-talk-btn bg-black hover:bg-black/0 text-white hover:text-black transition-all duration-300 px-12 border border-white rainbow-hover-btn"
+            href="/contact"
+            className="lets-talk-btn bg-black hover:bg-black/0 text-white hover:text-black transition-all duration-300 px-12 border border-white"
           >
-            See pricing
+            Call us
             <ArrowUpRight size={16} className="ml-2" />
           </a>
         </div>

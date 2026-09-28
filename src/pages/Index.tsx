@@ -37,12 +37,12 @@ const Index = () => {
     <ScrollReveal>
       <div className="min-h-screen flex flex-col">
         <Hero />
-        <Services />
-        <AICapabilities />
+        <StatsSection />
         <Pricing />
+        <Services />
         <WhyHanzo />
         <CaseStudy />
-        <StatsSection />
+        <AICapabilities />
         <Process />
         <FAQ />
         <Footer />

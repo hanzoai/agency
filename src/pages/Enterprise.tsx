@@ -28,9 +28,9 @@ const Enterprise = () => {
           <section className="py-24 lg:py-32">
             <div className="container-custom">
               <div className="text-center mb-16">
-                <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">Enterprise Solutions</h1>
+                <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">Call us</h1>
                 <p className="text-xl text-foreground/80 max-w-3xl mx-auto">
-                  Powerful AI and Web3 workflows to accelerate your creative team's capabilities
+                  Agency is $999 a month: the platform to run ads and resell Hanzo, white-labeled as your own AI agency. A bigger team, more than one workstream, or a program starts here.
                 </p>
               </div>
               
@@ -38,7 +38,7 @@ const Enterprise = () => {
                 <div className="bg-background/5 rounded-xl p-8 border border-border/20">
                   <h2 className="text-3xl font-bold mb-6">Your creative team's creative team™</h2>
                   <p className="text-lg mb-8">
-                    85% of enterprise creative teams are stretched to their limit. Hanzo expands capabilities and boosts your team's capacity—all through a custom subscription. No hiring required.
+                    Agency is $999 a month. A larger team or more than one workstream starts with a call. There is no second price.
                   </p>
                   <ul className="space-y-4 mb-8">
                     <li className="flex">
@@ -82,7 +82,7 @@ const Enterprise = () => {
               <div className="text-center mb-16">
                 <h2 className="text-3xl font-bold mb-6">Enterprise Plan Features</h2>
                 <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
-                  Choose a flex or dedicated team subscription to get access to all of our creative services in one place.
+                  The $999 plan covers the work. A larger program starts with a call.
                 </p>
               </div>
               
@@ -318,7 +318,7 @@ const Enterprise = () => {
                   </Button>
                 </Link>
                 <p className="mt-4 text-foreground/70">
-                  Enterprise is priced per engagement. <Link to="/pricing" className="text-accent hover:underline">See all plans</Link>
+                  Or <Link to="/payment?plan=agency" className="text-accent hover:underline">start for $999</Link>
                 </p>
               </div>
             </div>

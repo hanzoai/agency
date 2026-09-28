@@ -525,12 +525,12 @@ const Dashboard = () => {
           {activeTab === 'services' && (
             <div className="space-y-8">
               <div>
-                <h2 className="text-xl font-bold tracking-tight mb-2">Dedicated Teams &amp; Retainer Plans</h2>
+                <h2 className="text-xl font-bold tracking-tight mb-2">Agency</h2>
                 <p className="text-xs text-gray-400 mb-6">
-                  Engage senior human directors, creatives, and engineers under our flexible retainer.
+                  One plan. The platform to run ads and resell Hanzo, white-labeled as your own AI agency.
                 </p>
 
-                <div className="grid md:grid-cols-3 gap-6">
+                <div className="grid md:grid-cols-2 gap-6">
                   {plans.map((plan) => (
                     <div key={plan.id} className="bg-zinc-900/40 border border-white/15 rounded-2xl p-6 flex flex-col justify-between">
                       <div>

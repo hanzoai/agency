@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { planById, priceLabel } from '@/data/plans';
 
-const advisory = planById('advisory');
+const agency = planById('agency');
+if (!agency) throw new Error('agency plan missing');
 
 const faqs = [
   {
-    question: `What do I get on Advisory, ${priceLabel(advisory)}/month?`,
-    answer: `${advisory.description} Included: ${advisory.features.join(', ')}.`
+    question: `What do I get for ${priceLabel(agency)} a month?`,
+    answer: `${agency.description} Included: ${agency.features.join(', ')}. ${agency.terms}. A bigger team starts with a call.`
   },
   {
     question: "How many revisions can I get per project? Is there a limit?",
@@ -20,7 +21,7 @@ const faqs = [
   },
   {
     question: "What if I want to stop the engagement, how do I cancel?",
-    answer: "Advisory has a 1 quarter (3 month) minimum commitment. After that, you can cancel anytime with 30 days notice. Simply let us know via email or through your client portal, and we'll coordinate the handover of all your assets and materials."
+    answer: "Pause or cancel anytime. We hand over the work and the source."
   },
   {
     question: "What is your customer support like? What's your office hours?",

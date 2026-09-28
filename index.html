@@ -24,14 +24,24 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YL5C91SRDW"></script>
+    <!-- GA4. %GA% is hanzo.yml's analytics.googleAnalyticsId (vite.config.ts).
+         The first page view queues here, before the bundle; gtag.js is fetched
+         after `load`, since a script in the head holds the load event until its
+         host answers. Route changes are GA4's own history listener. Global
+         Privacy Control and Do Not Track opt out, as src/analytics.tsx does. -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-YL5C91SRDW');
+      if (!navigator.globalPrivacyControl && navigator.doNotTrack !== '1') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments)}
+        gtag('js', new Date());
+        gtag('config', '%GA%', { linker: { domains: ['hanzo.agency', 'hanzo.ai', 'hanzo.id', 'pay.hanzo.ai', 'cal.hanzo.ai'] } });
+        addEventListener('load', function () {
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=%GA%';
+          document.head.appendChild(s);
+        }, { once: true });
+      }
     </script>
   </head>
 

@@ -41,20 +41,13 @@ import { AIChatWidget } from "./components/AIChatWidget";
 const queryClient = new QueryClient();
 
 // Scroll position, and nothing else. Counting the navigation is <Analytics>'s
-// job — one component per concern, and one pageview per route change rather than
-// one from here and another from the provider.
+// job, and GA4's own history listener's (index.html) — a page_view sent from here
+// would count every route twice.
 function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
-      (window as any).gtag('event', 'page_view', {
-        page_path: pathname,
-        page_location: window.location.href,
-        page_title: document.title,
-      });
-    }
   }, [pathname]);
 
   return null;

@@ -8,6 +8,21 @@ const SITE_KEY = '0x4AAAAAACjmgkC9rYm5YPYv';
 
 const client = new WaitlistClient({ baseUrl: 'https://api.hanzo.ai' });
 
+// The newsletter. The join API names its lists "waitlist"; the one that
+// exists is `hanzo`. `agency` was never created, which is the "not found"
+// the form was showing.
+const NEWSLETTER = 'hanzo';
+
+function explain(message: string): string {
+  const text = message.toLowerCase();
+  if (text.includes('not found')) return 'The newsletter is not available right now. Try again in a minute.';
+  if (text.includes('captcha') || text.includes('check')) return 'The signup check failed. Refresh and try again.';
+  if (text.includes('disposable')) return 'Use a regular email address.';
+  if (text.includes('rate')) return 'Too many signups from here. Try again in a little while.';
+  if (text.includes('invalid email')) return 'Enter a valid email address.';
+  return 'Something went wrong. Try again.';
+}
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 interface Turnstile {
@@ -93,7 +108,7 @@ const Newsletter = () => {
     setBusy(true);
     setError(null);
     const res = await client.join({
-      waitlist: 'agency',
+      waitlist: NEWSLETTER,
       email: normalized,
       referrerCode: readPendingReferrer(),
       turnstileToken: token,
@@ -101,7 +116,7 @@ const Newsletter = () => {
     setBusy(false);
     if ('message' in res) {
       setToken(null);
-      setError(res.message || 'Something went wrong. Try again.');
+      setError(explain(res.message || ''));
       if (widgetId.current && window.turnstile) window.turnstile.reset(widgetId.current);
       return;
     }

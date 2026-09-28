@@ -414,6 +414,12 @@ const NewHeader = () => {
 
         {/* Desktop Auth Buttons */}
         <div className="hidden lg:flex ml-auto items-center space-x-3">
+          <a
+            href="https://hanzo.ai"
+            className="text-white/80 hover:text-white transition-colors duration-200 px-3 py-2 text-sm font-medium"
+          >
+            Hanzo AI
+          </a>
           {isAuthenticated ? (
             <Link
               to="/dashboard"
@@ -548,6 +554,12 @@ const NewHeader = () => {
 
             {/* Mobile Auth Buttons */}
             <div className="mt-8 space-y-3">
+              <a
+                href="https://hanzo.ai"
+                className="block w-full text-center border border-white/40 text-white hover:border-white transition-colors duration-200 px-4 py-3 rounded-full text-sm font-medium"
+              >
+                Hanzo AI
+              </a>
               {isAuthenticated ? (
                 <Link
                   to="/dashboard"

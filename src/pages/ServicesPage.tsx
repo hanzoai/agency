@@ -3,38 +3,22 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import Footer from '@/components/Footer';
+import CaseStudyTrio from '@/components/CaseStudyTrio';
 import { PlanCards } from '@/components/Pricing';
-import { services } from '@/data/services';
+import { serviceCategories, services } from '@/data/services';
 import ServiceTemplate from './services/ServiceTemplate';
 
-// Service category interface
-interface ServiceCategory {
-  title: string;
-  color: string;
-  services: Service[];
-}
-
-// Service interface
-interface Service {
-  name: string;
-  description: string;
-  icon: string;
-  link: string;
-}
+const CATEGORIES = [
+  { key: 'engineering' as const, title: 'Engineering' },
+  { key: 'design' as const, title: 'Design' },
+  { key: 'research' as const, title: 'Research' },
+  { key: 'growth' as const, title: 'Growth' },
+];
 
 // ServicesPage component
 const ServicesPage: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string>('creative');
-
-  // Service categories data
-  const serviceCategories: ServiceCategory[] = [
-    // ... existing code ...
-  ];
-
-  // Filter services based on active category
-  const filteredServices = serviceCategories.find(category =>
-    category.title.toLowerCase().includes(activeCategory.toLowerCase())
-  )?.services || [];
+  const [activeCategory, setActiveCategory] = useState<(typeof CATEGORIES)[number]['key']>('engineering');
+  const filteredServices = Object.values(serviceCategories[activeCategory]);
 
   // Get the service param from the URL
   const { "*": serviceParam } = useParams<{ "*": string }>();
@@ -73,14 +57,14 @@ const ServicesPage: React.FC = () => {
         <div className="pt-32 pb-20 border-b border-gray-800">
           <div className="container-custom">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">AI-ENABLED CREATIVE SOLUTIONS</h1>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6">Creative work, engineered.</h1>
               <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-                Transforming traditional creative paradigms with an AI-enhanced approach that delivers measurable outcomes.
+                Market analysis, product, brand, and growth. The same practice behind Damon, Triller, and Bellabeat. The platform is <a href="https://hanzo.ai" className="underline">Hanzo AI</a>.
               </p>
 
-              <a href="https://auth.hanzo.ai" className="bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-white/90 inline-flex items-center text-lg">
-                Get Started Today <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
+              <Link to="/contact" className="bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-white/90 inline-flex items-center text-lg">
+                Get started <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </div>
           </div>
         </div>
@@ -89,14 +73,15 @@ const ServicesPage: React.FC = () => {
         <div className="py-16 border-b border-gray-800 bg-black">
           <div className="container-custom">
             <div className="flex flex-wrap justify-center gap-4 mb-16">
-              {serviceCategories.map((category) => (
+              {CATEGORIES.map((category) => (
                 <button
-                  key={category.title}
-                  className={`px-6 py-3 rounded-full font-medium text-base transition-colors ${activeCategory.toLowerCase() === category.title.toLowerCase().split(' ')[0].toLowerCase()
-                    ? `bg-${category.color} text-black`
-                    : 'bg-gray-800 text-white hover:bg-gray-700'
-                    }`}
-                  onClick={() => setActiveCategory(category.title.toLowerCase().split(' ')[0])}
+                  key={category.key}
+                  className={`px-6 py-3 rounded-full font-medium text-base transition-colors ${
+                    activeCategory === category.key
+                      ? 'bg-white text-black'
+                      : 'bg-gray-800 text-white hover:bg-gray-700'
+                  }`}
+                  onClick={() => setActiveCategory(category.key)}
                 >
                   {category.title}
                 </button>
@@ -105,11 +90,11 @@ const ServicesPage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredServices.map((service) => (
-                <div key={service.name} className="bg-gray-900 rounded-lg p-8 border border-gray-800 hover:border-gray-700 transition-all">
+                <div key={service.id} className="bg-gray-900 rounded-lg p-8 border border-gray-800 hover:border-gray-700 transition-all">
                   <div className="text-4xl mb-4">{service.icon}</div>
-                  <h3 className="text-xl font-bold mb-2">{service.name}</h3>
+                  <h3 className="text-xl font-bold mb-2">{service.title}</h3>
                   <p className="text-gray-400 mb-6">{service.description}</p>
-                  <Link to={service.link} className="text-white hover:text-blue-400 inline-flex items-center">
+                  <Link to={`/services/${service.id}`} className="text-white hover:text-blue-400 inline-flex items-center">
                     Learn more <ArrowRight className="ml-1 h-4 w-4" />
                   </Link>
                 </div>
@@ -117,6 +102,8 @@ const ServicesPage: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <CaseStudyTrio lede="Every service page opens three of these. The full set lives in Our Work." />
 
         {/* Pricing Section */}
         <div className="py-20 bg-gradient-to-b from-black to-gray-900">

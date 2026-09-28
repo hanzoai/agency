@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { ArrowUpRight, Check } from 'lucide-react';
 import Footer from '@/components/Footer';
+import CaseStudyTrio from '@/components/CaseStudyTrio';
+import { studiesFor } from '@/lib/studies';
 import { Button } from '@/components/ui/button';
 import { buttonModifiers } from '@/lib/button-utils';
 
@@ -30,7 +32,7 @@ const solutions: Record<string, Solution> = {
       'Disaster recovery and business continuity'
     ],
     benefits: [
-      'Reduce infrastructure costs by up to 40%',
+      'Run the workload on infrastructure you own, or on Hanzo Cloud',
       'Scale resources instantly based on demand',
       'Improve application performance and reliability',
       'Enable remote work and collaboration',
@@ -55,7 +57,7 @@ const solutions: Record<string, Solution> = {
     benefits: [
       'Protect against data breaches and cyber attacks',
       'Ensure regulatory compliance',
-      'Reduce security incidents by up to 90%',
+      'The same identity and key management Hanzo runs in production',
       'Safeguard customer trust and reputation',
       'Minimize downtime and business disruption',
       'Lower security operational costs'
@@ -80,7 +82,7 @@ const solutions: Record<string, Solution> = {
       'Automate repetitive tasks and processes',
       'Enhance customer experience with personalization',
       'Predict trends and prevent issues',
-      'Increase operational efficiency by 50%',
+      'Generation through Zen, routing through Enso, decisions through Kai',
       'Drive innovation and competitive advantage'
     ],
     industries: ['Retail', 'Healthcare', 'Finance', 'Manufacturing', 'Media']
@@ -99,7 +101,7 @@ const solutions: Record<string, Solution> = {
       'Legacy system modernization'
     ],
     benefits: [
-      'Accelerate product development by 3x',
+      'The engineering practice behind Damon, Casper, and Bellabeat',
       'Improve code quality and reliability',
       'Enable rapid feature deployment',
       'Reduce technical debt',
@@ -145,7 +147,7 @@ const solutions: Record<string, Solution> = {
       'Real-time financial reporting'
     ],
     benefits: [
-      'Reduce financial risk exposure by 60%',
+      'The growth practice behind Unikoin Gold and Casper',
       'Ensure regulatory compliance',
       'Improve forecasting accuracy',
       'Detect fraud in real-time',
@@ -208,10 +210,21 @@ const industries = [
   }
 ];
 
+const INDUSTRY_ALIAS: Record<string, string> = {
+  aerospace: 'aerospace-defense',
+  communications: 'communications-media',
+  consumer: 'consumer-goods',
+};
+
 const SolutionsPage: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const capability = searchParams.get('capability');
-  const industry = searchParams.get('industry');
+  const { slug } = useParams();
+  const { pathname } = useLocation();
+  const fromCapabilities = pathname.startsWith('/capabilities/') ? slug : null;
+  const fromIndustries = pathname.startsWith('/industries/') ? slug : null;
+  const capability = searchParams.get('capability') || fromCapabilities || null;
+  const industryParam = searchParams.get('industry') || fromIndustries || null;
+  const industry = industryParam ? INDUSTRY_ALIAS[industryParam] || industryParam : null;
   const [activeTab, setActiveTab] = useState<'capabilities' | 'industries'>('capabilities');
 
   useEffect(() => {
@@ -307,6 +320,11 @@ const SolutionsPage: React.FC = () => {
               </div>
             </section>
           )}
+
+          <CaseStudyTrio
+            studies={studiesFor(selectedSolution.id)}
+            lede={`${selectedSolution.title} in the work: three studies from the portfolio.`}
+          />
         </main>
         <Footer />
       </div>
@@ -358,6 +376,11 @@ const SolutionsPage: React.FC = () => {
               </div>
             </div>
           </section>
+
+          <CaseStudyTrio
+            studies={studiesFor(selectedIndustry.id)}
+            lede={`${selectedIndustry.title}: three studies from the portfolio.`}
+          />
         </main>
         <Footer />
       </div>
@@ -446,6 +469,8 @@ const SolutionsPage: React.FC = () => {
             )}
           </div>
         </section>
+
+        <CaseStudyTrio lede="Open any of these. The rest of the portfolio is one click further." />
 
         {/* CTA Section */}
         <section className="py-20 bg-gradient-to-br from-gray-900 to-black">

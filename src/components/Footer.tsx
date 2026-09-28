@@ -45,7 +45,8 @@ const Footer = () => {
             </div>
 
             <p className="text-gray-400 text-lg max-w-md leading-relaxed">
-              Intelligent collaboration between human expertise and AI innovation. Transforming traditional creative paradigms.
+              The studio. Market analysis, product, brand, and growth. The platform is{' '}
+              <a href="https://hanzo.ai" className="text-white underline">Hanzo AI</a>.
             </p>
 
             <div className="pt-4 flex flex-col gap-3 w-fit">
@@ -67,25 +68,25 @@ const Footer = () => {
             <h3 className="text-white text-lg font-medium">Services</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/services/creative-design" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
+                <Link to="/services/creative" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
                   <ChevronRight className="h-4 w-0 opacity-0 transition-all duration-200 group-hover:w-4 group-hover:opacity-100" />
                   <span className="group-hover:translate-x-1 transition-transform duration-200">Creative Design</span>
                 </Link>
               </li>
               <li>
-                <Link to="/services/specialized-production" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
+                <Link to="/services/motion-video" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
                   <ChevronRight className="h-4 w-0 opacity-0 transition-all duration-200 group-hover:w-4 group-hover:opacity-100" />
                   <span className="group-hover:translate-x-1 transition-transform duration-200">Production</span>
                 </Link>
               </li>
               <li>
-                <Link to="/services/ai-services" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
+                <Link to="/services/ai-solutions" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
                   <ChevronRight className="h-4 w-0 opacity-0 transition-all duration-200 group-hover:w-4 group-hover:opacity-100" />
                   <span className="group-hover:translate-x-1 transition-transform duration-200">AI Services</span>
                 </Link>
               </li>
               <li>
-                <Link to="/services/marketing-services" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
+                <Link to="/services/marketing-strategy" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
                   <ChevronRight className="h-4 w-0 opacity-0 transition-all duration-200 group-hover:w-4 group-hover:opacity-100" />
                   <span className="group-hover:translate-x-1 transition-transform duration-200">Marketing</span>
                 </Link>
@@ -103,33 +104,33 @@ const Footer = () => {
             <h3 className="text-white text-lg font-medium">Solutions</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/capabilities/cloud" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
+                <Link to="/solutions?capability=cloud" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
                   <ChevronRight className="h-4 w-0 opacity-0 transition-all duration-200 group-hover:w-4 group-hover:opacity-100" />
                   <span className="group-hover:translate-x-1 transition-transform duration-200">Cloud</span>
                 </Link>
               </li>
               <li>
-                <Link to="/capabilities/data-ai" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
+                <Link to="/solutions?capability=data-ai" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
                   <ChevronRight className="h-4 w-0 opacity-0 transition-all duration-200 group-hover:w-4 group-hover:opacity-100" />
                   <span className="group-hover:translate-x-1 transition-transform duration-200">Data & AI</span>
                 </Link>
               </li>
               <li>
-                <Link to="/capabilities/digital-engineering" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
+                <Link to="/solutions?capability=digital-engineering" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
                   <ChevronRight className="h-4 w-0 opacity-0 transition-all duration-200 group-hover:w-4 group-hover:opacity-100" />
                   <span className="group-hover:translate-x-1 transition-transform duration-200">Digital Engineering</span>
                 </Link>
               </li>
               <li>
-                <Link to="/industries" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
+                <Link to="/solutions?industry=automotive" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
                   <ChevronRight className="h-4 w-0 opacity-0 transition-all duration-200 group-hover:w-4 group-hover:opacity-100" />
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">Industries</span>
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">Automotive</span>
                 </Link>
               </li>
               <li>
-                <Link to="/capabilities" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
+                <Link to="/solutions" className="text-gray-400 hover:text-white transition-colors inline-flex items-center group">
                   <ChevronRight className="h-4 w-0 opacity-0 transition-all duration-200 group-hover:w-4 group-hover:opacity-100" />
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">All Capabilities</span>
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">All solutions</span>
                 </Link>
               </li>
             </ul>
@@ -192,6 +193,7 @@ const Footer = () => {
           </div>
 
           <div className="hidden md:flex space-x-6 text-sm">
+            <a href="https://hanzo.ai" className="text-gray-500 hover:text-white transition-colors">Hanzo AI</a>
             <Link to="/terms" className="text-gray-500 hover:text-white transition-colors">Terms</Link>
             <Link to="/privacy" className="text-gray-500 hover:text-white transition-colors">Privacy</Link>
             <Link to="/cookies" className="text-gray-500 hover:text-white transition-colors">Cookies</Link>

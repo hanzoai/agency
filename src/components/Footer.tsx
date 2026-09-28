@@ -1,9 +1,8 @@
 import { ArrowUpRight, Instagram, Facebook, Twitter, Github, MessageSquare, Mail, MapPin, Phone, ArrowRight, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { contact } from '@/data/contact';
-import { WaitlistJoin } from '@hanzo/waitlist';
-import '@hanzo/waitlist/styles.css';
 import { Wordmark } from './Wordmark';
+import Newsletter from './Newsletter';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -16,7 +15,7 @@ const Footer = () => {
         background: 'var(--background, #000)',
         paddingBlock: 'var(--band) calc(var(--band) / 2)',
         borderTop: '1px solid var(--pane-edge)',
-        overflow: 'hidden',
+        overflow: 'visible',
       }}
     >
 
@@ -33,16 +32,7 @@ const Footer = () => {
           </div>
 
           <div className="flex items-center">
-            {/* The waitlist is its own product: @hanzo/waitlist speaks
-                 POST /v1/waitlist/join, which Hanzo Base serves. This site
-                 renders it and owns none of the transport. */}
-            <WaitlistJoin
-              waitlist="agency"
-              baseUrl="https://api.hanzo.ai"
-              title=""
-              subtitle=""
-              submitLabel="Subscribe"
-            />
+            <Newsletter />
           </div>
         </div>
 

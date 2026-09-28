@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { contact } from '@/data/contact';
 import './Hero.css';
 
 const clientLogos = [
@@ -52,12 +52,12 @@ const Hero = () => {
                   >
                     <span>See pricing</span> <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
-                  <Link
-                    to="/contact"
+                  <a
+                    href={`mailto:${contact.email}`}
                     className="bg-purple-600/30 hover:bg-purple-600/40 border border-purple-500/40 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-purple-200 font-semibold transition text-center w-full sm:w-auto text-sm cursor-pointer"
                   >
                     <span>Talk to us</span>
-                  </Link>
+                  </a>
                 </div>
               </div>
 

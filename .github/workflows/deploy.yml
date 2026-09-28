@@ -20,9 +20,11 @@ name: deploy
 # token — only the KMS client identity that opens it. It used to pass
 # secrets.HANZO_DEPLOY_TOKEN, a forge org secret holding a key that had stopped
 # resolving, and a secret nobody can read back is a secret nobody can tell is
-# dead. Both credentials are set ON THE FORGE: this file lives under
-# .hanzo/workflows/, which only git.hanzo.ai reads, so GitHub's secret store is
-# not in this path at all.
+# dead. Both credentials are the hanzoai org's GitHub secrets.
+#
+# This file runs on GitHub. The forge's hanzoai/agency is a pull mirror with
+# Actions off, so a workflow under .hanzo/workflows ran nowhere: the site sat on
+# an old build while main moved on, and nothing said so.
 
 on:
   push:
@@ -35,10 +37,9 @@ concurrency:
 
 jobs:
   site:
-    # NOT ubuntu-latest. This file lives in .hanzo/workflows, which GitHub never
-    # reads — git.hanzo.ai is the only thing that can run it, and its fleet
-    # advertises linux-amd64. An unmatched label is not an error here, it is
-    # silence: the job queues until the 24h timeout and nothing says so.
+    # NOT ubuntu-latest. The hanzoai org's runners are the platform's, started
+    # one per queued job, and they advertise linux-amd64. An unmatched label is
+    # not an error, it is silence: the job queues until the 24h timeout.
     runs-on: [linux-amd64]
     timeout-minutes: 30
     steps:

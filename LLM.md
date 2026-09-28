@@ -4,8 +4,9 @@
 This project is a React application built with TypeScript, Vite, shadcn-ui, and Tailwind CSS. It's a portfolio website for Hanzo AI agency showcasing their case studies and services.
 
 ## How it ships
-`.hanzo/workflows/deploy.yml` on the git.hanzo.ai forge (`linux-amd64`):
-build `dist` -> `POST /v1/projects/agency/deploy` (202, carrying a presigned
+`.github/workflows/deploy.yml` on GitHub (`linux-amd64`, the platform's runners;
+the forge copy is a pull mirror with Actions off, so `.hanzo/workflows` runs
+nowhere): build `dist` -> `POST /v1/projects/agency/deploy` (202, carrying a presigned
 upload grant) -> POST each file under that grant -> `POST .../complete` with the
 file manifest as `keys`. The bytes never pass through the API; BodyLimit is
 16 MiB. No GitHub Pages, no Cloudflare Pages, and no image -- a static export has
@@ -14,9 +15,8 @@ no compute to run.
 This repo holds NO S3 credential. The grant is confined to this site's prefix and
 expires in 30 minutes, so a leak here cannot reach another org's site the way the
 old shared bucket keys could. Deletion rides the manifest: the grant permits
-writes only, so cloud prunes the prefix against `keys`. The one secret is
-`HANZO_DEPLOY_TOKEN`, set ON THE FORGE -- GitHub's secret store is not in this
-path at all.
+writes only, so cloud prunes the prefix against `keys`. The deploy key is in KMS;
+the workflow holds only the hanzoai org's `KMS_CLIENT_ID`/`KMS_CLIENT_SECRET`.
 
 Telemetry is `@hanzo/event` (`src/analytics.tsx`, mounted inside the router in `src/App.tsx`) posting to `api.hanzo.ai/v1/event`. One
 client for pageviews, events and errors: no GA, no Meta Pixel, no Plausible, no

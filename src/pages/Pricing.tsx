@@ -18,7 +18,7 @@ export default function Pricing() {
           <PlanCards />
           <NeedMore />
 
-          <p className="text-xs text-center text-foreground/50 mt-8">Pay with card, crypto, or wire transfer</p>
+          <p className="text-xs text-center text-foreground/50 mt-8">Billed monthly by card.</p>
         </div>
 
         <div className="container-custom mt-24">

@@ -7,6 +7,7 @@ import CaseStudyTrio from '@/components/CaseStudyTrio';
 import { PlanCards } from '@/components/Pricing';
 import { serviceCategories, services } from '@/data/services';
 import ServiceTemplate from './services/ServiceTemplate';
+import { contact } from '@/data/contact';
 
 const CATEGORIES = [
   { key: 'engineering' as const, title: 'Engineering' },
@@ -132,7 +133,7 @@ const ServicesPage: React.FC = () => {
                 <Link to="/pricing" className="bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-white/90 inline-flex items-center text-lg">
                   See pricing <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
-                <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8" className="border border-white px-8 py-4 rounded-full font-medium hover:bg-white/10 inline-flex items-center text-lg">
+                <a href={contact.booking} className="border border-white px-8 py-4 rounded-full font-medium hover:bg-white/10 inline-flex items-center text-lg">
                   Schedule a Consultation
                 </a>
               </div>

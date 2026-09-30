@@ -133,7 +133,7 @@ const AICapabilities = () => {
             </p>
           </div>
           <div className="hidden md:block flex-shrink-0">
-            <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8">
+            <a href="/capabilities">
               <Button
                 variant="primary"
                 size="lg"
@@ -148,7 +148,7 @@ const AICapabilities = () => {
 
         {/* Mobile button */}
         <div className="mb-8 md:hidden">
-          <a href="https://calendar.app.google/z1YsZQrqR4s6jQqD8">
+          <a href="/capabilities">
             <Button
               variant="primary"
               size="lg"

@@ -10,6 +10,17 @@ import ProgressBar from '@/components/onboarding/ProgressBar';
 import FormNavigation from '@/components/onboarding/FormNavigation';
 import { formSections } from '@/data/onboardingData';
 import { FormDataType } from '@/types/onboarding';
+import { contact } from '@/data/contact';
+import { EMAIL, fileLead, mailto } from '@/lib/leads';
+
+/** The brief as one text: each answered question, then its answer. */
+function brief(data: FormDataType): string {
+  return formSections
+    .flatMap((s) => s.fields)
+    .filter((f) => f.id !== 'email' && f.id !== 'name' && typeof data[f.id] === 'string' && (data[f.id] as string).trim())
+    .map((f) => `${f.label}\n${(data[f.id] as string).trim()}`)
+    .join('\n\n');
+}
 
 const OnboardingForm = () => {
   const navigate = useNavigate();
@@ -17,6 +28,7 @@ const OnboardingForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormDataType>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [missed, setMissed] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
@@ -36,7 +48,8 @@ const OnboardingForm = () => {
     const requiredFields = currentFields.filter(field => field.required);
 
     for (const field of requiredFields) {
-      if (!formData[field.id]) {
+      const bad = field.id === 'email' ? !EMAIL.test(String(formData.email ?? '').trim()) : !formData[field.id];
+      if (bad) {
         toast({
           title: "Missing information",
           description: `Please fill in the field: ${field.label}`,
@@ -63,17 +76,21 @@ const OnboardingForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Here you would typically send the data to your backend
-    // For now, we'll just simulate a successful submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast({
-        title: "Onboarding complete!",
-        description: "Thank you for providing your information. We'll be in touch soon!",
-      });
-      sessionStorage.setItem('onboardingComplete', 'true');
-      navigate('/onboarding-success');
-    }, 2000);
+    const lead = await fileLead({
+      email: String(formData.email ?? '').trim(),
+      name: String(formData.name ?? ''),
+      company: String(formData.companyName ?? ''),
+      need: brief(formData),
+      source: 'hanzo.agency/onboarding',
+    });
+    setIsSubmitting(false);
+    if (!lead) {
+      setMissed(true);
+      return;
+    }
+    toast({ title: 'Brief received', description: 'We start from it at your kickoff.' });
+    sessionStorage.setItem('onboardingComplete', 'true');
+    navigate('/onboarding-success');
   };
 
   return (
@@ -84,9 +101,9 @@ const OnboardingForm = () => {
         <div className="container-custom">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
-              <h1 className="text-3xl md:text-4xl font-bold mb-2 text-black">Help Us Create Your Perfect Website</h1>
+              <h1 className="text-3xl md:text-4xl font-bold mb-2 text-black">Share your brief</h1>
               <p className="text-lg text-black/70">
-                Please fill out this onboarding form as thoroughly as possible so we can deliver the best results for your project.
+                The more you tell us, the faster your team starts.
               </p>
             </div>
 
@@ -97,6 +114,19 @@ const OnboardingForm = () => {
                 title={formSections[currentStep].title}
               />
 
+              {missed ? (
+                <div role="alert" className="mb-6 rounded-lg border border-gray-200 bg-gray-50 p-4 text-black">
+                  <p className="font-medium mb-3">Send your brief by email, or bring it to your kickoff call.</p>
+                  <div className="flex flex-wrap gap-3">
+                    <a href={mailto(`Brief: ${String(formData.companyName ?? '')}`, `${String(formData.name ?? '')} <${String(formData.email ?? '')}>\n\n${brief(formData)}`)} className="rounded-full bg-black px-5 py-2 text-sm font-medium text-white">
+                      Email the brief
+                    </a>
+                    <a href={contact.booking} className="rounded-full border border-black px-5 py-2 text-sm font-medium">
+                      Book the kickoff
+                    </a>
+                  </div>
+                </div>
+              ) : null}
               <form onSubmit={handleSubmit}>
                 <FormSection
                   section={formSections[currentStep]}

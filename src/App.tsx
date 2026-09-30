@@ -22,23 +22,21 @@ import Subscribed from "./pages/Subscribed";
 import Enterprise from "./pages/Enterprise";
 import ServicesPage from "./pages/ServicesPage";
 import SolutionsPage from "./pages/SolutionsPage";
-// Credit System Pages
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Dashboard from "./pages/Dashboard";
-import PurchaseCredits from "./pages/PurchaseCredits";
-import RedeemService from "./pages/RedeemService";
-import History from "./pages/History";
-import AddPaymentMethod from "./pages/AddPaymentMethod";
-import AdminDashboard from "./pages/AdminDashboard";
-import EmailInvitation from "./pages/EmailInvitation";
-import PaymentSuccess from "./pages/PaymentSuccess";
-import PaymentCancel from "./pages/PaymentCancel";
-import Platform from "./pages/Platform";
+import WhiteLabel from "./pages/WhiteLabel";
+import { app } from "./data/contact";
 import { Analytics } from "./analytics";
 import { AIChatWidget } from "./components/AIChatWidget";
 
 const queryClient = new QueryClient();
+
+// An address that lives on another site: signing in and the client's workspace
+// are the Hanzo app's, at hanzo.ai.
+function Away({ to }: { to: string }) {
+  useEffect(() => {
+    window.location.replace(to);
+  }, [to]);
+  return null;
+}
 
 // Scroll position, and nothing else. Counting the navigation is <Analytics>'s
 // job, and GA4's own history listener's (index.html) — a page_view sent from here
@@ -85,20 +83,11 @@ const App = () => (
             <Route path="/payment-success" element={<Subscribed />} />
             <Route path="/instant-site-form" element={<Navigate to="/pricing" replace />} />
             <Route path="/enterprise" element={<Enterprise />} />
-            <Route path="/platform" element={<Platform />} />
-
-            {/* Credit System Routes */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/purchase-credits" element={<PurchaseCredits />} />
-            <Route path="/redeem/:serviceId" element={<RedeemService />} />
-            <Route path="/history" element={<History />} />
-            <Route path="/add-payment-method" element={<AddPaymentMethod />} />
-            <Route path="/admin-invite" element={<EmailInvitation />} />
-            <Route path="/success" element={<PaymentSuccess />} />
-            <Route path="/cancel" element={<PaymentCancel />} />
+            <Route path="/platform" element={<Away to="https://hanzo.ai/platform" />} />
+            <Route path="/white-label" element={<WhiteLabel />} />
+            <Route path="/login" element={<Away to={app.login} />} />
+            <Route path="/signup" element={<Away to={app.signup} />} />
+            <Route path="/dashboard" element={<Away to={app.home} />} />
 
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />

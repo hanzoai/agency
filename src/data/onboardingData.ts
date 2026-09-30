@@ -5,6 +5,8 @@ export const formSections: FormSection[] = [
   {
     title: "Business Information",
     fields: [
+      { id: "email", label: "Your work email", type: "text", placeholder: "you@company.com", required: true },
+      { id: "name", label: "Your name", type: "text", required: true },
       { id: "companyName", label: "What's your company's official name?", type: "text", required: true },
       { id: "businessDescription", label: "Provide a short description of your business and core offering.", type: "textarea", required: true },
       { id: "targetAudience", label: "Describe your target audience in detail (industry, demographics, preferences).", type: "textarea", required: true },
@@ -37,8 +39,6 @@ export const formSections: FormSection[] = [
       { id: "timeline", label: "Preferred timeline or deadlines?", type: "text", required: false },
       { id: "competitors", label: "List competitors' websites or businesses you wish to differentiate from.", type: "textarea", required: false },
       { id: "additionalRequests", label: "Any additional requests or inspiration you want incorporated into your project?", type: "textarea", required: false },
-      { id: "designBrief", label: "Upload Design Brief, branding Document, pitch decks, any content with a visual representation of your brand", type: "file", accept: ".jpg,.png,.jpeg,.svg,.pdf", required: false },
-      { id: "logo", label: "Upload your logo", type: "file", accept: ".jpg,.png,.svg", required: false },
     ]
   }
 ];

@@ -323,6 +323,20 @@ const Enterprise = () => {
               </div>
             </div>
           </section>
+
+          <section id="partners" className="py-20 border-t border-white/10">
+            <div className="container-custom max-w-3xl text-center">
+              <p className="text-sm uppercase tracking-widest text-foreground/60 mb-3">Partners</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Run your own AI agency</h2>
+              <p className="text-lg text-foreground/80 mb-8">
+                Sell this work to your clients under your brand, on your domain. We set it up for you.
+              </p>
+              <Link to="/white-label" className="lets-talk-btn">
+                See white-label
+                <ArrowUpRight size={16} className="ml-1" />
+              </Link>
+            </div>
+          </section>
         </main>
         
         <Footer />

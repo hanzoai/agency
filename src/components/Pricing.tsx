@@ -1,7 +1,8 @@
 import { Check, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { plans, planHref, priceLabel, ladder } from '@/data/plans';
+import { plans, priceLabel, ladder } from '@/data/plans';
+import { checkoutUrl } from '@/lib/commerce';
 
 /** The plans as cards. The home page, /pricing and /services all render this one grid. */
 export const PlanCards = () => (
@@ -16,7 +17,7 @@ export const PlanCards = () => (
         <CardContent className="p-8 flex-grow">
           <div className="flex justify-center items-baseline mb-2">
             <span className="text-4xl font-bold text-white tracking-tight">{priceLabel(plan)}</span>
-            {plan.priceMonthly !== null && <span className="ml-2 text-white/70">/month</span>}
+            <span className="ml-2 text-white/70">/month</span>
           </div>
           <p className="text-center text-white/60 text-sm min-h-5 mb-6">{plan.terms}</p>
 
@@ -31,10 +32,10 @@ export const PlanCards = () => (
         </CardContent>
 
         <CardFooter className="p-6 pt-0">
-          <Link to={planHref(plan)} className="lets-talk-btn w-full justify-center text-lg py-3">
+          <a href={checkoutUrl(plan)} className="lets-talk-btn w-full justify-center text-lg py-3">
             {plan.cta}
             <ArrowUpRight size={20} className="ml-2" />
-          </Link>
+          </a>
         </CardFooter>
       </Card>
     ))}
@@ -50,7 +51,7 @@ export const NeedMore = () => (
     </p>
     <p className="font-semibold mb-6">Let&apos;s build the engagement around you.</p>
     <Link to="/contact" className="lets-talk-btn">
-      Contact us
+      Talk to us
       <ArrowUpRight size={16} className="ml-1" />
     </Link>
   </div>

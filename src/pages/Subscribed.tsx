@@ -3,9 +3,11 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { Check } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { planById, priceLabel } from '@/data/plans';
+import { checkoutUrl } from '@/lib/commerce';
+import { contact } from '@/data/contact';
 
 /** The receipt lives with the pay site; every charge on the account is listed there. */
-const INVOICES = 'https://pay.hanzo.ai/invoices';
+const INVOICES = 'https://hanzo.ai/pay/invoices';
 
 /** Commerce statuses for a charge that did not go through. */
 const FAILED = new Set(['failed', 'declined', 'canceled', 'cancelled', 'error']);
@@ -22,9 +24,8 @@ const secondary =
 const Subscribed = () => {
   const [search] = useSearchParams();
   const status = search.get('checkout');
-  const found = planById(search.get('plan'));
-  // Only a priced plan has a checkout to come back from.
-  const plan = found?.priceMonthly === null ? undefined : found;
+  // The checkout returns the commerce slug; planById reads either name.
+  const plan = planById(search.get('plan'));
 
   let body: ReactNode;
   if (!plan || !status) {
@@ -50,7 +51,7 @@ const Subscribed = () => {
         <p className="text-sm uppercase tracking-widest text-gray-400 mb-2">Subscription active</p>
         <h1 className="text-3xl md:text-4xl font-bold mb-4">Welcome to {plan.name}</h1>
         <p className="text-gray-300 mb-10">
-          {priceLabel(plan)}/month. {plan.terms}. Your receipt is in your invoices.
+          {priceLabel(plan)}/month, billed monthly. Your receipt is in your invoices.
         </p>
 
         <div className="text-left bg-gray-900/30 border border-gray-800 rounded-xl p-6 mb-10">
@@ -58,7 +59,9 @@ const Subscribed = () => {
           <ol className="space-y-4 text-gray-300">
             <li className="flex gap-3">
               <span className="font-mono text-white">1</span>
-              <span>Your advisor reaches out by email within 24 hours to schedule your kickoff.</span>
+              <span>
+                <a href={contact.booking} className="underline">Book your kickoff call</a> at a time that suits you.
+              </span>
             </li>
             <li className="flex gap-3">
               <span className="font-mono text-white">2</span>
@@ -85,7 +88,7 @@ const Subscribed = () => {
           {plan.name} is not active yet. Try the checkout again, or talk to us and we will set it up with you.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link to={`/payment?plan=${plan.id}`} className={primary}>Try again</Link>
+          <a href={checkoutUrl(plan)} className={primary}>Try again</a>
           <Link to="/contact" className={secondary}>Contact us</Link>
         </div>
       </>
@@ -95,7 +98,7 @@ const Subscribed = () => {
       <>
         <h1 className="text-3xl md:text-4xl font-bold mb-4">Your {plan.name} subscription is pending</h1>
         <p className="text-gray-400 mb-8">
-          It starts as soon as the payment settles. Your advisor reaches out by email once it does.
+          It starts as soon as the payment settles.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <a href={INVOICES} className={primary}>View invoices</a>

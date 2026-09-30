@@ -4,32 +4,16 @@ import { navigationItems } from "../src/data/navigationItems";
 import { ArrowUpRight, ExternalLink, FileImage, Book, HelpCircle, Palette, Coffee, ChevronDown, Menu, X } from "lucide-react";
 import React from "react";
 import { Wordmark } from "../src/components/Wordmark";
+import { app } from "../src/data/contact";
 import "./HeaderDropdown.css";
 
 const NewHeader = () => {
   const [showLogoMenu, setShowLogoMenu] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mobileExpandedItems, setMobileExpandedItems] = useState<string[]>([]);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const logoMenuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
-  // Check authentication status
-  useEffect(() => {
-    const checkAuth = () => {
-      const authToken = localStorage.getItem('authToken');
-      setIsAuthenticated(!!authToken);
-    };
-
-    checkAuth();
-    // Listen for storage changes
-    window.addEventListener('storage', checkAuth);
-
-    return () => {
-      window.removeEventListener('storage', checkAuth);
-    };
-  }, []);
 
   // Close the context menu when clicking outside
   useEffect(() => {
@@ -420,29 +404,18 @@ const NewHeader = () => {
           >
             Hanzo AI
           </a>
-          {isAuthenticated ? (
-            <Link
-              to="/dashboard"
-              className="bg-white text-black border border-white hover:bg-transparent hover:text-white transition-colors duration-200 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm font-medium"
-            >
-              Dashboard
-            </Link>
-          ) : (
-            <>
-              <Link
-                to="/login"
-                className="border border-white text-white hover:bg-white hover:text-black transition-colors duration-200 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm font-medium"
-              >
-                Log In
-              </Link>
-              <Link
-                to="/signup"
-                className="bg-white text-black border border-white hover:bg-transparent hover:text-white transition-colors duration-200 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm font-medium"
-              >
-                Sign Up
-              </Link>
-            </>
-          )}
+          <a
+            href={app.login}
+            className="border border-white text-white hover:bg-white hover:text-black transition-colors duration-200 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm font-medium"
+          >
+            Log in
+          </a>
+          <Link
+            to="/contact"
+            className="bg-white text-black border border-white hover:bg-transparent hover:text-white transition-colors duration-200 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm font-medium"
+          >
+            Talk to us
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -560,32 +533,19 @@ const NewHeader = () => {
               >
                 Hanzo AI
               </a>
-              {isAuthenticated ? (
-                <Link
-                  to="/dashboard"
-                  className="block w-full text-center bg-white text-black border border-white hover:bg-transparent hover:text-white transition-colors duration-200 px-4 py-3 rounded-full text-sm font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Dashboard
-                </Link>
-              ) : (
-                <>
-                  <Link
-                    to="/login"
-                    className="block w-full text-center border border-white text-white hover:bg-white hover:text-black transition-colors duration-200 px-4 py-3 rounded-full text-sm font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Log In
-                  </Link>
-                  <Link
-                    to="/signup"
-                    className="block w-full text-center bg-white text-black border border-white hover:bg-transparent hover:text-white transition-colors duration-200 px-4 py-3 rounded-full text-sm font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Sign Up
-                  </Link>
-                </>
-              )}
+              <a
+                href={app.login}
+                className="block w-full text-center border border-white text-white hover:bg-white hover:text-black transition-colors duration-200 px-4 py-3 rounded-full text-sm font-medium"
+              >
+                Log in
+              </a>
+              <Link
+                to="/contact"
+                className="block w-full text-center bg-white text-black border border-white hover:bg-transparent hover:text-white transition-colors duration-200 px-4 py-3 rounded-full text-sm font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Talk to us
+              </Link>
             </div>
           </div>
         </div>

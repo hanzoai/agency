@@ -296,7 +296,7 @@ export const navigationItems: NavigationItem[] = [
     featured: [
       {
         title: "AI Cloud Platform",
-        href: "https://cloud.hanzo.ai",
+        href: "https://hanzo.ai/cloud",
         description: "Our enterprise AI platform for scalable, secure solutions.",
         cta: "Explore platform",
         isExternal: true

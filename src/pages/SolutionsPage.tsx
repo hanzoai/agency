@@ -6,6 +6,7 @@ import CaseStudyTrio from '@/components/CaseStudyTrio';
 import { studiesFor } from '@/lib/studies';
 import { Button } from '@/components/ui/button';
 import { buttonModifiers } from '@/lib/button-utils';
+import { app } from '@/data/contact';
 
 interface Solution {
   id: string;
@@ -257,12 +258,12 @@ const SolutionsPage: React.FC = () => {
                 <h1 className="text-5xl md:text-7xl font-bold mb-6">{selectedSolution.title}</h1>
                 <p className="text-xl text-white/80 mb-8">{selectedSolution.description}</p>
                 <div className="flex gap-4 justify-center">
-                  <Link to="/pricing">
+                  <a href={app.login}>
                     <Button variant="primary" size="lg" className={buttonModifiers.interactive}>
-                      Choose plan
+                      Try Hanzo
                       <ArrowUpRight size={16} className="ml-1" />
                     </Button>
-                  </Link>
+                  </a>
                   <Link to="/contact">
                     <Button variant="outline" size="lg" className={buttonModifiers.interactive}>
                       Talk to us

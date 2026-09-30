@@ -1,5 +1,6 @@
 import { EVENTS } from '@hanzo/event';
 import type { Plan } from '@/data/plans';
+import { app } from '@/data/contact';
 import { analytics } from '@/analytics';
 
 /**
@@ -12,25 +13,39 @@ import { analytics } from '@/analytics';
  * allows: `GET api.hanzo.ai/v1/commerce/org` publishes that allowlist, and
  * hanzo.agency is on it.
  */
-const PAY = 'https://hanzo.ai/pay';
+const PAY = '/pay';
 
 /** Where a paid buyer lands: the page that confirms the plan. */
 const BACK = '/payment-success';
 
 /**
- * The checkout address for a plan. ONE writer for this address, so the plan a
- * reader clicked is the plan the cart opens on.
+ * The checkout for a plan, as a path on hanzo.ai. ONE writer for this address,
+ * so the plan a reader clicked is the plan the cart opens on.
  */
-export function checkoutUrl(plan: Plan): string {
+function cart(plan: Plan): string {
   const back = new URL(BACK, window.location.origin).toString();
   return `${PAY}/cart?plan=${encodeURIComponent(plan.slug)}&returnUrl=${encodeURIComponent(back)}`;
 }
 
+/** The checkout address for a plan. */
+export function checkoutUrl(plan: Plan): string {
+  return app.home + cart(plan);
+}
+
 /**
- * The page is leaving for the checkout on `plan`. Every exit to the cart calls
- * this once, beside checkoutUrl. `plan` is the commerce slug: the catalog's
- * spelling, and never this site's id, since the id `agency` names a different
- * commerce plan. The batch goes by beacon now, while the page still exists,
+ * A plan button's address: sign in on hanzo.ai first, then on to the plan's
+ * checkout. hanzo.ai's /login takes `next` only as a path under /pay/, so it
+ * carries the checkout's path, not its URL.
+ */
+export function loginUrl(plan: Plan): string {
+  return `${app.login}?next=${encodeURIComponent(cart(plan))}`;
+}
+
+/**
+ * The page is leaving for the checkout on `plan`, directly or through sign-in.
+ * Every exit toward the cart calls this once. `plan` is the commerce slug: the
+ * catalog's spelling, and never this site's id, since the id `agency` names a
+ * different commerce plan. The batch goes by beacon now, while the page still exists,
  * rather than waiting on pagehide as the page is torn down.
  */
 export function depart(plan: Plan): void {

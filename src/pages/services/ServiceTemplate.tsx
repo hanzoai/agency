@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import CaseStudyTrio from '@/components/CaseStudyTrio';
 import { Button } from '@/components/ui/button';
 import { Service } from '@/data/services';
+import { app } from '@/data/contact';
 
 interface ServiceTemplateProps {
   service: Service;
@@ -112,16 +113,16 @@ const ServiceTemplate: React.FC<ServiceTemplateProps> = ({ service }) => {
                   </p>
                 </div>
                 <div className="flex flex-col md:flex-row gap-4 justify-end">
-                  <Link to="/pricing">
+                  <a href={app.login}>
                     <Button
                       variant="primary"
                       size="lg"
                       className={buttonModifiers.interactive + " font-medium w-full md:w-auto justify-center"}
                     >
-                      Choose plan
+                      Try Hanzo
                       <ArrowUpRight size={16} className="ml-1" />
                     </Button>
-                  </Link>
+                  </a>
                   <Link to="/contact">
                     <Button
                       variant="outline"

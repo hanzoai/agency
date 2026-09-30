@@ -3,6 +3,7 @@ import { Button } from './ui/button';
 import { buttonModifiers } from '@/lib/button-utils';
 import { useState, useRef, useEffect } from 'react';
 import { ladder } from '@/data/plans';
+import { app } from '@/data/contact';
 import './Services.css';
 
 const Services = () => {
@@ -180,12 +181,12 @@ const Services = () => {
               </p>
             </div>
             <div className="mt-8">
-              <a href="/pricing" className="block">
+              <a href={app.login} className="block">
                 <Button
                   size="lg"
                   className="bg-white hover:bg-gray-100 text-black w-full px-8 py-6 rounded-full text-base md:text-lg font-semibold transition-all border border-gray-700 cursor-pointer"
                 >
-                  Choose plan
+                  Try Hanzo
                 </Button>
               </a>
             </div>

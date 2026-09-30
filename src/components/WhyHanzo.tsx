@@ -44,8 +44,8 @@ const WhyHanzo = () => {
         </div>
 
         <div className="mt-14 text-center reveal flex flex-wrap gap-4 justify-center">
-          <a href="/payment?plan=agency" className="lets-talk-btn px-12">
-            Get started
+          <a href="/pricing" className="lets-talk-btn px-12">
+            Choose plan
             <ArrowUpRight size={16} className="ml-1" />
           </a>
           <a

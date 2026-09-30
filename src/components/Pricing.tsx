@@ -2,7 +2,7 @@ import { Check, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { plans, priceLabel, ladder } from '@/data/plans';
-import { checkoutUrl } from '@/lib/commerce';
+import { checkoutUrl, choose } from '@/lib/commerce';
 
 /** The plans as cards. The home page, /pricing and /services all render this one grid. */
 export const PlanCards = () => (
@@ -32,8 +32,8 @@ export const PlanCards = () => (
         </CardContent>
 
         <CardFooter className="p-6 pt-0">
-          <a href={checkoutUrl(plan)} className="lets-talk-btn w-full justify-center text-lg py-3">
-            {plan.cta}
+          <a href={checkoutUrl(plan)} onClick={() => choose(plan)} className="lets-talk-btn w-full justify-center text-lg py-3">
+            Choose plan
             <ArrowUpRight size={20} className="ml-2" />
           </a>
         </CardFooter>

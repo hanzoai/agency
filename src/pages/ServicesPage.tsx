@@ -63,8 +63,8 @@ const ServicesPage: React.FC = () => {
                 Market analysis, product, brand, and growth. The same practice behind Damon, Triller, and Bellabeat. The platform is <a href="https://hanzo.ai" className="underline">Hanzo AI</a>.
               </p>
 
-              <Link to="/contact" className="bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-white/90 inline-flex items-center text-lg">
-                Get started <ArrowRight className="ml-2 h-5 w-5" />
+              <Link to="/pricing" className="bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-white/90 inline-flex items-center text-lg">
+                Choose plan <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </div>
           </div>

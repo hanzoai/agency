@@ -180,12 +180,12 @@ const Services = () => {
               </p>
             </div>
             <div className="mt-8">
-              <a href="/payment?plan=agency" className="block">
+              <a href="/pricing" className="block">
                 <Button
                   size="lg"
                   className="bg-white hover:bg-gray-100 text-black w-full px-8 py-6 rounded-full text-base md:text-lg font-semibold transition-all border border-gray-700 cursor-pointer"
                 >
-                  Get started
+                  Choose plan
                 </Button>
               </a>
             </div>

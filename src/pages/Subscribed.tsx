@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { Check } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { planById, priceLabel } from '@/data/plans';
-import { checkoutUrl } from '@/lib/commerce';
+import { checkoutUrl, depart } from '@/lib/commerce';
 import { contact } from '@/data/contact';
 
 /** The receipt lives with the pay site; every charge on the account is listed there. */
@@ -88,7 +88,7 @@ const Subscribed = () => {
           {plan.name} is not active yet. Try the checkout again, or talk to us and we will set it up with you.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <a href={checkoutUrl(plan)} className={primary}>Try again</a>
+          <a href={checkoutUrl(plan)} onClick={() => depart(plan)} className={primary}>Try again</a>
           <Link to="/contact" className={secondary}>Contact us</Link>
         </div>
       </>

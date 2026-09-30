@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, Check } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { priceLabel, whiteLabel } from '@/data/plans';
-import { checkoutUrl } from '@/lib/commerce';
+import { checkoutUrl, choose } from '@/lib/commerce';
 
 /** How a partner goes from checkout to selling. */
 const STEPS = [
@@ -42,8 +42,8 @@ const WhiteLabel = () => (
             </p>
             <p className="text-sm text-white/60 mb-8">{whiteLabel.terms}.</p>
             <div className="flex flex-col gap-3">
-              <a href={checkoutUrl(whiteLabel)} className="lets-talk-btn w-full justify-center text-lg py-3">
-                {whiteLabel.cta}
+              <a href={checkoutUrl(whiteLabel)} onClick={() => choose(whiteLabel)} className="lets-talk-btn w-full justify-center text-lg py-3">
+                Choose plan
                 <ArrowUpRight size={20} className="ml-2" />
               </a>
               <Link to="/contact" className="lets-talk-btn w-full justify-center py-3">

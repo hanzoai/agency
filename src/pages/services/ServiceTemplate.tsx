@@ -112,23 +112,23 @@ const ServiceTemplate: React.FC<ServiceTemplateProps> = ({ service }) => {
                   </p>
                 </div>
                 <div className="flex flex-col md:flex-row gap-4 justify-end">
-                  <Link to="/contact">
+                  <Link to="/pricing">
                     <Button
                       variant="primary"
                       size="lg"
                       className={buttonModifiers.interactive + " font-medium w-full md:w-auto justify-center"}
                     >
-                      Get started
+                      Choose plan
                       <ArrowUpRight size={16} className="ml-1" />
                     </Button>
                   </Link>
-                  <Link to="/pricing">
+                  <Link to="/contact">
                     <Button
                       variant="outline"
                       size="lg"
                       className={buttonModifiers.interactive + " font-medium w-full md:w-auto justify-center"}
                     >
-                      View pricing
+                      Talk to us
                     </Button>
                   </Link>
                 </div>

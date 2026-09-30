@@ -257,15 +257,15 @@ const SolutionsPage: React.FC = () => {
                 <h1 className="text-5xl md:text-7xl font-bold mb-6">{selectedSolution.title}</h1>
                 <p className="text-xl text-white/80 mb-8">{selectedSolution.description}</p>
                 <div className="flex gap-4 justify-center">
-                  <Link to="/contact">
+                  <Link to="/pricing">
                     <Button variant="primary" size="lg" className={buttonModifiers.interactive}>
-                      Get started
+                      Choose plan
                       <ArrowUpRight size={16} className="ml-1" />
                     </Button>
                   </Link>
-                  <Link to="/pricing">
+                  <Link to="/contact">
                     <Button variant="outline" size="lg" className={buttonModifiers.interactive}>
-                      View pricing
+                      Talk to us
                     </Button>
                   </Link>
                 </div>

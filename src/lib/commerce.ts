@@ -1,4 +1,6 @@
+import { EVENTS } from '@hanzo/event';
 import type { Plan } from '@/data/plans';
+import { analytics } from '@/analytics';
 
 /**
  * Where money changes hands: the checkout at hanzo.ai/pay (pay.hanzo.ai
@@ -22,4 +24,22 @@ const BACK = '/payment-success';
 export function checkoutUrl(plan: Plan): string {
   const back = new URL(BACK, window.location.origin).toString();
   return `${PAY}/cart?plan=${encodeURIComponent(plan.slug)}&returnUrl=${encodeURIComponent(back)}`;
+}
+
+/**
+ * The page is leaving for the checkout on `plan`. Every exit to the cart calls
+ * this once, beside checkoutUrl. `plan` is the commerce slug: the catalog's
+ * spelling, and never this site's id, since the id `agency` names a different
+ * commerce plan. The batch goes by beacon now, while the page still exists,
+ * rather than waiting on pagehide as the page is torn down.
+ */
+export function depart(plan: Plan): void {
+  analytics.capture(EVENTS.CHECKOUT_STARTED, { plan: plan.slug });
+  analytics.flush(true);
+}
+
+/** A plan button was pressed: the buyer chose `plan` and leaves for its checkout. */
+export function choose(plan: Plan): void {
+  analytics.capture(EVENTS.PLAN_CLICKED, { plan: plan.slug });
+  depart(plan);
 }

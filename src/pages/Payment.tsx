@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Footer from '@/components/Footer';
-import { checkoutUrl } from '@/lib/commerce';
+import { checkoutUrl, depart } from '@/lib/commerce';
 import { planById } from '@/data/plans';
 
 /**
@@ -13,7 +13,9 @@ const Payment = () => {
   const plan = planById(search.get('plan'));
 
   useEffect(() => {
-    if (plan) window.location.replace(checkoutUrl(plan));
+    if (!plan) return;
+    depart(plan);
+    window.location.replace(checkoutUrl(plan));
   }, [plan]);
 
   return (

@@ -27,7 +27,6 @@ export interface Plan {
   features: string[];
   /** Commitment, in the words we say it to a customer. */
   terms: string;
-  cta: string;
 }
 
 export const plans: Plan[] = [
@@ -48,7 +47,6 @@ export const plans: Plan[] = [
       'Full source code and IP ownership',
       'Hanzo AI Cloud included',
     ],
-    cta: 'Get started',
   },
   {
     id: 'forward',
@@ -70,7 +68,6 @@ export const plans: Plan[] = [
       'Work directly with your customers under your brand',
       'Hanzo specialists pulled in as required',
     ],
-    cta: 'Deploy Hanzo',
   },
   {
     id: 'pod',
@@ -92,7 +89,6 @@ export const plans: Plan[] = [
       'Custom AI systems and infrastructure',
       'Multi-product and multi-brand support',
     ],
-    cta: 'Build your pod',
   },
 ];
 
@@ -115,7 +111,6 @@ export const whiteLabel: Plan = {
     'Your clients see your brand, only yours',
     'Set up for you by the Hanzo team',
   ],
-  cta: 'Start white-label',
 };
 
 /** The line under the homepage headline. */

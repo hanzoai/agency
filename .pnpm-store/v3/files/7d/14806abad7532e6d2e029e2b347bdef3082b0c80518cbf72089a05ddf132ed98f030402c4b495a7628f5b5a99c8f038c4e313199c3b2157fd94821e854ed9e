@@ -1,0 +1,39 @@
+import { WaitlistEntry } from './client';
+import { WaitlistJoinProps } from './Join';
+import { SharePlatformId, ShareTarget } from './Share';
+export type WaitlistMode = 'inline' | 'modal';
+export type WaitlistTheme = 'auto' | 'light' | 'dark';
+export interface WaitlistProps {
+    /** Slug or id of the waitlist on the Base server. */
+    waitlist: string;
+    /** Where the Base server lives. Defaults to current origin. */
+    baseUrl?: string;
+    /** Layout: `inline` renders the form in place, `modal` renders a button that opens it. */
+    mode?: WaitlistMode;
+    /** Light / dark / `auto` (follow OS). */
+    theme?: WaitlistTheme;
+    /** Consumer-provided logo (rendered above the title in both Join and Status). */
+    logo?: React.ReactNode;
+    /** Join form copy + Turnstile token. */
+    title?: WaitlistJoinProps['title'];
+    subtitle?: WaitlistJoinProps['subtitle'];
+    submitLabel?: WaitlistJoinProps['submitLabel'];
+    turnstileToken?: WaitlistJoinProps['turnstileToken'];
+    /** Status view copy. */
+    successTitle?: string;
+    successSubtitle?: (entry: WaitlistEntry) => string;
+    /** Optional CTA before user submits (modal mode). */
+    triggerLabel?: string;
+    /** Toggle pieces of the status view. */
+    hideShare?: boolean;
+    hideInvite?: boolean;
+    hidePoints?: boolean;
+    shareTargets?: Array<SharePlatformId | ShareTarget>;
+    /** Forward to root container. */
+    className?: string;
+    style?: React.CSSProperties;
+    /** Callbacks. */
+    onSuccess?: (entry: WaitlistEntry) => void;
+    onError?: WaitlistJoinProps['onError'];
+}
+export declare function Waitlist(props: WaitlistProps): import("react").JSX.Element;

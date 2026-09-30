@@ -1,0 +1,28 @@
+import { WaitlistEntry } from './client';
+export interface WaitlistJoinProps {
+    /** Slug or id of the waitlist. */
+    waitlist: string;
+    /** Base server URL. Defaults to current origin. */
+    baseUrl?: string;
+    /** Copy. */
+    title?: string;
+    subtitle?: string;
+    submitLabel?: string;
+    /** Cloudflare Turnstile token, if Turnstile is enabled server-side. */
+    turnstileToken?: string;
+    /** Pre-fill the email field. */
+    email?: string;
+    /** Fires with the new entry after a successful POST /join. */
+    onSuccess?: (entry: WaitlistEntry) => void;
+    /** Fires on validation OR server error. */
+    onError?: (err: {
+        message: string;
+        status: number;
+    }) => void;
+}
+/**
+ * Pure join form. No localStorage, no success view — that's the composer's
+ * job (see <Waitlist>). Drops a single POST /v1/waitlist/join and notifies
+ * onSuccess/onError. Pre-fills the referrerCode from storage if present.
+ */
+export declare function WaitlistJoin(props: WaitlistJoinProps): import("react").JSX.Element;

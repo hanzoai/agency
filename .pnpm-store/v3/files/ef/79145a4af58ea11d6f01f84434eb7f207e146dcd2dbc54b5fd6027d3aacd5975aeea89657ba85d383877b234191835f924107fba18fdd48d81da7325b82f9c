@@ -1,0 +1,819 @@
+/*
+ * Hanzo Waitlist — monochromatic styling.
+ *
+ * Brand-neutral by design. The widget element declares only its
+ * surface tokens (background, text, border, font). All brand-bound
+ * tokens — accent, accent-fg, radius — are looked up at usage with a
+ * fallback chain, so any ancestor selector can override them via
+ * normal CSS inheritance.
+ *
+ * Override these on any ancestor (or :root) of the widget:
+ *   --hw-accent        button + rank-number accent (default: --hw-fg)
+ *   --hw-accent-fg     text color on accent surfaces (default: --hw-bg)
+ *   --hw-radius        card / button corner radius (default: 12px)
+ *
+ * These default per-widget but can be overridden the same way:
+ *   --hw-bg            surface background
+ *   --hw-fg            primary text
+ *   --hw-muted         secondary text + borders
+ *   --hw-border        explicit border color
+ *   --hw-font          font stack
+ *   --hw-shadow        elevation shadow
+ *
+ * Light/dark follows `prefers-color-scheme`. Force one with
+ * `data-theme="light" | "dark"` on the widget element.
+ */
+
+.hanzo-waitlist {
+  /* Surface tokens — Hanzo monochrome (Radix gray, gray1/gray11/gray12). */
+  --hw-bg: #fcfcfc;
+  --hw-fg: #202020;
+  --hw-muted: #646464;
+  --hw-border: #e8e8e8;
+  --hw-surface-2: #f9f9f9;
+  --hw-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --hw-shadow: 0 1px 2px 0 color-mix(in srgb, var(--hw-fg) 6%, transparent);
+
+  /* Brand tokens are intentionally NOT declared here. Reading them via
+   * var(--hw-accent, var(--hw-fg)) at usage sites lets any ancestor
+   * class redefine them without specificity battles. */
+
+  font-family: var(--hw-font);
+  color: var(--hw-fg);
+  background: transparent;
+  display: block;
+  max-width: 420px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hanzo-waitlist:not([data-theme]) {
+    --hw-bg: #111111;
+    --hw-fg: #eeeeee;
+    --hw-muted: #b4b4b4;
+    --hw-border: #2a2a2a;
+    --hw-surface-2: #191919;
+  }
+}
+
+.hanzo-waitlist[data-theme="dark"] {
+  --hw-bg: #111111;
+  --hw-fg: #eeeeee;
+  --hw-muted: #b4b4b4;
+  --hw-border: #2a2a2a;
+  --hw-surface-2: #191919;
+}
+
+.hanzo-waitlist[data-theme="light"] {
+  --hw-bg: #fcfcfc;
+  --hw-fg: #202020;
+  --hw-muted: #646464;
+  --hw-border: #e8e8e8;
+  --hw-surface-2: #f9f9f9;
+}
+
+.hanzo-waitlist *,
+.hanzo-waitlist *::before,
+.hanzo-waitlist *::after {
+  box-sizing: inherit;
+}
+
+.hanzo-waitlist__card {
+  position: relative;
+  background: var(--hw-bg);
+  border: 1px solid var(--hw-border);
+  border-radius: var(--hw-radius, 12px);
+  padding: 22px;
+  /* Glossy multi-layer shadow + subtle inner top highlight (light) and a
+   * faint border darkening at the bottom for a real-card feel.
+   * Stays monochrome — only --hw-fg / --hw-bg mix involved. */
+  box-shadow:
+    inset 0 1px 0 0 color-mix(in srgb, var(--hw-bg) 100%, transparent),
+    0 1px 2px 0 color-mix(in srgb, var(--hw-fg) 6%, transparent),
+    0 8px 28px -8px color-mix(in srgb, var(--hw-fg) 8%, transparent);
+}
+
+@media (max-width: 480px) {
+  .hanzo-waitlist__card {
+    padding: 18px;
+  }
+}
+
+/* Logo slot — the widget never embeds a logo. Consumers pass their own
+ * via the `logo` prop (React) or `<slot name="logo">` (custom element).
+ * We give it spacing only, no sizing or color, so the consumer's mark
+ * renders exactly as authored. */
+.hanzo-waitlist__logo {
+  display: flex;
+  align-items: center;
+  margin: -4px 0 16px;
+  min-height: 0;
+}
+
+.hanzo-waitlist__logo > * {
+  max-width: 100%;
+}
+
+.hanzo-waitlist__logo img,
+.hanzo-waitlist__logo svg {
+  max-height: 32px;
+  width: auto;
+  display: block;
+}
+
+.hanzo-waitlist__title {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--hw-fg);
+}
+
+.hanzo-waitlist__subtitle {
+  margin: 0 0 16px;
+  font-size: 14px;
+  color: var(--hw-muted);
+}
+
+.hanzo-waitlist__row {
+  display: flex;
+  gap: 8px;
+}
+
+.hanzo-waitlist__row--stack {
+  flex-direction: column;
+}
+
+.hanzo-waitlist__input {
+  appearance: none;
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--hw-fg);
+  background: transparent;
+  border: 1px solid var(--hw-border);
+  border-radius: var(--hw-input-radius, 8px);
+  outline: none;
+  transition: border-color 120ms ease;
+}
+
+.hanzo-waitlist__input::placeholder {
+  color: var(--hw-muted);
+}
+
+.hanzo-waitlist__input:focus-visible {
+  border-color: var(--hw-fg);
+}
+
+.hanzo-waitlist__input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.hanzo-waitlist__button {
+  appearance: none;
+  padding: 10px 16px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--hw-accent-fg, var(--hw-bg));
+  background: var(--hw-accent, var(--hw-fg));
+  border: 1px solid var(--hw-accent, var(--hw-fg));
+  border-radius: var(--hw-input-radius, 8px);
+  cursor: pointer;
+  transition: opacity 120ms ease, transform 120ms ease;
+  white-space: nowrap;
+}
+
+.hanzo-waitlist__button:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.hanzo-waitlist__button:active:not(:disabled) {
+  transform: translateY(0.5px);
+}
+
+.hanzo-waitlist__button:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+.hanzo-waitlist__button--ghost {
+  color: var(--hw-fg);
+  background: transparent;
+  border-color: var(--hw-border);
+}
+
+.hanzo-waitlist__error {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--hw-fg);
+  padding: 8px 10px;
+  border: 1px solid var(--hw-border);
+  border-radius: var(--hw-input-radius, 8px);
+  background: transparent;
+}
+
+.hanzo-waitlist__success {
+  text-align: center;
+  animation: hw-fade-in 220ms ease-out;
+}
+
+@keyframes hw-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hanzo-waitlist__success { animation: none; }
+}
+
+.hanzo-waitlist__rank {
+  font-size: clamp(48px, 9vw, 64px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--hw-accent, var(--hw-fg));
+  margin: 6px 0 2px;
+  font-variant-numeric: tabular-nums;
+  animation: hw-rank-pop 480ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center bottom;
+}
+
+@keyframes hw-rank-pop {
+  0%   { opacity: 0; transform: scale(0.6); }
+  60%  { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hanzo-waitlist__rank { animation: none; }
+}
+
+.hanzo-waitlist__rank::before {
+  content: "#";
+  font-size: 0.55em;
+  font-weight: 500;
+  color: var(--hw-muted);
+  vertical-align: 0.35em;
+  margin-right: 2px;
+}
+
+.hanzo-waitlist__of {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--hw-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.hanzo-waitlist__meta {
+  color: var(--hw-muted);
+  font-size: 13px;
+  margin: 0 0 16px;
+}
+
+/* Points / gamified score block */
+
+.hanzo-waitlist__score {
+  margin: 14px 0 4px;
+  padding: 12px 14px 10px;
+  border: 1px solid var(--hw-border);
+  border-radius: var(--hw-input-radius, 8px);
+  background: var(--hw-surface-2, transparent);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.hanzo-waitlist__score-num {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--hw-accent, var(--hw-fg));
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.hanzo-waitlist__score-suffix {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hw-muted);
+}
+
+.hanzo-waitlist__score-breakdown {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 10px;
+  font-size: 11px;
+  color: var(--hw-muted);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.45;
+}
+
+.hanzo-waitlist__score-breakdown li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hanzo-waitlist__score-breakdown li b {
+  color: var(--hw-fg);
+  font-weight: 600;
+  margin-right: 3px;
+}
+
+.hanzo-waitlist__score-breakdown li small {
+  font-size: 10px;
+  opacity: 0.65;
+  margin-left: 3px;
+}
+
+@media (max-width: 380px) {
+  .hanzo-waitlist__score {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+}
+
+/* Share grid */
+
+.hanzo-waitlist__share-wrap {
+  margin-top: 14px;
+  position: relative;
+}
+
+.hanzo-waitlist__share {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+  gap: 6px;
+}
+
+@media (min-width: 481px) and (max-width: 720px) {
+  .hanzo-waitlist__share {
+    grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
+  }
+}
+
+@media (max-width: 360px) {
+  .hanzo-waitlist__share {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.hanzo-waitlist__share-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  width: 100%;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hw-accent-fg, var(--hw-bg));
+  background: var(--hw-accent, var(--hw-fg));
+  border: 1px solid var(--hw-accent, var(--hw-fg));
+  border-radius: var(--hw-input-radius, 8px);
+  cursor: pointer;
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.hanzo-waitlist__share-btn.hanzo-waitlist__button--ghost {
+  color: var(--hw-fg);
+  background: transparent;
+  border-color: var(--hw-border);
+}
+
+.hanzo-waitlist__share-btn:hover:not(:disabled) { opacity: 0.88; }
+.hanzo-waitlist__share-btn:active:not(:disabled) { transform: translateY(0.5px); }
+.hanzo-waitlist__share-btn:disabled { opacity: 0.55; cursor: progress; }
+
+.hanzo-waitlist__share-label {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hanzo-waitlist__share-pts {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--hw-fg) 14%, transparent);
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.hanzo-waitlist__share-btn:not(.hanzo-waitlist__button--ghost) .hanzo-waitlist__share-pts {
+  background: color-mix(in srgb, var(--hw-accent-fg, var(--hw-bg)) 20%, transparent);
+}
+
+.hanzo-waitlist__toast {
+  min-height: 18px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--hw-fg);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+}
+
+/* Invite friends panel */
+
+.hanzo-waitlist__invite {
+  margin-top: 12px;
+  border: 1px solid var(--hw-border);
+  border-radius: var(--hw-input-radius, 8px);
+  overflow: hidden;
+}
+
+.hanzo-waitlist__invite-toggle {
+  appearance: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hw-fg);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.hanzo-waitlist__invite-toggle:hover {
+  background: var(--hw-surface-2, transparent);
+}
+
+.hanzo-waitlist__invite-toggle > span:first-child { flex: 1; }
+
+.hanzo-waitlist__invite-toggle-meta {
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--hw-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.hanzo-waitlist__chev {
+  font-size: 16px;
+  line-height: 1;
+  color: var(--hw-muted);
+  transition: transform 160ms ease;
+  display: inline-block;
+}
+
+.hanzo-waitlist__chev.is-open { transform: rotate(90deg); }
+
+.hanzo-waitlist__invite-panel {
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--hw-border);
+  background: var(--hw-surface-2, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hanzo-waitlist__invite-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--hw-fg);
+  margin-bottom: -2px;
+}
+
+.hanzo-waitlist__invite-hint {
+  font-weight: 500;
+  color: var(--hw-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.hanzo-waitlist__invite-textarea {
+  appearance: none;
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  color: var(--hw-fg);
+  background: var(--hw-bg);
+  border: 1px solid var(--hw-border);
+  border-radius: var(--hw-input-radius, 8px);
+  outline: none;
+  resize: vertical;
+  min-height: 88px;
+}
+
+.hanzo-waitlist__invite-textarea:focus-visible { border-color: var(--hw-fg); }
+
+.hanzo-waitlist__invite-result {
+  margin: 0;
+  font-size: 12px;
+  color: var(--hw-fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.hanzo-waitlist__invite-result small {
+  color: var(--hw-muted);
+  font-size: 11px;
+}
+
+/* Leaderboard */
+
+.hanzo-waitlist-lb {
+  max-width: none;
+  width: 100%;
+}
+
+.hanzo-waitlist-lb__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 420px) {
+  .hanzo-waitlist-lb__head .hanzo-waitlist-lb__pager { width: 100%; justify-content: space-between; }
+}
+
+.hanzo-waitlist-lb__head .hanzo-waitlist__subtitle {
+  margin: 4px 0 0;
+}
+
+.hanzo-waitlist-lb__pager {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hanzo-waitlist-lb__pager .hanzo-waitlist__button {
+  padding: 6px 10px;
+  font-size: 13px;
+  min-width: 36px;
+}
+
+.hanzo-waitlist-lb__pageinfo {
+  font-variant-numeric: tabular-nums;
+  color: var(--hw-muted);
+  font-size: 13px;
+  min-width: 80px;
+  text-align: center;
+}
+
+.hanzo-waitlist-lb__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--hw-border);
+}
+
+.hanzo-waitlist-lb__row {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--hw-border);
+  font-size: 14px;
+  border-radius: 6px;
+  transition: background 140ms ease, transform 140ms ease;
+}
+
+.hanzo-waitlist-lb__row:hover {
+  background: var(--hw-surface-2, transparent);
+  transform: translateX(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hanzo-waitlist-lb__row:hover { transform: none; }
+}
+
+@media (max-width: 420px) {
+  .hanzo-waitlist-lb__row {
+    grid-template-columns: 48px 1fr auto;
+    gap: 8px;
+    font-size: 13px;
+  }
+}
+
+.hanzo-waitlist-lb__row[data-mine="true"] {
+  background: color-mix(in srgb, var(--hw-accent, var(--hw-fg)) 8%, transparent);
+  font-weight: 600;
+}
+
+.hanzo-waitlist-lb__rank {
+  color: var(--hw-muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  letter-spacing: -0.02em;
+}
+
+.hanzo-waitlist-lb__row[data-mine="true"] .hanzo-waitlist-lb__rank {
+  color: var(--hw-accent, var(--hw-fg));
+  font-weight: 700;
+}
+
+.hanzo-waitlist-lb__email {
+  font-family: var(--hw-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 13px;
+  color: var(--hw-fg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hanzo-waitlist-lb__refs {
+  color: var(--hw-fg);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  padding-left: 8px;
+}
+
+.hanzo-waitlist-lb__foot {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.hanzo-waitlist-lb__more {
+  min-width: 160px;
+  padding: 10px 18px;
+}
+
+.hanzo-waitlist-lb__exhausted {
+  font-size: 12px;
+  color: var(--hw-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hanzo-waitlist-lb__total {
+  color: var(--hw-fg);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Activity ticker */
+
+.hanzo-waitlist-act {
+  max-width: none;
+  width: 100%;
+}
+
+.hanzo-waitlist-act__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.hanzo-waitlist-act__head .hanzo-waitlist__title { margin: 0; }
+
+.hanzo-waitlist-act__pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--hw-accent, var(--hw-fg));
+  box-shadow: 0 0 0 0 var(--hw-accent, var(--hw-fg));
+  animation: hw-act-pulse 1.8s ease-out infinite;
+}
+
+@keyframes hw-act-pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--hw-accent, var(--hw-fg)) 70%, transparent); }
+  70%  { box-shadow: 0 0 0 8px color-mix(in srgb, var(--hw-accent, var(--hw-fg)) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--hw-accent, var(--hw-fg)) 0%, transparent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hanzo-waitlist-act__pulse { animation: none; }
+}
+
+.hanzo-waitlist-act__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hanzo-waitlist-act__row {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 4px;
+  border-bottom: 1px solid color-mix(in srgb, var(--hw-border) 60%, transparent);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--hw-fg);
+}
+
+.hanzo-waitlist-act__row:last-child { border-bottom: 0; }
+
+.hanzo-waitlist-act__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--hw-fg);
+  opacity: 0.6;
+}
+
+.hanzo-waitlist-act__dot--share    { background: var(--hw-accent, var(--hw-fg)); }
+.hanzo-waitlist-act__dot--invite   { opacity: 0.4; }
+.hanzo-waitlist-act__dot--referral { background: var(--hw-accent, var(--hw-fg)); opacity: 0.85; }
+
+.hanzo-waitlist-act__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hanzo-waitlist-act__text b {
+  color: var(--hw-fg);
+  font-weight: 600;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  letter-spacing: -0.01em;
+}
+
+.hanzo-waitlist-act__time {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--hw-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  .hanzo-waitlist-act__row { font-size: 12px; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 8px; }
+  .hanzo-waitlist-act__text b { font-size: 11px; }
+}
+
+.hanzo-waitlist-lb__empty {
+  display: list-item;
+  list-style: none;
+  padding: 24px 0;
+  text-align: center;
+  color: var(--hw-muted);
+  font-size: 14px;
+}
+
+/* Modal mode trigger button. */
+.hanzo-waitlist__trigger {
+  appearance: none;
+  padding: 10px 16px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--hw-accent-fg, var(--hw-bg, #fff));
+  background: var(--hw-accent, var(--hw-fg, #0a0a0a));
+  border: 1px solid var(--hw-accent, var(--hw-fg, #0a0a0a));
+  border-radius: var(--hw-input-radius, 8px);
+  cursor: pointer;
+}
+
+/* Backdrop + dialog used in modal mode. */
+.hanzo-waitlist__backdrop {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in srgb, #000 60%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 9999;
+}
+
+.hanzo-waitlist__dialog {
+  width: 100%;
+  max-width: 420px;
+}

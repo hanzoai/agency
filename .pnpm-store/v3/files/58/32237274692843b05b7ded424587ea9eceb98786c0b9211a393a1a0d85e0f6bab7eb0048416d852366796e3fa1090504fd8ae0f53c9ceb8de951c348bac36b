@@ -1,0 +1,17 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Semantic hues" subtitle="The only places hue is permitted" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Semantic hues</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div class="g">
+  <div class="sw"><div class="chip" style="background:var(--state-error-bg);border-color:var(--state-error);display:flex;align-items:center;justify-content:center;color:var(--state-error-text);font-size:11px">Error</div><div class="n">--state-error</div><div class="v">red-500 / red-300</div></div>
+  <div class="sw"><div class="chip" style="background:#000;display:flex;align-items:center;justify-content:center;gap:6px;color:var(--state-online);font-size:11px"><span style="width:8px;height:8px;border-radius:99px;background:var(--state-online)"></span>Online</div><div class="n">--state-online</div><div class="v">green-400</div></div>
+  <div class="sw"><div class="chip" style="background:#000;display:flex;align-items:center;justify-content:center;color:var(--state-success);font-size:11px">Save 20%</div><div class="n">--state-success</div><div class="v">green-500</div></div>
+  <div class="sw"><div class="chip" style="background:var(--card);display:flex;align-items:center;gap:5px;padding-left:10px"><span style="width:9px;height:9px;border-radius:99px;background:var(--chrome-dot-red)"></span><span style="width:9px;height:9px;border-radius:99px;background:var(--chrome-dot-yellow)"></span><span style="width:9px;height:9px;border-radius:99px;background:var(--chrome-dot-green)"></span></div><div class="n">--chrome-dot-*</div><div class="v">window mocks only</div></div>
+</div>
+<div class="meta" style="margin-top:10px">everything else — tiers, categories, accents — uses the opacity ladder</div>
+</body></html>

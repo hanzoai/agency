@@ -1,0 +1,14 @@
+<!-- @dsCard group="Type" viewport="700x170" name="Mono" subtitle="Geist Mono — code, keys, metrics, token names" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Mono</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div style="display:flex;flex-direction:column;gap:10px">
+  <pre style="margin:0;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);font-size:12px;line-height:1.7;color:var(--neutral-300)">$ curl https://api.hanzo.ai/v1/chat/completions \
+    -H "Authorization: Bearer $HANZO_API_KEY"</pre>
+  <div class="row" style="gap:18px"><span class="mono" style="font-size:13px;color:var(--neutral-200)">enso-pro</span><span class="mono" style="font-size:13px;color:var(--neutral-400)">1,284,902 tokens</span><span class="mono" style="font-size:13px;color:var(--neutral-500)">--surface-card</span></div>
+</div></body></html>

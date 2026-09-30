@@ -1,0 +1,16 @@
+<!-- @dsCard group="Brand" viewport="700x200" name="Imagery" subtitle="Cool, near-black renders — imagery is rare and never decorative" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Imagery</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div style="display:flex;gap:10px">
+  <img src="../assets/brand/hero-visualization.png" alt="" style="width:33%;height:150px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border)">
+  <img src="../assets/brand/industry-cloud.png" alt="" style="width:33%;height:150px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border)">
+  <img src="../assets/brand/industry-infrastructure.png" alt="" style="width:33%;height:150px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border)">
+</div>
+<div class="meta" style="margin-top:10px">assets/brand/* · cool-toned, low-key, no warm gradients, no illustration style</div>
+</body></html>

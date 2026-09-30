@@ -1,0 +1,152 @@
+/* Elevation on a near-black ground is NOT a drop shadow. A dark blur on a dark
+   page is nothing — you cannot cast a shadow onto black — which is why a system
+   that ships only `box-shadow` reads flat no matter how heavy the alphas get.
+
+   What actually lifts a surface here is LIGHT, and it arrives in three parts:
+
+     1. a hairline EDGE            (tokens/colors.css --border)
+     2. an inset top HIGHLIGHT     (--edge-highlight, below)
+     3. a wide, very dark DROP     (--shadow-*)
+
+   (2) is the one that was missing and the one that does most of the work: a 1px
+   inset white line along the top edge reads as the surface catching the light
+   from above, and it is the whole difference between a panel that sits ON the
+   page and a rectangle that is merely a different colour than the page. The
+   reference spends it on its login card (`inset 0 1px 0 rgb(255 255 255 / .05)`)
+   and it is the single cheapest premium signal available on dark UI.
+
+   They are separate tokens rather than one baked shadow because a component
+   composes the ones it needs — `box-shadow: var(--edge-highlight), var(--shadow-lg)`
+   — and a card that wants the highlight without the drop should not have to
+   accept both. */
+:root{
+  --shadow-none:none;
+  /* The floating surface: dropdowns, dialogs, sheets, the composer. Wide, soft,
+     and pushed well down. It was Tailwind's `shadow-2xl` at .25 alpha, which is
+     invisible on #0a0a0a — so the surfaces that float highest had the weakest
+     drop in the system while the t-shirt ramp below was correctly tuned. */
+  --shadow-floating:0 24px 60px -16px rgb(0 0 0 / .75);
+  --shadow-inset-hairline:inset 0 0 0 1px var(--white-10);
+
+  /* ——— the light ——— */
+  /* The top edge, catching light. Add it to any raised surface. */
+  --edge-highlight:inset 0 1px 0 0 rgb(255 255 255 / .10);
+  /* The bloom around a LIT action on hover — a filled primary button, the send
+     key. Monochrome brand: this is where "alive" comes from instead of a hue,
+     and it is the whole hover signal on a fill that is already at the top of
+     the ink ramp. It was .10, which is invisible: a white glow has to compete
+     with the white object casting it, so the alpha that reads around a WHITE
+     button is far higher than the one that reads around a dark one. */
+  --bloom:0 0 24px -2px rgb(255 255 255 / .28);
+  /* The focus halo: soft, outside the ring, carrying no ratio of its own. This
+     was `0 0 0 2px var(--ring)` — a second hard ring around the hard ring. */
+  --ring-focus:0 0 0 3px var(--ring-halo);
+
+  /* The t-shirt ramp. Named by size rather than by role, because that is how
+     every component library already asks for a shadow (and how @hanzo/brand
+     spells it). Alphas are heavier than Tailwind's defaults: on a near-black
+     ground a 10% black drop is invisible, so each rung is tuned to read on
+     --background. --shadow-2xl and --shadow-floating are the same rung. */
+  --shadow-sm:0 1px 2px 0 rgb(0 0 0 / .40);
+  --shadow:0 1px 3px 0 rgb(0 0 0 / .45), 0 1px 2px -1px rgb(0 0 0 / .45);
+  --shadow-md:0 4px 6px -1px rgb(0 0 0 / .50), 0 2px 4px -2px rgb(0 0 0 / .50);
+  --shadow-lg:0 10px 15px -3px rgb(0 0 0 / .55), 0 4px 6px -4px rgb(0 0 0 / .55);
+  --shadow-xl:0 20px 25px -5px rgb(0 0 0 / .60), 0 8px 10px -6px rgb(0 0 0 / .60);
+  --shadow-2xl:var(--shadow-floating);
+
+  /* ——— the paper ——— */
+  /* Depth carries STATE, not decoration: which sheet is the workspace, which is
+     the tool in use, which one opened. Reach for a level before a border — if
+     two surfaces need separating, RAISE one rather than outline both, and a
+     surface that is already raised does not also need a box drawn round it.
+
+     A level is a tint AND the light on it, published as a pair, because the
+     alternative — every component composing its own `--edge-highlight,
+     --shadow-*` — is how two panels on one screen end up lit from two
+     directions. Every rung here is pure vertical: a 1px inset line along the
+     top edge, a drop straight down. One origin, above and slightly in front.
+
+     The tints are the surface recipes rather than new values, so sheets stack
+     the way paper does: each is an alpha-white wash, one laid on another lands
+     a step lighter, and the stack converges on #262626 instead of blowing out.
+
+     Nothing here is restated in `.light`, deliberately: every part defers to a
+     token that already flips, so the ramp inverts with the theme for free. */
+  --sheet-0:var(--surface-page);            /* the workspace ground             */
+  --sheet-1:var(--surface-card);            /* an active tool                   */
+  --sheet-2:var(--surface-card-emphasis);   /* what opened, or what is inside   */
+  /* The drops are spelled out rather than read from the t-shirt ramp above, and
+     that is the whole reason this ladder can be shared. `--shadow-sm` is a name
+     this package does not own — @hanzo/brand declares the same names at :root
+     with white-canvas alphas, and load order decides who wins — so a rung built
+     on one is a rung somebody else can flatten. `--shadow-sheet-*` is ours
+     alone, which is what lets @hanzo/ui's `.elevation-*` read it instead of
+     keeping a private copy. The numbers ARE rung 1 and rung 2 of the ramp; if
+     one moves, move both. `--edge-highlight` stays deferred: it is role-named,
+     uncollided, and its `.light` zeroing is what makes one value work on both
+     canvases. */
+  --shadow-sheet-1:var(--edge-highlight),0 1px 2px 0 rgb(0 0 0 / .40);
+  --shadow-sheet-2:var(--edge-highlight),0 10px 15px -3px rgb(0 0 0 / .55),0 4px 6px -4px rgb(0 0 0 / .55);
+
+  /* The fold — a corner turned back, and the one mark that means THIS OPENS.
+     Ornament nowhere: a sheet that does not expand does not wear one.
+     It is a background-image, so it costs no element and no pseudo-element —
+     paint it on the sheet itself and square that corner
+     (`border-bottom-right-radius:0`), because a folded corner is not round.
+     The flap catches the light like every other surface; the crease is the
+     hairline; both defer, so both invert. */
+  --fold:12px;
+  --fold-face:linear-gradient(315deg,var(--glass-strong) 0,var(--glass-strong) calc(var(--fold) - 1px),var(--border-strong) calc(var(--fold) - 1px),var(--border-strong) var(--fold),transparent var(--fold)); /* @kind color */
+
+  /* Ambient hero glow — a single white radial, blurred 120px, low opacity. */
+  --glow-hero:radial-gradient(circle,rgb(255 255 255 / .12) 0%,transparent 68%); /* @kind color */
+  --glow-hero-blur:120px;
+  /* Card top-corner sheen used on the story cards. */
+  --sheen-card:radial-gradient(120% 120% at 80% 0%,rgb(255 255 255 / .08) 0%,transparent 55%); /* @kind color */
+  /* The panel's top hairline, brightest at the centre and dissolving before it
+     reaches either corner — so an edge never terminates in a hard stop. One of
+     the two details that make the reference's panels look machined rather than
+     drawn (sidebar.css .panel::before). Paint it on a 1px-tall ::before. */
+  --sheen-edge:linear-gradient(90deg,transparent,rgb(255 255 255 / .14) 50%,transparent); /* @kind color */
+  /* Chrome text: the canonical headline gradient. Never a saturated rainbow. */
+  --gradient-chrome:linear-gradient(to right,#ffffff,var(--white-80),var(--white-60));
+  --gradient-chrome-2:linear-gradient(to right,#ffffff,var(--neutral-500));
+  /* Section-top protection gradient (hero overlays). */
+  --gradient-protect:linear-gradient(to bottom,var(--white-10),transparent);
+}
+
+/* Light theme — the same three parts, redistributed.
+   On white the order of work inverts: the DROP does almost all of it and the
+   inset highlight does none, because a white line on a white card is nothing.
+   Every token below is one whose dark value is white — i.e. one that silently
+   stops existing in `.light` unless it is restated here. check-tokens.mjs
+   scans this file for exactly that omission.
+
+   --edge-highlight is `inset 0 0 0 0 transparent` rather than `none` on
+   purpose: components compose these — `box-shadow: var(--edge-highlight),
+   var(--shadow-lg)` — and `none` is not a legal layer in a comma list, so the
+   obvious spelling would invalidate the whole declaration and take the drop
+   shadow down with it. A zero-size transparent shadow composes to nothing and
+   costs nothing. */
+.light{
+  --shadow-floating:0 24px 60px -16px rgb(0 0 0 / .18);
+  /* On white the drop does all of it, so the paper rungs are restated here even
+     though check 4 does not demand it — their white is inside --edge-highlight,
+     which flips underneath. Rung 1 and rung 2 of the light ramp, same as dark. */
+  --shadow-sheet-1:var(--edge-highlight),0 1px 2px 0 rgb(0 0 0 / .06);
+  --shadow-sheet-2:var(--edge-highlight),0 10px 15px -3px rgb(0 0 0 / .09),0 4px 6px -4px rgb(0 0 0 / .07);
+  --shadow-inset-hairline:inset 0 0 0 1px rgb(0 0 0 / .10);
+  --edge-highlight:inset 0 0 0 0 transparent;
+  --bloom:0 6px 20px -4px rgb(0 0 0 / .18);
+  --shadow-sm:0 1px 2px 0 rgb(0 0 0 / .06);
+  --shadow:0 1px 3px 0 rgb(0 0 0 / .08), 0 1px 2px -1px rgb(0 0 0 / .06);
+  --shadow-md:0 4px 6px -1px rgb(0 0 0 / .08), 0 2px 4px -2px rgb(0 0 0 / .06);
+  --shadow-lg:0 10px 15px -3px rgb(0 0 0 / .09), 0 4px 6px -4px rgb(0 0 0 / .07);
+  --shadow-xl:0 20px 25px -5px rgb(0 0 0 / .10), 0 8px 10px -6px rgb(0 0 0 / .08);
+  --glow-hero:radial-gradient(circle,rgb(0 0 0 / .06) 0%,transparent 68%);
+  --sheen-card:radial-gradient(120% 120% at 80% 0%,rgb(0 0 0 / .04) 0%,transparent 55%);
+  --sheen-edge:linear-gradient(90deg,transparent,rgb(0 0 0 / .08) 50%,transparent);
+  --gradient-chrome:linear-gradient(to right,#0a0a0a,rgb(10 10 10 / .8),rgb(10 10 10 / .6));
+  --gradient-chrome-2:linear-gradient(to right,#0a0a0a,var(--neutral-500));
+  --gradient-protect:linear-gradient(to bottom,rgb(0 0 0 / .10),transparent);
+}

@@ -1,0 +1,14 @@
+<!-- @dsCard group="Brand" viewport="700x180" name="Elevation & glow" subtitle="A hairline, one deep shadow, and the ambient hero radial" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Elevation</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div style="display:flex;gap:16px;align-items:stretch">
+  <div style="flex:1;padding:14px;background:var(--surface-card);border:1px solid var(--border);border-radius:var(--radius-lg);font-size:12px;color:var(--neutral-400)">flat — hairline only<div class="n" style="margin-top:8px">--shadow-none</div></div>
+  <div style="flex:1;padding:14px;background:var(--surface-overlay);border:1px solid var(--border);border-radius:var(--radius-xl);box-shadow:var(--shadow-floating);font-size:12px;color:var(--neutral-400)">floating — menu, dialog, composer<div class="n" style="margin-top:8px">--shadow-floating</div></div>
+  <div style="flex:1;position:relative;overflow:hidden;background:#000;border:1px solid var(--border);border-radius:var(--radius-lg)"><div style="position:absolute;left:50%;top:50%;width:220px;height:220px;transform:translate(-50%,-50%);background:var(--glow-hero);filter:blur(60px)"></div><div style="position:relative;padding:14px;font-size:12px;color:var(--neutral-300)">ambient glow<div class="n" style="margin-top:8px">--glow-hero</div></div></div>
+</div></body></html>

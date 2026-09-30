@@ -1,0 +1,42 @@
+import React from 'react';
+import type { LogoVariant } from './types.js';
+export interface HanzoLogoProps {
+    variant?: LogoVariant;
+    size?: number | string;
+    className?: string;
+    style?: React.CSSProperties;
+    /**
+     * Render the brand motion shell: intro flip + idle breathing + a wordmark
+     * that slides in, holds, then collapses (returns on hover). Pure CSS,
+     * reduced-motion-safe. The mark inherits `currentColor`.
+     */
+    animated?: boolean;
+    /** Wordmark text for the animated shell (white-label). Default "Hanzo". */
+    wordmark?: string;
+}
+/**
+ * React component for Hanzo logo
+ *
+ * @example
+ * ```tsx
+ * import { HanzoLogo } from '@hanzo/logo';
+ *
+ * <HanzoLogo size={64} />
+ * <HanzoLogo variant="mono" size="2rem" />
+ * <HanzoLogo variant="white" className="w-16 h-16" />
+ * ```
+ */
+export declare const HanzoLogo: React.FC<HanzoLogoProps>;
+/**
+ * Hanzo favicon component for <head>
+ *
+ * @example
+ * ```tsx
+ * import { HanzoFavicon } from '@hanzo/logo';
+ *
+ * // In your app's <head>
+ * <HanzoFavicon />
+ * ```
+ */
+export declare const HanzoFavicon: React.FC;
+//# sourceMappingURL=react.d.ts.map

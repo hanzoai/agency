@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+/**
+ * Logo Build Script
+ * Generates every brand icon, favicon, and social asset from the canonical
+ * mark. Brand identity (name, tagline, github, domain) is read from
+ * package.json "brand" — this file names no brand, so it is byte-identical
+ * across every logo package.
+ */
+export {};
+//# sourceMappingURL=build.d.ts.map

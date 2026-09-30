@@ -1,0 +1,44 @@
+/**
+ * What each event MEANS and what it CARRIES.
+ *
+ * `names.ts` says which events exist. This says what they are — one entry per
+ * name, a sentence a human can read and a property list a machine can check.
+ *
+ * Two rules keep this honest, and both matter more than completeness:
+ *
+ * 1. A property is listed only where there is EVIDENCE for it — a docstring in
+ *    the vocabulary, or a live `capture()` call in a Hanzo surface. An invented
+ *    property is worse than an absent one: it teaches a wrong shape to whoever
+ *    reads this next, and to anything trained on the corpus.
+ *
+ * 2. Every event is OPEN. The wire accepts free-form properties and always has,
+ *    so `props` is what we know an event carries, never the exhaustive set. A
+ *    property absent here is undocumented, not forbidden — which is why the
+ *    server records an unknown one rather than refusing it.
+ *
+ * The dimensions of an event are properties, never part of its name:
+ * `deploy_succeeded` with `{framework:'static'}`, never `deploy_static_succeeded`.
+ * That is what makes a funnel line up across surfaces, and it is why this file
+ * can exist at all.
+ */
+/** A property's type, as it travels on the wire. */
+export type PropType = 'string' | 'number' | 'boolean';
+export interface PropSpec {
+    type: PropType;
+    /** What it means. Written for someone reading a chart, not a type signature. */
+    doc: string;
+    /** The values seen in practice. Advisory — the wire accepts others. */
+    values?: readonly string[];
+}
+export interface EventSpec {
+    /** One sentence: the user-visible moment this records. */
+    summary: string;
+    /** Properties we have evidence for. Never exhaustive — see rule 2 above. */
+    props: Readonly<Record<string, PropSpec>>;
+}
+/**
+ * The catalog, keyed by the wire name (the value in EVENTS, not the constant).
+ * Keying by the wire name is deliberate: it is what arrives at the door, what
+ * lands in the warehouse, and therefore what anything reading this has in hand.
+ */
+export declare const SCHEMA: Readonly<Record<string, EventSpec>>;

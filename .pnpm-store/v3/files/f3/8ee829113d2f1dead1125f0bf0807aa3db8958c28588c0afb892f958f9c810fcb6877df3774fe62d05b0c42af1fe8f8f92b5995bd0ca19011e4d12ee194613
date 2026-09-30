@@ -1,0 +1,296 @@
+/* Hanzo is monochrome. One hue rendered through an opacity ladder.
+   Base ladder = Tailwind neutral (tailwind.config.ts). Semantic names match
+   hanzo.ai's CSS variables exactly, so code copies over 1:1.
+   DARK IS THE DEFAULT THEME (hanzo.ai mounts ThemeProvider defaultTheme="dark").
+
+   The dark palette is derived from the chat surface in hanzoai/extension
+   (packages/browser/src/sidebar.css), which is the reference aesthetic: a
+   #0a0a0a ground, #fafafa ink, and boundaries drawn as LOW-ALPHA HAIRLINES.
+   Two properties of that reference are load-bearing and easy to lose:
+
+   1. Borders are alpha, not hex. rgb(255 255 255 / .10) composites correctly on
+      #0a0a0a AND on #262626; a solid #1f1f1f reads on the page and vanishes the
+      moment it lands on a lifted surface — which is why anyone who needed a
+      visible edge reached past it for the CONTROL rung and got a wireframe.
+   2. Surfaces lift by tiny steps (0a -> 0f -> 17 -> 26), and ink is a graded
+      ramp (#fafafa -> .78 -> .55 -> #a3a3a3), not one flat white. Pure #ffffff
+      on pure #000000 is 21:1 — the maximum-contrast pair that exists, and it
+      halates. #fafafa on #0a0a0a is 18.1:1: still far past AAA, visibly softer. */
+
+:root{
+  color-scheme:dark;
+
+  /* ——— base neutral ladder ——— */
+  --neutral-50:#FAFAFA;
+  --neutral-100:#F5F5F5;
+  --neutral-200:#E5E5E5;
+  --neutral-300:#D4D4D4;
+  --neutral-400:#A3A3A3;
+  --neutral-500:#737373;
+  --neutral-600:#525252;
+  --neutral-700:#404040;
+  --neutral-800:#262626;
+  --neutral-900:#171717;
+  --neutral-950:#0A0A0A;
+  --pure-black:#000000;
+  --pure-white:#FFFFFF;
+  /* Press-kit brand constants (public/press/hanzo/README.md). */
+  --hanzo-black:#0A0A0B;
+  --hanzo-white:#FFFFFF;
+
+  /* ——— the opacity ladder: the real palette ——— */
+  /* Every rung below .30 is a HAIRLINE or a LIFT — the two things this system
+     draws with. The rungs are the reference's own values, not a rounded ramp. */
+  /* The five rungs marked (chrome) below were being retyped as raw rgba in
+     @hanzogui/shell's theme.ts, which is the shared bar every Hanzo property
+     mounts. That is the same defect this ladder exists to end — a value in two
+     places drifts, and this pair already had: the shell's resting hairline sat
+     at .06 against this file's .10 for long enough that the bar and the page
+     under it drew different hairlines. They are rungs here now, and the shell
+     references them, so the chrome has no colour of its own left to drift.
+
+     They are the shell's OWN measured values, added at the alpha it already
+     ships. Snapping them to neighbouring rungs instead would have been a
+     silent redesign of the estate's chrome, and two of them carry decisions
+     that a round number would have destroyed: .92 is ink deliberately short of
+     the .98 hover so a hover still reads as a response, and .03 is the one
+     lift that must stay below the .05 hairline it sits inside. */
+  --white-03:rgb(255 255 255 / .03);   /* (chrome) the raised fill  */
+  --white-05:rgb(255 255 255 / .05);
+  --white-06:rgb(255 255 255 / .06);
+  --white-08:rgb(255 255 255 / .08);
+  --white-10:rgb(255 255 255 / .10);
+  --white-14:rgb(255 255 255 / .14);   /* (chrome) selection wash   */
+  --white-15:rgb(255 255 255 / .15);
+  --white-16:rgb(255 255 255 / .16);
+  --white-18:rgb(255 255 255 / .18);   /* (chrome) selection tint   */
+  --white-20:rgb(255 255 255 / .20);
+  --white-22:rgb(255 255 255 / .22);
+  --white-30:rgb(255 255 255 / .30);
+  --white-40:rgb(255 255 255 / .40);
+  --white-45:rgb(255 255 255 / .45);   /* (chrome) the dimmest ink  */
+  --white-55:rgb(255 255 255 / .55);
+  --white-60:rgb(255 255 255 / .60);
+  --white-78:rgb(255 255 255 / .78);
+  --white-80:rgb(255 255 255 / .80);
+  --white-92:rgb(255 255 255 / .92);   /* (chrome) body ink         */
+
+  /* ——— semantic aliases (dark, the default) ——— */
+  --background:#0a0a0a;
+  /* READING ink, one rung below the top of the ramp. The note at the head of this
+     file already made this argument once — #ffffff on #000000 halates, so #fafafa
+     — and the argument does not stop being true at 19.0:1. Every heading and
+     paragraph on every surface was set in the brightest ink the system has, while
+     the CHROME beside them draws body text at --white-92; a page read as glare
+     against its own header. #e5e5e5 is the neutral-200 rung this file already
+     spends on --primary-hover, so the ramp gains no new value: 15.7:1 on the page,
+     15.2:1 on a card, both more than twice the 7:1 AAA asks of body text.
+     Something that genuinely needs the brightest ink names --primary. */
+  --foreground:#e5e5e5;
+  --card:#0f0f0f;
+  --card-foreground:#e5e5e5;
+  --popover:#0f0f0f;
+  --popover-foreground:#e5e5e5;
+  --primary:#fafafa;
+  /* A 5% step, not the 16% this used to be. A filled button's fill is already
+     the top of the ink ramp, so the only directions available on hover are
+     "dimmer" and "brighter-around-the-edges" — and a 16% drop reads as the
+     button going DISABLED under the cursor, which is the one thing a hover must
+     never look like. The step is now small enough to register as pressure while
+     --bloom does the actual work of lighting it up. */
+  --primary-hover:#e5e5e5;
+  --primary-foreground:#0a0a0a;
+  --secondary:#262626;
+  /* One rung up, so a secondary button HAS a hover. It previously resolved to
+     --surface-3, which is --secondary — the same value it starts at. */
+  --secondary-hover:#333333;
+  --secondary-foreground:#fafafa;
+  --muted:#171717;
+  --muted-foreground:#a3a3a3;
+  --accent:#262626;
+  --accent-foreground:#fafafa;
+  /* Destructive is the ONE place the monochrome rule already yields, and it was
+     yielding in only half the system: a field that fails validation draws
+     --state-error (#ef4444, which DESIGN.md §2.4 lists as permitted precisely
+     for "destructive / blocking error"), while the button that performs the
+     destruction drew #666666 — a mid-grey that is indistinguishable from a
+     disabled control. "Delete everything" and "you cannot click this" must not
+     be the same colour. So the two converge on the one token that already
+     names this meaning, and the ramp stays monochrome everywhere else. */
+  --destructive:var(--state-error);
+  --destructive-hover:#dc2626;   /* red-600 — deepens under the cursor */
+  --destructive-foreground:#fafafa;
+
+  /* ——— boundaries ———
+     ONE ladder, cut from alpha, graded by duty. Every rung is a rung of the
+     opacity ladder above, so every boundary composites correctly on the page,
+     on a card, and inside a popover — and every rung is the reference's own
+     measured value, not a rounded ramp:
+
+       --border          .10  the hairline. Cards, panels, dividers, list rows.
+       --border-strong   .16  the same hairline, one step up. Hover, emphasis.
+       --border-control  .15  a control's resting edge — input, select, textarea.
+       --border-focus    .22  that control, focused.
+       --border-selected .30  the thing that is currently CHOSEN — the active
+                              tab, the current tile, the featured plan.
+
+     The previous release cut the last three from the NEUTRAL ladder instead,
+     because a boundary that clears WCAG 1.4.11's 3:1 on a near-black ground IS
+     a mid-grey and no amount of tuning changes that. It is true, and it is also
+     what a wireframe looks like: a 1px #737373 box around every field, four
+     times heavier than the hairline beside it, so a form read as a debug
+     overlay rather than a surface. Aesthetics decided it — the reference draws
+     an input at rgb(255 255 255 / .15) and a focused one at .22 (sidebar.css
+     --input-border / .composer-box:focus-within), and that is what ships here.
+
+     What replaces the ratio is the FOCUS INDICATOR, which is the thing a
+     keyboard user actually navigates by and the one boundary still pinned at
+     3:1 (--ring, below). A resting edge is an affordance; a focus ring is a
+     position. Only the second one is load-bearing when you cannot see well, and
+     spending the contrast budget there rather than on all four edges of every
+     idle field is what lets the system be quiet AND findable at once. */
+  --border:var(--white-10);
+  --border-strong:var(--white-16);
+  --border-control:var(--white-15);      /* sidebar.css --input-border           */
+  --border-focus:var(--white-22);        /* .composer-box:focus-within           */
+  --border-selected:var(--white-30);     /* the current tab / tile / plan        */
+  --input:var(--border-control);         /* shadcn `border-input` — a control    */
+  /* A focus indicator is a NON-TEXT CONTRAST target: WCAG 2.4.11/1.4.11 require
+     3:1 against every surface it can land on, and unlike a resting edge it is
+     worth the loudness — it is transient, it only appears on keyboard focus,
+     and it is the whole of how a keyboard user knows where they are.
+     --white-40 clears it on every canvas in both themes precisely BECAUSE it is
+     alpha: on a lifted surface the ring lifts with it (3.77:1 on #0a0a0a,
+     3.66:1 on #262626), which a fixed grey cannot do. */
+  --ring:var(--white-40);
+  /* The soft halo that sits outside the ring — the reference's
+     `box-shadow: 0 0 0 2px rgb(255 255 255 / .06)` on a focused composer. It
+     carries no ratio; it is what makes focus read as designed rather than as a
+     browser default. Spent through --ring-focus (tokens/elevation.css). */
+  --ring-halo:var(--white-10);
+  --brand:#e4e4e7;
+  --brand-foreground:#09090b;
+  --brand-muted:#a3a3a3;
+  --black:#000000;
+  --white:#fafafa;
+  --selection:var(--white-20);
+
+  /* ——— glass: the lift ———
+     How a surface rises WITHOUT a block fill. An alpha-white wash composites
+     over whatever it lands on, so one value works on the page, on a card and
+     inside a popover. This is the mechanism behind the reference's depth. */
+  --glass:var(--white-05);
+  --glass-strong:var(--white-08);
+
+  /* ——— surface recipes ———
+     A card has to be a SURFACE, which means you have to be able to see that it
+     is not the page. These were cut from neutral-900 (#171717) at .4/.5/.8, and
+     at .5 that composites to #101010 on a #0a0a0a ground — six levels above the
+     page, which is not a surface, it is a very slightly different black. Three
+     cards side by side then read as one flat field with hairlines ruled across
+     it, and no amount of shadow fixes it, because you cannot cast a shadow onto
+     black.
+
+     Cut from neutral-800 (#262626) instead, they land on 14 / 18 / 1f — the
+     reference's own panel (#171717 on a #0f0f0f container) with room either
+     side of it. They stay ALPHA so a card nested in a popover still lifts off
+     its parent rather than punching a hole in it; that is the whole reason
+     these are recipes and not just --surface-* rungs. */
+  --surface-page:var(--background);
+  --surface-card:rgb(38 38 38 / .5);         /* -> #181818 on the page          */
+  --surface-card-emphasis:rgb(38 38 38 / .75);/* -> #1f1f1f — featured          */
+  --surface-card-quiet:rgb(38 38 38 / .35);  /* -> #141414 — story cards        */
+  /* A floating panel that is the SAME colour as the page is not floating. This
+     was rgb(10 10 10 / .95) — the page, at 95% of the page. */
+  --surface-overlay:rgb(23 23 23 / .92);     /* dropdown / popover panels       */
+  --surface-header:rgb(0 0 0 / .7);          /* fixed nav, with backdrop blur   */
+  --surface-scrim:rgb(0 0 0 / .8);           /* the dialog / sheet backdrop     */
+
+  /* ——— the numeric surface ladder ——— */
+  /* Aliases onto the semantic canvases above, so a brand fork that retunes
+     --card/--muted/--secondary retunes the ladder with it and the light theme
+     inverts for free. Ascending lift: 0 is the page, 3 is a hovered control.
+     Dark resolves to the reference's own ladder — 0a / 0f / 17 / 26. */
+  --surface-0:var(--background);
+  --surface-1:var(--card);
+  --surface-2:var(--muted);
+  --surface-3:var(--secondary);
+
+  /* ——— text ranks ———
+     A graded ramp, not one flat white. The steps are the reference's. */
+  --text-primary:#fafafa;
+  --text-secondary:var(--white-78);
+  --text-tertiary:var(--white-55);
+  --text-helper:var(--muted-foreground);
+  --text-disabled:var(--white-30);
+
+  /* ——— the ONLY permitted hues (DESIGN.md §2.4) ——— */
+  --state-error:#ef4444;        /* red-500  — destructive / blocking error   */
+  --state-error-text:#fca5a5;   /* red-300                                    */
+  --state-error-bg:rgb(239 68 68 / .1);
+  --state-online:#4ade80;       /* green-400 — live status dot                */
+  --state-success:#22c55e;      /* green-500 — "Free" / "Save N%" callouts    */
+  --chrome-dot-red:rgb(239 68 68 / .6);
+  --chrome-dot-yellow:rgb(234 179 8 / .6);
+  --chrome-dot-green:rgb(34 197 94 / .6);
+}
+
+/* Light theme — the same tokens, inverted.
+   The white-opacity ladder does NOT invert: --white-16 is white-on-white here.
+   So EVERY token whose dark value is a --white-* rung must be restated below,
+   and check-tokens.mjs fails the build if one is missed — that class of bug is
+   silent (the border simply stops existing) and has shipped before. */
+.light{
+  color-scheme:light;
+  --background:#f7f7f7;
+  --foreground:#0a0a0a;
+  /* A ladder, not four names for #f5f5f5. Light lifts by the same tiny steps
+     dark does — ~2% per rung — so --surface-0..3 mean something in both themes. */
+  --card:#f2f2f2;
+  --card-foreground:#0a0a0a;
+  --popover:#fbfbfb;
+  --popover-foreground:#0a0a0a;
+  --primary:#0a0a0a;
+  --primary-hover:#262626;
+  --primary-foreground:#fafafa;
+  --secondary:#e4e4e4;
+  --secondary-hover:#e0e0e0;
+  --secondary-foreground:#0a0a0a;
+  --muted:#ededed;
+  --muted-foreground:#525252;
+  --accent:#e4e4e4;
+  --accent-foreground:#0a0a0a;
+  --destructive:var(--state-error);
+  --destructive-hover:#dc2626;
+  --destructive-foreground:#ffffff;
+  --border:rgb(0 0 0 / .10);
+  --border-strong:rgb(0 0 0 / .16);
+  --border-control:rgb(0 0 0 / .15);
+  /* Focus and selection are pushed further here than the .22/.30 they sit at in
+     dark. Black-on-white at a given alpha reads FAINTER than white-on-black at
+     the same alpha — .22 black on #ffffff measures 1.69:1 where .22 white on
+     #0a0a0a measures 1.97:1 — so mirroring the number would quietly make the
+     light theme's focus state the weakest state in the system. */
+  --border-focus:rgb(0 0 0 / .32);
+  --border-selected:rgb(0 0 0 / .42);
+  --input:var(--border-control);
+  /* Same duty, same 3:1 floor, opposite direction: .50 black is 3.98:1 on
+     #ffffff and 3.67:1 on #f5f5f5. */
+  --ring:rgb(0 0 0 / .5);
+  --ring-halo:rgb(0 0 0 / .07);
+  --black:#0a0a0a;
+  --white:#ffffff;
+  --selection:rgb(0 0 0 / .16);
+  --glass:rgb(0 0 0 / .04);
+  --glass-strong:rgb(0 0 0 / .07);
+  --surface-card:#f2f2f2;
+  --surface-card-emphasis:#fdfdfd;
+  --surface-card-quiet:#f5f5f5;
+  --surface-overlay:rgb(255 255 255 / .95);
+  --surface-header:rgb(255 255 255 / .8);
+  --surface-scrim:rgb(0 0 0 / .5);
+  --text-primary:var(--neutral-950);
+  --text-secondary:rgb(10 10 10 / .78);
+  --text-tertiary:rgb(10 10 10 / .55);
+  --text-disabled:rgb(10 10 10 / .3);
+}

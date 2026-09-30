@@ -1,0 +1,362 @@
+import { ANIMATED_SVG } from './animated.js';
+// Hanzo logo settings
+export const LOGO_SETTINGS = {
+    color: {
+        viewBox: '0 0 67 67',
+        width: 67,
+        height: 67
+    },
+    mono: {
+        strokeWidth: 2
+    }
+};
+/** Mark viewBox — the block-H's native coordinate space. */
+export const MARK_VIEWBOX = '0 0 67 67';
+/**
+ * The five body blocks of the Hanzo mark — four corner squares joined by the
+ * diagonal band. This is the geometry; everything else in this file is a way of
+ * painting it.
+ */
+export const MARK_BLOCKS = [
+    'M22.21 67V44.6369H0V67H22.21Z',
+    'M66.7038 22.3184H22.2534L0.0878906 44.6367H44.4634L66.7038 22.3184Z',
+    'M22.21 0H0V22.3184H22.21V0Z',
+    'M66.7198 0H44.5098V22.3184H66.7198V0Z',
+    'M66.7198 67V44.6369H44.5098V67H66.7198Z',
+];
+/** The two accent slivers that give the H its shaded depth.
+ *  Exported alongside MARK_BLOCKS: a consumer that wants a different sliver ink
+ *  had to retype the paths, because only the pre-baked MARK_PATHS string was
+ *  reachable. */
+export const MARK_SHADE = [
+    'M0 44.6369L22.21 46.8285V44.6369H0Z',
+    'M66.6753 22.3185L44.5098 20.0822V22.3185H66.6753Z',
+];
+/**
+ * Raw block-H path geometry — the single source of the Hanzo mark.
+ * The canonical mark is SEVEN paths: the five fill-less body blocks (callers set
+ * their own `fill` — e.g. `@hanzo/brand` card generators, og images) plus the
+ * two `class="shade"` accent slivers (#DDDDDD in every shipped variant;
+ * restyle via `.shade` if needed).
+ * Use this instead of re-typing the path data anywhere.
+ */
+export const MARK_PATHS = `<path d="${MARK_BLOCKS[0]}"/>` +
+    `<path class="shade" fill="#DDDDDD" d="${MARK_SHADE[0]}"/>` +
+    `<path d="${MARK_BLOCKS[1]}"/>` +
+    `<path d="${MARK_BLOCKS[2]}"/>` +
+    `<path d="${MARK_BLOCKS[3]}"/>` +
+    `<path class="shade" fill="#DDDDDD" d="${MARK_SHADE[1]}"/>` +
+    `<path d="${MARK_BLOCKS[4]}"/>`;
+/** The ensō — Enso's mark. Closed: the router completes the circle.
+ *  One stroke in currentColor on the shared 24 viewBox. Zen's mark is Zoo's. */
+export const ENSO_MARK = '<circle cx="12" cy="12" r="8.88" fill="none" stroke="currentColor" stroke-width="2.64" stroke-linecap="round"/>';
+/** Family slug → house mark. `hanzo` is the block-H, on its own 67 viewBox. */
+export const HOUSE_MARKS = {
+    enso: ENSO_MARK,
+};
+/**
+ * Generate Hanzo color SVG logo
+ */
+export function getColorSVG() {
+    return `<svg viewBox="0 0 67 67" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22.21 67V44.6369H0V67H22.21Z" fill="#ffffff"/>
+    <path d="M0 44.6369L22.21 46.8285V44.6369H0Z" fill="#DDDDDD"/>
+    <path d="M66.7038 22.3184H22.2534L0.0878906 44.6367H44.4634L66.7038 22.3184Z" fill="#ffffff"/>
+    <path d="M22.21 0H0V22.3184H22.21V0Z" fill="#ffffff"/>
+    <path d="M66.7198 0H44.5098V22.3184H66.7198V0Z" fill="#ffffff"/>
+    <path d="M66.6753 22.3185L44.5098 20.0822V22.3185H66.6753Z" fill="#DDDDDD"/>
+    <path d="M66.7198 67V44.6369H44.5098V67H66.7198Z" fill="#ffffff"/>
+  </svg>`;
+}
+/**
+ * Generate monochrome SVG logo (filled, for dark backgrounds).
+ *
+ * One tone only. This is what a macOS menu-bar template image is cut from, and
+ * a template image is black plus alpha — a second tone in it is invalid, so the
+ * shade slivers are black here rather than the #DDDDDD they carry in the colour
+ * and white variants.
+ */
+export function getMonoSVG() {
+    return `<svg viewBox="0 0 67 67" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22.21 67V44.6369H0V67H22.21Z" fill="#000000"/>
+    <path d="M0 44.6369L22.21 46.8285V44.6369H0Z" fill="#000000"/>
+    <path d="M66.7038 22.3184H22.2534L0.0878906 44.6367H44.4634L66.7038 22.3184Z" fill="#000000"/>
+    <path d="M22.21 0H0V22.3184H22.21V0Z" fill="#000000"/>
+    <path d="M66.7198 0H44.5098V22.3184H66.7198V0Z" fill="#000000"/>
+    <path d="M66.6753 22.3185L44.5098 20.0822V22.3185H66.6753Z" fill="#000000"/>
+    <path d="M66.7198 67V44.6369H44.5098V67H66.7198Z" fill="#000000"/>
+  </svg>`;
+}
+/**
+ * Generate tightly cropped color SVG logo
+ */
+export function getColorSVGCropped() {
+    // Hanzo logo is already minimal, return as-is
+    return getColorSVG();
+}
+/**
+ * Generate white SVG logo (for dark backgrounds)
+ */
+export function getWhiteSVG() {
+    return `<svg viewBox="0 0 67 67" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22.21 67V44.6369H0V67H22.21Z" fill="#ffffff"/>
+    <path d="M0 44.6369L22.21 46.8285V44.6369H0Z" fill="#DDDDDD"/>
+    <path d="M66.7038 22.3184H22.2534L0.0878906 44.6367H44.4634L66.7038 22.3184Z" fill="#ffffff"/>
+    <path d="M22.21 0H0V22.3184H22.21V0Z" fill="#ffffff"/>
+    <path d="M66.7198 0H44.5098V22.3184H66.7198V0Z" fill="#ffffff"/>
+    <path d="M66.6753 22.3185L44.5098 20.0822V22.3185H66.6753Z" fill="#DDDDDD"/>
+    <path d="M66.7198 67V44.6369H44.5098V67H66.7198Z" fill="#ffffff"/>
+  </svg>`;
+}
+/**
+ * The mark for a LIGHT page: a black H on a white ground.
+ *
+ * This is the one the house asks for — white background, black H — and until
+ * now the package could not paint it. `getColorSVG()` and `getWhiteSVG()` are
+ * byte-identical white-on-nothing, so the default `<HanzoLogo />` was invisible
+ * on a white page and every consumer worked around it (industries reached for
+ * `variant="mono"` plus an invert filter).
+ *
+ * Built from MARK_BLOCKS and MARK_SHADE rather than retyped, so the geometry
+ * has one home. The shade mirrors the relationship the other variants use — the
+ * slivers sit a shade off the body, so a black body takes a slightly lighter
+ * grey, exactly as a white body takes a slightly darker one.
+ */
+export function getLightSVG() {
+    const body = (d) => `<path d="${d}" fill="#000000"/>`;
+    const shade = (d) => `<path class="shade" d="${d}" fill="#222222"/>`;
+    return `<svg viewBox="0 0 67 67" xmlns="http://www.w3.org/2000/svg">` +
+        `<rect width="67" height="67" fill="#ffffff"/>` +
+        body(MARK_BLOCKS[0]) + shade(MARK_SHADE[0]) + body(MARK_BLOCKS[1]) +
+        body(MARK_BLOCKS[2]) + body(MARK_BLOCKS[3]) + shade(MARK_SHADE[1]) +
+        body(MARK_BLOCKS[4]) +
+        `</svg>`;
+}
+/**
+ * Generate monochrome SVG for menu bar (filled, tightly cropped)
+ */
+export function getMenuBarSVG() {
+    // For menu bar, we want a solid filled version for better visibility at small sizes
+    return `<svg viewBox="0 0 67 67" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22.21 67V44.6369H0V67H22.21Z" fill="currentColor"/>
+    <path d="M0 44.6369L22.21 46.8285V44.6369H0Z" fill="currentColor"/>
+    <path d="M66.7038 22.3184H22.2534L0.0878906 44.6367H44.4634L66.7038 22.3184Z" fill="currentColor"/>
+    <path d="M22.21 0H0V22.3184H22.21V0Z" fill="currentColor"/>
+    <path d="M66.7198 0H44.5098V22.3184H66.7198V0Z" fill="currentColor"/>
+    <path d="M66.6753 22.3185L44.5098 20.0822V22.3185H66.6753Z" fill="currentColor"/>
+    <path d="M66.7198 67V44.6369H44.5098V67H66.7198Z" fill="currentColor"/>
+  </svg>`;
+}
+/**
+ * The mark as a STANDALONE FILE, which is a different problem from the mark
+ * inline in a page. An `<img>` gives an SVG no parent to inherit from, so
+ * `currentColor` there resolves to the initial colour — black — whatever the
+ * host page's scheme is (measured in Chromium, both schemes, black both times).
+ * A file therefore has to carry its own answer, and a `<style>` block inside
+ * the document is honoured because the SVG *is* a document and receives the
+ * UA's colour-scheme. Black is the fallback rather than white because a reader
+ * that drops the style — GitHub markdown strips it — is nearly always showing
+ * the mark on paper or on white.
+ */
+export function getAdaptiveSVG() {
+    const body = MARK_BLOCKS.map((d) => `<path d="${d}"/>`).join('\n    ');
+    const shade = MARK_SHADE.map((d) => `<path class="s" d="${d}"/>`).join('\n    ');
+    return `<svg viewBox="0 0 67 67" xmlns="http://www.w3.org/2000/svg">
+    <style>
+      path{fill:#000000}
+      .s{fill:#222222}
+      @media (prefers-color-scheme:dark){path{fill:#ffffff}.s{fill:#dddddd}}
+    </style>
+    ${body}
+    ${shade}
+  </svg>`;
+}
+/**
+ * Favicon geometry. The mark sits where it has always sat — translate(8,8)
+ * scale(0.7164) in a 64 box — and the rim is added OUTSIDE it, so nothing about
+ * the mark moves or shrinks.
+ *
+ * The rim is drawn by stroking each block and filling it in the same colour:
+ * overlapping those gives exactly the union of the blocks dilated by half the
+ * stroke, because dilation distributes over union. No boolean geometry.
+ *
+ * A mitred join at the band's two 45° tips would shoot a spike 2.61x the rim
+ * past the mark; a right angle only needs 1.41x. Capping the miter at 2 blunts
+ * those two tips and leaves every square corner sharp.
+ */
+const FAVICON_BOX = 64;
+const FAVICON_INK = 52; // mark + rim, i.e. 81% of the box
+const FAVICON_RIM = 2; // rim width outside the mark, in box units
+const FAVICON_MITER = 2;
+const FAVICON_SCALE = (FAVICON_INK - 2 * FAVICON_RIM) / 67;
+const FAVICON_SHIFT = (FAVICON_BOX - FAVICON_INK) / 2 + FAVICON_RIM;
+const FAVICON_STROKE = (2 * FAVICON_RIM) / FAVICON_SCALE;
+const faviconBody = (rim, core) => `  <defs><g id="m">
+${MARK_BLOCKS.map((d) => `    <path d="${d}"/>`).join('\n')}
+  </g></defs>
+  <g transform="translate(${FAVICON_SHIFT} ${FAVICON_SHIFT}) scale(${FAVICON_SCALE.toFixed(4)})">
+    <use href="#m" ${rim} stroke-width="${FAVICON_STROKE.toFixed(4)}" stroke-miterlimit="${FAVICON_MITER}"/>
+    <use href="#m" ${core}/>
+  </g>`;
+/**
+ * favicon.svg — the mark on a TRANSPARENT ground. An icon that carries its own
+ * opaque tile fights every chrome it lands in: a black square on a light tab, a
+ * floating box on a dark one. This one takes its tone from the chrome instead —
+ * black on light, white on dark. A renderer that resolves no CSS still gets a
+ * white mark inside a black rim, so it is never invisible either way.
+ *
+ * The 3D accent slivers are dropped: they are depth cues that turn to noise
+ * below 64px and mean nothing in a one-tone icon.
+ */
+export function getFaviconSVG() {
+    // A tab strip is light in every default theme, so a transparent mark that
+    // resolves no colour disappears, and a solid tile fights whatever chrome it
+    // lands in. Both failures shipped: one surface served a 32x32 that was 100%
+    // white pixels, three others a 48x48 that was 100% black. Each was correct by
+    // checksum and invisible in a browser.
+    //
+    // So the tone is asked of the chrome, and a white core inside a black rim is
+    // what a renderer gets when it cannot ask. The rim is the fallback rather
+    // than the primary, because a white fill with an outline alone turns to grey
+    // mush at 16px on a light ground.
+    return `<svg viewBox="0 0 ${FAVICON_BOX} ${FAVICON_BOX}" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .core { fill: #ffffff }
+    .rim { fill: #000000; stroke: #000000 }
+    @media (prefers-color-scheme: light) { .core { fill: #000000 } }
+    @media (prefers-color-scheme: dark) { .rim { fill: #ffffff; stroke: #ffffff } }
+  </style>
+${faviconBody('class="rim"', 'class="core"')}
+</svg>`;
+}
+/**
+ * Raster source for every generated PNG and .ico. Same silhouette, same
+ * placement, but the tone is fixed: a PNG cannot ask what it was drawn onto, so
+ * it always wears the rim — white core so it reads on dark, black rim so it
+ * reads on light.
+ */
+export function getFaviconRasterSVG() {
+    return `<svg viewBox="0 0 ${FAVICON_BOX} ${FAVICON_BOX}" xmlns="http://www.w3.org/2000/svg">
+${faviconBody('fill="#000000" stroke="#000000"', 'fill="#ffffff"')}
+</svg>`;
+}
+/**
+ * Get logo as data URL
+ */
+export function getLogoDataUrl(options = {}) {
+    const { variant = 'current' } = options;
+    let svg = '';
+    switch (variant) {
+        case 'mono':
+            svg = getMonoSVG();
+            break;
+        case 'white':
+            svg = getWhiteSVG();
+            break;
+        case 'light':
+            svg = getLightSVG();
+            break;
+        case 'current':
+            svg = getMenuBarSVG();
+            break;
+        case 'favicon':
+            svg = getFaviconSVG();
+            break;
+        case 'color':
+            svg = getColorSVG();
+            break;
+        default:
+            svg = getMenuBarSVG();
+    }
+    const base64 = btoa(unescape(encodeURIComponent(svg)));
+    return `data:image/svg+xml;base64,${base64}`;
+}
+/**
+ * Get logo as base64 string
+ */
+export function getLogoBase64(options = {}) {
+    const { variant = 'current' } = options;
+    let svg = '';
+    switch (variant) {
+        case 'mono':
+            svg = getMonoSVG();
+            break;
+        case 'white':
+            svg = getWhiteSVG();
+            break;
+        case 'light':
+            svg = getLightSVG();
+            break;
+        case 'current':
+            svg = getMenuBarSVG();
+            break;
+        case 'favicon':
+            svg = getFaviconSVG();
+            break;
+        case 'color':
+            svg = getColorSVG();
+            break;
+        default:
+            svg = getMenuBarSVG();
+    }
+    return btoa(unescape(encodeURIComponent(svg)));
+}
+/**
+ * Get logo in requested format
+ */
+export function getLogo(options = {}) {
+    const { variant = 'current', format = 'svg' } = options;
+    if (variant === 'animated') {
+        if (format === 'dataUrl')
+            return getAnimatedDataUrl();
+        if (format === 'base64')
+            return btoa(unescape(encodeURIComponent(getAnimatedSVG())));
+        return getAnimatedSVG();
+    }
+    switch (format) {
+        case 'dataUrl':
+            return getLogoDataUrl({ variant });
+        case 'base64':
+            return getLogoBase64({ variant });
+        default:
+            switch (variant) {
+                case 'mono':
+                    return getMonoSVG();
+                case 'white':
+                    return getWhiteSVG();
+                case 'light':
+                    return getLightSVG();
+                case 'current':
+                    return getMenuBarSVG();
+                case 'favicon':
+                    return getFaviconSVG();
+                case 'color':
+                    return getColorSVG();
+                default:
+                    return getMenuBarSVG();
+            }
+    }
+}
+// Export pre-generated versions for convenience
+export const hanzoLogo = getColorSVG();
+export const hanzoLogoMono = getMonoSVG();
+export const hanzoLogoWhite = getWhiteSVG();
+export const hanzoFavicon = getFaviconSVG();
+export const hanzoLogoDataUrl = getLogoDataUrl();
+export const hanzoLogoMonoDataUrl = getLogoDataUrl({ variant: 'mono' });
+export const hanzoLogoWhiteDataUrl = getLogoDataUrl({ variant: 'white' });
+export const hanzoFaviconDataUrl = getLogoDataUrl({ variant: 'favicon' });
+/**
+ * Interactive animated mark — load (assemble) → hover (one graceful turn,
+ * returns to rest) → press (squash). Pure CSS, no JS. Inline this SVG into
+ * the DOM (not <img>) for the hover/press interactions to fire.
+ */
+export function getAnimatedSVG() {
+    return ANIMATED_SVG;
+}
+/** Animated mark as a data: URL (load animation runs even in <img>). */
+export function getAnimatedDataUrl() {
+    return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(ANIMATED_SVG)));
+}
+export const hanzoLogoAnimated = ANIMATED_SVG;
+export const hanzoLogoAnimatedDataUrl = getAnimatedDataUrl();

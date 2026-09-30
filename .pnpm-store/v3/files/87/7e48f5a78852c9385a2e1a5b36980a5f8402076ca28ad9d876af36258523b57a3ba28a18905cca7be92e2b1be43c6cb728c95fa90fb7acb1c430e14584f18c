@@ -1,0 +1,16 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Text ranks" subtitle="Four ranks of white, plus helper grey" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Text ranks</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div style="display:flex;flex-direction:column;gap:7px">
+  <div class="row"><span style="color:var(--text-primary);font-size:15px;font-weight:600">Primary — headings and key copy</span><span class="meta">--text-primary · white</span></div>
+  <div class="row"><span style="color:var(--text-secondary);font-size:15px">Secondary — body copy</span><span class="meta">--text-secondary · white/80</span></div>
+  <div class="row"><span style="color:var(--text-tertiary);font-size:15px">Tertiary — captions</span><span class="meta">--text-tertiary · white/60</span></div>
+  <div class="row"><span style="color:var(--text-helper);font-size:15px">Helper — labels, hints, meta</span><span class="meta">--text-helper · #888888</span></div>
+  <div class="row"><span style="color:var(--text-disabled);font-size:15px">Disabled</span><span class="meta">--text-disabled · white/30</span></div>
+</div></body></html>

@@ -1,0 +1,49 @@
+import { LeaderboardEntry } from './client';
+export type LeaderboardMode = 'load-more' | 'paginate';
+export interface WaitlistLeaderboardProps {
+    /** Slug or id of the waitlist. */
+    waitlist: string;
+    /** Base server URL. Defaults to current origin. */
+    baseUrl?: string;
+    /** Entries per page. Default 25. */
+    pageSize?: number;
+    /** Theme override ('auto' | 'light' | 'dark'). */
+    theme?: 'auto' | 'light' | 'dark';
+    /**
+     * Highlight the row matching this email (typically the current viewer).
+     * The widget's `Waitlist` component stores the joined email in
+     * localStorage under `hanzo-waitlist:<slug>` — read it there to wire up.
+     */
+    highlightEmail?: string;
+    /**
+     * `'load-more'` (default) — single button at the bottom that appends the
+     * next chunk; no page counters or arrows.
+     * `'paginate'` — classic next/prev with a page count.
+     */
+    mode?: LeaderboardMode;
+    /** Override the load-more button text. */
+    loadMoreLabel?: string;
+    /** Text shown after the last page in load-more mode. Set to '' to hide. */
+    exhaustedLabel?: string;
+    /**
+     * Animated count-up on the total ("1,205 on the list"). Pass `false`
+     * to disable, or an object to tune the duration. Default true / 1200ms.
+     */
+    animateTotal?: boolean | {
+        duration?: number;
+    };
+    /** Optional className on the root container. */
+    className?: string;
+    style?: React.CSSProperties;
+    /**
+     * Custom renderer for the "email" cell. Default shows the masked email.
+     * Use this to render avatars, social links, etc.
+     */
+    renderEmail?: (entry: LeaderboardEntry) => React.ReactNode;
+}
+/**
+ * Paginated leaderboard view of a waitlist. The widget itself stays per-user
+ * (Join + your-rank); this is the public list view. Same monochrome surface,
+ * same CSS variables, same brand-neutral design — drop in next to <Waitlist>.
+ */
+export declare function WaitlistLeaderboard(props: WaitlistLeaderboardProps): import("react").JSX.Element;

@@ -1,0 +1,44 @@
+<!-- @dsCard group="Components" viewport="700x320" name="Overlays" subtitle="Dialog, DropdownMenu, Sheet, Toaster" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Overlay components</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.462.0/dist/umd/lucide.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;background:#000;font-family:var(--font-sans)}.row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.col{display:flex;flex-direction:column;gap:14px}.lbl{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--neutral-600)}</style></head><body><div id="root"></div>
+<script type="text/babel">
+const { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DropdownMenu, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuLabel, Sheet, SheetHeader, SheetTitle, SheetContent, Toaster, toast, Button, Input, Icon, Checkbox } = window.HanzoDesignSystem_0a9445;
+function Demo(){
+  const [dlg,setDlg] = React.useState(false);
+  const [sheet,setSheet] = React.useState(false);
+  return (<div className="col">
+    <div className="row">
+      <Button onClick={()=>setDlg(true)} variant="outline">Open dialog</Button>
+      <Button onClick={()=>setSheet(true)} variant="outline">Open sheet</Button>
+      <Button onClick={()=>toast.success('Agent Atlas started')} variant="outline">Fire toast</Button>
+      <DropdownMenu align="left" trigger={<Button pill>Try Hanzo <Icon name="ChevronDown" /></Button>}>
+        <DropdownMenuLabel>Surfaces</DropdownMenuLabel>
+        <DropdownMenuItem desc="Chat with frontier models">Hanzo Chat</DropdownMenuItem>
+        <DropdownMenuItem desc="One model to command them all">Enso</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem desc="Build and ship AI apps">Hanzo App</DropdownMenuItem>
+      </DropdownMenu>
+    </div>
+    <div style={{fontSize:'var(--text-sm)',color:'var(--text-helper)',maxWidth:'60ch'}}>Escape or a scrim click closes any overlay. Panels: 16px radius, hairline border, blurred near-black fill, shadow-2xl.</div>
+    <Dialog open={dlg} onOpenChange={setDlg}>
+      <DialogContent width={420}>
+        <DialogHeader><DialogTitle>Add credits</DialogTitle><DialogDescription>Credits never expire and apply to every Hanzo service.</DialogDescription></DialogHeader>
+        <Input defaultValue="$50.00" />
+        <DialogFooter><Button variant="ghost" onClick={()=>setDlg(false)}>Cancel</Button><Button onClick={()=>{setDlg(false);toast.success('Credits added')}}>Add credits</Button></DialogFooter>
+      </DialogContent>
+    </Dialog>
+    <Sheet open={sheet} onOpenChange={setSheet} width={320}>
+      <SheetHeader><SheetTitle>Filters</SheetTitle></SheetHeader>
+      <SheetContent><div className="col"><Checkbox label="Open source" defaultChecked /><Checkbox label="Self-hostable" /><Checkbox label="Enterprise ready" /></div></SheetContent>
+    </Sheet>
+    <Toaster />
+  </div>)
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script></body></html>

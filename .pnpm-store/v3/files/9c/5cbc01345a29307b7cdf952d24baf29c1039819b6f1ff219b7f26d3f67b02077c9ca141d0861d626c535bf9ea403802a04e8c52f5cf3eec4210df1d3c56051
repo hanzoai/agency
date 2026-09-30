@@ -1,0 +1,14 @@
+<!-- @dsCard group="Brand" viewport="700x160" name="Motion" subtitle="Fade + small rise. No springs, no bounce, no parallax" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Motion</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+.dm{animation:hanzo-slide-up-fade 1.6s var(--ease-out) infinite}.dg{animation:hanzo-glow 9s var(--ease-in-out) infinite}</style></head><body>
+<div style="display:flex;gap:16px;align-items:stretch">
+  <div style="flex:1;padding:14px;background:var(--surface-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden"><div class="dm" style="font-size:12px;color:var(--neutral-200)">entry: opacity 0→1, y 20→0</div><div class="n" style="margin-top:10px">500ms · ease-out · 60ms stagger</div></div>
+  <div style="flex:1;padding:14px;background:var(--surface-card);border:1px solid var(--border);border-radius:var(--radius-lg);position:relative;overflow:hidden"><div class="dg" style="position:absolute;inset:-40px;background:var(--glow-hero);filter:blur(50px)"></div><div style="position:relative;font-size:12px;color:var(--neutral-200)">ambient glow breathe</div><div class="n" style="position:relative;margin-top:10px">9s · scale 1→1.08</div></div>
+  <div style="flex:1;padding:14px;background:var(--surface-card);border:1px solid var(--border);border-radius:var(--radius-lg)"><div style="font-size:12px;color:var(--neutral-200)">hover: colour only</div><div class="n" style="margin-top:10px">150ms · transition-colors</div></div>
+</div></body></html>

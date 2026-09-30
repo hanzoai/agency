@@ -1,0 +1,14 @@
+<!-- @dsCard group="Type" viewport="700x150" name="Eyebrow & label" subtitle="Uppercase category labels and sidebar section heads" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Eyebrow</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div style="display:flex;flex-direction:column;gap:14px">
+  <div class="row"><span style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-helper)">Enso → hanzo.app → Hanzo Cloud</span><span class="meta">10px · 600 · tracking-widest</span></div>
+  <div class="row"><span style="font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--neutral-500)">Workspace</span><span class="meta">sidebar section · 12px · 500</span></div>
+  <div class="row"><span style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:99px;border:1px solid var(--border);background:var(--white-05);font-size:14px;color:var(--neutral-200)">Introducing Enso · Hanzo Cloud</span><span class="meta">EyebrowBadge</span></div>
+</div></body></html>

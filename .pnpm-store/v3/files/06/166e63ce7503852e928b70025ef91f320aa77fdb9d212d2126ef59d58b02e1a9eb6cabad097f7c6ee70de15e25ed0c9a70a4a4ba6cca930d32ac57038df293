@@ -1,0 +1,31 @@
+import { ActivityEvent, ActivityType } from './client';
+export type ActivityFormatter = (evt: ActivityEvent, ctx: {
+    relative: string;
+}) => React.ReactNode;
+export interface WaitlistActivityProps {
+    /** Slug or id of the waitlist. */
+    waitlist: string;
+    /** Base server URL. */
+    baseUrl?: string;
+    /** Items to show. Default 8. */
+    limit?: number;
+    /** Restrict to specific event types. Default: all. */
+    types?: ActivityType[];
+    /** Poll interval in ms. 0 = no polling (one-shot). Default 12000. */
+    pollInterval?: number;
+    /** Theme override. */
+    theme?: 'auto' | 'light' | 'dark';
+    /** Override each row's content. Receives event + computed relative time. */
+    formatEvent?: ActivityFormatter;
+    /** Custom relative-time formatter. */
+    formatRelative?: (deltaMs: number) => string;
+    /** Show heading. Default true. */
+    showHeading?: boolean;
+    /** Heading text. Default "Recent activity". */
+    heading?: string;
+    /** Empty-state message. */
+    emptyLabel?: string;
+    className?: string;
+    style?: React.CSSProperties;
+}
+export declare function WaitlistActivity(props: WaitlistActivityProps): import("react").JSX.Element;

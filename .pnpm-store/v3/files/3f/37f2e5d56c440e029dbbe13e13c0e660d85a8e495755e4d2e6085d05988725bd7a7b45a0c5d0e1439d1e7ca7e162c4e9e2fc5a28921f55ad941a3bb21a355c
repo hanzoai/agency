@@ -1,0 +1,39 @@
+/* Motion is restrained: fade + small rise, CSS-only hovers, one breathing glow.
+   No springs, no bounce, no parallax, no autoplay carousels. */
+:root{
+  --duration-fast:150ms; /* @kind other */   /* dropdown / panel open        */
+  --duration-base:300ms; /* @kind other */   /* slide-up-fade                */
+  --duration-slow:400ms; /* @kind other */   /* hero element entry           */
+  --duration-slower:500ms; /* @kind other */ /* section entry                */
+  --duration-glow:9s; /* @kind other */      /* ambient radial breathe       */
+  --duration-press:90ms; /* @kind other */   /* the press-down on :active     */
+  --ease-out:cubic-bezier(0,0,0.2,1); /* @kind other */
+  --ease-in-out:cubic-bezier(0.4,0,0.2,1); /* @kind other */
+  /* The entrance curve. Nearly all of the distance is covered in the first
+     third and it settles without overshooting, so a panel arrives DECIDED
+     rather than drifting in — the difference between 300ms that feels
+     immediate and 300ms that feels slow. Use it for anything that appears
+     (menus, dialogs, sheets, toasts); --ease-out stays the curve for a state
+     change on something already on screen. It is not a spring: this system has
+     no bounce anywhere. */
+  --ease-emphasis:cubic-bezier(0.16,1,0.3,1); /* @kind other */
+  --stagger:60ms; /* @kind other */          /* per-element delay in a group */
+  --entry-rise:16px;       /* hero y-offset                */
+  --entry-rise-lg:24px;    /* card y-offset                */
+}
+
+@keyframes hanzo-fade-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes hanzo-fade-down{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes hanzo-slide-up-fade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+/* The entrance for anything that appears OVER the page — dialog, sheet, command
+   palette. It arrives from very slightly small and very slightly low, which is
+   what reads as "came forward" rather than "was toggled on". 3% and 8px: any
+   more and it is an animation you notice, which is the failure mode. Pair it
+   with --ease-emphasis. */
+@keyframes hanzo-zoom-in{from{opacity:0;transform:scale(.97) translateY(8px)}to{opacity:1;transform:none}}
+@keyframes hanzo-glow{0%,100%{transform:scale(1);opacity:.45}50%{transform:scale(1.08);opacity:.65}}
+@keyframes hanzo-pulse-dot{0%,100%{opacity:1}50%{opacity:.35}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}

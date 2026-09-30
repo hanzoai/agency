@@ -1,0 +1,115 @@
+import { getFirstTouch, getCohort } from './storage';
+import type { AnalyticsConfig, CaptureErrorOptions, Cohort, WireEvent } from './types';
+import { VERSION } from './version';
+export { VERSION };
+export declare class Analytics {
+    private cfg;
+    private transport;
+    private queue;
+    private timer;
+    private personId?;
+    private attribution;
+    private cohort;
+    private started;
+    /** The view pageview() last counted — path + location. */
+    private counted?;
+    /** Parsed error-plane DSN, or null when the plane is inert. */
+    private dsn;
+    /** Guards against an error thrown *inside* the error path re-entering it. */
+    private reentrant;
+    constructor(config: AnalyticsConfig);
+    /** adopt gives this client a credential it does not have. The key belongs to
+     *  the stream, not to whichever caller happened to ask for the handle first,
+     *  so a later caller carrying one hands it over. The error plane derives from
+     *  the key, so it comes up here too when it was inert for want of one.
+     *  Present fields are never overwritten: the first caller's key stays. */
+    adopt(config: AnalyticsConfig): void;
+    /** errorPlaneEnabled reports whether captured exceptions can actually reach the
+     *  error host. False means a DSN was never configured — the documented
+     *  fail-safe. Exposed so an app (or a test) can assert its wiring instead of
+     *  discovering months later that nothing was ever reported. */
+    get errorPlaneEnabled(): boolean;
+    /** errorIngestUrl is the fully-derived envelope endpoint, or undefined when the
+     *  plane is inert. Diagnostics only. */
+    get errorIngestUrl(): string | undefined;
+    /** init is idempotent and browser-only for its side effects: capture first-touch
+     *  attribution, hydrate cohort, register the unload flush, and (unless opted out)
+     *  auto-capture unhandled errors. Safe to call from a React effect on every
+     *  render. */
+    init(): void;
+    /** identify binds the current visitor to a stable person id (post-login). */
+    identify(personId: string, traits?: Record<string, unknown>): void;
+    /** group associates the visitor with an org/team (analytics grouping, not the
+     *  server tenant — the server still derives tenant from the session). */
+    group(groupId: string, traits?: Record<string, unknown>): void;
+    /** pageview records a $pageview for the current (or given) location, once per
+     *  view. A view is the path plus the full location, so a query or hash change
+     *  is a new one and a repeat call for the same place is not. */
+    pageview(path?: string, properties?: Record<string, unknown>): void;
+    /** capture records a named product event with optional properties. Commerce
+     *  fields (productId/quantity/revenue/currency) may be passed for order events. */
+    capture(event: string, properties?: Record<string, unknown>, commerce?: Pick<WireEvent, 'productId' | 'quantity' | 'revenue' | 'currency'>): void;
+    /** captureError reports a caught error, an unhandled rejection, a React render
+     *  error, or a manual report to BOTH planes, from one call:
+     *
+     *    - the ERROR PLANE — a real Sentry envelope to the DSN host. This is the one
+     *      that produces an issue in sentry.hanzo.ai (grouping, stack frames, AST).
+     *      Inert when no DSN is configured.
+     *    - the EVENT STREAM — a `type:'error'` row in the cloud event warehouse, so
+     *      an error stays correlated with the session's pageviews for product
+     *      analysis (readable via GET /v1/errors).
+     *
+     *  Both carry the SAME session and subject id, so an error and the pageview
+     *  before it join up. Never throws back into the app; errors are higher-signal
+     *  than pageviews, so both planes flush promptly (a crash may unload the page
+     *  moments later). */
+    captureError(err: unknown, context?: CaptureErrorOptions): void;
+    /** setCohort persists cohort dimensions (e.g. signupWeek at signup) so they ride
+     *  every subsequent event. */
+    setCohort(patch: Cohort): void;
+    /** flush drains the buffer to the server as ONE batch through the ONE ingest
+     *  endpoint POST /v1/event, body { batch: [Event…] }. beacon=true selects the
+     *  unload-safe transport. Auth is orthogonal to the wire:
+     *
+     *    • publishable key set → rides ?ingest_key=pk-… on both sends, keeping each
+     *      a CORS-simple request that any origin may send.
+     *    • else a bearer JWT rides Authorization (fetch only — sendBeacon cannot
+     *      carry a header, so token apps fall back to keepalive fetch on unload).
+     *    • else a cookie app rides same-origin credentials (beacon carries the
+     *      cookie fine).
+     */
+    flush(beacon?: boolean): void;
+    /** sendError frames one exception as a Sentry envelope and posts it to the DSN's
+     *  ingest URL. The DSN's own key rides ?sentry_key= (the credential channel the
+     *  server trusts, and the only one a headerless beacon can carry), so NO bearer
+     *  or publishable key is attached here — the two planes authenticate
+     *  independently. Errors are sent one envelope per event, immediately: batching
+     *  a crash report is how you lose it. */
+    private sendError;
+    /** errorIdentity is the SAME identity the event stream stamps — the OIDC subject
+     *  once identify() has run, else the anon id. Never email/PII. */
+    private errorIdentity;
+    private enqueue;
+    private build;
+    private schedule;
+    private clearTimer;
+}
+/** resetClients drops the page's clients, so the next `createAnalytics` for a
+ *  stream builds a fresh one.
+ *
+ *  A real page loads once and never needs this. A TEST RUNNER is what it exists
+ *  for: one document, many mounts, each meant to be its own page. The second one
+ *  gets a client that already counted this location, so its pageview is
+ *  correctly suppressed and the suite reads it as "nothing was emitted".
+ *
+ *  It is exported so a suite calls this instead of reaching for the slot itself.
+ *  A consumer that deletes the registry from its own code path takes the
+ *  guarantee with it: `<Provider/>` unmount/remount is not a new page, and the
+ *  fresh client it would get counts the same view again. */
+export declare function resetClients(): void;
+/** createAnalytics returns the client for a stream, building it on first ask.
+ *  This is the ONE way to get a client: `new Analytics` bypasses the registry
+ *  and is for tests and for a deliberately separate instance. */
+export declare function createAnalytics(config: AnalyticsConfig): Analytics;
+export { getCohort, getFirstTouch };
+//# sourceMappingURL=core.d.ts.map

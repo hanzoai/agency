@@ -1,0 +1,50 @@
+/* Grid — one definition of the field every Hanzo surface lays out on.
+
+   Derived, not invented. Across hanzo.ai and hanzo.app the grid written by hand
+   is overwhelmingly ONE grid: `grid-cols-1 md:grid-cols-2 lg:grid-cols-3` with a
+   1.5rem gutter (240 / 197 / 127 / 185 occurrences on hanzo.ai alone, and the
+   same shape leads on app). 1, 2, 3 and 4 columns account for 97% of every
+   grid-cols- in both repos, and all four divide 12 cleanly — so 12 is the base
+   the spans are cut from, and the long tail (5, 6, 7, 8, 12) still lands on it.
+
+   Containers, gutters and section rhythm are NOT restated here: spacing.css
+   already owns --container-max / --container-prose / --container-wide /
+   --gutter* / --section-y*, and a grid that redeclared them would be a second
+   answer to a settled question. This file adds only what a grid knows that
+   spacing does not — how many columns, how far apart, and where it reflows. */
+:root{
+  /* The base. Spans are cut from twelve because 1/2/3/4/6 all divide it. */
+  --grid-columns:12;
+
+  /* Gutter. --grid-gap is the measured card-grid default (gap-6 leads hanzo.ai
+     at 185 uses); tight and loose are the neighbouring steps that cover app's
+     gap-4 (45) and the wide editorial grids (gap-8, 75). All three reference the
+     space ramp — the grid does not get its own private set of distances. */
+  --grid-gap:var(--space-6);
+  --grid-gap-tight:var(--space-4);
+  --grid-gap-loose:var(--space-8);
+
+  /* Reflow points, byte-identical to the Tailwind v4 defaults these surfaces
+     already compile against. Same NAMES and same VALUES on purpose: the utility
+     layer and anything reading tokens then resolve one value, not two that agree
+     by luck. md and lg carry ~85% of every breakpoint prefix in use; xl is 44
+     occurrences across both repos and 2xl is 1. */
+  --breakpoint-sm:40rem;
+  --breakpoint-md:48rem;
+  --breakpoint-lg:64rem;
+  --breakpoint-xl:80rem;
+  --breakpoint-2xl:96rem;
+
+  /* Intrinsic card grids: state ONE track minimum instead of three column counts
+     at three breakpoints. `repeat(auto-fit, minmax(var(--grid-card-min), 1fr))`
+     reflows 1 -> 2 -> 3 at the same widths the explicit recipe does, and it does
+     it from the space available rather than from the viewport — so a card grid
+     inside a sidebar behaves correctly, which the breakpoint version cannot.
+
+     18rem is chosen, not rounded to: inside --container-max less --gutter-lg on
+     both sides, lg (64rem) leaves ~60rem, where 3 tracks need 3x18 + 2x1.5 =
+     57rem and 4 would need 76.5rem; md (48rem) leaves ~44rem, where 2 tracks
+     need 37.5rem and 3 would need 57rem. The measured 1/2/3 ladder falls out. */
+  --grid-card-min:18rem;
+  --grid-card-min-wide:24rem;
+}

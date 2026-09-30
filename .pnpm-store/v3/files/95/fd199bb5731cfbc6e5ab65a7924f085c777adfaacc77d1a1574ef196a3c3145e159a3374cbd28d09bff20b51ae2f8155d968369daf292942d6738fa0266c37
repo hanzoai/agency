@@ -1,0 +1,24 @@
+import { type FunnelId } from './funnels';
+export interface GoalDef {
+    /** Human label shown in Insights. */
+    label: string;
+    /** The event whose occurrence counts as the goal conversion. */
+    event: string;
+    /** The funnel leading to the goal — an id into FUNNELS (see funnels.ts). */
+    funnelId?: FunnelId;
+    /** The ordered event names of `funnelId`, derived — never hand-written. */
+    funnel?: string[];
+    /** Optional property equality filter that qualifies the conversion. */
+    filter?: {
+        property: string;
+        equals: string;
+    };
+}
+export declare const GOALS: Record<'signup' | 'sale' | 'upgradeIntent' | 'activation', GoalDef>;
+export interface CohortDef {
+    /** The hanzo.events column the cohort dimension maps to. */
+    field: string;
+    label: string;
+}
+export declare const COHORTS: Record<'signupWeek' | 'channel' | 'refCode', CohortDef>;
+//# sourceMappingURL=goals.d.ts.map

@@ -1,0 +1,11 @@
+declare class HanzoWaitlistElement extends HTMLElement {
+    private root;
+    private logoHtml;
+    static get observedAttributes(): string[];
+    connectedCallback(): void;
+    attributeChangedCallback(): void;
+    disconnectedCallback(): void;
+    private resolveLogo;
+    private render;
+}
+export default HanzoWaitlistElement;

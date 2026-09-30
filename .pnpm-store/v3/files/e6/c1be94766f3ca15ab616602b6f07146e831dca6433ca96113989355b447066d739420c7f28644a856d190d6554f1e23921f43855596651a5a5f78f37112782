@@ -1,0 +1,1224 @@
+import { eventsOf, EVENTS, PAGEVIEW, EXCEPTION } from '@hanzo/events';
+export { EVENTS, EXCEPTION, FUNNELS, PAGEVIEW, PRODUCTS, eventsOf } from '@hanzo/events';
+
+// src/attribution.ts
+var SOCIAL_HOSTS = [
+  "facebook.",
+  "instagram.",
+  "twitter.",
+  "x.com",
+  "t.co",
+  "linkedin.",
+  "reddit.",
+  "youtube.",
+  "tiktok.",
+  "pinterest.",
+  "news.ycombinator.com"
+];
+var SEARCH_HOSTS = ["google.", "bing.", "duckduckgo.", "yahoo.", "baidu.", "ecosia."];
+function parseAttribution(search, referrer) {
+  const q = new URLSearchParams(search || "");
+  const get = (k) => {
+    const v = q.get(k);
+    return v ? v.trim() : void 0;
+  };
+  const a = {
+    utm: {
+      source: get("utm_source"),
+      medium: get("utm_medium"),
+      campaign: get("utm_campaign"),
+      term: get("utm_term"),
+      content: get("utm_content")
+    },
+    referrer: referrer ? referrer.trim() : void 0,
+    refCode: get("ref") || get("refCode") || get("ref_code") || void 0
+  };
+  a.channel = deriveChannel(a);
+  return a;
+}
+function deriveChannel(a) {
+  const medium = (a.utm.medium || "").toLowerCase();
+  if (/(cpc|ppc|paid|paidsearch|display|cpm)/.test(medium)) return "paid";
+  if (a.utm.source || a.utm.campaign) return "campaign";
+  if (a.refCode) return "referral";
+  const host = hostOf(a.referrer);
+  if (!host) return "direct";
+  if (SOCIAL_HOSTS.some((h) => host.includes(h))) return "social";
+  if (SEARCH_HOSTS.some((h) => host.includes(h))) return "organic";
+  return "referral";
+}
+function hostOf(raw) {
+  if (!raw) return "";
+  let s = raw.trim();
+  const scheme = s.indexOf("://");
+  if (scheme >= 0) s = s.slice(scheme + 3);
+  const cut = s.search(/[/?#]/);
+  if (cut >= 0) s = s.slice(0, cut);
+  const at = s.indexOf("@");
+  if (at >= 0) s = s.slice(at + 1);
+  const colon = s.indexOf(":");
+  if (colon >= 0) s = s.slice(0, colon);
+  return s.toLowerCase().trim();
+}
+function hasAttribution(a) {
+  return Boolean(
+    a.utm.source || a.utm.medium || a.utm.campaign || a.utm.term || a.utm.content || a.refCode || a.referrer && hostOf(a.referrer)
+  );
+}
+function isoWeek(d) {
+  const date = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+  const day = date.getUTCDay() || 7;
+  date.setUTCDate(date.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  const week = Math.ceil(((date.getTime() - yearStart.getTime()) / 864e5 + 1) / 7);
+  return `${date.getUTCFullYear()}-W${String(week).padStart(2, "0")}`;
+}
+
+// src/dsn.ts
+var PRODUCT_PROJECT = Object.freeze({
+  console: "019fa40b-94ae-7f1d-8f7b-e92f123fad42",
+  // console.hanzo.ai
+  app: "019f9b1e-57eb-7171-9d92-72c0b85e4b4b",
+  // hanzo.app
+  site: "019f9b1e-5785-7359-ad0b-f75db8e58c99"
+  // hanzo.ai (marketing; product `site`)
+});
+function dsnForProduct(product, key) {
+  if (!product || !key) return void 0;
+  const projectId = PRODUCT_PROJECT[product];
+  if (!projectId) return void 0;
+  return `https://${key}@api.hanzo.ai/v1/event/${projectId}`;
+}
+
+// src/org.ts
+var ORG_DOMAIN = Object.freeze({
+  // A brand's domains are not a pattern — `hanzoskills.com` is Hanzo's and does
+  // not end in `hanzo.ai`, while `hanzo.works` is a registrable domain of its own
+  // rather than a subdomain of anything here. Each is stated because each is a
+  // separate fact, which is the whole reason this is a table.
+  hanzo: Object.freeze([
+    "hanzo.ai",
+    "hanzo.app",
+    "hanzo.bot",
+    "hanzo.chat",
+    "hanzo.codes",
+    "hanzo.id",
+    "hanzo.sh",
+    "hanzo.team",
+    "hanzo.ventures",
+    "hanzo.works",
+    "hanzoskills.com"
+  ]),
+  lux: Object.freeze([
+    "lux.network",
+    "lux.exchange",
+    "lux.market",
+    "lux.finance",
+    "lux.financial",
+    "lux.credit",
+    "lux.fund",
+    "lux.id"
+  ]),
+  zoo: Object.freeze(["zoo.ngo", "zoo.network", "zoolabs.id", "zoolabs.io"])
+});
+var ORG_KEY = Object.freeze({
+  hanzo: "pk-rM_CdaF2MQckGCrla113SrR1oH4zvqN8xh2I95Z9tY8",
+  lux: "pk-gUZp6ZVfhJzSwK-rb4oLbVkpCnMBx5uSCpxf_5yEhQk",
+  zoo: "pk-3TKpKnERV9AQSsBUERWkZejC1O1mUxc1jRzsP3MPbs4"
+});
+var PUBLISHABLE = "pk-";
+var normalize = (host) => host.trim().toLowerCase().replace(/\.$/, "").split(":")[0] ?? "";
+function orgOf(host) {
+  const h = normalize(host);
+  if (!h) return void 0;
+  let best;
+  let bestLen = 0;
+  for (const [org, domains] of Object.entries(ORG_DOMAIN)) {
+    for (const d of domains) {
+      if ((h === d || h.endsWith(`.${d}`)) && d.length > bestLen) {
+        best = org;
+        bestLen = d.length;
+      }
+    }
+  }
+  return best;
+}
+function keyFor(host, keyring = ORG_KEY) {
+  const org = orgOf(host);
+  if (!org) return void 0;
+  const key = keyring[org];
+  if (typeof key !== "string") return void 0;
+  const trimmed = key.trim();
+  return trimmed.startsWith(PUBLISHABLE) ? trimmed : void 0;
+}
+function keyForPage(keyring = ORG_KEY) {
+  if (typeof location === "undefined") return void 0;
+  return keyFor(location.hostname, keyring);
+}
+
+// src/scrub.ts
+var REDACTED = "[redacted]";
+var EMAIL_MARK = "[email]";
+var IP_MARK = "[ip]";
+var SECRET_PATTERNS = [
+  /-----BEGIN[ A-Z]*PRIVATE KEY-----[\s\S]*?-----END[ A-Z]*PRIVATE KEY-----/g,
+  /eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{6,}\.[A-Za-z0-9_-]{6,}/g,
+  // JWT
+  /\bbearer\s+[A-Za-z0-9._~+/-]{12,}=*/gi,
+  // bearer token
+  /\b(?:sk|pk|rk)-[A-Za-z0-9]{2,}-?[A-Za-z0-9]{12,}/g,
+  // openai-style
+  /\b(?:sk|pk)_(?:live|test)_[A-Za-z0-9]{16,}/g,
+  // stripe
+  /\bhk-[A-Za-z0-9]{16,}/g,
+  // hanzo key
+  /\bAKIA[0-9A-Z]{16}\b/g,
+  // aws access key id
+  /\bASIA[0-9A-Z]{16}\b/g,
+  // aws sts key id
+  /\bAIza[0-9A-Za-z_-]{20,}/g,
+  // google api key
+  /\bgh[posru]_[A-Za-z0-9]{20,}/g,
+  // github token
+  /\bxox[baprs]-[A-Za-z0-9-]{10,}/g,
+  // slack token
+  // Creds in a URL/DSN. The repetition is BOUNDED on purpose: the unbounded form
+  // ([^\s:@/]+:[^\s@/]+@) backtracks quadratically on colon-rich text with no
+  // terminating '@' — an HTML error page pasted into an error message took 4.9s
+  // at 32KB and >60s at 128KB, freezing the main thread from inside captureError.
+  // Real userinfo is far below these caps, so bounding costs nothing.
+  /[a-zA-Z][a-zA-Z0-9+.-]{0,32}:\/\/[^\s:@/]{1,256}:[^\s@/]{1,256}@/g
+];
+var RE_PAN = /\b(?:\d[ -]?){13,19}\b/g;
+function luhn(digits) {
+  let sum = 0;
+  let alt = false;
+  for (let i = digits.length - 1; i >= 0; i--) {
+    let d = digits.charCodeAt(i) - 48;
+    if (alt) {
+      d *= 2;
+      if (d > 9) d -= 9;
+    }
+    sum += d;
+    alt = !alt;
+  }
+  return sum % 10 === 0;
+}
+function redactPAN(s) {
+  return s.replace(RE_PAN, (m) => {
+    const digits = m.replace(/[ -]/g, "");
+    if (digits.length < 13 || digits.length > 19) return m;
+    return luhn(digits) ? REDACTED : m;
+  });
+}
+var RE_EMAIL = /[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9.-]{1,255}\.[A-Za-z]{2,24}/g;
+var RE_IPV4 = /\b(?:\d{1,3}\.){3}\d{1,3}\b/g;
+var RE_IPV6 = /\b(?:[0-9A-Fa-f]{1,4}:){2,7}[0-9A-Fa-f]{1,4}\b/g;
+var CREDENTIAL_PARAMS = [
+  "code",
+  "state",
+  "token",
+  "access_token",
+  "id_token",
+  "refresh_token",
+  "auth",
+  "authorization",
+  "secret",
+  "client_secret",
+  "password",
+  "passwd",
+  "pwd",
+  "api_key",
+  "apikey",
+  "key",
+  "session",
+  "session_id",
+  "sid",
+  "sig",
+  "signature",
+  "nonce",
+  "otp",
+  "invite",
+  "invitation",
+  "reset_token",
+  "confirmation_token",
+  "magic",
+  "ticket",
+  "assertion"
+];
+var RE_CREDENTIAL_PARAM = new RegExp(
+  "([?&#;](?:" + CREDENTIAL_PARAMS.join("|") + ")=)[^&#;\\s]{1,4096}",
+  "gi"
+);
+function redactCredentialParams(s) {
+  return s.replace(RE_CREDENTIAL_PARAM, (_m, prefix) => prefix + REDACTED);
+}
+function redactSecrets(s) {
+  s = redactCredentialParams(s);
+  for (const re of SECRET_PATTERNS) s = s.replace(re, REDACTED);
+  return redactPAN(s);
+}
+function scrubPII(s) {
+  s = s.replace(RE_EMAIL, EMAIL_MARK);
+  s = s.replace(RE_IPV6, IP_MARK);
+  s = s.replace(RE_IPV4, IP_MARK);
+  return s;
+}
+var MAX_SCRUB_LEN = 8192;
+function truncate(s, max = MAX_SCRUB_LEN) {
+  return s.length > max ? s.slice(0, max) + "\u2026 [truncated]" : s;
+}
+function scrubText(s, capturePII = false) {
+  if (!s) return s ?? "";
+  s = truncate(s);
+  s = redactSecrets(s);
+  if (!capturePII) s = scrubPII(s);
+  return s;
+}
+
+// src/anon.js
+var HZ_ANON_KEY = "iam-anon-id";
+var HZ_ANON_ADOPT = ["hz_anon_id", "hz_id"];
+var HZ_ANON_DOMAIN = "hanzo.ai";
+var HZ_ANON_MAX_AGE = 2 * 365 * 24 * 60 * 60;
+var hzAnonMemo;
+function hzUuidv7(now) {
+  var b = new Uint8Array(16);
+  var i;
+  var c = typeof crypto !== "undefined" ? crypto : void 0;
+  if (c && typeof c.getRandomValues === "function") c.getRandomValues(b);
+  else for (i = 0; i < 16; i++) b[i] = Math.random() * 256 | 0;
+  var t = Math.floor(now === void 0 ? Date.now() : now);
+  for (i = 5; i >= 0; i--) {
+    b[i] = t % 256;
+    t = Math.floor(t / 256);
+  }
+  b[6] = 112 | b[6] & 15;
+  b[8] = 128 | b[8] & 63;
+  var h = "";
+  for (i = 0; i < 16; i++) {
+    h += (b[i] + 256).toString(16).slice(1);
+    if (i === 3 || i === 5 || i === 7 || i === 9) h += "-";
+  }
+  return h;
+}
+function hzAnonJar() {
+  try {
+    if (typeof document === "undefined" || typeof document.cookie !== "string") return null;
+    return document;
+  } catch (e) {
+    return null;
+  }
+}
+function hzAnonStore() {
+  try {
+    if (typeof window === "undefined" || !window.localStorage) return null;
+    return window.localStorage;
+  } catch (e) {
+    return null;
+  }
+}
+function hzAnonItem(store, name) {
+  try {
+    return store && store.getItem(name) || "";
+  } catch (e) {
+    return "";
+  }
+}
+function hzAnonCookie(name) {
+  var d = hzAnonJar();
+  if (!d) return "";
+  var parts = d.cookie.split(";");
+  for (var i = 0; i < parts.length; i++) {
+    var eq = parts[i].indexOf("=");
+    if (eq < 0 || parts[i].slice(0, eq).trim() !== name) continue;
+    var v = parts[i].slice(eq + 1).trim();
+    if (!v) continue;
+    try {
+      return decodeURIComponent(v);
+    } catch (e) {
+      return v;
+    }
+  }
+  return "";
+}
+function hzAnonWrite(name, value) {
+  var d = hzAnonJar();
+  if (!d) return;
+  var host = "";
+  var secure = false;
+  try {
+    if (typeof window !== "undefined" && window.location) {
+      host = window.location.hostname || "";
+      secure = window.location.protocol === "https:";
+    }
+  } catch (e) {
+  }
+  var c = name + "=" + encodeURIComponent(value);
+  c += "; Path=/; Max-Age=" + HZ_ANON_MAX_AGE + "; SameSite=Lax";
+  if (("." + host).slice(-(HZ_ANON_DOMAIN.length + 1)) === "." + HZ_ANON_DOMAIN) {
+    c += "; Domain=" + HZ_ANON_DOMAIN;
+  }
+  if (secure) c += "; Secure";
+  try {
+    d.cookie = c;
+  } catch (e) {
+  }
+}
+function hzAnonAdopted(s) {
+  for (var i = 0; i < HZ_ANON_ADOPT.length; i++) {
+    var id = hzAnonCookie(HZ_ANON_ADOPT[i]) || hzAnonItem(s, HZ_ANON_ADOPT[i]);
+    if (id) return id;
+  }
+  return "";
+}
+function hzAnonId() {
+  if (typeof window === "undefined") return "";
+  var s = hzAnonStore();
+  var id = hzAnonCookie(HZ_ANON_KEY) || hzAnonItem(s, HZ_ANON_KEY) || hzAnonAdopted(s) || hzAnonMemo || hzUuidv7();
+  hzAnonMemo = id;
+  hzAnonWrite(HZ_ANON_KEY, id);
+  try {
+    if (s && s.getItem(HZ_ANON_KEY) !== id) s.setItem(HZ_ANON_KEY, id);
+  } catch (e) {
+  }
+  return id;
+}
+
+// src/uid.ts
+function uuidv7Time(id) {
+  return parseInt(id.slice(0, 8) + id.slice(9, 13), 16);
+}
+
+// package.json
+var version = "0.3.41";
+
+// src/version.ts
+var VERSION = version;
+
+// src/sentry.ts
+var MAX_FRAMES = 50;
+var MAX_LINES = 500;
+var MAX_LINE_LEN = 2048;
+var MAX_TAG_LEN = 1024;
+var MAX_TAGS = 50;
+function eventId() {
+  return hzUuidv7().replace(/-/g, "");
+}
+function byteLen(s) {
+  if (typeof TextEncoder !== "undefined") return new TextEncoder().encode(s).length;
+  if (typeof Buffer !== "undefined") return Buffer.byteLength(s, "utf8");
+  return s.length;
+}
+function parseDsn(dsn) {
+  if (!dsn) return null;
+  const m = /^(https?):\/\/([^@]+)@([^/]+)(\/.*)?$/.exec(dsn.trim());
+  if (!m) return null;
+  const scheme = m[1];
+  const publicKey = m[2];
+  const host = m[3];
+  const path = m[4] ?? "";
+  if (!publicKey || !host) return null;
+  const segs = path.split("/").filter(Boolean);
+  const projectId = segs.length > 0 ? segs[segs.length - 1] : "";
+  if (!projectId) return null;
+  const origin = `${scheme}://${host}`;
+  const base = `${origin}/${segs.map(encodeURIComponent).join("/")}`;
+  const ingestUrl = `${base}/envelope/?sentry_key=${encodeURIComponent(publicKey)}`;
+  return { publicKey, origin, projectId, base, ingestUrl };
+}
+var V8_FRAME = /^\s*at\s+(?:(.+?)\s+\()?(?:(.+?):(\d+):(\d+)|([^)]+))\)?\s*$/;
+var MOZ_FRAME = /^\s*(?:(.*?)@)?(.+?):(\d+):(\d+)\s*$/;
+function inApp(file) {
+  if (!file) return false;
+  return !(file.includes("node_modules") || file.startsWith("webpack-internal") || file.startsWith("webpack://") || file.startsWith("chrome-extension://") || file.startsWith("moz-extension://"));
+}
+function framesFromStack(stack) {
+  if (!stack) return [];
+  const lines = stack.split("\n", MAX_LINES);
+  const frames = [];
+  for (const raw of lines) {
+    if (raw.length > MAX_LINE_LEN) continue;
+    const line = raw.trimEnd();
+    if (!line) continue;
+    let fn;
+    let file = "";
+    let lineno = 0;
+    let colno = 0;
+    const v = V8_FRAME.exec(line);
+    if (v) {
+      fn = v[1];
+      if (v[2]) {
+        file = v[2];
+        lineno = Number(v[3]) || 0;
+        colno = Number(v[4]) || 0;
+      } else {
+        file = (v[5] || "").trim();
+      }
+    } else {
+      const f = MOZ_FRAME.exec(line);
+      if (!f) continue;
+      fn = f[1];
+      file = f[2];
+      lineno = Number(f[3]) || 0;
+      colno = Number(f[4]) || 0;
+    }
+    if (!file && !fn) continue;
+    frames.push({
+      function: fn || "<anonymous>",
+      filename: file,
+      abs_path: file,
+      lineno,
+      colno,
+      in_app: inApp(file)
+    });
+  }
+  frames.reverse();
+  if (frames.length > MAX_FRAMES) return frames.slice(frames.length - MAX_FRAMES);
+  return frames;
+}
+function normalizeError(err) {
+  if (err instanceof Error) {
+    const name = read(err, "name");
+    const message = read(err, "message");
+    const stack = read(err, "stack");
+    return {
+      name: typeof name === "string" && name ? name : "Error",
+      message: typeof message === "string" && message ? message : str(err),
+      stack: typeof stack === "string" ? stack : void 0
+    };
+  }
+  if (typeof err === "string") return { name: "Error", message: err };
+  try {
+    return { name: "Error", message: JSON.stringify(err) ?? str(err) };
+  } catch {
+    return { name: "Error", message: str(err) };
+  }
+}
+function read(o, k) {
+  try {
+    return o[k];
+  } catch {
+    return void 0;
+  }
+}
+function str(v) {
+  try {
+    return String(v);
+  } catch {
+    return "[unstringifiable]";
+  }
+}
+function coerceTag(v) {
+  const s = typeof v === "string" ? v : (() => {
+    try {
+      return JSON.stringify(v) ?? String(v);
+    } catch {
+      try {
+        return String(v);
+      } catch {
+        return "[unstringifiable]";
+      }
+    }
+  })();
+  return s.length > MAX_TAG_LEN ? s.slice(0, MAX_TAG_LEN) : s;
+}
+function buildSentryEvent(input) {
+  const { error, options = {}, identity, capturePII = false } = input;
+  const norm = normalizeError(error);
+  const handled = options.handled !== false;
+  const level = options.level ?? (handled ? "error" : "fatal");
+  const tags = { handled: String(handled) };
+  if (identity.product) tags.product = identity.product;
+  if (identity.sessionId) tags.session = identity.sessionId;
+  try {
+    const props = options.properties ?? {};
+    let n = 0;
+    for (const k of Object.keys(props)) {
+      if (n >= MAX_TAGS) break;
+      try {
+        const val = props[k];
+        if (val === void 0 || val === null) continue;
+        tags[k] = scrubText(coerceTag(val), capturePII);
+        n++;
+      } catch {
+        continue;
+      }
+    }
+  } catch {
+  }
+  const event = {
+    event_id: input.id ?? eventId(),
+    timestamp: (input.now ?? Date.now()) / 1e3,
+    platform: "javascript",
+    level,
+    logger: identity.product,
+    environment: identity.environment,
+    release: identity.release,
+    exception: {
+      values: [
+        {
+          type: norm.name,
+          value: scrubText(norm.message, capturePII),
+          stacktrace: { frames: framesFromStack(norm.stack) }
+        }
+      ]
+    },
+    tags,
+    sdk: { name: "@hanzo/event", version: VERSION }
+  };
+  if (identity.userId) event.user = { id: identity.userId };
+  return event;
+}
+function buildEnvelope(event, dsn, sentAt) {
+  const payload = JSON.stringify(event);
+  const header = JSON.stringify({
+    event_id: event.event_id,
+    dsn: dsn.base,
+    sent_at: sentAt ?? (/* @__PURE__ */ new Date()).toISOString()
+  });
+  const itemHeader = JSON.stringify({
+    type: "event",
+    content_type: "application/json",
+    length: byteLen(payload)
+  });
+  return `${header}
+${itemHeader}
+${payload}
+`;
+}
+var MAX_VALUE = 4096;
+function digest(s) {
+  let out = "";
+  for (const seed of [2166136261, 16777619, 2654435769, 2246822507]) {
+    let h = seed >>> 0;
+    for (let i = 0; i < s.length; i++) {
+      h ^= s.charCodeAt(i);
+      h = h + (h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24) >>> 0;
+    }
+    out += h.toString(16).padStart(8, "0");
+  }
+  return out;
+}
+function frameOf(f) {
+  const source = f.filename ?? "";
+  const name = f.function ?? "<anonymous>";
+  const line = f.lineno ?? 0;
+  const column = f.colno ?? 0;
+  return {
+    // Stable per code location, so the same frame groups and re-renders under one
+    // key. The '/part' suffix is the product's format for one raw frame expanding
+    // into several resolved ones; a browser frame is always part 0.
+    raw_id: `${digest(`${source}|${name}|${line}|${column}`)}/0`,
+    mangled_name: name,
+    source,
+    line,
+    column,
+    in_app: f.in_app ?? false,
+    lang: "javascript",
+    resolved: false,
+    resolve_failure: "no symbol set uploaded for this release",
+    resolved_name: null,
+    module: null
+  };
+}
+function truncate2(s, max) {
+  if (s.length <= max) return s;
+  let end = max;
+  const c = s.charCodeAt(end - 1);
+  if (c >= 55296 && c <= 56319) end--;
+  return s.slice(0, end);
+}
+function exceptionEntry(err, opts) {
+  const n = normalizeError(err);
+  const frames = framesFromStack(n.stack).slice(-50);
+  const entry = {
+    id: opts.id,
+    type: n.name,
+    value: truncate2(n.message, MAX_VALUE),
+    mechanism: {
+      type: "generic",
+      handled: opts.handled,
+      // An exception the app reported by hand was constructed, not thrown by the
+      // runtime at a real call site.
+      synthetic: !(err instanceof Error)
+    }
+  };
+  if (frames.length > 0) {
+    entry.stacktrace = { type: "resolved", frames: frames.map(frameOf) };
+  }
+  return entry;
+}
+function fingerprint(entry) {
+  const frames = entry.stacktrace?.frames ?? [];
+  const pieces = frames.filter((f) => f.in_app).map((f) => `${f.mangled_name}@${f.source}`);
+  return digest([entry.type, ...pieces].join("\n"));
+}
+function exceptionProperties(err, opts) {
+  const entry = exceptionEntry(err, opts);
+  const frames = entry.stacktrace?.frames ?? [];
+  const fp = fingerprint(entry);
+  return {
+    $exception_list: [entry],
+    $exception_fingerprint: fp,
+    // Records WHY this fingerprint holds. 'manual' is the honest value: the client
+    // supplied the key rather than a server grouper deriving one.
+    $exception_fingerprint_record: [{ type: "manual" }],
+    $exception_type: entry.type,
+    $exception_message: entry.value,
+    $exception_level: opts.level ?? "error",
+    $exception_handled: opts.handled,
+    $exception_synthetic: entry.mechanism?.synthetic ?? false,
+    $exception_types: [entry.type],
+    $exception_values: [entry.value],
+    $exception_sources: frames.map((f) => f.source).filter((s) => !!s),
+    $exception_functions: frames.map((f) => f.resolved_name ?? f.mangled_name).filter((s) => !!s)
+  };
+}
+
+// src/storage.ts
+var KEY = {
+  session: "hz_session",
+  firstTouch: "hz_first_touch",
+  cohort: "hz_cohort"
+};
+var SESSION_TTL_MS = 30 * 60 * 1e3;
+function ls() {
+  try {
+    if (typeof window === "undefined" || !window.localStorage) return void 0;
+    return window.localStorage;
+  } catch {
+    return void 0;
+  }
+}
+function anonId() {
+  return hzAnonId() || void 0;
+}
+function sessionId(now = Date.now()) {
+  const s = ls();
+  if (!s) return void 0;
+  let state = null;
+  try {
+    state = JSON.parse(s.getItem(KEY.session) || "null");
+  } catch {
+    state = null;
+  }
+  if (!state || now - state.last > SESSION_TTL_MS) {
+    state = { id: hzUuidv7(now), last: now };
+  } else {
+    state.last = now;
+  }
+  s.setItem(KEY.session, JSON.stringify(state));
+  return state.id;
+}
+function getFirstTouch() {
+  const s = ls();
+  if (!s) return void 0;
+  try {
+    const v = s.getItem(KEY.firstTouch);
+    return v ? JSON.parse(v) : void 0;
+  } catch {
+    return void 0;
+  }
+}
+function setFirstTouchOnce(a) {
+  const s = ls();
+  const existing = getFirstTouch();
+  if (existing) return existing;
+  if (s) s.setItem(KEY.firstTouch, JSON.stringify(a));
+  return a;
+}
+function getCohort() {
+  const s = ls();
+  if (!s) return void 0;
+  try {
+    const v = s.getItem(KEY.cohort);
+    return v ? JSON.parse(v) : void 0;
+  } catch {
+    return void 0;
+  }
+}
+function mergeCohort(patch) {
+  const s = ls();
+  const cur = getCohort() || {};
+  const next = {
+    signupWeek: cur.signupWeek || patch.signupWeek,
+    channel: patch.channel || cur.channel,
+    refCode: cur.refCode || patch.refCode
+  };
+  if (s) s.setItem(KEY.cohort, JSON.stringify(next));
+  return next;
+}
+
+// src/core.ts
+var EVENT_PATH = "/v1/event";
+var DEFAULT_HOST = "https://api.hanzo.ai";
+var ENVELOPE_CONTENT_TYPE = "application/x-sentry-envelope";
+var BEACON_CONTENT_TYPE = "text/plain";
+function readEnvDsn() {
+  try {
+    if (typeof process !== "undefined" && process.env) {
+      return process.env.NEXT_PUBLIC_HANZO_EVENT_DSN || process.env.HANZO_EVENT_DSN || void 0;
+    }
+  } catch {
+  }
+  return void 0;
+}
+function readEnv(name) {
+  try {
+    if (typeof process !== "undefined" && process.env) return process.env[name] || void 0;
+  } catch {
+  }
+  return void 0;
+}
+function appendQuery(url, key, value) {
+  return url + (url.includes("?") ? "&" : "?") + key + "=" + encodeURIComponent(value);
+}
+function normalizeError2(err) {
+  const n = normalizeError(err);
+  return { type: n.name, message: n.message, stack: n.stack };
+}
+var isBrowser = () => typeof window !== "undefined" && typeof document !== "undefined";
+function serializeBatch(batch) {
+  try {
+    return JSON.stringify({ batch });
+  } catch {
+  }
+  const parts = [];
+  for (const e of batch) {
+    try {
+      parts.push(JSON.stringify(e));
+    } catch {
+      try {
+        parts.push(JSON.stringify({ ...e, properties: { $unserializable: true } }));
+      } catch {
+      }
+    }
+  }
+  return parts.length > 0 ? '{"batch":[' + parts.join(",") + "]}" : null;
+}
+var DefaultTransport = class {
+  send(url, body, opts) {
+    if (opts.beacon && isBrowser() && typeof navigator.sendBeacon === "function") {
+      const beaconUrl = opts.ingestKey ? appendQuery(url, "ingest_key", opts.ingestKey) : url;
+      try {
+        const queued = navigator.sendBeacon(
+          beaconUrl,
+          new Blob([body], { type: BEACON_CONTENT_TYPE })
+        );
+        if (queued) return;
+        if (opts.debug) console.warn("[event] beacon refused, falling back to fetch");
+      } catch {
+      }
+    }
+    if (typeof fetch !== "function") return;
+    const simple = opts.ingestKey !== void 0 && opts.contentType === void 0;
+    const headers = {
+      "Content-Type": simple ? BEACON_CONTENT_TYPE : opts.contentType ?? "application/json"
+    };
+    const bearer = simple ? void 0 : opts.ingestKey ?? opts.token;
+    if (bearer) headers.Authorization = `Bearer ${bearer}`;
+    void fetch(simple ? appendQuery(url, "ingest_key", opts.ingestKey) : url, {
+      method: "POST",
+      headers,
+      body,
+      keepalive: true,
+      credentials: simple ? "omit" : "include"
+    }).then((res) => {
+      if (!res.ok && opts.debug) {
+        console.warn("[event] ingest rejected", res.status, url.split("?")[0]);
+      }
+    }).catch((e) => {
+      if (opts.debug) console.warn("[event] ingest failed", url.split("?")[0], e);
+    });
+  }
+};
+var Analytics = class {
+  constructor(config) {
+    this.queue = [];
+    this.timer = null;
+    this.attribution = { utm: {} };
+    this.cohort = {};
+    this.started = false;
+    /** Guards against an error thrown *inside* the error path re-entering it. */
+    this.reentrant = false;
+    this.cfg = {
+      host: DEFAULT_HOST,
+      batchSize: 20,
+      flushIntervalMs: 5e3,
+      enabled: true,
+      captureErrors: true,
+      ...config,
+      // The publishable key resolves from ONE live source, never a literal baked
+      // beside the code. Most specific first:
+      //   1. an explicit `ingestKey` in config;
+      //   2. NEXT_PUBLIC_PUBLISHABLE_KEY, the inlined build-time env the fleet
+      //      carries end to end — KMS `deploy/PUBLISHABLE_KEY` -> the PUBLISHABLE_KEY
+      //      build-arg -> the NEXT_PUBLIC_ prefix Next inlines.
+      //
+      //   3. the org that owns the HOST this page is served from (`org.ts`).
+      //
+      // Step 3 fires only when a surface configured NOTHING, so it never overrides
+      // the KMS chain above — it replaces going dark with reporting to the right
+      // brand. That is what a static export needs: `output: export` inlines no env,
+      // so before this the only way to report was to commit a key literal, and the
+      // fleet grew one copy per site of a value with a single source.
+      //
+      // A surface no brand claims still has no key, and the edge REFUSES an
+      // unattributed event (401 `ingest_key_required`) — the reserved `$public`
+      // tenant that once caught keyless beacons is retired, and anonymous ingest is
+      // refused at every edge on every brand host. So there is no quiet fallback to
+      // rely on: an event lands in the org a credential names, or it does not land.
+      ingestKey: config.ingestKey ?? readEnv("NEXT_PUBLIC_PUBLISHABLE_KEY") ?? keyForPage()
+    };
+    this.transport = config.transport ?? new DefaultTransport();
+    this.dsn = parseDsn(
+      config.dsn ?? readEnvDsn() ?? dsnForProduct(this.cfg.product, this.cfg.ingestKey)
+    );
+  }
+  /** adopt gives this client a credential it does not have. The key belongs to
+   *  the stream, not to whichever caller happened to ask for the handle first,
+   *  so a later caller carrying one hands it over. The error plane derives from
+   *  the key, so it comes up here too when it was inert for want of one.
+   *  Present fields are never overwritten: the first caller's key stays. */
+  adopt(config) {
+    if (config.ingestKey && !this.cfg.ingestKey) this.cfg.ingestKey = config.ingestKey;
+    if (config.getToken && !this.cfg.getToken) this.cfg.getToken = config.getToken;
+    if (!this.dsn) {
+      this.dsn = parseDsn(
+        config.dsn ?? readEnvDsn() ?? dsnForProduct(this.cfg.product, this.cfg.ingestKey)
+      );
+    }
+  }
+  /** errorPlaneEnabled reports whether captured exceptions can actually reach the
+   *  error host. False means a DSN was never configured — the documented
+   *  fail-safe. Exposed so an app (or a test) can assert its wiring instead of
+   *  discovering months later that nothing was ever reported. */
+  get errorPlaneEnabled() {
+    return this.dsn !== null;
+  }
+  /** errorIngestUrl is the fully-derived envelope endpoint, or undefined when the
+   *  plane is inert. Diagnostics only. */
+  get errorIngestUrl() {
+    return this.dsn?.ingestUrl;
+  }
+  /** init is idempotent and browser-only for its side effects: capture first-touch
+   *  attribution, hydrate cohort, register the unload flush, and (unless opted out)
+   *  auto-capture unhandled errors. Safe to call from a React effect on every
+   *  render. */
+  init() {
+    if (this.started || !this.cfg.enabled) return;
+    this.started = true;
+    if (!isBrowser()) return;
+    const parsed = parseAttribution(window.location.search, document.referrer);
+    this.attribution = hasAttribution(parsed) ? setFirstTouchOnce(parsed) : getFirstTouch() ?? parsed;
+    this.cohort = mergeCohort({
+      channel: this.attribution.channel ?? deriveChannel(this.attribution),
+      refCode: this.attribution.refCode
+    });
+    const flushHidden = () => {
+      if (document.visibilityState === "hidden") this.flush(true);
+    };
+    window.addEventListener("visibilitychange", flushHidden);
+    window.addEventListener("pagehide", () => this.flush(true));
+    if (this.cfg.captureErrors) {
+      window.addEventListener("error", (e) => {
+        this.captureError(e.error ?? e.message, { handled: false });
+      });
+      window.addEventListener("unhandledrejection", (e) => {
+        this.captureError(e.reason, { handled: false });
+      });
+    }
+  }
+  /** identify binds the current visitor to a stable person id (post-login). */
+  identify(personId, traits) {
+    this.personId = personId;
+    this.enqueue("identify", void 0, { properties: traits });
+  }
+  /** group associates the visitor with an org/team (analytics grouping, not the
+   *  server tenant — the server still derives tenant from the session). */
+  group(groupId, traits) {
+    this.enqueue("group", void 0, { groupId, properties: traits });
+  }
+  /** pageview records a $pageview for the current (or given) location, once per
+   *  view. A view is the path plus the full location, so a query or hash change
+   *  is a new one and a repeat call for the same place is not. */
+  pageview(path, properties) {
+    const p = path ?? (isBrowser() ? window.location.pathname : void 0);
+    const view = (p ?? "") + "\0" + (isBrowser() ? window.location.href : "");
+    if (view === this.counted) return;
+    this.counted = view;
+    this.enqueue("pageview", PAGEVIEW, { path: p, properties });
+  }
+  /** capture records a named product event with optional properties. Commerce
+   *  fields (productId/quantity/revenue/currency) may be passed for order events. */
+  capture(event, properties, commerce) {
+    this.enqueue("event", event, { properties, ...commerce });
+  }
+  /** captureError reports a caught error, an unhandled rejection, a React render
+   *  error, or a manual report to BOTH planes, from one call:
+   *
+   *    - the ERROR PLANE — a real Sentry envelope to the DSN host. This is the one
+   *      that produces an issue in sentry.hanzo.ai (grouping, stack frames, AST).
+   *      Inert when no DSN is configured.
+   *    - the EVENT STREAM — a `type:'error'` row in the cloud event warehouse, so
+   *      an error stays correlated with the session's pageviews for product
+   *      analysis (readable via GET /v1/errors).
+   *
+   *  Both carry the SAME session and subject id, so an error and the pageview
+   *  before it join up. Never throws back into the app; errors are higher-signal
+   *  than pageviews, so both planes flush promptly (a crash may unload the page
+   *  moments later). */
+  captureError(err, context) {
+    if (this.reentrant) return;
+    this.reentrant = true;
+    try {
+      try {
+        this.sendError(err, context);
+      } catch {
+      }
+      try {
+        const handled = context?.handled ?? true;
+        const ex = normalizeError2(err);
+        ex.handled = handled;
+        this.enqueue("event", EXCEPTION, {
+          error: ex,
+          properties: {
+            ...context?.properties,
+            ...exceptionProperties(err, {
+              handled,
+              id: hzUuidv7(),
+              level: context?.level
+            })
+          }
+        });
+        this.flush();
+      } catch {
+      }
+    } finally {
+      this.reentrant = false;
+    }
+  }
+  /** setCohort persists cohort dimensions (e.g. signupWeek at signup) so they ride
+   *  every subsequent event. */
+  setCohort(patch) {
+    this.cohort = mergeCohort(patch);
+  }
+  /** flush drains the buffer to the server as ONE batch through the ONE ingest
+   *  endpoint POST /v1/event, body { batch: [Event…] }. beacon=true selects the
+   *  unload-safe transport. Auth is orthogonal to the wire:
+   *
+   *    • publishable key set → rides ?ingest_key=pk-… on both sends, keeping each
+   *      a CORS-simple request that any origin may send.
+   *    • else a bearer JWT rides Authorization (fetch only — sendBeacon cannot
+   *      carry a header, so token apps fall back to keepalive fetch on unload).
+   *    • else a cookie app rides same-origin credentials (beacon carries the
+   *      cookie fine).
+   */
+  flush(beacon = false) {
+    if (!this.cfg.enabled || this.queue.length === 0) return;
+    const batch = this.queue;
+    this.queue = [];
+    this.clearTimer();
+    const token = this.cfg.getToken?.() ?? void 0;
+    const key = token ? void 0 : this.cfg.ingestKey?.trim() || void 0;
+    const useBeacon = beacon && !token;
+    const body = serializeBatch(batch);
+    if (body === null) {
+      if (this.cfg.debug) console.debug("[event] flush \u2192 dropped, batch unserializable");
+      return;
+    }
+    if (this.cfg.debug) console.debug("[event] flush \u2192", EVENT_PATH, batch.length);
+    this.transport.send(this.cfg.host + EVENT_PATH, body, {
+      beacon: useBeacon,
+      token,
+      ingestKey: key,
+      debug: this.cfg.debug
+    });
+  }
+  // ── internals ────────────────────────────────────────────────────────────
+  /** sendError frames one exception as a Sentry envelope and posts it to the DSN's
+   *  ingest URL. The DSN's own key rides ?sentry_key= (the credential channel the
+   *  server trusts, and the only one a headerless beacon can carry), so NO bearer
+   *  or publishable key is attached here — the two planes authenticate
+   *  independently. Errors are sent one envelope per event, immediately: batching
+   *  a crash report is how you lose it. */
+  sendError(err, options) {
+    if (!this.cfg.enabled || !this.dsn) return;
+    const event = buildSentryEvent({
+      error: err,
+      options,
+      identity: this.errorIdentity(),
+      capturePII: this.cfg.capturePII ?? false
+    });
+    const body = buildEnvelope(event, this.dsn);
+    if (this.cfg.debug) console.debug("[event] error \u2192", this.dsn.ingestUrl, event.event_id);
+    this.transport.send(this.dsn.ingestUrl, body, {
+      beacon: false,
+      contentType: ENVELOPE_CONTENT_TYPE,
+      debug: this.cfg.debug
+    });
+  }
+  /** errorIdentity is the SAME identity the event stream stamps — the OIDC subject
+   *  once identify() has run, else the anon id. Never email/PII. */
+  errorIdentity() {
+    return {
+      userId: this.personId ?? anonId(),
+      sessionId: sessionId(),
+      product: this.cfg.product,
+      release: this.cfg.release ?? readEnv("NEXT_PUBLIC_HANZO_RELEASE"),
+      environment: this.cfg.environment ?? readEnv("NODE_ENV")
+    };
+  }
+  enqueue(kind, event, extra) {
+    if (!this.cfg.enabled) return;
+    if (!this.started) this.init();
+    this.queue.push(this.build(kind, event, extra));
+    if (this.queue.length >= this.cfg.batchSize) this.flush();
+    else this.schedule();
+  }
+  build(kind, event, extra) {
+    const anon = anonId();
+    const wire = {
+      messageId: hzUuidv7(),
+      type: kind,
+      event,
+      timestamp: (/* @__PURE__ */ new Date()).toISOString(),
+      distinctId: this.personId ?? anon,
+      anonymousId: anon,
+      personId: this.personId,
+      sessionId: sessionId(),
+      product: this.cfg.product,
+      referrer: this.attribution.referrer,
+      utm: this.attribution.utm,
+      refCode: this.cohort.refCode ?? this.attribution.refCode,
+      channel: this.cohort.channel ?? this.attribution.channel,
+      signupWeek: this.cohort.signupWeek,
+      // Where the event happened, stamped for every kind rather than only for
+      // pageviews. An interaction is reported against the page it happened on,
+      // and autocapture ($click/$input/$change) reaches the wire through
+      // capture(), which supplies no location — so every click arrived with an
+      // empty url and path, and `host`, derived from url, was empty with them.
+      // That is unattributable to a page, which is the one thing a heatmap
+      // needs. Read here, at the single point every event is built, so it
+      // cannot go missing from a call site again.
+      //
+      // Before `...extra`: pageview() passes an explicit path for route
+      // changes that fire before window.location has caught up, and that value
+      // has to win over the one read here.
+      url: isBrowser() ? window.location.href : void 0,
+      path: isBrowser() ? window.location.pathname : void 0,
+      library: "@hanzo/event",
+      libraryVersion: VERSION,
+      ...extra
+    };
+    const capturePII = this.cfg.capturePII ?? false;
+    if (wire.url) wire.url = scrubText(wire.url, capturePII);
+    if (wire.path) wire.path = scrubText(wire.path, capturePII);
+    if (wire.referrer) wire.referrer = scrubText(wire.referrer, capturePII);
+    return wire;
+  }
+  schedule() {
+    if (this.timer || !this.cfg.enabled) return;
+    this.timer = setTimeout(() => {
+      this.timer = null;
+      this.flush();
+    }, this.cfg.flushIntervalMs);
+  }
+  clearTimer() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = null;
+    }
+  }
+};
+var CLIENTS = /* @__PURE__ */ Symbol.for("hanzo.event.clients");
+function registry() {
+  const g = globalThis;
+  const existing = g[CLIENTS];
+  if (existing) return existing;
+  const fresh = /* @__PURE__ */ new Map();
+  g[CLIENTS] = fresh;
+  return fresh;
+}
+function resetClients() {
+  const g = globalThis;
+  delete g[CLIENTS];
+}
+function createAnalytics(config) {
+  if (!isBrowser() || config.enabled === false) return new Analytics(config);
+  const key = (config.host ?? DEFAULT_HOST) + "\0" + config.product;
+  const clients = registry();
+  const existing = clients.get(key);
+  if (existing) {
+    existing.adopt(config);
+    return existing;
+  }
+  const fresh = new Analytics(config);
+  clients.set(key, fresh);
+  return fresh;
+}
+
+// src/goals.ts
+var GOALS = {
+  // Signup: the conversion is signup_completed, along the site signup funnel.
+  signup: {
+    label: "Signup",
+    event: EVENTS.SIGNUP_COMPLETED,
+    funnelId: "signup",
+    funnel: eventsOf("signup")
+  },
+  // Sale: a completed order qualified as a plan purchase (kind=plan).
+  sale: {
+    label: "Sale",
+    event: EVENTS.ORDER_COMPLETED,
+    funnelId: "upgrade",
+    funnel: eventsOf("upgrade"),
+    filter: { property: "kind", equals: "plan" }
+  },
+  // Upgrade intent: a plan click; pricing_viewed is the top of its funnel.
+  upgradeIntent: {
+    label: "Upgrade Intent",
+    event: EVENTS.PLAN_CLICKED,
+    funnelId: "upgrade",
+    funnel: eventsOf("upgrade")
+  },
+  // Activation: the ONE north-star conversion — an account that did the first
+  // valuable thing (a successful API call, a live app, a chat answer).
+  activation: {
+    label: "Activation",
+    event: EVENTS.FIRST_ACTION,
+    funnelId: "apiActivation",
+    funnel: eventsOf("apiActivation")
+  }
+};
+var COHORTS = {
+  signupWeek: { field: "signup_week", label: "Signup week" },
+  channel: { field: "channel", label: "Acquisition channel" },
+  refCode: { field: "ref_code", label: "Referral code" }
+};
+/*! anon.js — THE anonymous-identity chain. ONE implementation, two distributions.
+ *
+ * One browser is ONE person on every Hanzo surface, whichever client a page
+ * happens to have loaded. There were once three implementations writing TWO keys —
+ * `hz_anon_id` and `hz_id` — so the same visitor was several people depending on
+ * which snippet the surface shipped.
+ *
+ * The two call sites:
+ *   1. src/storage.ts        — the bundled npm client; IMPORTS this file.
+ *   2. hanzoai/cloud apps/analytics/tag.js — the tag served at
+ *      /v1/event.js; vendors this file and its tag.go serves the marked region
+ *      with the tag as one asset, so cloud holds no second copy either.
+ *
+ * (2) has no bundler and cannot import anything, which is why the chain lives in a
+ * file that is plain ES5 rather than in a .ts: the region between the BEGIN and END
+ * markers is COPIED VERBATIM. Keep it ES5, dependency-free, `hz`-prefixed (it is
+ * spliced into other people's scopes) and unformatted — a reformat here is a diff
+ * against the vendored copy. After editing, resync that copy:
+ *
+ *   curl -fsSL https://unpkg.com/@hanzo/event/src/anon.js -o apps/analytics/anon.js
+ */
+
+export { Analytics, COHORTS, GOALS, ORG_DOMAIN, ORG_KEY, PRODUCT_PROJECT, VERSION, buildEnvelope, buildSentryEvent, createAnalytics, deriveChannel, digest, dsnForProduct, exceptionEntry, exceptionProperties, fingerprint, framesFromStack, getCohort, getFirstTouch, hasAttribution, hostOf, isoWeek, keyFor, keyForPage, orgOf, parseAttribution, parseDsn, redactSecrets, resetClients, scrubPII, scrubText, hzUuidv7 as uuidv7, uuidv7Time };
+//# sourceMappingURL=index.mjs.map
+//# sourceMappingURL=index.mjs.map

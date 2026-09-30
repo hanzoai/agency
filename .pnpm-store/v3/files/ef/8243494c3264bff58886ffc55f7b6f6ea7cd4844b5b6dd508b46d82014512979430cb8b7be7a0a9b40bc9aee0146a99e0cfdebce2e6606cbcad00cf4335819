@@ -1,0 +1,107 @@
+{
+  "name": "@hanzo/logo",
+  "version": "1.0.26",
+  "packageManager": "pnpm@11.17.0",
+  "description": "Official Hanzo logo package with React components and utilities",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "svg"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./logos": {
+      "types": "./dist/logos.d.ts",
+      "import": "./dist/logos.js",
+      "require": "./dist/logos.js"
+    },
+    "./motion": {
+      "types": "./dist/motion.d.ts",
+      "import": "./dist/motion.js",
+      "require": "./dist/motion.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js",
+      "require": "./dist/react.js"
+    },
+    "./favicon.svg": "./dist/favicon.svg",
+    "./favicon.ico": "./dist/favicon.ico",
+    "./apple-touch-icon.png": "./dist/favicon/apple-touch-icon.png",
+    "./logo.svg": "./dist/logo.svg",
+    "./logo-light.svg": "./dist/logo-light.svg",
+    "./logo-mono.svg": "./dist/logo-mono.svg",
+    "./logo-white.svg": "./dist/logo-white.svg",
+    "./svg/*": "./svg/*",
+    "./dist/*": "./dist/*",
+    "./logo-animated.svg": "./dist/logo-animated.svg",
+    "./wordmarks": {
+      "types": "./dist/wordmarks.d.ts",
+      "import": "./dist/wordmarks.js",
+      "require": "./dist/wordmarks.js"
+    },
+    "./wordmark/*": "./dist/wordmarks/*"
+  },
+  "scripts": {
+    "build": "pnpm clean && pnpm compile && pnpm build:cli && pnpm generate",
+    "build:cli": "tsc src/build.ts --outDir dist --module esnext --target es2020 --moduleResolution node --esModuleInterop --skipLibCheck",
+    "compile": "tsc",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch",
+    "generate": "node dist/build.js",
+    "preview": "pnpm generate && open menu-bar-preview.html",
+    "lint": "eslint src --ext .ts,.tsx",
+    "format": "prettier --write 'src/**/*.{ts,tsx,json}'",
+    "typecheck": "tsc --noEmit",
+    "test": "pnpm typecheck && pnpm build",
+    "watch": "tsc --watch",
+    "prepublishOnly": "pnpm build"
+  },
+  "keywords": [
+    "hanzo",
+    "logo",
+    "icon",
+    "favicon",
+    "react",
+    "typescript"
+  ],
+  "author": "Hanzo AI",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/minimatch": "^5.1.2",
+    "@types/node": "^20.19.17",
+    "@types/react": "^18.3.24",
+    "react": "^18.3.1",
+    "sharp": "^0.34.4",
+    "typescript": "^5.9.2"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanzoai/logo.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "brand": {
+    "name": "Hanzo",
+    "tagline": "Official brand marks — SVG, PNG, ICO, favicons & app icons.",
+    "github": "hanzoai",
+    "domain": "hanzo.ai"
+  }
+}

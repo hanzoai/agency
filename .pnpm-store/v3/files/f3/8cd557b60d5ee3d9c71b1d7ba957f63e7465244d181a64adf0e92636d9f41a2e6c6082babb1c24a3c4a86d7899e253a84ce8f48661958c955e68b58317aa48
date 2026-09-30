@@ -1,0 +1,20 @@
+import { InviteResponse } from './client';
+export interface WaitlistInviteFriendsProps {
+    /** Waitlist slug. */
+    waitlist: string;
+    /** Viewer's referral code (server credits the points here). */
+    refCode: string;
+    /** Base server URL. */
+    baseUrl?: string;
+    /** Points per invite-sent, for display. Server is the source of truth. */
+    pointPerInvite?: number;
+    /** Points per converted invite (when invited friend joins). */
+    pointPerConversion?: number;
+    /** Max emails per submit (default 50). */
+    maxBatch?: number;
+    /** Initial message body (optional, sent to the server). */
+    defaultMessage?: string;
+    /** Callback after a successful submit. */
+    onSent?: (result: InviteResponse) => void;
+}
+export declare function WaitlistInviteFriends(props: WaitlistInviteFriendsProps): import("react").JSX.Element;

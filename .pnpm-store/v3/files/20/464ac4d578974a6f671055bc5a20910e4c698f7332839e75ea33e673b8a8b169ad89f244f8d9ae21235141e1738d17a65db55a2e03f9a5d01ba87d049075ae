@@ -1,0 +1,25 @@
+/** One parsed stack frame. */
+export interface Frame {
+    filename?: string;
+    function?: string;
+    abs_path?: string;
+    lineno?: number;
+    colno?: number;
+    /** The app's own code, as opposed to vendor/runtime — the useful default filter. */
+    in_app?: boolean;
+}
+/**
+ * framesFromStack parses a browser Error.stack into frames, OLDEST-FIRST (caller
+ * → callee, so the crash site is LAST). Handles both V8 ("at fn (file:li:co)")
+ * and Firefox/Safari ("fn@file:li:co"). Unparseable lines are skipped.
+ */
+export declare function framesFromStack(stack: string | undefined): Frame[];
+/** normalizeError coerces an unknown throwable into {name, message, stack}.
+ *  TOTAL: it returns a usable record for ANY input, including an object
+ *  engineered to throw on property access. */
+export declare function normalizeError(err: unknown): {
+    name: string;
+    message: string;
+    stack?: string;
+};
+//# sourceMappingURL=stack.d.ts.map

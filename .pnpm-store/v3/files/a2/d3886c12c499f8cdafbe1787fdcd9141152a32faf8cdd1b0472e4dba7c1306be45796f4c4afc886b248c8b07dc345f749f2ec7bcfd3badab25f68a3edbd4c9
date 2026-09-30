@@ -1,0 +1,17 @@
+<!-- @dsCard group="Colors" viewport="820x160" name="Borders" subtitle="One alpha ladder, graded by duty — only the focus ring owes a ratio" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Borders</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:110px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div class="g">
+  <div class="sw"><div class="chip" style="background:var(--card);border:1px solid var(--border)"></div><div class="n">--border</div><div class="v">white/10 · hairline</div></div>
+  <div class="sw"><div class="chip" style="background:var(--card);border:1px solid var(--border-strong)"></div><div class="n">--border-strong</div><div class="v">white/16 · hover</div></div>
+  <div class="sw"><div class="chip" style="background:var(--card);border:1px solid var(--border-control)"></div><div class="n">--border-control</div><div class="v">white/15 · a field</div></div>
+  <div class="sw"><div class="chip" style="background:var(--card);border:1px solid var(--border-focus)"></div><div class="n">--border-focus</div><div class="v">white/22 · focused</div></div>
+  <div class="sw"><div class="chip" style="background:var(--card);border:1px solid var(--border-selected)"></div><div class="n">--border-selected</div><div class="v">white/30 · chosen</div></div>
+  <div class="sw"><div class="chip" style="background:var(--card);border:1px solid var(--ring);box-shadow:var(--ring-focus)"></div><div class="n">--ring</div><div class="v">white/40 · 3:1, gated</div></div>
+</div></body></html>

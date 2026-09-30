@@ -1,0 +1,31 @@
+<!-- @dsCard group="Components" viewport="700x300" name="Navigation" subtitle="Tabs and Accordion" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Navigation components</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;background:#000;font-family:var(--font-sans)}pre{margin:0;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);font-size:12px;line-height:1.7;color:var(--neutral-300);overflow:auto}</style></head>
+<body><div id="root"></div>
+<script type="text/babel">
+const { Tabs, TabsList, TabsTrigger, TabsContent, Accordion, AccordionItem } = window.HanzoDesignSystem_0a9445;
+const TS = "import Hanzo from '@hanzo/cloud'\n\nconst hanzo = new Hanzo()\nawait hanzo.chat.completions.create({\n  model: 'enso-pro',\n  messages: [{ role: 'user', content: 'Hi' }],\n})";
+const PY = "from hanzo import Hanzo\n\nhanzo = Hanzo()\nhanzo.chat.completions.create(\n    model=\"enso-pro\",\n    messages=[{\"role\": \"user\", \"content\": \"Hi\"}],\n)";
+const SH = "curl https://api.hanzo.ai/v1/chat/completions \\\n  -H \"Authorization: Bearer $HANZO_API_KEY\" \\\n  -d '{\"model\":\"enso-pro\"}'";
+function Demo(){
+  return (<div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:24}}>
+    <Tabs defaultValue="ts">
+      <TabsList><TabsTrigger value="ts">TypeScript</TabsTrigger><TabsTrigger value="py">Python</TabsTrigger><TabsTrigger value="sh">cURL</TabsTrigger></TabsList>
+      <TabsContent value="ts"><pre>{TS}</pre></TabsContent>
+      <TabsContent value="py"><pre>{PY}</pre></TabsContent>
+      <TabsContent value="sh"><pre>{SH}</pre></TabsContent>
+    </Tabs>
+    <Accordion defaultValue="q1">
+      <AccordionItem value="q1" title="How is usage billed?">Per token, metered hourly. You pay only for what you use.</AccordionItem>
+      <AccordionItem value="q2" title="Can I self-host?">Yes. Every service in the Hanzo cloud is open source.</AccordionItem>
+      <AccordionItem value="q3" title="Which models are available?">Zen open weights, plus Enso Flash, Pro, and Ultra.</AccordionItem>
+    </Accordion>
+  </div>)
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script></body></html>

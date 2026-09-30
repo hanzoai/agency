@@ -1,0 +1,62 @@
+{
+  "name": "@hanzo/waitlist",
+  "version": "0.1.1",
+  "description": "Monochromatic, brand-neutral viral waitlist widget. Backed by Hanzo Base.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "./dist/waitlist.iife.js",
+    "*.css"
+  ],
+  "main": "./dist/waitlist.cjs",
+  "module": "./dist/waitlist.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/waitlist.js",
+      "require": "./dist/waitlist.cjs"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.js",
+      "require": "./dist/client.cjs"
+    },
+    "./element": "./dist/waitlist.iife.js",
+    "./styles.css": "./dist/waitlist.css"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vite build -c vite.element.config.ts",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=19.2.8",
+    "react-dom": ">=19.2.8"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    }
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "terser": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:"
+  }
+}

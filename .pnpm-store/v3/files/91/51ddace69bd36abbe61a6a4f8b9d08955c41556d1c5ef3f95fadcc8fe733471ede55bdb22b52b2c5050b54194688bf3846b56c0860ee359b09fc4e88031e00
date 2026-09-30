@@ -1,0 +1,22 @@
+<!-- @dsCard group="Brand" viewport="700x240" name="Paper" subtitle="Three sheets, one light, and a fold that means this opens" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Paper</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:20px;background:var(--sheet-0);font-family:var(--font-sans);color:var(--foreground)}
+.n{font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono);margin-top:3px}
+.sheet{padding:14px;border-radius:var(--radius-lg);font-size:12px;color:var(--neutral-400)}
+.s1{background:var(--sheet-1);box-shadow:var(--shadow-sheet-1)}
+.s2{background:var(--sheet-2);box-shadow:var(--shadow-sheet-2)}
+.fold{background-image:var(--fold-face);border-bottom-right-radius:0}
+</style></head><body>
+<div style="display:flex;gap:16px;align-items:stretch">
+  <div class="sheet" style="flex:1">the workspace — no lift, no box<div class="n" style="margin-top:10px">--sheet-0</div><div class="v">the ground</div></div>
+  <div class="sheet s1" style="flex:1">an active tool<div class="n" style="margin-top:10px">--sheet-1</div><div class="v">+ --shadow-sheet-1</div></div>
+  <div class="sheet s2" style="flex:1">what opened<div class="n" style="margin-top:10px">--sheet-2</div><div class="v">+ --shadow-sheet-2</div></div>
+  <div class="sheet s1 fold" style="flex:1">this one expands<div class="n" style="margin-top:10px">--fold-face</div><div class="v">the only mark</div></div>
+</div>
+<div style="margin-top:18px;display:flex;gap:16px">
+  <div class="sheet s1" style="flex:1">a sheet on a sheet lands a step lighter
+    <div class="sheet s1" style="margin-top:10px">nested<div class="sheet s1" style="margin-top:10px">nested again</div></div>
+  </div>
+</div>
+</body></html>

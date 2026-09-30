@@ -1,0 +1,130 @@
+import type { LogoSettings, LogoOptions } from './types.js';
+export declare const LOGO_SETTINGS: LogoSettings;
+/** Mark viewBox — the block-H's native coordinate space. */
+export declare const MARK_VIEWBOX = "0 0 67 67";
+/**
+ * The five body blocks of the Hanzo mark — four corner squares joined by the
+ * diagonal band. This is the geometry; everything else in this file is a way of
+ * painting it.
+ */
+export declare const MARK_BLOCKS: string[];
+/** The two accent slivers that give the H its shaded depth.
+ *  Exported alongside MARK_BLOCKS: a consumer that wants a different sliver ink
+ *  had to retype the paths, because only the pre-baked MARK_PATHS string was
+ *  reachable. */
+export declare const MARK_SHADE: string[];
+/**
+ * Raw block-H path geometry — the single source of the Hanzo mark.
+ * The canonical mark is SEVEN paths: the five fill-less body blocks (callers set
+ * their own `fill` — e.g. `@hanzo/brand` card generators, og images) plus the
+ * two `class="shade"` accent slivers (#DDDDDD in every shipped variant;
+ * restyle via `.shade` if needed).
+ * Use this instead of re-typing the path data anywhere.
+ */
+export declare const MARK_PATHS: string;
+/** The ensō — Enso's mark. Closed: the router completes the circle.
+ *  One stroke in currentColor on the shared 24 viewBox. Zen's mark is Zoo's. */
+export declare const ENSO_MARK = "<circle cx=\"12\" cy=\"12\" r=\"8.88\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.64\" stroke-linecap=\"round\"/>";
+/** Family slug → house mark. `hanzo` is the block-H, on its own 67 viewBox. */
+export declare const HOUSE_MARKS: Record<string, string>;
+/**
+ * Generate Hanzo color SVG logo
+ */
+export declare function getColorSVG(): string;
+/**
+ * Generate monochrome SVG logo (filled, for dark backgrounds).
+ *
+ * One tone only. This is what a macOS menu-bar template image is cut from, and
+ * a template image is black plus alpha — a second tone in it is invalid, so the
+ * shade slivers are black here rather than the #DDDDDD they carry in the colour
+ * and white variants.
+ */
+export declare function getMonoSVG(): string;
+/**
+ * Generate tightly cropped color SVG logo
+ */
+export declare function getColorSVGCropped(): string;
+/**
+ * Generate white SVG logo (for dark backgrounds)
+ */
+export declare function getWhiteSVG(): string;
+/**
+ * The mark for a LIGHT page: a black H on a white ground.
+ *
+ * This is the one the house asks for — white background, black H — and until
+ * now the package could not paint it. `getColorSVG()` and `getWhiteSVG()` are
+ * byte-identical white-on-nothing, so the default `<HanzoLogo />` was invisible
+ * on a white page and every consumer worked around it (industries reached for
+ * `variant="mono"` plus an invert filter).
+ *
+ * Built from MARK_BLOCKS and MARK_SHADE rather than retyped, so the geometry
+ * has one home. The shade mirrors the relationship the other variants use — the
+ * slivers sit a shade off the body, so a black body takes a slightly lighter
+ * grey, exactly as a white body takes a slightly darker one.
+ */
+export declare function getLightSVG(): string;
+/**
+ * Generate monochrome SVG for menu bar (filled, tightly cropped)
+ */
+export declare function getMenuBarSVG(): string;
+/**
+ * The mark as a STANDALONE FILE, which is a different problem from the mark
+ * inline in a page. An `<img>` gives an SVG no parent to inherit from, so
+ * `currentColor` there resolves to the initial colour — black — whatever the
+ * host page's scheme is (measured in Chromium, both schemes, black both times).
+ * A file therefore has to carry its own answer, and a `<style>` block inside
+ * the document is honoured because the SVG *is* a document and receives the
+ * UA's colour-scheme. Black is the fallback rather than white because a reader
+ * that drops the style — GitHub markdown strips it — is nearly always showing
+ * the mark on paper or on white.
+ */
+export declare function getAdaptiveSVG(): string;
+/**
+ * favicon.svg — the mark on a TRANSPARENT ground. An icon that carries its own
+ * opaque tile fights every chrome it lands in: a black square on a light tab, a
+ * floating box on a dark one. This one takes its tone from the chrome instead —
+ * black on light, white on dark. A renderer that resolves no CSS still gets a
+ * white mark inside a black rim, so it is never invisible either way.
+ *
+ * The 3D accent slivers are dropped: they are depth cues that turn to noise
+ * below 64px and mean nothing in a one-tone icon.
+ */
+export declare function getFaviconSVG(): string;
+/**
+ * Raster source for every generated PNG and .ico. Same silhouette, same
+ * placement, but the tone is fixed: a PNG cannot ask what it was drawn onto, so
+ * it always wears the rim — white core so it reads on dark, black rim so it
+ * reads on light.
+ */
+export declare function getFaviconRasterSVG(): string;
+/**
+ * Get logo as data URL
+ */
+export declare function getLogoDataUrl(options?: LogoOptions): string;
+/**
+ * Get logo as base64 string
+ */
+export declare function getLogoBase64(options?: LogoOptions): string;
+/**
+ * Get logo in requested format
+ */
+export declare function getLogo(options?: LogoOptions): string;
+export declare const hanzoLogo: string;
+export declare const hanzoLogoMono: string;
+export declare const hanzoLogoWhite: string;
+export declare const hanzoFavicon: string;
+export declare const hanzoLogoDataUrl: string;
+export declare const hanzoLogoMonoDataUrl: string;
+export declare const hanzoLogoWhiteDataUrl: string;
+export declare const hanzoFaviconDataUrl: string;
+/**
+ * Interactive animated mark — load (assemble) → hover (one graceful turn,
+ * returns to rest) → press (squash). Pure CSS, no JS. Inline this SVG into
+ * the DOM (not <img>) for the hover/press interactions to fire.
+ */
+export declare function getAnimatedSVG(): string;
+/** Animated mark as a data: URL (load animation runs even in <img>). */
+export declare function getAnimatedDataUrl(): string;
+export declare const hanzoLogoAnimated = "<svg role=\"img\" aria-label=\"Hanzo\" viewBox=\"0 0 67 67\" xmlns=\"http://www.w3.org/2000/svg\">\n<!-- Origami fold-in \u2192 hover: one 3-D turn \u2192 press: squash. Pure CSS, no JS. Canonical 7-path shaded H. -->\n\n<style>.o{fill:currentColor;opacity:0;transform-box:fill-box;transform-origin:left center;animation:fold 0.42s cubic-bezier(.16,1,.3,1) forwards}\n.s{fill:currentColor;opacity:.55}\n@keyframes fold{from{opacity:0;transform:perspective(320px) rotateY(90deg)}to{opacity:1;transform:none}}\n.o0{animation-delay:0.00s}.o1{animation-delay:0.06s}.o2{animation-delay:0.12s}.o3{animation-delay:0.18s}.o4{animation-delay:0.24s}\n/* interaction \u2014 pure CSS, no JS: hover = one graceful turn (returns to rest), press = squash */\n.hanzo-hov{transform-box:view-box;transform-origin:33.5px 33.5px}\n.hanzo-prs{transform-box:view-box;transform-origin:33.5px 33.5px;transition:transform .22s cubic-bezier(.22,1,.36,1)}\nsvg:hover .hanzo-hov{animation:hanzoTurn 0.85s cubic-bezier(.45,0,.2,1)}\nsvg:active .hanzo-prs{transform:scale(.92)}\n@keyframes hanzoTurn{0%{transform:perspective(300px) rotateY(0)}100%{transform:perspective(300px) rotateY(360deg)}}\n@media (prefers-reduced-motion:reduce){.hanzo-hov,.hanzo-prs{animation:none!important;transform:none!important}.o{opacity:1;animation:none;transform:none}}\n</style>\n<g class=\"hanzo-hov\"><g class=\"hanzo-prs\">\n<path class=\"o o0\" d=\"M22.21 0H0V22.3184H22.21V0Z\"/>\n<path class=\"o o1\" d=\"M66.7198 0H44.5098V22.3184H66.7198V0Z\"/>\n<path class=\"o o1 s\" d=\"M66.6753 22.3185L44.5098 20.0822V22.3185H66.6753Z\"/>\n<path class=\"o o2\" d=\"M66.7038 22.3184H22.2534L0.0878906 44.6367H44.4634L66.7038 22.3184Z\"/>\n<path class=\"o o3\" d=\"M22.21 67V44.6369H0V67H22.21Z\"/>\n<path class=\"o o3 s\" d=\"M0 44.6369L22.21 46.8285V44.6369H0Z\"/>\n<path class=\"o o4\" d=\"M66.7198 67V44.6369H44.5098V67H66.7198Z\"/>\n</g></g>\n</svg>";
+export declare const hanzoLogoAnimatedDataUrl: string;
+//# sourceMappingURL=logos.d.ts.map

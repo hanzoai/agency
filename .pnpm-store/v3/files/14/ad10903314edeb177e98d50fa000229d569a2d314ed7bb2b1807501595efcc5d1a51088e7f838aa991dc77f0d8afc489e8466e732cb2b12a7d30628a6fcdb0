@@ -1,0 +1,21 @@
+<!-- @dsCard group="Brand" viewport="700x170" name="The mark" subtitle="Press-kit logo, its sizes and the wordmark lockup" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Mark</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div style="display:flex;align-items:center;gap:34px">
+  <div style="text-align:center"><img src="../assets/logo.svg" width="56" height="56" alt="Hanzo mark" style="filter:invert(1) brightness(2)"><div class="n" style="margin-top:8px">assets/logo.svg</div></div>
+  <div style="display:flex;align-items:center;gap:8px"><img src="../assets/logo.svg" width="22" height="22" alt="" style="filter:invert(1) brightness(2)"><span style="font-size:15px;font-weight:600;letter-spacing:-.02em">Hanzo AI</span><span class="meta" style="margin-left:10px">nav lockup · 22px</span></div>
+  <div style="display:flex;align-items:flex-end;gap:14px">
+    <img src="../assets/logo.svg" width="16" height="16" alt="" style="filter:invert(1) brightness(2)">
+    <img src="../assets/logo.svg" width="22" height="22" alt="" style="filter:invert(1) brightness(2)">
+    <img src="../assets/logo.svg" width="32" height="32" alt="" style="filter:invert(1) brightness(2)">
+    <span class="meta">16 · 22 · 32</span>
+  </div>
+</div>
+<div class="meta" style="margin-top:14px">Hanzo Black #0A0A0B · Hanzo White #FFFFFF · monochrome only, never stretched or re-hued</div>
+</body></html>

@@ -1,0 +1,229 @@
+/* Minimal element defaults so specimen cards and kits inherit the brand without
+   a utility framework. Components carry their own styles inline.
+
+   EVERYTHING HERE IS LAYERED, and that is the most important line in the file.
+   A rule outside a cascade layer beats a rule inside one no matter how specific
+   the loser is — so an unlayered `a{color:...}` here outranked EVERY Tailwind
+   text utility on every anchor, on every surface that imports these tokens. A
+   white-on-white primary button is what that looks like: `text-neutral-950` on
+   an anchor, silently overridden to --text-primary, invisible on its own white
+   fill, and reading as a rendering glitch rather than a cascade bug.
+
+   The same trap already bit `text-decoration` here once (see the a:hover note
+   below). It was fixed by deleting that one declaration, which left the identical
+   defect in `color` untouched. Layering fixes the whole class: these are
+   DEFAULTS, and a default must lose to anything an app states deliberately.
+
+   The rules added for controls, media and touch go one step further and wrap
+   their selectors in :where(), which has ZERO specificity. @layer decides who
+   wins BETWEEN layers; :where() decides who wins INSIDE this one. An app that
+   ships its own reset — `input { … }`, `img { … }` — very often lands in the
+   same base layer, and these defaults have to lose that collision too. */
+@layer base {
+  *{box-sizing:border-box;border-color:var(--border)}
+  html{
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    scroll-behavior:smooth;
+    /* iOS inflates text when a phone is rotated to landscape unless this is
+       pinned. It is the single most common reason a mobile layout that was
+       verified in portrait comes apart on its side. */
+    -webkit-text-size-adjust:100%;
+  }
+  /* Each font-family carries the stack as a literal fallback. --font-sans lives in
+     tokens/fonts.css, which a surface may legitimately import separately; without
+     the fallback an unresolved var() makes font-family invalid and the UA drops to
+     its SERIF default — the whole console silently rendered in Times. */
+  body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans,ui-sans-serif,system-ui,sans-serif);font-size:var(--text-base);line-height:var(--leading-base);font-feature-settings:var(--font-feature-settings);overflow-wrap:break-word}
+  h1,h2,h3,h4{margin:0;font-family:var(--font-display,var(--font-sans,ui-sans-serif,system-ui,sans-serif));letter-spacing:var(--tracking-tight);color:var(--text-primary)}
+  p{margin:0;text-wrap:pretty}
+  code,pre,kbd{font-family:var(--font-mono,ui-monospace,SFMono-Regular,monospace)}
+  /* No `transition` here: the shared interactive rule below states one, and an
+     `a` selector (0,0,1) would outrank that :where() (0,0,0) and replace the
+     whole shorthand — anchors would transition colour and nothing else. */
+  a{color:var(--text-primary);text-decoration:none;text-underline-offset:4px}
+  /* Underline is the accessible affordance for a link in RUNNING TEXT and a visual
+     bug everywhere else: nav items, cards and anchor-buttons are all <a> too, so a
+     blanket `a:hover` underlined every one of them on every surface that imports
+     these tokens. Scope it to the elements that actually carry prose; a link that
+     is a component states its own hover. The old rule also re-set `color` to the
+     value `a` already has — a no-op that only served to outrank a component's own
+     hover colour. */
+  :is(p,li,blockquote,dd,dt,td,th,figcaption) a:hover{text-decoration:underline}
+
+  /* ——— the smooth ———
+     Every interactive element in the reference transitions its colour, its fill
+     and its EDGE. That is most of what separates "classy and smooth" from a
+     correct set of colours: a hairline that steps from .10 to .16 instantly
+     reads as a flicker, and over 150ms reads as a response. Granted once, here,
+     rather than restated on every component. tokens/motion.css already zeroes
+     all of it under prefers-reduced-motion. */
+  :where(a,button,[role=button],input,select,textarea,summary,[tabindex]){
+    transition:color var(--duration-fast) var(--ease-out),
+               background-color var(--duration-fast) var(--ease-out),
+               border-color var(--duration-fast) var(--ease-out),
+               box-shadow var(--duration-fast) var(--ease-out),
+               opacity var(--duration-fast) var(--ease-out),
+               transform var(--duration-press) var(--ease-out);
+  }
+
+  /* ——— the press ———
+     A button that moves under the finger is the cheapest "this is a real
+     control" signal there is, and its absence is most of why a correct-looking
+     button still feels like a picture of a button. 2% over 90ms — small enough
+     that it reads as pressure rather than as animation, and it is the
+     reference's own value (.auth-signin-btn:active). Inputs are excluded: a
+     text field does not depress, and scaling one mid-caret is a glitch. */
+  :where(button,[role=button],a[role=button],summary):active:not(:disabled){
+    transform:scale(.98);
+  }
+
+  /* ——— controls ———
+     A bare <input> renders in the UA's face (Arial) at the UA's size with the
+     UA's border, which puts two typefaces and a foreign blue focus ring inside
+     Hanzo cards on every surface that has not styled its own fields yet. The
+     rules below are what a control looks like here. --border-control, NOT
+     --border: a field's edge is its own duty and its own rung, so a surface can
+     retune fields without touching every divider on the page. It owes no
+     contrast ratio — the whole budget goes to --ring, below. */
+  :where(input,select,textarea,button){font:inherit;color:inherit}
+  :where(input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),select,textarea){
+    background:var(--surface-2);
+    border:1px solid var(--border-control);
+    /* --radius-md (8px), not --radius-sm (6px). On a 36px control the two are
+       one step apart and it is the step between "boxy" and "considered";
+       --radius-sm keeps its job on genuinely small parts — badges, chips, menu
+       rows — where 8px would look bubbly. The reference draws its composer and
+       its buttons at 8-10px and nothing at 6px except 22px chips. */
+    border-radius:var(--radius-md);
+    padding:0 var(--space-3);
+    /* A field's ring is drawn INSIDE its own box. The one focus rule below
+       reads this; nothing else about the indicator changes.
+
+       A field lives in containers a button does not — composers, palettes and
+       panels that round their corners with `overflow:hidden`. An outline at a
+       POSITIVE offset is painted outside the border box, so any such ancestor
+       clips it, and the computed style still says `2px solid` while nothing is
+       drawn: a chat composer measured byte-identical screenshots focused and
+       unfocused, and a search pill kept only its left and right edges. A
+       negative offset cannot be clipped by anything, so a field needs to know
+       nothing about what contains it.
+
+       -2 against a 2px ring lays the outline over the outermost 2px of the box,
+       so it REPLACES the 1px edge for as long as focus is there rather than
+       drawing a second line a pixel inside the first. */
+    --ring-offset:-2px;
+  }
+  :where(textarea){padding:var(--space-2) var(--space-3);resize:vertical}
+  /* A field has NO focus rule of its own — see the ring at the bottom of this
+     layer, which is the one focus indicator for everything.
+
+     There used to be one here: `outline:none` plus a brightened edge (.15 ->
+     .22) plus a soft halo, the composer look. It was removed because it could
+     not do the job in either of the two ways that matter.
+
+     It was never VISIBLE ENOUGH. Composited on --background the brightened edge
+     measures 1.91:1 and the halo 1.25:1, against the 3:1 that WCAG 1.4.11 asks
+     of a focus indicator and that this package already gates --ring on. The
+     budget was documented as being spent entirely on --ring "because that is
+     what a keyboard user navigates by" — true for a button, and false for a
+     field for exactly as long as this rule told fields not to use it.
+
+     And it was SUPPRESSIBLE. It carried the indicator on `border-color`, so any
+     app that states `border` on its own fields overrode it — @hanzo/id does,
+     unlayered, which beats this layer whatever its specificity, and its focused
+     fields sat at the resting .15 while both files read as correct. An outline
+     is not a border: nothing in an app's field styling reaches it, so the ring
+     paints whether or not the app has opinions about edges. */
+  :where(input,select,textarea):hover:not(:focus-visible):not(:disabled){background:var(--surface-3)}
+  :where(input,textarea)::placeholder{color:var(--text-disabled)}
+  :where(input,select,textarea,button):disabled{opacity:.5;cursor:not-allowed}
+  :where(button,[role=button],summary,label,select){cursor:pointer}
+
+  /* ——— media ———
+     An image, a video or an embed at its intrinsic width is the usual cause of a
+     390px page that scrolls sideways. */
+  :where(img,svg,video,canvas,iframe,picture,object){max-width:100%}
+  :where(img,video){height:auto}
+  /* A code block scrolls ITSELF rather than widening the document. */
+  :where(pre){overflow-x:auto}
+
+  /* ——— touch ———
+     Everything a finger aims at clears 44px, and every field renders at 16px so
+     iOS does not zoom the viewport on focus. Both are keyed on pointer:coarse —
+     the actual signal — so a desktop mouse still gets compact controls. This is
+     the whole of "mobile-first without per-app work": an app that never thought
+     about phones still has hittable buttons and a viewport that stays put. */
+  @media (pointer:coarse){
+    :where(button,[role=button],a[role=button],summary,select,textarea,
+           input:not([type=checkbox]):not([type=radio]):not([type=hidden])){
+      min-height:var(--tap-target);
+    }
+    :where(input,select,textarea){font-size:var(--text-control)}
+    /* A checkbox, radio or switch must NOT grow to 44px — the box is 16px
+       because that is what a checkbox looks like. What has to reach 44px is the
+       area a finger may land in, so the target is expanded with a centred
+       pseudo-element that changes nothing about layout or paint. WCAG 2.5.8 puts
+       the floor at 24px; a 16px box misses it, and every one of these ships at
+       16px. */
+    :where([role=checkbox],[role=radio],[role=switch],input[type=checkbox],input[type=radio]){position:relative}
+    :where([role=checkbox],[role=radio],[role=switch],input[type=checkbox],input[type=radio])::after{
+      content:'';position:absolute;top:50%;left:50%;
+      width:var(--tap-target);height:var(--tap-target);
+      transform:translate(-50%,-50%);
+    }
+  }
+
+  /* THE focus indicator. One rule, every focusable thing, no exceptions — a
+     button, a link, a summary, a field. 2px at --ring is 3.77:1 on the darkest
+     canvas and clears the 2px perimeter WCAG 2.4.13 asks for; the gate in
+     check-tokens holds --ring to that and nothing else here may weaken it.
+
+     WHERE the ring sits is the one thing that varies, and it varies as a VALUE
+     the element carries, never as a second rule: `--ring-offset` defaults to 2
+     and a field sets it to -2 (see the field block above). Two rules is what
+     0.4.9 removed, and a second one here would be the same defect again.
+
+     There were two rules until 0.4.9, and they collided invisibly. Both computed
+     to (0,1,0) — :where() zeroes whatever it wraps, leaving one pseudo-class on
+     each side — so the cascade fell through to SOURCE ORDER inside this layer,
+     this rule was written later, and it overrode the `outline:none` the field
+     rule stated expressly to prevent it. Every focused input on every consumer
+     drew BOTH the ring and the edge+halo. Each rule read as correct alone, which
+     is why it survived review in both files; the defect existed only in their
+     order. One rule cannot disagree with itself. */
+  :focus-visible{outline:2px solid var(--ring);outline-offset:var(--ring-offset,2px)}
+  /* --white-20 is white-on-white in the light theme, so selection reads through
+     --selection, which BOTH themes define. */
+  ::selection{background:var(--selection);color:var(--text-primary)}
+
+  /* ——— the scrollbar ———
+     The single largest piece of UNSTYLED chrome left on a dark surface: a
+     default 15px light-grey scrollbar down the side of a #0a0a0a panel is the
+     one element on the page that did not get the memo, and it is visible on
+     every scrolling surface in the product. 6px, no track, thumb on the same
+     hairline ladder as everything else. Both syntaxes ship because they are
+     disjoint — `scrollbar-*` is Firefox and the `::-webkit-*` pseudos are
+     Chromium/Safari; neither engine reads the other.
+     The thumb is a --white-* rung, so it does not invert; the `.light`
+     restatements sit here rather than in colors.css because a scrollbar is an
+     element default and this file is where element defaults live. Everything
+     stays INSIDE the layer — an unlayered rule here would outrank an app's own
+     utilities, which is the defect check 1c exists to catch. */
+  :where(html){scrollbar-color:var(--white-15) transparent;scrollbar-width:thin}
+  .light{scrollbar-color:rgb(0 0 0 / .18) transparent}
+  :where(*)::-webkit-scrollbar{width:6px;height:6px}
+  :where(*)::-webkit-scrollbar-track{background:transparent}
+  :where(*)::-webkit-scrollbar-thumb{background:var(--white-15);border-radius:var(--radius-full)}
+  :where(*)::-webkit-scrollbar-thumb:hover{background:var(--white-30)}
+  :where(*)::-webkit-scrollbar-corner{background:transparent}
+  /* The stepper arrows, and they are a LINUX defect specifically. Chromium on
+     macOS draws no buttons, so styling the track and thumb looks finished there
+     and ships a classic GTK scrollbar — a boxed arrow at each end of every
+     scroller, on both axes — to everyone on Ubuntu. Styling the other pseudos
+     does not suppress them; only this does. Zero width AND height because the
+     horizontal and vertical bars each read one of them. */
+  :where(*)::-webkit-scrollbar-button{display:none;width:0;height:0}
+  .light :where(*)::-webkit-scrollbar-thumb{background:rgb(0 0 0 / .18)}
+  .light :where(*)::-webkit-scrollbar-thumb:hover{background:rgb(0 0 0 / .32)}
+}

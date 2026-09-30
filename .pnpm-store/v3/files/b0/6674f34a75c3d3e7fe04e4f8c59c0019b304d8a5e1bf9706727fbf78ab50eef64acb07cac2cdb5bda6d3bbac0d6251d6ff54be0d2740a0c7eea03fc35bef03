@@ -1,0 +1,23 @@
+<!-- @dsCard group="Brand" viewport="700x160" name="Third-party logos" subtitle="Provider and partner marks keep their own identity" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Third-party logos</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+img{filter:invert(1) brightness(2);opacity:.75}</style></head><body>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:22px">
+  <img src="../assets/logos/openai.svg" alt="OpenAI" height="20">
+  <img src="../assets/logos/anthropic.svg" alt="Anthropic" height="20">
+  <img src="../assets/logos/google.svg" alt="Google" height="20">
+  <img src="../assets/logos/mistral.svg" alt="Mistral" height="20">
+  <img src="../assets/logos/deepseek.svg" alt="DeepSeek" height="20">
+  <img src="../assets/logos/qwen.svg" alt="Qwen" height="20">
+  <img src="../assets/logos/groq.svg" alt="Groq" height="20">
+  <img src="../assets/logos/partners/nvidia.svg" alt="NVIDIA" height="20">
+  <img src="../assets/logos/partners/aws.svg" alt="AWS" height="22">
+  <img src="../assets/logos/partners/techstars.svg" alt="Techstars" height="18">
+</div>
+<div class="meta" style="margin-top:14px">assets/logos · assets/providers — rendered mono at 75% on dark; official colour only when recognition demands it</div>
+</body></html>

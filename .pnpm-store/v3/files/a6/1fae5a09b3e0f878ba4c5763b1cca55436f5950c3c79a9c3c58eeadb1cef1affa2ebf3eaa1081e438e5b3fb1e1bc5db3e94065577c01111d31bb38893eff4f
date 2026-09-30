@@ -1,0 +1,56 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Core" subtitle="Button, Badge, Card, Progress, Avatar, ChromeText, Icon" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Core components</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.462.0/dist/umd/lucide.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;background:#000;font-family:var(--font-sans)}.row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.col{display:flex;flex-direction:column;gap:14px}.lbl{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--neutral-600)}</style></head><body><div id="root"></div>
+<script type="text/babel">
+const { Button, Badge, StatusBadge, Card, CardContent, CardTitle, CardDescription, ChromeText, Progress, Avatar, AvatarFallback, Icon, HanzoLogo } = window.HanzoDesignSystem_0a9445;
+function Demo(){
+  return (<div className="col">
+    <div className="row">
+      <Button pill>Try Hanzo <Icon name="ChevronDown" /></Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="outline"><Icon name="Filter" /> Filter</Button>
+      <Button variant="ghost">Ghost</Button>
+      <Button variant="destructive">Delete</Button>
+      <Button variant="link">Read the docs</Button>
+      <Button variant="ghost" size="icon"><Icon name="Settings" /></Button>
+      <Button disabled>Disabled</Button>
+      <Button size="sm" variant="outline">Small</Button>
+      <Button size="lg" pill>Get started <Icon name="ArrowRight" /></Button>
+    </div>
+    <div className="row">
+      <Badge>Default</Badge><Badge variant="tier1">Edge</Badge><Badge variant="tier2">Pro</Badge><Badge variant="tier3">Ultra</Badge>
+      <Badge variant="outline">Open source</Badge><Badge variant="error">Failed</Badge>
+      <StatusBadge status="online" label="All systems normal" />
+      <Avatar size={28}><AvatarFallback>ZK</AvatarFallback></Avatar>
+      <Avatar size={28} />
+      <HanzoLogo size={22} />
+    </div>
+    <div className="row" style={{alignItems:'stretch'}}>
+      <Card interactive sheen style={{flex:1,minWidth:200}}>
+        <CardContent>
+          <Icon name="Shield" size={24} color="var(--text-secondary)" />
+          <CardTitle style={{marginTop:12}}>Private by default</CardTitle>
+          <CardDescription>Every request scoped to your org.</CardDescription>
+        </CardContent>
+      </Card>
+      <Card variant="emphasis" style={{flex:1,minWidth:200}}>
+        <CardContent>
+          <div className="lbl">Credits</div>
+          <div style={{fontSize:'var(--text-2xl)',fontWeight:600,color:'#fff',margin:'6px 0 10px'}}>$412.80</div>
+          <Progress value={68} />
+        </CardContent>
+      </Card>
+      <Card variant="plain" style={{flex:1,minWidth:200,display:'flex',alignItems:'center',justifyContent:'center',padding:16}}>
+        <ChromeText as="div" style={{fontSize:'var(--text-3xl)',fontWeight:700,letterSpacing:'-.025em'}}>Chrome text</ChromeText>
+      </Card>
+    </div>
+  </div>)
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script></body></html>

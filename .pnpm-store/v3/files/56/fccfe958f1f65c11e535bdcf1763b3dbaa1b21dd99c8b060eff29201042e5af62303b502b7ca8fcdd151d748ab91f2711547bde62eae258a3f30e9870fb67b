@@ -1,0 +1,196 @@
+export interface JoinInput {
+    /** Waitlist slug or id, as configured on the Base server. */
+    waitlist: string;
+    email: string;
+    /** Optional referral code from the URL `?ref=<code>` parameter. */
+    referrerCode?: string;
+    /** Cloudflare Turnstile token, if Turnstile is enabled server-side. */
+    turnstileToken?: string;
+}
+export interface StatusInput {
+    waitlist: string;
+    email: string;
+}
+export interface PointBreakdown {
+    referrals: number;
+    shares: number;
+    invitesSent: number;
+    invitesConverted: number;
+    /** Points from verified social follows/joins (X, Discord, Telegram, ...). */
+    social?: number;
+    /** Points from running a hanzod node. */
+    hanzod?: number;
+}
+export interface PointValues {
+    REFERRAL: number;
+    SHARE: number;
+    INVITE_SENT: number;
+    INVITE_CONVERTED: number;
+}
+export interface WaitlistEntry {
+    ok: true;
+    waitlist: string;
+    email: string;
+    refCode: string;
+    rank: number;
+    total: number;
+    referralCount: number;
+    shareUrl: string;
+    /** Total points (referrals*REFERRAL + shares*SHARE + invitesSent + invitesConverted*INVITE_CONVERTED). */
+    points: number;
+    pointBreakdown: PointBreakdown;
+    pointValues: PointValues;
+    alreadyJoined?: boolean;
+    aheadOf?: number;
+}
+export interface TrackShareInput {
+    waitlist: string;
+    refCode: string;
+    platform: string;
+}
+export interface TrackShareResponse {
+    ok: true;
+    awarded: number;
+    alreadyClaimed: boolean;
+    points: number;
+    pointBreakdown: PointBreakdown;
+}
+export interface InviteInput {
+    waitlist: string;
+    refCode: string;
+    emails: string[];
+    message?: string;
+}
+export interface InviteResponse {
+    ok: true;
+    sent: number;
+    skipped: number;
+    invalid: number;
+    duplicates: number;
+    pointsAwarded: number;
+    points: number;
+    pointBreakdown: PointBreakdown;
+}
+export type ActivityType = 'join' | 'share' | 'invite' | 'referral' | 'social' | 'hanzod';
+export interface ActivityEvent {
+    ts: number;
+    type: ActivityType;
+    who: string;
+    source?: 'direct' | 'referral';
+    platform?: string;
+    invited?: string;
+}
+export interface ActivityInput {
+    waitlist: string;
+    limit?: number;
+    types?: ActivityType[];
+}
+export interface ActivityResponse {
+    ok: true;
+    waitlist: string;
+    /** Server wall-clock at the time of response — use this to compute
+     * relative times consistently even with client clock skew. */
+    now: number;
+    entries: ActivityEvent[];
+}
+export interface ListInput {
+    waitlist: string;
+    page?: number;
+    pageSize?: number;
+}
+export interface LeaderboardEntry {
+    rank: number;
+    email: string;
+    refCode: string | null;
+    points: number;
+    referralCount: number;
+    createdAt: string;
+}
+export interface LeaderboardPage {
+    ok: true;
+    waitlist: string;
+    page: number;
+    pageSize: number;
+    total: number;
+    totalPages: number;
+    entries: LeaderboardEntry[];
+}
+export interface NeighborhoodInput {
+    waitlist: string;
+    email: string;
+    /** How many entries to show above and below the caller (1..100, default 25). */
+    window?: number;
+}
+export interface NeighborRow {
+    rank: number;
+    email: string;
+    points: number;
+    referralCount: number;
+    isMe?: boolean;
+}
+export interface NeighborhoodResponse {
+    ok: true;
+    waitlist: string;
+    email: string;
+    rank: number;
+    total: number;
+    points: number;
+    window: number;
+    /** The caller and its nearest neighbors, ordered by rank (best first). */
+    entries: NeighborRow[];
+}
+export interface ApiError {
+    ok: false;
+    status: number;
+    message: string;
+    data?: unknown;
+}
+export type Result<T> = T | ApiError;
+export interface ClientOptions {
+    /**
+     * Base URL of the Hanzo Base server, e.g. `https://api.example.com`.
+     * Defaults to the current page origin.
+     */
+    baseUrl?: string;
+    /**
+     * Optional path prefix to prepend before `/v1/waitlist`. Useful when
+     * Base is mounted under a sub-path (`BASE_API_PREFIX=/v1/foo`).
+     * Should NOT include `/v1` — defaults to empty.
+     */
+    pathPrefix?: string;
+    /** Optional fetch override, for testing or custom transports. */
+    fetch?: typeof fetch;
+}
+export declare class WaitlistClient {
+    private readonly baseUrl;
+    private readonly prefix;
+    private readonly fetchFn;
+    constructor(opts?: ClientOptions);
+    private url;
+    join(input: JoinInput): Promise<Result<WaitlistEntry>>;
+    status(input: StatusInput): Promise<Result<WaitlistEntry>>;
+    list(input: ListInput): Promise<Result<LeaderboardPage>>;
+    /**
+     * The scalable "around me" leaderboard view: the caller's absolute rank in a
+     * list of any size, plus the `window` entries just above and below. Backed by
+     * keyset index seeks server-side, so it stays cheap (~0.1ms) even on a
+     * multi-million-row list — never fetch the whole leaderboard to show a slice.
+     */
+    neighborhood(input: NeighborhoodInput): Promise<Result<NeighborhoodResponse>>;
+    trackShare(input: TrackShareInput): Promise<Result<TrackShareResponse>>;
+    invite(input: InviteInput): Promise<Result<InviteResponse>>;
+    activity(input: ActivityInput): Promise<Result<ActivityResponse>>;
+    /**
+     * Returns a CSV string. Requires either a superuser auth cookie/token
+     * already attached to the request, OR an admin secret passed via
+     * `Authorization: Bearer <secret>`.
+     */
+    exportCsv(waitlist: string, init?: {
+        authorization?: string;
+    }): Promise<string>;
+    private parse;
+    private parseGeneric;
+}
+/** Convenience one-shot client. */
+export declare function join(input: JoinInput, opts?: ClientOptions): Promise<Result<WaitlistEntry>>;
+export declare function status(input: StatusInput, opts?: ClientOptions): Promise<Result<WaitlistEntry>>;

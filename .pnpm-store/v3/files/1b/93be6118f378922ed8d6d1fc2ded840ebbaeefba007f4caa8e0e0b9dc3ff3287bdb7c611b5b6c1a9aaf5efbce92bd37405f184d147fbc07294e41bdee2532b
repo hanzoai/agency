@@ -1,0 +1,19 @@
+<!-- @dsCard group="Spacing" viewport="700x150" name="Golden ramp" subtitle="φ ramp from tailwind.config.ts — editorial layouts only" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Golden ramp</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div style="display:flex;align-items:flex-end;gap:10px">
+  <div style="text-align:center"><div style="width:0.25rem;height:0.25rem;background:var(--white-10);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">1</div></div>
+  <div style="text-align:center"><div style="width:0.405rem;height:0.405rem;background:var(--white-10);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">2</div></div>
+  <div style="text-align:center"><div style="width:0.654rem;height:0.654rem;background:var(--white-10);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">3</div></div>
+  <div style="text-align:center"><div style="width:1.059rem;height:1.059rem;background:var(--white-10);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">4</div></div>
+  <div style="text-align:center"><div style="width:1.713rem;height:1.713rem;background:var(--white-10);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">5</div></div>
+  <div style="text-align:center"><div style="width:2.772rem;height:2.772rem;background:var(--white-10);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">6</div></div>
+  <div style="text-align:center"><div style="width:4.487rem;height:4.487rem;background:var(--white-10);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">7</div></div>
+  <div style="margin-left:14px"><div style="display:grid;grid-template-columns:38.2% 61.8%;gap:4px;width:200px"><div style="height:28px;background:var(--white-10);border-radius:3px"></div><div style="height:28px;background:var(--white-20);border-radius:3px"></div></div><div class="n" style="margin-top:6px">--golden-split</div></div>
+</div></body></html>

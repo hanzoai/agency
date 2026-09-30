@@ -1,0 +1,17 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Surfaces" subtitle="Page, card fills and overlay — the whole brand lives here" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Surfaces</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div class="g">
+  <div class="sw"><div class="chip" style="background:var(--background)"></div><div class="n">--background</div><div class="v">#000000</div></div>
+  <div class="sw"><div class="chip" style="background:var(--card)"></div><div class="n">--card</div><div class="v">#0a0a0a</div></div>
+  <div class="sw"><div class="chip" style="background:var(--surface-card)"></div><div class="n">--surface-card</div><div class="v">n-900 / 50%</div></div>
+  <div class="sw"><div class="chip" style="background:var(--surface-card-emphasis)"></div><div class="n">--surface-card-emphasis</div><div class="v">n-900 / 80%</div></div>
+  <div class="sw"><div class="chip" style="background:var(--secondary)"></div><div class="n">--secondary</div><div class="v">#1a1a1a</div></div>
+  <div class="sw"><div class="chip" style="background:var(--muted)"></div><div class="n">--muted</div><div class="v">#101010</div></div>
+</div></body></html>

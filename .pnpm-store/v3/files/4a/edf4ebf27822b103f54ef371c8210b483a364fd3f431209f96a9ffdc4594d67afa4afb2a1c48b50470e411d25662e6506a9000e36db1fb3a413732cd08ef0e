@@ -1,0 +1,45 @@
+import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { Analytics } from './core';
+import type { AnalyticsConfig } from './types';
+declare const Ctx: import("react").Context<Analytics | null>;
+export interface AnalyticsProviderProps {
+    /** Provide a pre-built client, or a config to build one. */
+    client?: Analytics;
+    config?: AnalyticsConfig;
+    /** Fire a pageview for the initial load (default true). */
+    autoPageview?: boolean;
+    children: ReactNode;
+}
+export declare function AnalyticsProvider(props: AnalyticsProviderProps): import("react").FunctionComponentElement<import("react").ProviderProps<Analytics | null>>;
+/** useAnalytics returns the client. Outside a provider it returns a no-op-safe
+ *  null-guarded proxy so calls never throw during SSR/tests. */
+export declare function useAnalytics(): Analytics;
+/** usePageview fires a pageview on every route CHANGE (not the initial mount —
+ *  the provider's autoPageview covers that, so pages are counted exactly once). */
+export declare function usePageview(path: string | null | undefined): void;
+export interface ErrorBoundaryProps {
+    children: ReactNode;
+    /** Rendered when a child throws. A function receives the error + a reset. */
+    fallback?: ReactNode | ((error: Error, reset: () => void) => ReactNode);
+    /** Explicit client; defaults to the one from AnalyticsProvider. */
+    client?: Analytics;
+}
+interface ErrorBoundaryState {
+    error: Error | null;
+}
+/** ErrorBoundary reports React render errors to the client as error events —
+ *  React swallows these before window.onerror sees them, so a boundary is the
+ *  ONLY way to capture them. This is the React half of the @sentry replacement.
+ *  Pair it with AnalyticsProvider (it reads the client from context), or pass an
+ *  explicit `client`. */
+export declare class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+    static contextType: import("react").Context<Analytics | null>;
+    context: React.ContextType<typeof Ctx>;
+    state: ErrorBoundaryState;
+    static getDerivedStateFromError(error: Error): ErrorBoundaryState;
+    componentDidCatch(error: Error, info: ErrorInfo): void;
+    private reset;
+    render(): ReactNode;
+}
+export {};
+//# sourceMappingURL=react.d.ts.map

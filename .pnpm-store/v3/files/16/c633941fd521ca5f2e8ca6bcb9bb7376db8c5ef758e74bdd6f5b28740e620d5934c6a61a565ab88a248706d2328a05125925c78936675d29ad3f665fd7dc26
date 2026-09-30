@@ -1,0 +1,15 @@
+<!-- @dsCard group="Spacing" viewport="700x170" name="Containers" subtitle="1280 grid, 768 prose, and the section rhythm" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Containers</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div style="display:flex;flex-direction:column;gap:8px">
+  <div><div style="height:22px;background:var(--white-10);border:1px solid var(--white-20);border-radius:4px;width:100%"></div><div class="meta" style="margin-top:4px">--container-max · max-w-7xl · 1280px — grids and nav</div></div>
+  <div><div style="height:22px;background:var(--white-15);border:1px solid var(--white-20);border-radius:4px;width:90%"></div><div class="meta" style="margin-top:4px">--container-wide · max-w-6xl · 1152px — landing sections</div></div>
+  <div><div style="height:22px;background:var(--white-20);border:1px solid var(--white-30);border-radius:4px;width:60%"></div><div class="meta" style="margin-top:4px">--container-prose · max-w-3xl · 768px — centred copy</div></div>
+  <div class="meta">gutters px-4 → sm:px-6 → lg:px-8 · sections py-16/py-24 · heroes py-20 → lg:py-32</div>
+</div></body></html>

@@ -1,0 +1,23 @@
+/* Stacking order — the one z-index ladder. Layers are named by role, never by a
+   magic number, so a dropdown opened from the fixed header always sits above it
+   and nothing ever reaches for 9999. Below --z-raised is ordinary document flow.
+
+   Rungs are 100 apart so a surface can slot a one-off BETWEEN two roles
+   (calc(var(--z-modal) + 1)) without inventing a new decade. */
+:root{
+  --z-base:0;
+  --z-raised:10;       /* hover-lifted cards, sticky table headers          */
+  --z-sticky:200;      /* pinned section rails                              */
+  --z-header:300;      /* the fixed site header                             */
+  --z-dropdown:400;    /* menus, selects, comboboxes                        */
+  --z-overlay:500;     /* dialog / sheet scrim                              */
+  --z-modal:600;       /* dialogs, sheets, command palette                  */
+  --z-popover:700;     /* popovers, tooltips (also when anchored in modals) */
+  --z-toast:800;       /* toasts / notifications — always on top            */
+
+  /* @hanzo/brand spells the top two rungs --z-tooltip and --z-notification.
+     Same rungs, so a component written against either vocabulary stacks
+     identically. --z-popover / --z-toast are canonical. */
+  --z-tooltip:var(--z-popover);
+  --z-notification:var(--z-toast);
+}

@@ -1,0 +1,944 @@
+import { WaitlistClient as e, join as t, status as n } from "./client.js";
+import { useCallback as r, useEffect as i, useMemo as a, useRef as o, useState as s } from "react";
+import { Fragment as c, jsx as l, jsxs as u } from "react/jsx-runtime";
+//#region src/storage.ts
+var d = "hanzo-waitlist:", f = "hanzo-waitlist:ref";
+function p(e) {
+	return d + e;
+}
+function m(e) {
+	if (typeof localStorage > "u") return null;
+	try {
+		let t = localStorage.getItem(p(e));
+		if (!t) return null;
+		let n = JSON.parse(t);
+		return n?.email ? {
+			email: n.email,
+			rank: n.rank,
+			refCode: n.refCode
+		} : null;
+	} catch {
+		return null;
+	}
+}
+function h(e, t) {
+	if (!(typeof localStorage > "u")) {
+		try {
+			localStorage.setItem(p(e), JSON.stringify(t));
+		} catch {}
+		typeof window < "u" && window.dispatchEvent(new CustomEvent("hanzo-waitlist:change", { detail: { slug: e } }));
+	}
+}
+function g(e) {
+	if (!(typeof localStorage > "u")) {
+		try {
+			localStorage.removeItem(p(e));
+		} catch {}
+		typeof window < "u" && window.dispatchEvent(new CustomEvent("hanzo-waitlist:change", { detail: { slug: e } }));
+	}
+}
+function _() {
+	if (!(typeof window > "u")) try {
+		let e = new URLSearchParams(window.location.search).get("ref");
+		e && localStorage.setItem(f, e);
+	} catch {}
+}
+function v() {
+	if (!(typeof localStorage > "u")) try {
+		return localStorage.getItem(f) ?? void 0;
+	} catch {
+		return;
+	}
+}
+function y(e) {
+	let [t, n] = s(() => m(e));
+	return i(() => {
+		n(m(e));
+		let t = (t) => {
+			let r = t.detail?.slug;
+			r && r !== e || n(m(e));
+		}, r = (t) => {
+			t.key === p(e) && n(m(e));
+		};
+		return window.addEventListener("hanzo-waitlist:change", t), window.addEventListener("storage", r), () => {
+			window.removeEventListener("hanzo-waitlist:change", t), window.removeEventListener("storage", r);
+		};
+	}, [e]), t;
+}
+//#endregion
+//#region src/Join.tsx
+var b = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+function x(t) {
+	let { waitlist: n, baseUrl: i, title: o = "Join the waitlist", subtitle: c, submitLabel: d = "Join", turnstileToken: f, email: p, onSuccess: m, onError: h } = t, g = a(() => new e({ baseUrl: i }), [i]), [_, y] = s(p ?? ""), [x, S] = s(!1), [C, w] = s(null), T = r(async (e) => {
+		if (e?.preventDefault(), x) return;
+		let t = _.trim().toLowerCase();
+		if (!b.test(t)) {
+			let e = "Enter a valid email address.";
+			w(e), h?.({
+				message: e,
+				status: 0
+			});
+			return;
+		}
+		S(!0), w(null);
+		let r = await g.join({
+			waitlist: n,
+			email: t,
+			referrerCode: v(),
+			turnstileToken: f
+		});
+		if ("ok" in r && r.ok) {
+			S(!1), m?.(r);
+			return;
+		}
+		let i = r.message || "Something went wrong. Try again.";
+		w(i), h?.({
+			message: i,
+			status: r.status
+		}), S(!1);
+	}, [
+		x,
+		g,
+		_,
+		h,
+		m,
+		f,
+		n
+	]);
+	return /* @__PURE__ */ u("form", {
+		onSubmit: T,
+		noValidate: !0,
+		children: [
+			/* @__PURE__ */ l("h3", {
+				className: "hanzo-waitlist__title",
+				children: o
+			}),
+			c && /* @__PURE__ */ l("p", {
+				className: "hanzo-waitlist__subtitle",
+				children: c
+			}),
+			/* @__PURE__ */ u("div", {
+				className: "hanzo-waitlist__row",
+				children: [/* @__PURE__ */ l("input", {
+					className: "hanzo-waitlist__input",
+					type: "email",
+					inputMode: "email",
+					autoComplete: "email",
+					placeholder: "you@example.com",
+					value: _,
+					onChange: (e) => y(e.currentTarget.value),
+					disabled: x,
+					"aria-label": "Email address",
+					required: !0
+				}), /* @__PURE__ */ l("button", {
+					type: "submit",
+					className: "hanzo-waitlist__button",
+					disabled: x || !_,
+					children: x ? "…" : d
+				})]
+			}),
+			C && /* @__PURE__ */ l("p", {
+				className: "hanzo-waitlist__error",
+				role: "alert",
+				children: C
+			})
+		]
+	});
+}
+//#endregion
+//#region src/Share.tsx
+var S = [
+	"webshare",
+	"email",
+	"x",
+	"linkedin",
+	"facebook",
+	"reddit",
+	"telegram",
+	"whatsapp",
+	"sms",
+	"copy"
+], C = {
+	webshare: {
+		label: "Share",
+		href: () => null,
+		onClick: async ({ url: e, text: t }) => {
+			if (typeof navigator < "u" && "share" in navigator) try {
+				await navigator.share({
+					text: t,
+					url: e
+				});
+			} catch {}
+		}
+	},
+	email: {
+		label: "Email",
+		href: ({ url: e, text: t }) => `mailto:?subject=Join%20the%20waitlist&body=${encodeURIComponent(`${t}\n\n${e}`)}`
+	},
+	x: {
+		label: "X",
+		href: ({ url: e, text: t }) => `https://x.com/intent/post?text=${encodeURIComponent(t)}&url=${encodeURIComponent(e)}`
+	},
+	linkedin: {
+		label: "LinkedIn",
+		href: ({ url: e }) => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(e)}`
+	},
+	facebook: {
+		label: "Facebook",
+		href: ({ url: e }) => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(e)}`
+	},
+	reddit: {
+		label: "Reddit",
+		href: ({ url: e, text: t }) => `https://reddit.com/submit?url=${encodeURIComponent(e)}&title=${encodeURIComponent(t)}`
+	},
+	telegram: {
+		label: "Telegram",
+		href: ({ url: e, text: t }) => `https://t.me/share/url?url=${encodeURIComponent(e)}&text=${encodeURIComponent(t)}`
+	},
+	whatsapp: {
+		label: "WhatsApp",
+		href: ({ url: e, text: t }) => `https://wa.me/?text=${encodeURIComponent(`${t} ${e}`)}`
+	},
+	sms: {
+		label: "SMS",
+		href: ({ url: e, text: t }) => `sms:?&body=${encodeURIComponent(`${t} ${e}`)}`
+	},
+	copy: {
+		label: "Copy link",
+		href: () => null,
+		onClick: async ({ url: e }) => {
+			if (typeof navigator < "u" && navigator.clipboard) try {
+				await navigator.clipboard.writeText(e);
+			} catch {}
+		}
+	}
+};
+function w(e) {
+	return (e ?? S).map((e) => {
+		if (typeof e == "string") {
+			let t = C[e];
+			return t ? {
+				id: e,
+				...t
+			} : null;
+		}
+		return e;
+	}).filter((e) => !!e);
+}
+function T(t) {
+	let { waitlist: n, refCode: i, shareUrl: o, rank: c = 0, total: d, message: f, shareTargets: p, pointValues: m, baseUrl: h, onShared: g } = t, _ = a(() => new e({ baseUrl: h }), [h]), v = a(() => w(p), [p]), [y, b] = s(null), [x, S] = s(null), C = m?.SHARE ?? 2, T = a(() => {
+		let e = f ? f({
+			url: o,
+			text: "",
+			rank: c,
+			refCode: i
+		}) : c ? `I'm #${c.toLocaleString()} on the waitlist. Climb with me:` : "Join me on the waitlist:";
+		return {
+			url: o,
+			text: e,
+			rank: c,
+			refCode: i
+		};
+	}, [
+		f,
+		c,
+		i,
+		o
+	]), E = a(() => typeof navigator > "u" || !("share" in navigator) ? v.filter((e) => e.id !== "webshare") : v, [v]), D = r(async (e) => {
+		if (y) return;
+		b(String(e.id)), S(null);
+		try {
+			e.onClick && await e.onClick(T);
+		} catch {}
+		let t = e.href(T);
+		t && (t.startsWith("mailto:") || t.startsWith("sms:") ? window.location.href = t : window.open(t, "_blank", "noopener,noreferrer"));
+		let r = await _.trackShare({
+			waitlist: n,
+			refCode: i,
+			platform: String(e.id)
+		}), a = 0, o = !1;
+		"ok" in r && r.ok && (a = r.awarded, o = r.alreadyClaimed, a > 0 ? S(`+${a} from ${e.label}`) : o && S("Already counted today")), g?.(String(e.id), a, o), b(null), setTimeout(() => S(null), 2200);
+	}, [
+		y,
+		_,
+		T,
+		g,
+		i,
+		n
+	]);
+	return /* @__PURE__ */ u("div", {
+		className: "hanzo-waitlist__share-wrap",
+		children: [/* @__PURE__ */ l("ul", {
+			className: "hanzo-waitlist__share",
+			role: "list",
+			children: E.map((e) => {
+				let t = e.points ?? C, n = y === String(e.id), r = e.id === "webshare" || e.id === "copy";
+				return /* @__PURE__ */ l("li", { children: /* @__PURE__ */ u("button", {
+					type: "button",
+					className: `hanzo-waitlist__share-btn${r ? "" : " hanzo-waitlist__button--ghost"}`,
+					onClick: () => D(e),
+					disabled: n,
+					"aria-label": `${e.label} (+${t})`,
+					children: [/* @__PURE__ */ l("span", {
+						className: "hanzo-waitlist__share-label",
+						children: e.label
+					}), t > 0 && /* @__PURE__ */ u("span", {
+						className: "hanzo-waitlist__share-pts",
+						"aria-hidden": "true",
+						children: ["+", t]
+					})]
+				}) }, String(e.id));
+			})
+		}), /* @__PURE__ */ l("div", {
+			className: "hanzo-waitlist__toast",
+			role: "status",
+			"aria-live": "polite",
+			children: x
+		})]
+	});
+}
+//#endregion
+//#region src/InviteFriends.tsx
+function E(e) {
+	return e.split(/[\s,;]+/).map((e) => e.trim()).filter(Boolean);
+}
+function D(t) {
+	let { waitlist: n, refCode: i, baseUrl: o, pointPerInvite: d = 1, pointPerConversion: f = 5, maxBatch: p = 50, defaultMessage: m = "", onSent: h } = t, g = a(() => new e({ baseUrl: o }), [o]), [_, v] = s(!1), [y, b] = s(""), [x, S] = s(m), [C, w] = s(!1), [T, D] = s(null), [O, k] = s(null), A = a(() => E(y), [y]), j = A.length, M = j > p, N = j * d, P = r(async () => {
+		if (j === 0 || M || C) return;
+		w(!0), k(null), D(null);
+		let e = await g.invite({
+			waitlist: n,
+			refCode: i,
+			emails: A,
+			message: x || void 0
+		});
+		"ok" in e && e.ok ? (D(e), b(""), h?.(e)) : k(e.message || "failed to send"), w(!1);
+	}, [
+		C,
+		g,
+		j,
+		A,
+		x,
+		h,
+		M,
+		i,
+		n
+	]);
+	return /* @__PURE__ */ u("div", {
+		className: "hanzo-waitlist__invite",
+		children: [/* @__PURE__ */ u("button", {
+			type: "button",
+			className: "hanzo-waitlist__invite-toggle",
+			onClick: () => v((e) => !e),
+			"aria-expanded": _,
+			children: [
+				/* @__PURE__ */ l("span", { children: "Invite friends" }),
+				/* @__PURE__ */ u("span", {
+					className: "hanzo-waitlist__invite-toggle-meta",
+					children: [
+						"+",
+						d,
+						"/sent · +",
+						f,
+						"/joined"
+					]
+				}),
+				/* @__PURE__ */ l("span", {
+					"aria-hidden": "true",
+					className: `hanzo-waitlist__chev${_ ? " is-open" : ""}`,
+					children: "›"
+				})
+			]
+		}), _ && /* @__PURE__ */ u("div", {
+			className: "hanzo-waitlist__invite-panel",
+			children: [
+				/* @__PURE__ */ u("label", {
+					className: "hanzo-waitlist__invite-label",
+					htmlFor: "hw-invite-emails",
+					children: ["Emails", /* @__PURE__ */ u("span", {
+						className: "hanzo-waitlist__invite-hint",
+						children: [
+							j,
+							" ",
+							j === 1 ? "address" : "addresses",
+							M && ` — max ${p}`,
+							!M && j > 0 && ` &middot; +${N} pts pending`
+						]
+					})]
+				}),
+				/* @__PURE__ */ l("textarea", {
+					id: "hw-invite-emails",
+					className: "hanzo-waitlist__invite-textarea",
+					placeholder: "friend1@example.com\nfriend2@example.com, friend3@example.com",
+					rows: 4,
+					value: y,
+					onChange: (e) => b(e.currentTarget.value),
+					disabled: C
+				}),
+				/* @__PURE__ */ l("input", {
+					type: "text",
+					className: "hanzo-waitlist__input",
+					placeholder: "Personal note (optional)",
+					value: x,
+					maxLength: 500,
+					onChange: (e) => S(e.currentTarget.value),
+					disabled: C
+				}),
+				/* @__PURE__ */ l("button", {
+					type: "button",
+					className: "hanzo-waitlist__button",
+					onClick: P,
+					disabled: C || j === 0 || M,
+					children: C ? "Sending…" : j > 0 ? `Send ${j} ${j === 1 ? "invite" : "invites"}` : "Send invites"
+				}),
+				O && /* @__PURE__ */ l("p", {
+					className: "hanzo-waitlist__error",
+					role: "alert",
+					children: O
+				}),
+				T && /* @__PURE__ */ u("p", {
+					className: "hanzo-waitlist__invite-result",
+					role: "status",
+					children: [
+						"Sent ",
+						/* @__PURE__ */ l("strong", { children: T.sent }),
+						T.skipped > 0 && /* @__PURE__ */ u(c, { children: [
+							", skipped ",
+							T.skipped,
+							" ",
+							/* @__PURE__ */ l("small", { children: "(already on list)" })
+						] }),
+						T.invalid > 0 && /* @__PURE__ */ u(c, { children: [
+							", ",
+							T.invalid,
+							" invalid"
+						] }),
+						T.duplicates > 0 && /* @__PURE__ */ u(c, { children: [
+							", ",
+							T.duplicates,
+							" duplicates"
+						] }),
+						T.pointsAwarded > 0 && /* @__PURE__ */ u(c, { children: [
+							" · +",
+							T.pointsAwarded,
+							" pts"
+						] })
+					]
+				})
+			]
+		})]
+	});
+}
+//#endregion
+//#region src/Status.tsx
+var O = (e) => e.aheadOf && e.aheadOf > 0 ? `${e.aheadOf.toLocaleString()} ${e.aheadOf === 1 ? "person is" : "people are"} behind you. Refer friends to climb.` : "Refer friends to climb the list.";
+function k(e) {
+	let { entry: t, waitlist: n, baseUrl: i, title: o = "You're on the list", subtitle: c = O, hideShare: d, hideInvite: f, hidePoints: p, shareTargets: m, onEntryChange: h } = e, [g, _] = s(t);
+	t !== g && t.email === g.email && t.points !== g.points && _(t);
+	let v = t === g || t.points >= g.points ? t : g, y = a(() => {
+		if (typeof window > "u") return v.shareUrl;
+		let e = new URL(window.location.href);
+		return e.search = "", e.searchParams.set("ref", v.refCode), e.toString();
+	}, [v.refCode, v.shareUrl]), b = r((e, t) => {
+		let n = {
+			...v,
+			points: e,
+			pointBreakdown: t
+		};
+		_(n), h?.(n);
+	}, [h, v]), x = v.pointBreakdown, S = v.pointValues;
+	return /* @__PURE__ */ u("div", {
+		className: "hanzo-waitlist__success",
+		children: [
+			/* @__PURE__ */ l("h3", {
+				className: "hanzo-waitlist__title",
+				style: { textAlign: "center" },
+				children: o
+			}),
+			/* @__PURE__ */ l("div", {
+				className: "hanzo-waitlist__rank",
+				"aria-label": `Rank ${v.rank} of ${v.total}`,
+				children: v.rank.toLocaleString()
+			}),
+			/* @__PURE__ */ u("p", {
+				className: "hanzo-waitlist__of",
+				"aria-hidden": "true",
+				children: ["of ", v.total.toLocaleString()]
+			}),
+			/* @__PURE__ */ l("p", {
+				className: "hanzo-waitlist__meta",
+				children: c(v)
+			}),
+			!p && /* @__PURE__ */ u("div", {
+				className: "hanzo-waitlist__score",
+				"aria-label": `${v.points} points`,
+				children: [/* @__PURE__ */ u("div", {
+					className: "hanzo-waitlist__score-num",
+					children: [v.points.toLocaleString(), /* @__PURE__ */ l("span", {
+						className: "hanzo-waitlist__score-suffix",
+						children: "pts"
+					})]
+				}), /* @__PURE__ */ u("ul", {
+					className: "hanzo-waitlist__score-breakdown",
+					role: "list",
+					children: [
+						/* @__PURE__ */ u("li", { children: [
+							/* @__PURE__ */ l("b", { children: x.referrals }),
+							" referrals ",
+							/* @__PURE__ */ u("small", { children: ["×", S.REFERRAL] })
+						] }),
+						/* @__PURE__ */ u("li", { children: [
+							/* @__PURE__ */ l("b", { children: x.shares }),
+							" shares ",
+							/* @__PURE__ */ u("small", { children: ["×", S.SHARE] })
+						] }),
+						/* @__PURE__ */ u("li", { children: [
+							/* @__PURE__ */ l("b", { children: x.invitesSent }),
+							" invites ",
+							/* @__PURE__ */ u("small", { children: ["×", S.INVITE_SENT] })
+						] }),
+						/* @__PURE__ */ u("li", { children: [
+							/* @__PURE__ */ l("b", { children: x.invitesConverted }),
+							" joined ",
+							/* @__PURE__ */ u("small", { children: ["×", S.INVITE_CONVERTED] })
+						] })
+					]
+				})]
+			}),
+			!d && /* @__PURE__ */ l(T, {
+				waitlist: n,
+				refCode: v.refCode,
+				shareUrl: y,
+				rank: v.rank,
+				total: v.total,
+				baseUrl: i,
+				shareTargets: m,
+				pointValues: v.pointValues,
+				onShared: (e, t) => {
+					t > 0 && b(v.points + t, {
+						...x,
+						shares: x.shares + t
+					});
+				}
+			}),
+			!f && /* @__PURE__ */ l(D, {
+				waitlist: n,
+				refCode: v.refCode,
+				baseUrl: i,
+				pointPerInvite: S.INVITE_SENT,
+				pointPerConversion: S.INVITE_CONVERTED,
+				onSent: (e) => b(v.points + e.pointsAwarded, {
+					...x,
+					invitesSent: x.invitesSent + e.pointsAwarded
+				})
+			})
+		]
+	});
+}
+//#endregion
+//#region src/Waitlist.tsx
+function A(t) {
+	let { waitlist: n, baseUrl: o, mode: d = "inline", theme: f = "auto", logo: p, title: m, subtitle: g, submitLabel: v, turnstileToken: b, successTitle: S, successSubtitle: C, triggerLabel: w = "Join waitlist", hideShare: T, hideInvite: E, hidePoints: D, shareTargets: O, className: A, style: M, onSuccess: N, onError: P } = t, F = a(() => new e({ baseUrl: o }), [o]), I = y(n), [L, R] = s(null), [z, B] = s(!1);
+	i(() => {
+		_();
+	}, []), i(() => {
+		if (!I?.email) {
+			R(null);
+			return;
+		}
+		let e = !1;
+		return F.status({
+			waitlist: n,
+			email: I.email
+		}).then((t) => {
+			e || "ok" in t && t.ok && R(t);
+		}), () => {
+			e = !0;
+		};
+	}, [
+		I?.email,
+		F,
+		n
+	]);
+	let V = r((e) => {
+		h(n, {
+			email: e.email,
+			rank: e.rank,
+			refCode: e.refCode
+		}), R(e), N?.(e);
+	}, [N, n]), H = /* @__PURE__ */ u(j, {
+		theme: f,
+		className: A,
+		style: M,
+		children: [p && /* @__PURE__ */ l("div", {
+			className: "hanzo-waitlist__logo",
+			children: p
+		}), L ? /* @__PURE__ */ l(k, {
+			entry: L,
+			waitlist: n,
+			baseUrl: o,
+			title: S,
+			subtitle: C,
+			hideShare: T,
+			hideInvite: E,
+			hidePoints: D,
+			shareTargets: O,
+			onEntryChange: R
+		}) : /* @__PURE__ */ l(x, {
+			waitlist: n,
+			baseUrl: o,
+			title: m,
+			subtitle: g,
+			submitLabel: v,
+			turnstileToken: b,
+			onSuccess: V,
+			onError: P
+		})]
+	});
+	return d === "inline" ? H : /* @__PURE__ */ u(c, { children: [/* @__PURE__ */ l("button", {
+		type: "button",
+		className: "hanzo-waitlist__trigger",
+		onClick: () => B(!0),
+		children: L ? `#${L.rank.toLocaleString()} — view` : w
+	}), z && /* @__PURE__ */ l("div", {
+		className: "hanzo-waitlist__backdrop",
+		role: "dialog",
+		"aria-modal": "true",
+		onClick: (e) => {
+			e.target === e.currentTarget && B(!1);
+		},
+		children: /* @__PURE__ */ l("div", {
+			className: "hanzo-waitlist__dialog",
+			children: H
+		})
+	})] });
+}
+function j(e) {
+	let t = e.theme === "auto" ? void 0 : e.theme, n = ["hanzo-waitlist", e.className].filter(Boolean).join(" ");
+	return /* @__PURE__ */ l("div", {
+		className: n,
+		"data-theme": t,
+		style: e.style,
+		children: /* @__PURE__ */ l("div", {
+			className: "hanzo-waitlist__card",
+			children: e.children
+		})
+	});
+}
+//#endregion
+//#region src/useCountUp.ts
+var M = (e) => 1 - (1 - e) ** 3;
+function N(e, t = {}) {
+	let { duration: n = 1200, ease: r = M, retrigger: a = !0 } = t, [c, l] = s(0), u = o(null), d = o(0);
+	return i(() => {
+		if (e == null) return;
+		if (n <= 0) {
+			l(e), d.current = e;
+			return;
+		}
+		if (typeof window < "u" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+			l(e), d.current = e;
+			return;
+		}
+		let t = a ? d.current : c, i = e;
+		if (t === i) return;
+		let o = performance.now(), s = (e) => {
+			let a = Math.min(1, (e - o) / n), c = t + (i - t) * r(a);
+			l(Math.round(c)), a < 1 ? u.current = requestAnimationFrame(s) : (d.current = i, u.current = null);
+		};
+		return u.current = requestAnimationFrame(s), () => {
+			u.current && cancelAnimationFrame(u.current);
+		};
+	}, [e, n]), c;
+}
+//#endregion
+//#region src/Leaderboard.tsx
+function P(t) {
+	let { waitlist: n, baseUrl: o, pageSize: c = 25, theme: d = "auto", highlightEmail: f, mode: p = "load-more", loadMoreLabel: m = "Show more", exhaustedLabel: h = "That's everyone", animateTotal: g = !0, className: _, style: v, renderEmail: y } = t, b = a(() => new e({ baseUrl: o }), [o]), [x, S] = s(1), [C, w] = s([]), [T, E] = s(null), [D, O] = s(null), [k, A] = s(!1), j = r(async (e, t) => {
+		A(!0), O(null);
+		let r = await b.list({
+			waitlist: n,
+			page: e,
+			pageSize: c
+		});
+		"ok" in r && r.ok ? (E({
+			total: r.total,
+			totalPages: r.totalPages
+		}), w((e) => {
+			if (!t) return r.entries;
+			let n = new Set(e.map((e) => e.rank)), i = r.entries.filter((e) => !n.has(e.rank));
+			return [...e, ...i];
+		})) : O(r.message || "failed to load"), A(!1);
+	}, [
+		b,
+		c,
+		n
+	]);
+	i(() => {
+		S(1), w([]), j(1, !1);
+	}, [j]);
+	let M = T?.total ?? 0, P = g === !1 ? 0 : typeof g == "object" ? g.duration ?? 1200 : 1200, I = N(T ? M : null, { duration: P }), L = g === !1 ? M : I, R = p === "paginate", z = T ? x >= T.totalPages : !1, B = p === "load-more" && T && C.length >= T.total, V = r(() => {
+		if (k) return;
+		let e = x + 1;
+		S(e), j(e, !0);
+	}, [
+		k,
+		j,
+		x
+	]), H = d === "auto" ? void 0 : d;
+	return /* @__PURE__ */ l("div", {
+		className: ["hanzo-waitlist", _].filter(Boolean).join(" "),
+		"data-theme": H,
+		style: v,
+		children: /* @__PURE__ */ u("div", {
+			className: "hanzo-waitlist__card hanzo-waitlist-lb",
+			children: [
+				/* @__PURE__ */ u("header", {
+					className: "hanzo-waitlist-lb__head",
+					children: [/* @__PURE__ */ u("div", { children: [/* @__PURE__ */ l("h3", {
+						className: "hanzo-waitlist__title",
+						children: "Leaderboard"
+					}), /* @__PURE__ */ u("p", {
+						className: "hanzo-waitlist__subtitle",
+						children: [/* @__PURE__ */ l("span", {
+							className: "hanzo-waitlist-lb__total",
+							children: L.toLocaleString()
+						}), " on the list"]
+					})] }), R && /* @__PURE__ */ l(F, {
+						page: x,
+						totalPages: T?.totalPages ?? 1,
+						busy: k,
+						onChange: (e) => {
+							S(e), j(e, !1);
+						}
+					})]
+				}),
+				D && /* @__PURE__ */ l("p", {
+					className: "hanzo-waitlist__error",
+					role: "alert",
+					children: D
+				}),
+				/* @__PURE__ */ u("ol", {
+					className: "hanzo-waitlist-lb__list",
+					children: [C.map((e) => {
+						let t = f && e.email.toLowerCase() === f.toLowerCase();
+						return /* @__PURE__ */ u("li", {
+							className: "hanzo-waitlist-lb__row",
+							"data-mine": t ? "true" : void 0,
+							children: [
+								/* @__PURE__ */ u("span", {
+									className: "hanzo-waitlist-lb__rank",
+									children: ["#", e.rank.toLocaleString()]
+								}),
+								/* @__PURE__ */ l("span", {
+									className: "hanzo-waitlist-lb__email",
+									children: y ? y(e) : e.email
+								}),
+								/* @__PURE__ */ l("span", {
+									className: "hanzo-waitlist-lb__refs",
+									"aria-label": `${e.referralCount} referrals`,
+									children: e.referralCount.toLocaleString()
+								})
+							]
+						}, `${e.rank}-${e.email}`);
+					}), !D && C.length === 0 && /* @__PURE__ */ l("li", {
+						className: "hanzo-waitlist-lb__empty",
+						children: k ? "Loading…" : "No one yet — be the first."
+					})]
+				}),
+				!R && T && !B && /* @__PURE__ */ l("footer", {
+					className: "hanzo-waitlist-lb__foot",
+					children: /* @__PURE__ */ l("button", {
+						type: "button",
+						className: "hanzo-waitlist__button hanzo-waitlist__button--ghost hanzo-waitlist-lb__more",
+						onClick: V,
+						disabled: k,
+						children: k ? "Loading…" : m
+					})
+				}),
+				!R && B && h && /* @__PURE__ */ l("footer", {
+					className: "hanzo-waitlist-lb__foot",
+					children: /* @__PURE__ */ l("span", {
+						className: "hanzo-waitlist-lb__exhausted",
+						children: h
+					})
+				}),
+				R && (T?.totalPages ?? 1) > 1 && /* @__PURE__ */ l("footer", {
+					className: "hanzo-waitlist-lb__foot",
+					children: /* @__PURE__ */ l(F, {
+						page: x,
+						totalPages: T?.totalPages ?? 1,
+						busy: k,
+						onChange: (e) => {
+							S(e), j(e, !1);
+						}
+					})
+				}),
+				!R && z && !1
+			]
+		})
+	});
+}
+function F(e) {
+	return /* @__PURE__ */ u("div", {
+		className: "hanzo-waitlist-lb__pager",
+		children: [
+			/* @__PURE__ */ l("button", {
+				type: "button",
+				className: "hanzo-waitlist__button hanzo-waitlist__button--ghost",
+				onClick: () => e.onChange(Math.max(1, e.page - 1)),
+				disabled: e.busy || e.page <= 1,
+				"aria-label": "Previous page",
+				children: "←"
+			}),
+			/* @__PURE__ */ u("span", {
+				className: "hanzo-waitlist-lb__pageinfo",
+				children: [
+					e.page.toLocaleString(),
+					" / ",
+					e.totalPages.toLocaleString()
+				]
+			}),
+			/* @__PURE__ */ l("button", {
+				type: "button",
+				className: "hanzo-waitlist__button hanzo-waitlist__button--ghost",
+				onClick: () => e.onChange(Math.min(e.totalPages, e.page + 1)),
+				disabled: e.busy || e.page >= e.totalPages,
+				"aria-label": "Next page",
+				children: "→"
+			})
+		]
+	});
+}
+//#endregion
+//#region src/Activity.tsx
+function I(e) {
+	let t = Math.max(0, Math.floor(e / 1e3));
+	if (t < 30) return "just now";
+	if (t < 60) return `${t}s ago`;
+	let n = Math.floor(t / 60);
+	if (n < 60) return `${n}m ago`;
+	let r = Math.floor(n / 60);
+	if (r < 24) return `${r}h ago`;
+	let i = Math.floor(r / 24);
+	return i < 7 ? `${i}d ago` : `${Math.floor(i / 7)}w ago`;
+}
+function L(e) {
+	return e ? {
+		x: "X",
+		twitter: "X",
+		linkedin: "LinkedIn",
+		facebook: "Facebook",
+		reddit: "Reddit",
+		telegram: "Telegram",
+		whatsapp: "WhatsApp",
+		email: "email",
+		sms: "SMS",
+		copy: "link",
+		webshare: "a friend",
+		mastodon: "Mastodon",
+		bluesky: "Bluesky",
+		threads: "Threads"
+	}[e.toLowerCase()] ?? e : "somewhere";
+}
+function R(e) {
+	switch (e.type) {
+		case "join": return /* @__PURE__ */ u(c, { children: [
+			/* @__PURE__ */ l("b", { children: e.who }),
+			" joined",
+			e.source === "referral" ? " (referred)" : ""
+		] });
+		case "share": {
+			let t = e.platform?.toLowerCase();
+			return t === "copy" ? /* @__PURE__ */ u(c, { children: [/* @__PURE__ */ l("b", { children: e.who }), " copied their link"] }) : t === "webshare" ? /* @__PURE__ */ u(c, { children: [/* @__PURE__ */ l("b", { children: e.who }), " shared via system"] }) : t === "email" ? /* @__PURE__ */ u(c, { children: [/* @__PURE__ */ l("b", { children: e.who }), " shared by email"] }) : t === "sms" ? /* @__PURE__ */ u(c, { children: [/* @__PURE__ */ l("b", { children: e.who }), " texted their link"] }) : /* @__PURE__ */ u(c, { children: [
+				/* @__PURE__ */ l("b", { children: e.who }),
+				" shared on ",
+				L(e.platform)
+			] });
+		}
+		case "invite": return /* @__PURE__ */ u(c, { children: [/* @__PURE__ */ l("b", { children: e.who }), " invited a friend"] });
+		case "referral": return /* @__PURE__ */ u(c, { children: [/* @__PURE__ */ l("b", { children: e.who }), " earned a referral"] });
+	}
+}
+function z(t) {
+	let { waitlist: n, baseUrl: c, limit: d = 8, types: f, pollInterval: p = 12e3, theme: m = "auto", formatEvent: h, formatRelative: g, showHeading: _ = !0, heading: v = "Recent activity", emptyLabel: y = "Quiet for now.", className: b, style: x } = t, S = a(() => new e({ baseUrl: c }), [c]), [C, w] = s([]), [T, E] = s(null), [, D] = s(0), O = o(!0);
+	i(() => {
+		O.current = !0;
+		let e = async () => {
+			let e = await S.activity({
+				waitlist: n,
+				limit: d,
+				types: f
+			});
+			O.current && "ok" in e && e.ok && (w(e.entries), E(e.now));
+		};
+		if (e(), p <= 0) return;
+		let t = window.setInterval(e, p);
+		return () => {
+			O.current = !1, window.clearInterval(t);
+		};
+	}, [
+		S,
+		n,
+		d,
+		p,
+		f
+	]), i(() => {
+		let e = window.setInterval(() => D((e) => e + 1), 1e4);
+		return () => window.clearInterval(e);
+	}, []);
+	let k = m === "auto" ? void 0 : m, A = r((e) => {
+		let t = g ?? I, n = T ?? Date.now(), r = Date.now() - (T ?? Date.now());
+		return t(n - e + r);
+	}, [g, T]);
+	return /* @__PURE__ */ l("div", {
+		className: ["hanzo-waitlist", b].filter(Boolean).join(" "),
+		"data-theme": k,
+		style: x,
+		children: /* @__PURE__ */ u("div", {
+			className: "hanzo-waitlist__card hanzo-waitlist-act",
+			children: [_ && /* @__PURE__ */ u("header", {
+				className: "hanzo-waitlist-act__head",
+				children: [/* @__PURE__ */ l("h3", {
+					className: "hanzo-waitlist__title",
+					children: v
+				}), /* @__PURE__ */ l("span", {
+					className: "hanzo-waitlist-act__pulse",
+					"aria-hidden": "true"
+				})]
+			}), C.length === 0 ? /* @__PURE__ */ l("p", {
+				className: "hanzo-waitlist__hint",
+				style: { textAlign: "left" },
+				children: y
+			}) : /* @__PURE__ */ l("ul", {
+				className: "hanzo-waitlist-act__list",
+				role: "list",
+				children: C.map((e, t) => {
+					let n = A(e.ts);
+					return /* @__PURE__ */ u("li", {
+						className: "hanzo-waitlist-act__row",
+						children: [
+							/* @__PURE__ */ l("span", {
+								className: `hanzo-waitlist-act__dot hanzo-waitlist-act__dot--${e.type}`,
+								"aria-hidden": "true"
+							}),
+							/* @__PURE__ */ l("span", {
+								className: "hanzo-waitlist-act__text",
+								children: h ? h(e, { relative: n }) : R(e)
+							}),
+							/* @__PURE__ */ l("time", {
+								className: "hanzo-waitlist-act__time",
+								dateTime: new Date(e.ts).toISOString(),
+								children: n
+							})
+						]
+					}, `${e.ts}-${t}`);
+				})
+			})]
+		})
+	});
+}
+//#endregion
+export { A as Waitlist, z as WaitlistActivity, e as WaitlistClient, D as WaitlistInviteFriends, x as WaitlistJoin, P as WaitlistLeaderboard, T as WaitlistShare, k as WaitlistStatus, _ as captureReferrerFromUrl, g as clearPersistedEntry, p as entryKey, t as join, v as readPendingReferrer, m as readPersistedEntry, n as status, N as useCountUp, y as usePersistedEntry, h as writePersistedEntry };
+
+//# sourceMappingURL=waitlist.js.map

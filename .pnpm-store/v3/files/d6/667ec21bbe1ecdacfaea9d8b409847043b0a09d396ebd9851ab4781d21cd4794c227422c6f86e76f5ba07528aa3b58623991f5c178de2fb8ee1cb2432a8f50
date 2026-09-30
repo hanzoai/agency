@@ -1,0 +1,24 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Neutral ladder" subtitle="Tailwind neutral 50–950, the only base ramp" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Neutrals</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div class="g" style="gap:6px">
+  <div class="sw" style="min-width:38px"><div class="chip" style="background:#FAFAFA"></div><div class="n">50</div></div>
+  <div class="sw" style="min-width:38px"><div class="chip" style="background:#F5F5F5"></div><div class="n">100</div></div>
+  <div class="sw" style="min-width:38px"><div class="chip" style="background:#E5E5E5"></div><div class="n">200</div></div>
+  <div class="sw" style="min-width:38px"><div class="chip" style="background:#D4D4D4"></div><div class="n">300</div></div>
+  <div class="sw" style="min-width:38px"><div class="chip" style="background:#A3A3A3"></div><div class="n">400</div></div>
+  <div class="sw" style="min-width:38px"><div class="chip" style="background:#737373"></div><div class="n">500</div></div>
+  <div class="sw" style="min-width:38px"><div class="chip" style="background:#525252"></div><div class="n">600</div></div>
+  <div class="sw" style="min-width:38px"><div class="chip" style="background:#404040"></div><div class="n">700</div></div>
+  <div class="sw" style="min-width:38px"><div class="chip" style="background:#262626"></div><div class="n">800</div></div>
+  <div class="sw" style="min-width:38px"><div class="chip" style="background:#171717"></div><div class="n">900</div></div>
+  <div class="sw" style="min-width:38px"><div class="chip" style="background:#0A0A0A"></div><div class="n">950</div></div>
+</div>
+<div class="meta" style="margin-top:10px">700 = strong border · 800 = hairline border · 900 = card fill · 950 = card base</div>
+</body></html>

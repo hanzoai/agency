@@ -1,0 +1,62 @@
+import type { CaptureErrorOptions, Dsn, SentryEvent, SentryFrame } from './types';
+/** eventId mints a 32-hex-char id (no dashes) — the Sentry event_id shape. Same
+ *  minter as everything else, just formatted for Sentry's wire. */
+export declare function eventId(): string;
+/**
+ * parseDsn parses "https://<version>:<hmac>@<host>/v1/event/<projectId>" into its
+ * public key + the derived envelope ingest URL. The key (which itself contains a
+ * ':') is taken verbatim as the userinfo — we do NOT split it as user:pass. The
+ * key rides ?sentry_key= (not the DSN in the body) because that is the credential
+ * channel the server trusts AND the only one sendBeacon can carry on unload.
+ * Returns null for anything malformed (fail-safe: the caller then stays inert).
+ */
+export declare function parseDsn(dsn: string | undefined | null): Dsn | null;
+/**
+ * framesFromStack parses a browser Error.stack into Sentry frames, OLDEST-FIRST
+ * (Sentry orders caller->callee; the crash site is last — matching the server's
+ * pickCrashFrame). Handles both V8 ("at fn (file:li:co)") and
+ * Firefox/Safari ("fn@file:li:co"). Unparseable lines are skipped.
+ */
+export declare function framesFromStack(stack: string | undefined): SentryFrame[];
+/** normalizeError coerces an unknown throwable into {name, message, stack}. */
+export declare function normalizeError(err: unknown): {
+    name: string;
+    message: string;
+    stack?: string;
+};
+/** Identity carried onto every error event — the SAME ids analytics uses. */
+export interface ErrorIdentity {
+    /** OIDC sub (post-identify) or anon id. NEVER email/PII. */
+    userId?: string;
+    sessionId?: string;
+    product?: string;
+    release?: string;
+    environment?: string;
+}
+export interface BuildEventInput {
+    error: unknown;
+    options?: CaptureErrorOptions;
+    identity: ErrorIdentity;
+    capturePII?: boolean;
+    /** Injectable for deterministic tests. */
+    now?: number;
+    id?: string;
+}
+/**
+ * buildSentryEvent turns a throwable + identity into a Sentry `event`. The message
+ * (the leak surface) is scrubbed client-side; the user is ONLY the stable subject
+ * id — never email/username/ip. Level defaults to error, or fatal for uncaught.
+ */
+export declare function buildSentryEvent(input: BuildEventInput): SentryEvent;
+/**
+ * buildEnvelope frames a Sentry event into a newline-delimited envelope:
+ *
+ *   {"event_id","dsn","sent_at"}\n
+ *   {"type":"event","content_type":"application/json","length":N}\n
+ *   <event json>\n
+ *
+ * The item is length-delimited (N = UTF-8 byte length) — the framing the server's
+ * parseEnvelope reads first (falling back to newline-delimited otherwise).
+ */
+export declare function buildEnvelope(event: SentryEvent, dsn: Dsn, sentAt?: string): string;
+//# sourceMappingURL=sentry.d.ts.map

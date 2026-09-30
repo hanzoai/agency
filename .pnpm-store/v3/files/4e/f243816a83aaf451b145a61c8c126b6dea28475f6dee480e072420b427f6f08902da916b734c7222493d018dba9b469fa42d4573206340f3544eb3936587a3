@@ -1,0 +1,49 @@
+export declare const EVENTS: {
+    readonly SIGNUP_VIEWED: 'signup_viewed';
+    readonly SIGNUP_SUBMITTED: 'signup_submitted';
+    readonly SIGNUP_VERIFIED: 'signup_verified';
+    readonly SIGNUP_COMPLETED: 'signup_completed';
+    /** A RETURNING user authenticated — the non-signup half of the IAM callback.
+     *  Keeping it distinct is what stops returning logins from inflating signups. */
+    readonly LOGIN_COMPLETED: 'login_completed';
+    /** Activation: the first moment of real value. ONE event for every product —
+     *  the product-specific moment is the `action` property (api_call, app_live,
+     *  chat_reply), never a new event name. */
+    readonly FIRST_ACTION: 'first_action';
+    readonly WAITLIST_JOINED: 'waitlist_joined';
+    readonly WAITLIST_SHARED: 'waitlist_shared';
+    readonly REFERRAL_USED: 'referral_used';
+    readonly REFERRAL_CLAIMED: 'referral_claimed';
+    readonly PRICING_VIEWED: 'pricing_viewed';
+    readonly PLAN_CLICKED: 'plan_clicked';
+    readonly CHECKOUT_STARTED: 'checkout_started';
+    readonly ORDER_COMPLETED: 'order_completed';
+    readonly FEATURE_USED: 'feature_used';
+    readonly API_KEY_CREATED: 'api_key_created';
+    readonly APP_CREATED: 'app_created';
+    readonly PROJECT_CREATED: 'project_created';
+    readonly AGENT_CREATED: 'agent_created';
+    readonly CHAT_STARTED: 'chat_started';
+    readonly CHAT_MESSAGE_SENT: 'chat_message_sent';
+    /** The user switched model/endpoint — the single strongest quality signal a
+     *  chat surface emits (a switch usually follows a bad answer). */
+    readonly MODEL_SWITCHED: 'model_switched';
+    readonly TASK_STARTED: 'task_started';
+    readonly TASK_COMPLETED: 'task_completed';
+    readonly BUILD_STARTED: 'build_started';
+    /** A model finished producing an artifact (an app build, a chat reply, an agent
+     *  run). Carries `durationMs` — the outcome event owns its own duration, so no
+     *  paired start event is needed. */
+    readonly GENERATION_COMPLETED: 'generation_completed';
+    readonly GENERATION_FAILED: 'generation_failed';
+    readonly DEPLOY_STARTED: 'deploy_started';
+    readonly DEPLOY_SUCCEEDED: 'deploy_succeeded';
+    readonly DEPLOY_FAILED: 'deploy_failed';
+};
+export type EventName = (typeof EVENTS)[keyof typeof EVENTS];
+/** The reserved event name a pageview is stored under (server + read lens). */
+export declare const PAGEVIEW = "$pageview";
+/** The reserved name every captured exception is emitted under. Error Tracking
+ *  reads exactly this name; an exception emitted under its own message instead
+ *  makes every distinct message a permanent entry in the event taxonomy. */
+export declare const EXCEPTION = "$exception";

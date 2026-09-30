@@ -1,0 +1,662 @@
+#!/usr/bin/env node
+/**
+ * Logo Build Script
+ * Generates every brand icon, favicon, and social asset from the canonical
+ * mark. Brand identity (name, tagline, github, domain) is read from
+ * package.json "brand" — this file names no brand, so it is byte-identical
+ * across every logo package.
+ */
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+import sharp from 'sharp';
+import { getColorSVG, getMonoSVG, getMenuBarSVG, getFaviconSVG, getFaviconRasterSVG, getWhiteSVG, getLightSVG, getAdaptiveSVG } from './logos.js';
+import { ANIMATED_SVG } from './animated.js';
+import { WORDMARK_NAMES, getWordmarkSVG } from './wordmarks.js';
+// Namespace view of the same module — lets the build pick up OPTIONAL marks
+// (e.g. a wordmark) that only some brands define, without a hard import.
+import * as marks from './logos.js';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+async function generateIcon(svgString, outputPath, size, options = {}) {
+    const dir = path.dirname(outputPath);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
+    const { addBackground = false, bgColor = 'black', cornerRadius, aspectRatio } = options;
+    if (aspectRatio) {
+        // For non-square images like OG graph
+        const { width, height } = aspectRatio;
+        const logoSize = Math.min(width, height) * 0.4;
+        const logoX = Math.floor((width - logoSize) / 2);
+        const logoY = Math.floor((height - logoSize) / 2);
+        const radius = cornerRadius ?? 0;
+        const bgSvg = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="${width}" height="${height}" rx="${radius}" ry="${radius}" fill="${bgColor}"/>
+        </svg>`;
+        const bg = await sharp(Buffer.from(bgSvg)).png().toBuffer();
+        const logo = await sharp(Buffer.from(svgString))
+            .resize(Math.floor(logoSize), Math.floor(logoSize))
+            .png()
+            .toBuffer();
+        await sharp(bg)
+            .composite([{
+                input: logo,
+                top: logoY,
+                left: logoX
+            }])
+            .toFile(outputPath);
+    }
+    else if (addBackground) {
+        // For dock icons, add rounded square background with padding
+        const logoSize = Math.floor(size * 0.65);
+        const padding = Math.floor((size - logoSize) / 2);
+        const radius = cornerRadius ?? Math.floor(size * 0.22);
+        const bgSvg = `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="${size}" height="${size}" rx="${radius}" ry="${radius}" fill="${bgColor}"/>
+        </svg>`;
+        const bg = await sharp(Buffer.from(bgSvg)).png().toBuffer();
+        const logo = await sharp(Buffer.from(svgString))
+            .resize(logoSize, logoSize)
+            .png()
+            .toBuffer();
+        await sharp(bg)
+            .composite([{
+                input: logo,
+                top: padding,
+                left: padding
+            }])
+            .toFile(outputPath);
+    }
+    else {
+        await sharp(Buffer.from(svgString))
+            .resize(size, size)
+            .png()
+            .toFile(outputPath);
+    }
+    console.log(`✓ ${path.relative(process.cwd(), outputPath)} (${options.aspectRatio ? `${options.aspectRatio.width}×${options.aspectRatio.height}` : `${size}×${size}`})`);
+}
+// writeIco packs several PNGs into ONE multi-resolution .ico — the format
+// Windows favicons, taskbar, and .desktop icons want. Modern ICO embeds the PNG
+// bytes verbatim (no BMP re-encode), so this is a pure container writer over the
+// PNGs generateIcon already produced: no new dependency, no image re-processing.
+// Sizes are read from each source PNG so the directory entry is always correct.
+async function writeIco(pngPaths, outputPath) {
+    const images = await Promise.all(pngPaths.map(async (p) => {
+        const data = fs.readFileSync(p);
+        // PNG IHDR width/height are big-endian uint32 at byte offsets 16/20.
+        const w = data.readUInt32BE(16);
+        const h = data.readUInt32BE(20);
+        return { data, w, h };
+    }));
+    const count = images.length;
+    const header = Buffer.alloc(6);
+    header.writeUInt16LE(0, 0); // reserved
+    header.writeUInt16LE(1, 2); // type 1 = icon
+    header.writeUInt16LE(count, 4);
+    const dir = Buffer.alloc(16 * count);
+    let offset = 6 + 16 * count; // image data starts after header + directory
+    images.forEach((img, i) => {
+        const e = 16 * i;
+        dir.writeUInt8(img.w >= 256 ? 0 : img.w, e + 0); // 0 encodes 256
+        dir.writeUInt8(img.h >= 256 ? 0 : img.h, e + 1);
+        dir.writeUInt8(0, e + 2); // palette count (0 = truecolor)
+        dir.writeUInt8(0, e + 3); // reserved
+        dir.writeUInt16LE(1, e + 4); // color planes
+        dir.writeUInt16LE(32, e + 6); // bits per pixel
+        dir.writeUInt32LE(img.data.length, e + 8); // image size
+        dir.writeUInt32LE(offset, e + 12); // image offset
+        offset += img.data.length;
+    });
+    const outDir = path.dirname(outputPath);
+    if (!fs.existsSync(outDir))
+        fs.mkdirSync(outDir, { recursive: true });
+    fs.writeFileSync(outputPath, Buffer.concat([header, dir, ...images.map((i) => i.data)]));
+    const dims = images.map((i) => `${i.w}`).join('/');
+    console.log(`✓ ${path.relative(process.cwd(), outputPath)} (${dims})`);
+}
+function readBrand() {
+    let pkg = {};
+    try {
+        pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+    }
+    catch { /* defaults */ }
+    const b = pkg.brand || {};
+    const scope = (pkg.name || '').replace(/^@/, '').split('/')[0]; // package scope
+    return {
+        name: b.name || (scope ? scope.charAt(0).toUpperCase() + scope.slice(1) : 'Brand'),
+        tagline: b.tagline || 'Official brand marks — SVG, PNG, ICO, favicons & app icons.',
+        github: b.github || scope,
+        domain: b.domain || '',
+    };
+}
+// Read once at load — every display string below is driven by this, so the
+// file carries no brand name of its own.
+const BRAND = readBrand();
+// generateHero composes the README hero card (1280×640): the brand's own white
+// mark + the real brand NAME (not the "logo" placeholder the template shipped)
+// + a full tagline + github/domain footer. Written to .github/hero.svg, which
+// the README embeds. One template, every brand — driven by readBrand().
+function generateHero(whiteMark) {
+    const brand = readBrand();
+    const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    // Embed the brand mark as a nested, positioned SVG. Strip any existing
+    // width/height on the mark's root tag first (some brand marks set them,
+    // which collide with the x/y/width/height we inject and corrupt the SVG);
+    // the viewBox is preserved so scaling stays correct.
+    const cleaned = whiteMark.replace(/^<svg\b[^>]*>/, (tag) => tag.replace(/\s(?:width|height)="[^"]*"/g, ''));
+    const mark = cleaned.replace(/^<svg /, '<svg x="120" y="200" width="240" height="240" ');
+    const hero = `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="${esc(brand.name)} brand assets">
+  <rect width="1280" height="640" fill="#0A0A0A"/>
+  ${mark}
+  <text x="440" y="316" font-family="Inter,system-ui,-apple-system,sans-serif" font-size="94" font-weight="800" letter-spacing="-3" fill="#ffffff">${esc(brand.name)}</text>
+  <text x="443" y="366" font-family="Inter,system-ui,sans-serif" font-size="27" fill="#ffffff" opacity=".62">${esc(brand.tagline)}</text>
+  <rect x="443" y="390" width="710" height="2" rx="1" fill="#ffffff" opacity=".85"/>
+  <text x="443" y="440" font-family="Inter,system-ui,sans-serif" font-size="23" font-weight="600" fill="#ffffff" opacity=".45">github.com/${esc(brand.github)}</text>
+  <text x="1160" y="440" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="23" font-weight="600" fill="#ffffff" opacity=".45">${esc(brand.domain)}</text>
+</svg>
+`;
+    fs.mkdirSync('.github', { recursive: true });
+    fs.writeFileSync('.github/hero.svg', hero);
+    // Also ship the hero inside dist/ so it resolves on the npm page via a CDN
+    // (jsdelivr) URL even for packages that aren't backed by a public git repo.
+    fs.writeFileSync('dist/hero.svg', hero);
+    console.log(`✓ .github/hero.svg + dist/hero.svg (${brand.name})`);
+}
+async function buildAll() {
+    console.log(`🎨 ${BRAND.name} Logo Builder\n`);
+    const colorSVG = getColorSVG();
+    const monoSVG = getMonoSVG();
+    const menuBarSVG = getMenuBarSVG();
+    const faviconSVG = getFaviconSVG();
+    // Every raster comes off this one, not off favicon.svg: librsvg resolves the
+    // light branch of favicon.svg's media query, which would bake a solid black
+    // mark into PNGs that then vanish on dark chrome.
+    const faviconRasterSVG = getFaviconRasterSVG();
+    const whiteSVG = getWhiteSVG();
+    // Ensure dist directories exist
+    const dirs = ['dist', 'dist/icons', 'dist/favicon', 'dist/og', 'dist/apple', 'dist/dock', 'dist/menubar'];
+    for (const dir of dirs) {
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+    }
+    // Save SVG sources
+    console.log('📁 SVG Sources:');
+    // The unqualified name carries the unqualified answer, the same one
+    // getLogo({}) gives: currentColor, legible on any ground. It used to be
+    // byte-identical to logo-white.svg — one file under two names, and the
+    // name a reader reaches for first was the one that vanishes on paper.
+    fs.writeFileSync('dist/logo.svg', getAdaptiveSVG());
+    fs.writeFileSync('dist/logo-mono.svg', monoSVG);
+    fs.writeFileSync('dist/logo-white.svg', whiteSVG);
+    fs.writeFileSync('dist/logo-light.svg', getLightSVG());
+    // The standalone animated mark is GENERATED from the constant. It was a
+    // hand-maintained second spelling — 5 paths and #fff against the constant's
+    // 7 and currentColor — i.e. two versions of one animation in one package,
+    // already drifted.
+    fs.writeFileSync('svg/hanzo-mark-animated.svg', ANIMATED_SVG);
+    fs.writeFileSync('dist/logo-animated.svg', ANIMATED_SVG);
+    // One file per wordmark: the table is ~143 KB, and a page needs one name.
+    fs.mkdirSync('dist/wordmarks', { recursive: true });
+    for (const name of WORDMARK_NAMES) {
+        const svg = getWordmarkSVG(name);
+        if (svg)
+            fs.writeFileSync(`dist/wordmarks/${name.toLowerCase().replace(/ /g, '-')}.svg`, svg);
+    }
+    fs.writeFileSync('dist/logo-menubar.svg', menuBarSVG);
+    fs.writeFileSync('dist/favicon.svg', faviconSVG);
+    console.log('✓ Generated 6 SVG sources\n');
+    // Optional wordmark — brands whose logos.ts exports getWordmarkSVG (a wide
+    // logotype, distinct from the square icon mark) ship it as SVG + aspect-
+    // preserving PNGs. Brands without one skip this entirely: one build, still
+    // brand-neutral, no per-brand wiring here.
+    const wordmark = marks.getWordmarkSVG?.();
+    const wordmarkWhite = marks.getWordmarkWhite?.();
+    const wordmarkMono = marks.getWordmarkMono?.();
+    if (wordmark) {
+        fs.writeFileSync('dist/wordmark.svg', wordmark);
+        if (wordmarkWhite)
+            fs.writeFileSync('dist/wordmark-white.svg', wordmarkWhite);
+        if (wordmarkMono)
+            fs.writeFileSync('dist/wordmark-mono.svg', wordmarkMono);
+        fs.mkdirSync('dist/wordmark', { recursive: true });
+        for (const h of [128, 256, 512]) {
+            // height-only resize preserves the wide aspect ratio (no distortion)
+            await sharp(Buffer.from(wordmark)).resize({ height: h }).png().toFile(`dist/wordmark/wordmark-${h}.png`);
+            console.log(`✓ dist/wordmark/wordmark-${h}.png`);
+        }
+    }
+    // README hero card (brand mark + real brand name), written to .github/.
+    generateHero(whiteSVG);
+    // === STANDARD ICONS ===
+    console.log('📁 Standard Icons (dist/icons/):');
+    const standardSizes = [16, 32, 64, 128, 256, 512, 1024];
+    for (const size of standardSizes) {
+        await generateIcon(colorSVG, `dist/icons/logo-${size}.png`, size);
+    }
+    for (const size of [16, 32, 64, 128]) {
+        await generateIcon(monoSVG, `dist/icons/logo-mono-${size}.png`, size);
+    }
+    // === FAVICONS ===
+    console.log('\n📁 Favicons (dist/favicon/):');
+    const faviconSizes = [16, 32, 48, 64, 96, 128, 192, 256, 512];
+    for (const size of faviconSizes) {
+        await generateIcon(faviconRasterSVG, `dist/favicon/favicon-${size}.png`, size);
+    }
+    // Also generate with black background versions
+    for (const size of [16, 32, 48]) {
+        await generateIcon(whiteSVG, `dist/favicon/favicon-bg-${size}.png`, size, {
+            addBackground: true,
+            bgColor: '#000000',
+            cornerRadius: 0
+        });
+    }
+    // === ICO (Windows favicon / taskbar / .desktop) ===
+    // Pack the favicon PNGs into standard multi-resolution .ico files. The
+    // canonical dist/favicon.ico is what a site drops at its web root; the
+    // per-surface copies keep everything one `ls dist` away.
+    console.log('\n📁 ICO files:');
+    const icoSizes = [16, 32, 48, 64, 128, 256];
+    const faviconPngs = icoSizes.map((s) => `dist/favicon/favicon-${s}.png`);
+    await writeIco(faviconPngs, 'dist/favicon.ico');
+    await writeIco(faviconPngs, 'dist/favicon/favicon.ico');
+    // A color-logo .ico (app/exe icon) from the color icons that exist (the
+    // standard set has no 48px, so use its own sizes, not the favicon set's).
+    await writeIco([16, 32, 64, 128, 256].map((s) => `dist/icons/logo-${s}.png`), 'dist/icons/logo.ico');
+    // === WEB-STANDARD NAMED ICONS (drop-in for any site manifest) ===
+    // The exact filenames tools/browsers look for: android-chrome-*, the
+    // default apple-touch-icon.png, and the Windows tile. Same art, canonical
+    // names, so a project can copy dist/favicon/* verbatim.
+    // All transparent, all the rimmed mark: a home screen or launcher fills the
+    // alpha with its own colour, and the rim is what makes either fill safe —
+    // iOS fills black and the white core reads, a light launcher fills white and
+    // the black rim reads. dist/favicon/favicon-bg-*.png stays as the explicit
+    // black-tile variant for anywhere a tile is actually wanted.
+    console.log('\n📁 Web-standard named icons (dist/favicon/):');
+    await generateIcon(faviconRasterSVG, 'dist/favicon/android-chrome-192x192.png', 192);
+    await generateIcon(faviconRasterSVG, 'dist/favicon/android-chrome-512x512.png', 512);
+    // A home screen icon and a Windows tile are placed ON a surface rather than
+    // in a tab strip, and iOS composites a transparent one onto black. So these
+    // two keep a ground, and it is white, matching what sits beside them.
+    await generateIcon(monoSVG, 'dist/favicon/apple-touch-icon.png', 180, {
+        addBackground: true, bgColor: '#ffffff', cornerRadius: 40,
+    });
+    await generateIcon(monoSVG, 'dist/favicon/mstile-150x150.png', 150, {
+        addBackground: true, bgColor: '#ffffff',
+    });
+    // === APPLE TOUCH ICONS ===
+    // Square and transparent, like the 180 above. iOS applies its own superellipse
+    // mask, so rounding the source corners here only rounds them twice.
+    console.log('\n📁 Apple Touch Icons (dist/apple/):');
+    const appleSizes = [57, 60, 72, 76, 114, 120, 144, 152, 167, 180];
+    for (const size of appleSizes) {
+        await generateIcon(faviconRasterSVG, `dist/apple/apple-touch-icon-${size}.png`, size);
+    }
+    // === OG GRAPH IMAGES ===
+    console.log('\n📁 Open Graph Images (dist/og/):');
+    // Standard OG (1200x630)
+    await generateIcon(whiteSVG, 'dist/og/og-image.png', 1200, {
+        aspectRatio: { width: 1200, height: 630 },
+        bgColor: '#000000'
+    });
+    // Twitter card (1200x600)
+    await generateIcon(whiteSVG, 'dist/og/twitter-card.png', 1200, {
+        aspectRatio: { width: 1200, height: 600 },
+        bgColor: '#000000'
+    });
+    // Square OG (1200x1200)
+    await generateIcon(whiteSVG, 'dist/og/og-square.png', 1200, {
+        aspectRatio: { width: 1200, height: 1200 },
+        bgColor: '#000000'
+    });
+    // === DOCK ICONS (macOS) ===
+    console.log('\n📁 Dock Icons (dist/dock/):');
+    const dockSizes = [64, 128, 256, 512, 1024];
+    for (const size of dockSizes) {
+        await generateIcon(whiteSVG, `dist/dock/dock-${size}.png`, size, {
+            addBackground: true,
+            bgColor: '#000000'
+        });
+    }
+    // @2x versions for Retina
+    for (const base of [128, 256, 512]) {
+        await generateIcon(whiteSVG, `dist/dock/dock-${base}@2x.png`, base * 2, {
+            addBackground: true,
+            bgColor: '#000000'
+        });
+    }
+    // === MENU BAR ICONS ===
+    console.log('\n📁 Menu Bar Icons (dist/menubar/):');
+    // Black icons for light menu bar
+    await generateIcon(monoSVG, 'dist/menubar/menubar-16.png', 16);
+    await generateIcon(monoSVG, 'dist/menubar/menubar-16@2x.png', 32);
+    await generateIcon(monoSVG, 'dist/menubar/menubar-16@3x.png', 48);
+    await generateIcon(monoSVG, 'dist/menubar/menubar-22.png', 22);
+    await generateIcon(monoSVG, 'dist/menubar/menubar-22@2x.png', 44);
+    // Template icons (for macOS dark/light mode adaptation)
+    await generateIcon(menuBarSVG, 'dist/menubar/iconTemplate.png', 16);
+    await generateIcon(menuBarSVG, 'dist/menubar/iconTemplate@2x.png', 32);
+    await generateIcon(menuBarSVG, 'dist/menubar/iconTemplate@3x.png', 48);
+    // === SLACK APP ICON ===
+    // Slack wants a SQUARE 2000×2000 PNG (it applies its own rounded-corner
+    // mask, so the source stays square — cornerRadius 0). Mark centered on the
+    // brand-black field. A 512 copy for anywhere a smaller square is needed.
+    console.log('\n📁 Slack App Icon (dist/slack/):');
+    await generateIcon(colorSVG, 'dist/slack/slack-icon-2000.png', 2000, {
+        addBackground: true, bgColor: '#000000', cornerRadius: 0,
+    });
+    await generateIcon(colorSVG, 'dist/slack/slack-icon-512.png', 512, {
+        addBackground: true, bgColor: '#000000', cornerRadius: 0,
+    });
+    // === GENERATE SHOWCASE HTML ===
+    console.log('\n📄 Generating showcase...');
+    generateShowcase();
+    console.log('\n✅ Build complete!');
+    console.log('   Open dist/showcase.html in browser to verify all assets\n');
+}
+function generateShowcase() {
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${BRAND.name} Logo Assets Showcase</title>
+    <style>
+        :root {
+            --bg-dark: #111;
+            --bg-light: #f5f5f5;
+            --grid-bg: repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 50% / 20px 20px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 40px;
+            line-height: 1.6;
+        }
+        h1 { margin-bottom: 10px; font-size: 2rem; }
+        .subtitle { color: #888; margin-bottom: 40px; }
+        h2 { 
+            margin: 40px 0 20px; 
+            padding-bottom: 10px; 
+            border-bottom: 1px solid #333;
+            color: #fff;
+        }
+        .section { margin-bottom: 60px; }
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-end;
+        }
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .icon-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--grid-bg);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .icon-box.dark {
+            background: var(--bg-dark);
+        }
+        .icon-box.light {
+            background: var(--bg-light);
+        }
+        .icon-box img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        .label {
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+        }
+        .og-preview {
+            max-width: 600px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .og-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .menubar-demo {
+            background: linear-gradient(to bottom, #d4d4d4, #c8c8c8);
+            padding: 4px 12px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .menubar-demo.dark {
+            background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
+        }
+        .dock-demo {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            padding: 8px;
+            border-radius: 20px;
+            display: inline-flex;
+            gap: 8px;
+            align-items: flex-end;
+        }
+        .dock-demo img {
+            border-radius: 22%;
+        }
+        .timestamp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 ${BRAND.name} Logo Assets</h1>
+    <p class="subtitle">Every brand mark, format, and size.</p>
+
+    <section class="section">
+        <h2>📁 SVG Sources</h2>
+        <div class="grid">
+            <div class="icon-item">
+                <div class="icon-box dark" style="width:120px;height:120px;">
+                    <img src="logo.svg" alt="Color Logo" style="width:100px;height:100px;">
+                </div>
+                <span class="label">logo.svg</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box light" style="width:120px;height:120px;">
+                    <img src="logo-mono.svg" alt="Mono Logo" style="width:100px;height:100px;">
+                </div>
+                <span class="label">logo-mono.svg</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box dark" style="width:120px;height:120px;">
+                    <img src="logo-white.svg" alt="White Logo" style="width:100px;height:100px;">
+                </div>
+                <span class="label">logo-white.svg</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box" style="width:120px;height:120px;">
+                    <img src="favicon.svg" alt="Favicon" style="width:100px;height:100px;">
+                </div>
+                <span class="label">favicon.svg</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>🖼️ Standard Icons (PNG)</h2>
+        <div class="grid">
+            <div class="icon-item">
+                <div class="icon-box dark"><img src="icons/logo-32.png" alt="32px"></div>
+                <span class="label">32px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box dark"><img src="icons/logo-64.png" alt="64px"></div>
+                <span class="label">64px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box dark"><img src="icons/logo-128.png" alt="128px"></div>
+                <span class="label">128px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box dark"><img src="icons/logo-256.png" alt="256px"></div>
+                <span class="label">256px</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>⭐ Favicons</h2>
+        <div class="grid">
+            <div class="icon-item">
+                <div class="icon-box"><img src="favicon/favicon-16.png" alt="16px"></div>
+                <span class="label">16px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box"><img src="favicon/favicon-32.png" alt="32px"></div>
+                <span class="label">32px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box"><img src="favicon/favicon-48.png" alt="48px"></div>
+                <span class="label">48px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box"><img src="favicon/favicon-64.png" alt="64px"></div>
+                <span class="label">64px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box"><img src="favicon/favicon-192.png" alt="192px"></div>
+                <span class="label">192px (Android)</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box"><img src="favicon/favicon-512.png" alt="512px"></div>
+                <span class="label">512px (PWA)</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>🍎 Apple Touch Icons</h2>
+        <div class="grid">
+            <div class="icon-item">
+                <div class="icon-box"><img src="apple/apple-touch-icon-60.png" alt="60px"></div>
+                <span class="label">60px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box"><img src="apple/apple-touch-icon-120.png" alt="120px"></div>
+                <span class="label">120px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box"><img src="apple/apple-touch-icon-152.png" alt="152px"></div>
+                <span class="label">152px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box"><img src="apple/apple-touch-icon-180.png" alt="180px"></div>
+                <span class="label">180px</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>🖥️ Dock Icons (macOS)</h2>
+        <div class="dock-demo">
+            <img src="dock/dock-64.png" alt="Dock 64" style="width:48px;height:48px;">
+            <img src="dock/dock-128.png" alt="Dock 128" style="width:64px;height:64px;">
+        </div>
+        <div class="grid" style="margin-top: 20px;">
+            <div class="icon-item">
+                <div class="icon-box"><img src="dock/dock-128.png" alt="128px"></div>
+                <span class="label">128px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box"><img src="dock/dock-256.png" alt="256px"></div>
+                <span class="label">256px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box"><img src="dock/dock-512.png" alt="512px"></div>
+                <span class="label">512px</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>📱 Menu Bar Icons</h2>
+        <p style="color:#888;margin-bottom:20px;">Template icons adapt to light/dark menu bar</p>
+        <div style="display:flex;gap:40px;flex-wrap:wrap;">
+            <div>
+                <p style="margin-bottom:10px;font-size:14px;">Light Menu Bar</p>
+                <div class="menubar-demo">
+                    <img src="menubar/menubar-16.png" alt="Menu bar icon" style="width:16px;height:16px;">
+                    <span style="font-size:13px;color:#333;">${BRAND.name}</span>
+                </div>
+            </div>
+            <div>
+                <p style="margin-bottom:10px;font-size:14px;">Dark Menu Bar</p>
+                <div class="menubar-demo dark">
+                    <img src="menubar/iconTemplate.png" alt="Menu bar icon" style="width:16px;height:16px;filter:invert(1);">
+                    <span style="font-size:13px;color:#fff;">${BRAND.name}</span>
+                </div>
+            </div>
+        </div>
+        <div class="grid" style="margin-top:20px;">
+            <div class="icon-item">
+                <div class="icon-box light"><img src="menubar/menubar-16.png" alt="16px"></div>
+                <span class="label">16px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box light"><img src="menubar/menubar-22.png" alt="22px"></div>
+                <span class="label">22px</span>
+            </div>
+            <div class="icon-item">
+                <div class="icon-box light"><img src="menubar/menubar-16@2x.png" alt="16@2x" style="width:32px;"></div>
+                <span class="label">16@2x (32px)</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>📣 Open Graph / Social Images</h2>
+        <div style="display:flex;flex-direction:column;gap:30px;">
+            <div>
+                <p style="margin-bottom:10px;font-size:14px;">OG Image (1200×630)</p>
+                <div class="og-preview">
+                    <img src="og/og-image.png" alt="OG Image">
+                </div>
+            </div>
+            <div>
+                <p style="margin-bottom:10px;font-size:14px;">Twitter Card (1200×600)</p>
+                <div class="og-preview">
+                    <img src="og/twitter-card.png" alt="Twitter Card">
+                </div>
+            </div>
+            <div>
+                <p style="margin-bottom:10px;font-size:14px;">Square (1200×1200)</p>
+                <div class="og-preview" style="max-width:400px;">
+                    <img src="og/og-square.png" alt="OG Square">
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>`;
+    fs.writeFileSync('dist/showcase.html', html);
+    console.log('✓ dist/showcase.html');
+}
+// Run the build
+await buildAll().catch(console.error);

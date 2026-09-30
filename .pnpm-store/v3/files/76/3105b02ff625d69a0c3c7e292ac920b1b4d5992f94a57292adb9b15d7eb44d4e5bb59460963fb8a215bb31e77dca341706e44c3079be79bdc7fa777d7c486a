@@ -1,0 +1,20 @@
+/** Persisted snapshot. Server is the source of truth; this is just a cache. */
+export interface PersistedEntry {
+    email: string;
+    rank?: number;
+    refCode?: string;
+}
+export declare function entryKey(slug: string): string;
+/** Synchronous read (returns null on miss / parse error / SSR). */
+export declare function readPersistedEntry(slug: string): PersistedEntry | null;
+export declare function writePersistedEntry(slug: string, entry: PersistedEntry): void;
+export declare function clearPersistedEntry(slug: string): void;
+/** Capture an inbound ?ref=<code> URL param for later submission. */
+export declare function captureReferrerFromUrl(): void;
+export declare function readPendingReferrer(): string | undefined;
+/**
+ * React hook: subscribes to the persisted entry for `slug`. Reactive to
+ * same-tab writes (via custom event) and cross-tab writes (via native
+ * `storage` event).
+ */
+export declare function usePersistedEntry(slug: string): PersistedEntry | null;

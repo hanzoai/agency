@@ -1,0 +1,129 @@
+/* TIGHT app-first type scale — the compact developer-app register (linear.app /
+   vercel.com / the Codex desktop look), the Hanzo default across chat / app /
+   desktop. Base is 14px, nav 13px, labels 11px; display sizes tightened. Kept in
+   lockstep with @hanzo/brand (styles/variables.css --font-size-* + typography.ts)
+   — the two are the SAME scale, mirrored. A surface/tenant overrides any --text-*
+   on :root to retune density on demand. */
+:root{
+  /* The type knob. 1 is the published scale; every rung below multiplies by
+     it, so a surface or a person retunes the WHOLE ramp by setting one
+     number and no rung can drift out of relation with the others.
+     @hanzo/design's `vars({type})` emits exactly this name. */
+  --type-scale:1;
+
+  /* The CONTRAST knob — how far apart the rungs sit, where --type-scale is how
+     big they all are. Two different questions, and only the first one was
+     askable: a surface could take the whole ramp up 15% but could not flatten a
+     dense table's steps or open up a marketing page's, so both settled for the
+     app register's tight default.
+
+     It is authored as a TRANSFORM and not as a generated ramp, which is the
+     whole point. `base + (authored - base) * ratio` keeps each rung's authored
+     value as the INPUT, so ratio 1 reduces to exactly the published number by
+     algebra rather than by care — the deltas below are just `authored - 0.875`.
+     The alternative, deriving each rung as base * ratio^n, would restate the
+     ramp in a second place, and this scale is not geometric anyway: the app
+     register (11/13/14/15/17) is near-linear on purpose and a ratio applied to
+     it would erase the 1px steps the compact register is FOR. That drift is not
+     hypothetical here — see src/preference.ts, where a recomputed copy of this
+     ramp shipped `lg: 16px` against this file's 15px.
+
+     A rung is one place, so a rung added later needs a delta and nothing else. */
+  --type-ratio:1;
+
+  /* EVERY rung is bounded at BOTH ends, by one rule, because the knobs COMPOUND
+     and they compound in both directions. Clamping each knob's range separately
+     cannot fix either end — 0.85 x 0.9 is inside both bounds and lands at 8.5px
+     — so the RESULT is what carries the bound:
+
+       --text-floor    10px    below this a label is not small, it is unreadable
+       --text-ceiling  30vw    above this a heading is not type, it is a texture
+
+     The ceiling is in the VIEWPORT's units because that is what "too big" means:
+     measured, the tallest rung (--text-9xl, 112px) is 28.7vw on a 390px phone
+     and 7.8vw at 1440, so 30vw binds no published value at any real screen and
+     catches only a scale that has run away. Both bounds are stated once here and
+     `vars()` emits the same clamp for a modular scale, so a regenerated rung and
+     an authored one are bounded identically — the rule does not depend on which
+     produced the value. */
+  --text-floor:0.625rem;
+  --text-ceiling:30vw;
+  --text-xs:clamp(var(--text-floor), calc((0.875rem - 0.1875rem * var(--type-ratio, 1)) * var(--type-scale, 1)), var(--text-ceiling));   --leading-xs:calc((1.35rem - 0.35rem * var(--type-ratio, 1)) * var(--type-scale, 1));    /* 11px — eyebrows / section labels */
+  --text-sm:clamp(var(--text-floor), calc((0.875rem - 0.0625rem * var(--type-ratio, 1)) * var(--type-scale, 1)), var(--text-ceiling));  --leading-sm:calc((1.35rem - 0.2rem * var(--type-ratio, 1)) * var(--type-scale, 1));     /* 13px — nav labels, dense body */
+  --text-base:clamp(var(--text-floor), calc(0.875rem * var(--type-scale, 1)), var(--text-ceiling));                                                     --leading-base:calc(1.35rem * var(--type-scale, 1));                                    /* 14px — the ANCHOR: the rung the ratio pivots on, so it carries no ratio term */
+  --text-lg:clamp(var(--text-floor), calc((0.875rem + 0.0625rem * var(--type-ratio, 1)) * var(--type-scale, 1)), var(--text-ceiling));                  --leading-lg:calc((1.35rem + 0.05rem * var(--type-ratio, 1)) * var(--type-scale, 1));   /* 15px */
+  --text-xl:clamp(var(--text-floor), calc((0.875rem + 0.1875rem * var(--type-ratio, 1)) * var(--type-scale, 1)), var(--text-ceiling));                  --leading-xl:calc((1.35rem + 0.2rem * var(--type-ratio, 1)) * var(--type-scale, 1));    /* 17px */
+  --text-2xl:clamp(var(--text-floor), calc((0.875rem + 0.4375rem * var(--type-ratio, 1)) * var(--type-scale, 1)), var(--text-ceiling));                 --leading-2xl:calc((1.35rem + 0.35rem * var(--type-ratio, 1)) * var(--type-scale, 1));  /* 21px */
+  --text-3xl:clamp(var(--text-floor), calc((0.875rem + 0.75rem * var(--type-ratio, 1)) * var(--type-scale, 1)), var(--text-ceiling));                   --leading-3xl:calc((1.35rem + 0.6rem * var(--type-ratio, 1)) * var(--type-scale, 1));   /* 26px */
+  --text-4xl:clamp(var(--text-floor), calc((0.875rem + 1.125rem * var(--type-ratio, 1)) * var(--type-scale, 1)), var(--text-ceiling));                  --leading-4xl:calc((1.35rem + 0.9rem * var(--type-ratio, 1)) * var(--type-scale, 1));   /* 32px */
+  --text-5xl:clamp(var(--text-floor), calc((0.875rem + 1.625rem * var(--type-ratio, 1)) * var(--type-scale, 1)), var(--text-ceiling));                  --leading-5xl:1.05;     /* 40px — display leading is unitless, so it tracks its own size */
+  --text-6xl:clamp(var(--text-floor), calc((0.875rem + 2.375rem * var(--type-ratio, 1)) * var(--type-scale, 1)), var(--text-ceiling));                  --leading-6xl:1;        /* 52px */
+  --text-7xl:clamp(var(--text-floor), calc((0.875rem + 3.125rem * var(--type-ratio, 1)) * var(--type-scale, 1)), var(--text-ceiling));                  --leading-7xl:1;        /* 64px */
+  --text-8xl:clamp(var(--text-floor), calc((0.875rem + 4.375rem * var(--type-ratio, 1)) * var(--type-scale, 1)), var(--text-ceiling));                  --leading-8xl:1;        /* 84px */
+  --text-9xl:clamp(var(--text-floor), calc((0.875rem + 6.125rem * var(--type-ratio, 1)) * var(--type-scale, 1)), var(--text-ceiling));                  --leading-9xl:1;        /* 112px */
+
+  /* The SAME scale under @hanzo/brand's spelling. @hanzo/gui's shell theme and
+     Hanzo Studio address the ramp as --font-size-*; both names are one value, so
+     a component written against either resolves here. --text-* is canonical. */
+  --font-size-xs:var(--text-xs);
+  --font-size-sm:var(--text-sm);
+  --font-size-base:var(--text-base);
+  --font-size-lg:var(--text-lg);
+  --font-size-xl:var(--text-xl);
+  --font-size-2xl:var(--text-2xl);
+  --font-size-3xl:var(--text-3xl);
+  --font-size-4xl:var(--text-4xl);
+  --font-size-5xl:var(--text-5xl);
+  --font-size-6xl:var(--text-6xl);
+  --font-size-7xl:var(--text-7xl);
+  --font-size-8xl:var(--text-8xl);
+  --font-size-9xl:var(--text-9xl);
+
+  /* The size a FORM CONTROL renders at — and the ONE step in this scale that is
+     not a constant. iOS Safari zooms the viewport whenever a focused input
+     computes below 16px, and this scale's base is 14px, so every surface that
+     sized a field from --text-sm or --text-base bought the zoom.
+
+     It has to be a TOKEN rather than a rule because a control's size is almost
+     always set inline (every component in components/forms does), and an inline
+     style outranks any stylesheet — including a media query. A var() resolves
+     per-device inside that inline style, so this is the only construction that
+     actually reaches the control. Fields ask for --text-control; nothing else
+     should. */
+  --text-control:var(--text-sm);
+
+  --weight-normal:400;
+  --weight-medium:500;
+  --weight-semibold:600;
+  --weight-bold:700;
+
+  --tracking-tight:-0.025em;
+  --tracking-normal:0em;
+  --tracking-wide:0.025em;
+  --tracking-widest:0.1em;   /* eyebrows / uppercase category labels */
+
+  --leading-none:1;
+  --leading-tight:1.25;
+  --leading-snug:1.375;
+  --leading-normal:1.5;
+  --leading-relaxed:1.625;
+  --leading-golden:1.618;
+
+  /* named roles */
+  --type-hero:600 var(--text-5xl)/1.05 var(--font-display);
+  --type-h2:700 var(--text-4xl)/var(--leading-4xl) var(--font-display);
+  --type-h3:600 var(--text-xl)/var(--leading-xl) var(--font-display);
+  --type-lead:400 var(--text-lg)/var(--leading-relaxed) var(--font-sans);
+  --type-body:400 var(--text-sm)/var(--leading-sm) var(--font-sans);
+  --type-caption:400 var(--text-xs)/var(--leading-xs) var(--font-sans);
+  --type-code:400 var(--text-sm)/var(--leading-relaxed) var(--font-mono);
+  --type-eyebrow:600 0.625rem/1 var(--font-sans);
+}
+
+/* On touch, a control goes to 16px. Below that iOS Safari zooms the viewport on
+   focus and never zooms back out, which is the single most common way a mobile
+   form feels broken. pointer:coarse is the real signal — a desktop mouse keeps
+   the compact 13px field. */
+@media (pointer:coarse){
+  :root{--text-control:calc(1rem * var(--type-scale, 1))}
+}

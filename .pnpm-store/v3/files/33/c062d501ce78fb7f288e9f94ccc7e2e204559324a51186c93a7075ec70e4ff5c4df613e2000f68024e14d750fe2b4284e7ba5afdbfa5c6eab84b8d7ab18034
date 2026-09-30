@@ -1,0 +1,23 @@
+<!-- @dsCard group="Spacing" viewport="700x150" name="Spacing ramp" subtitle="The 4px ramp that ships" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Spacing ramp</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div style="display:flex;align-items:flex-end;gap:10px">
+  <div style="text-align:center"><div style="width:4px;height:4px;background:var(--white-15);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">4</div></div>
+  <div style="text-align:center"><div style="width:8px;height:8px;background:var(--white-15);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">8</div></div>
+  <div style="text-align:center"><div style="width:12px;height:12px;background:var(--white-15);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">12</div></div>
+  <div style="text-align:center"><div style="width:16px;height:16px;background:var(--white-15);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">16</div></div>
+  <div style="text-align:center"><div style="width:24px;height:24px;background:var(--white-15);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">24</div></div>
+  <div style="text-align:center"><div style="width:32px;height:32px;background:var(--white-15);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">32</div></div>
+  <div style="text-align:center"><div style="width:48px;height:48px;background:var(--white-15);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">48</div></div>
+  <div style="text-align:center"><div style="width:64px;height:64px;background:var(--white-15);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">64</div></div>
+  <div style="text-align:center"><div style="width:80px;height:80px;background:var(--white-15);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">80</div></div>
+  <div style="text-align:center"><div style="width:96px;height:96px;background:var(--white-15);border:1px solid var(--white-20);border-radius:3px"></div><div class="n" style="margin-top:6px">96</div></div>
+</div>
+<div class="meta" style="margin-top:8px">--space-1 … --space-24 · component padding always lands on this ramp</div>
+</body></html>

@@ -1,0 +1,419 @@
+{
+  "version": 2,
+  "names": [
+    "signup_viewed",
+    "signup_submitted",
+    "signup_verified",
+    "signup_completed",
+    "login_completed",
+    "first_action",
+    "waitlist_joined",
+    "waitlist_shared",
+    "referral_used",
+    "referral_claimed",
+    "pricing_viewed",
+    "plan_clicked",
+    "checkout_started",
+    "order_completed",
+    "feature_used",
+    "api_key_created",
+    "app_created",
+    "project_created",
+    "agent_created",
+    "chat_started",
+    "chat_message_sent",
+    "model_switched",
+    "task_started",
+    "task_completed",
+    "build_started",
+    "generation_completed",
+    "generation_failed",
+    "deploy_started",
+    "deploy_succeeded",
+    "deploy_failed"
+  ],
+  "reserved": [
+    "$pageview",
+    "$exception"
+  ],
+  "schema": {
+    "signup_viewed": {
+      "summary": "The signup form was shown.",
+      "props": {}
+    },
+    "signup_submitted": {
+      "summary": "The signup form was submitted.",
+      "props": {}
+    },
+    "signup_verified": {
+      "summary": "The address on a signup was verified.",
+      "props": {}
+    },
+    "signup_completed": {
+      "summary": "A new account exists and is usable.",
+      "props": {}
+    },
+    "login_completed": {
+      "summary": "A RETURNING user authenticated. Distinct from signup_completed on purpose — folding the two makes every returning login inflate the signup count.",
+      "props": {}
+    },
+    "first_action": {
+      "summary": "Activation: the first moment of real value. ONE event for every product — which moment it was is the `action` property, never a new event name.",
+      "props": {
+        "action": {
+          "type": "string",
+          "doc": "The product-specific moment that counted as activation.",
+          "values": [
+            "api_call",
+            "app_live",
+            "chat_reply"
+          ]
+        }
+      }
+    },
+    "waitlist_joined": {
+      "summary": "Someone joined a waitlist.",
+      "props": {}
+    },
+    "waitlist_shared": {
+      "summary": "Someone shared their waitlist position.",
+      "props": {}
+    },
+    "referral_used": {
+      "summary": "A referral code was applied.",
+      "props": {}
+    },
+    "referral_claimed": {
+      "summary": "A referral reward was claimed.",
+      "props": {}
+    },
+    "pricing_viewed": {
+      "summary": "The pricing surface was shown.",
+      "props": {}
+    },
+    "plan_clicked": {
+      "summary": "A specific plan was chosen from pricing.",
+      "props": {
+        "plan": {
+          "type": "string",
+          "doc": "The plan name as the catalog spells it."
+        }
+      }
+    },
+    "checkout_started": {
+      "summary": "Checkout opened for a plan.",
+      "props": {
+        "plan": {
+          "type": "string",
+          "doc": "The plan name as the catalog spells it."
+        }
+      }
+    },
+    "order_completed": {
+      "summary": "Payment succeeded and the order exists.",
+      "props": {}
+    },
+    "feature_used": {
+      "summary": "The generic usage event, for a surface with no dedicated name yet.",
+      "props": {}
+    },
+    "api_key_created": {
+      "summary": "An API key was minted.",
+      "props": {}
+    },
+    "app_created": {
+      "summary": "An app now exists.",
+      "props": {
+        "source": {
+          "type": "string",
+          "doc": "Where the app came from — a template, an import, or empty."
+        }
+      }
+    },
+    "project_created": {
+      "summary": "A project now exists.",
+      "props": {}
+    },
+    "agent_created": {
+      "summary": "An agent was defined.",
+      "props": {}
+    },
+    "chat_started": {
+      "summary": "A conversation began.",
+      "props": {}
+    },
+    "chat_message_sent": {
+      "summary": "A turn was sent in a conversation.",
+      "props": {
+        "hasImages": {
+          "type": "boolean",
+          "doc": "Whether the turn carried image attachments."
+        }
+      }
+    },
+    "model_switched": {
+      "summary": "The user changed model or endpoint — the strongest quality signal a chat surface emits, because a switch usually follows a bad answer.",
+      "props": {}
+    },
+    "task_started": {
+      "summary": "A task began.",
+      "props": {}
+    },
+    "task_completed": {
+      "summary": "A task finished.",
+      "props": {}
+    },
+    "build_started": {
+      "summary": "A build was requested.",
+      "props": {
+        "mode": {
+          "type": "string",
+          "doc": "How the build was invoked."
+        },
+        "withBase": {
+          "type": "boolean",
+          "doc": "Whether the build provisions a Base alongside the app."
+        }
+      }
+    },
+    "generation_completed": {
+      "summary": "A model finished producing an artifact — an app build, a chat reply, an agent run. It carries its own duration, so no paired start event is needed.",
+      "props": {
+        "durationMs": {
+          "type": "number",
+          "doc": "Wall-clock milliseconds the generation took."
+        }
+      }
+    },
+    "generation_failed": {
+      "summary": "A model failed to produce its artifact.",
+      "props": {}
+    },
+    "deploy_started": {
+      "summary": "A deploy was requested.",
+      "props": {
+        "framework": {
+          "type": "string",
+          "doc": "The framework detected or declared for the deploy."
+        },
+        "update": {
+          "type": "boolean",
+          "doc": "Whether this replaces an existing deployment."
+        },
+        "source": {
+          "type": "string",
+          "doc": "What triggered the deploy."
+        }
+      }
+    },
+    "deploy_succeeded": {
+      "summary": "The artifact is live.",
+      "props": {}
+    },
+    "deploy_failed": {
+      "summary": "The deploy did not reach live.",
+      "props": {}
+    }
+  },
+  "products": [
+    "site",
+    "app",
+    "chat",
+    "console",
+    "admin",
+    "cloud",
+    "id",
+    "billing",
+    "pay",
+    "commerce"
+  ],
+  "funnels": {
+    "signup": {
+      "label": "Signup",
+      "products": [
+        "site",
+        "id"
+      ],
+      "join": "aggregate",
+      "steps": [
+        {
+          "event": "$pageview",
+          "label": "Landed",
+          "product": "site"
+        },
+        {
+          "event": "signup_viewed",
+          "label": "Opened signup",
+          "product": "site"
+        },
+        {
+          "event": "signup_submitted",
+          "label": "Redirected to Hanzo ID",
+          "product": "site"
+        },
+        {
+          "event": "signup_viewed",
+          "label": "Saw the form",
+          "product": "id"
+        },
+        {
+          "event": "signup_submitted",
+          "label": "Submitted the form",
+          "product": "id"
+        },
+        {
+          "event": "signup_completed",
+          "label": "Account created",
+          "product": "site"
+        }
+      ]
+    },
+    "apiActivation": {
+      "label": "API activation",
+      "products": [
+        "site",
+        "cloud"
+      ],
+      "join": "person",
+      "steps": [
+        {
+          "event": "signup_completed",
+          "label": "Account created"
+        },
+        {
+          "event": "api_key_created",
+          "label": "Key minted"
+        },
+        {
+          "event": "first_action",
+          "label": "First successful API call",
+          "where": {
+            "property": "action",
+            "equals": "api_call"
+          }
+        }
+      ]
+    },
+    "upgrade": {
+      "label": "Upgrade",
+      "products": [
+        "site",
+        "app",
+        "console",
+        "billing",
+        "pay"
+      ],
+      "join": "person",
+      "steps": [
+        {
+          "event": "pricing_viewed",
+          "label": "Viewed pricing"
+        },
+        {
+          "event": "plan_clicked",
+          "label": "Chose a plan"
+        },
+        {
+          "event": "checkout_started",
+          "label": "Left for checkout",
+          "product": "billing"
+        },
+        {
+          "event": "checkout_started",
+          "label": "Reached the card form",
+          "product": "pay"
+        },
+        {
+          "event": "order_completed",
+          "label": "Paid"
+        }
+      ]
+    },
+    "appShip": {
+      "label": "Describe → ship",
+      "products": [
+        "app"
+      ],
+      "join": "person",
+      "steps": [
+        {
+          "event": "$pageview",
+          "label": "Landed"
+        },
+        {
+          "event": "build_started",
+          "label": "Described an app"
+        },
+        {
+          "event": "generation_completed",
+          "label": "Got a working build"
+        },
+        {
+          "event": "deploy_started",
+          "label": "Hit publish"
+        },
+        {
+          "event": "deploy_succeeded",
+          "label": "Live URL"
+        }
+      ]
+    },
+    "chatEngage": {
+      "label": "Chat engagement",
+      "products": [
+        "chat"
+      ],
+      "join": "person",
+      "steps": [
+        {
+          "event": "$pageview",
+          "label": "Landed"
+        },
+        {
+          "event": "chat_started",
+          "label": "Started a conversation"
+        },
+        {
+          "event": "chat_message_sent",
+          "label": "Sent a message"
+        },
+        {
+          "event": "generation_completed",
+          "label": "Got an answer"
+        }
+      ]
+    },
+    "siteToChat": {
+      "label": "Site → Chat handoff",
+      "products": [
+        "site",
+        "chat"
+      ],
+      "join": "aggregate",
+      "steps": [
+        {
+          "event": "chat_started",
+          "label": "Submitted the hanzo.ai composer",
+          "product": "site",
+          "where": {
+            "property": "source",
+            "equals": "composer"
+          }
+        },
+        {
+          "event": "chat_started",
+          "label": "Landed in hanzo.chat",
+          "product": "chat",
+          "where": {
+            "property": "referrerProduct",
+            "equals": "site"
+          }
+        },
+        {
+          "event": "generation_completed",
+          "label": "Got an answer"
+        }
+      ]
+    }
+  }
+}

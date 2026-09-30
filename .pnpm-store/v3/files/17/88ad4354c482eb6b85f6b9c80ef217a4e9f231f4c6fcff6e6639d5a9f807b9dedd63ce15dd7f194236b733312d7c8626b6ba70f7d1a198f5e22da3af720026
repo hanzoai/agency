@@ -1,0 +1,79 @@
+/* Zen — the only family on Hanzo surfaces, sans and mono.
+   SELF-HOSTED. The faces ship inside this package (assets/fonts/*.woff2, two
+   variable files, 141 KB total, SIL OFL-1.1 — see assets/fonts/LICENSE-Zen.txt).
+
+   Zen is our own family, under the SIL Open Font License. The licence file
+   beside the binaries carries every copyright the OFL requires; nothing else in
+   this repository restates them, which is the whole of what §2 asks for.
+
+   SHIPPED here rather than @import-ed from `@hanzo/font`, and that is load
+   bearing. `@hanzo/ui` composes this file into the MIDDLE of its theme.css, and
+   CSS drops an @import that does not precede every other rule — measured, in
+   Chromium, on the built sheet: zero faces loaded and not one woff2 requested.
+   An @font-face has no such ordering rule, so declaring the faces is the only
+   form that survives being flattened into a larger stylesheet. `@hanzo/font`
+   remains the one place the faces are AUTHORED; this is a copy of its output,
+   the same way the colour tokens are copied rather than fetched.
+
+   Why self-hosted rather than a third-party CDN:
+   - A sign-in page must not make a third-party request. hanzoai/id refused to
+     import this file for exactly that reason, which split the token layer: id
+     took the colours and not the typeface. Self-hosting removes the reason, so
+     every surface can import styles.css unchanged.
+   - It was a render-blocking request to a host we do not control, on the
+     critical path of every surface, and it broke offline/air-gapped dev.
+   - One variable file per family replaces nine static weights, and it is fewer
+     bytes than the CSS-then-woff2 round trip.
+
+   The url()s are relative to THIS file, so they resolve wherever the package is
+   mounted — node_modules, a CDN, a copied dist — with no configuration.
+
+   `font-display: block`, NOT swap, and the difference is the whole brand. `swap`
+   paints the fallback IMMEDIATELY and repaints when the face lands, so every first
+   visit shows the platform's own sans for as long as the download takes — on Ubuntu
+   that is DejaVu, which looks nothing like us and is the single most common way a
+   Hanzo surface renders wrong. `block` holds the text invisible for a short period
+   (~3s) and then paints Zen, so the fallback is only ever reached when the face
+   genuinely fails to arrive. A held word is a moment; the wrong typeface is the
+   brand. The generic tail below stays for exactly that real-failure case. */
+
+@font-face{
+  font-family:"Zen";
+  src:url("../assets/fonts/Zen-Variable.woff2") format("woff2");
+  font-weight:100 900;
+  font-style:normal;
+  font-display:block;
+}
+@font-face{
+  font-family:"Zen Mono";
+  src:url("../assets/fonts/ZenMono-Variable.woff2") format("woff2");
+  font-weight:100 900;
+  font-style:normal;
+  font-display:block;
+}
+
+:root{
+  --font-sans:"Zen",ui-sans-serif,system-ui,sans-serif;
+  --font-display:var(--font-sans);
+  --font-mono:"Zen Mono",ui-monospace,SFMono-Regular,monospace;
+  --font-serif:Georgia,serif;
+  /* The default is Zen as drawn, and that is a decision rather than an omission.
+     `base.css` puts this on <body>, so whatever is here is the voice of every
+     surface in the estate — which is exactly why it should not carry a brand's.
+
+     It used to read `"ss01","ss02","cv01","cv02","cv03"`, of which FOUR did
+     nothing: Zen has no cv01/cv02/cv03 at all, and ss01 and ss02 both remap `a`,
+     so ss01 substitutes first and ss02 never matches the glyph it was written
+     for. The one that did work quietly gave Lux and Zoo the single-storey `a`
+     that belongs to Hanzo.
+
+     A brand sets its own voice by overriding THIS token — one knob, one place:
+       Hanzo   "ss01"            single-storey a, the neo-grotesque register
+       Lux     "ss04"            straight-leg R, to sit under the wordmark
+       Zoo     normal            the humanist default, the warmest of the three
+     Zen ships eleven sets; ss03 is a tailed l, ss05 a serifed I, ss06 an
+     alternate G and ss09 a slashed zero with a serif one. Kerning, ligatures and
+     contextual alternates are on by default in every browser and do not belong
+     in this list. */
+  --font-feature-settings:normal;
+}

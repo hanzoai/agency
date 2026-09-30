@@ -1,0 +1,75 @@
+{
+  "name": "@hanzo/design",
+  "version": "0.5.21",
+  "packageManager": "pnpm@11.17.0",
+  "description": "Hanzo Design System \u2014 monochrome, dark-default tokens + components + brand assets, the single source of truth for every Hanzo surface. CSS + typed programmatic tokens.",
+  "license": "MIT OR Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hanzoai/design.git"
+  },
+  "homepage": "https://hanzo.ai",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json",
+    "./styles.css": "./styles.css",
+    "./tokens/*": "./tokens/*",
+    "./components/*": "./components/*",
+    "./prompts/*": "./prompts/*",
+    "./content/*": "./content/*",
+    "./assets/*": "./assets/*",
+    "./skills/*": "./skills/*"
+  },
+  "scripts": {
+    "gen": "node scripts/gen-tokens.mjs",
+    "test": "node scripts/check-tokens.mjs && node scripts/check-preference.mjs && node scripts/lint.mjs .",
+    "build": "rm -rf dist dist-cjs && pnpm gen && pnpm test && tsc -p tsconfig.json && tsc -p tsconfig.cjs.json --noCheck && node scripts/cjs.mjs && node scripts/check-dist.mjs",
+    "prepublishOnly": "pnpm build",
+    "lint": "node scripts/lint.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "files": [
+    "dist",
+    "tailwind.css",
+    "src",
+    "styles.css",
+    "tokens",
+    "components",
+    "prompts",
+    "skills",
+    "scripts",
+    "content",
+    "docs",
+    "assets",
+    "guidelines",
+    "ui_kits"
+  ],
+  "keywords": [
+    "hanzo",
+    "design-system",
+    "design-tokens",
+    "brand",
+    "monochrome"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "bin": {
+    "hanzo-design-lint": "./scripts/lint.mjs"
+  }
+}

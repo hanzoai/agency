@@ -1,0 +1,17 @@
+<!-- @dsCard group="Brand" viewport="700x150" name="Radii" subtitle="Six steps, from the 6px button to the 28px composer" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Radii</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div class="g">
+  <div class="sw"><div style="height:48px;background:var(--surface-card);border:1px solid var(--border);border-radius:6px"></div><div class="n">6px</div><div class="v">button · input</div></div>
+  <div class="sw"><div style="height:48px;background:var(--surface-card);border:1px solid var(--border);border-radius:12px"></div><div class="n">12px</div><div class="v">card</div></div>
+  <div class="sw"><div style="height:48px;background:var(--surface-card);border:1px solid var(--border);border-radius:16px"></div><div class="n">16px</div><div class="v">panel</div></div>
+  <div class="sw"><div style="height:48px;background:var(--surface-card);border:1px solid var(--border);border-radius:24px"></div><div class="n">24px</div><div class="v">story card</div></div>
+  <div class="sw"><div style="height:48px;background:var(--surface-card);border:1px solid var(--border);border-radius:28px"></div><div class="n">28px</div><div class="v">composer</div></div>
+  <div class="sw"><div style="height:48px;background:var(--surface-card);border:1px solid var(--border);border-radius:999px"></div><div class="n">999px</div><div class="v">pill · avatar</div></div>
+</div></body></html>

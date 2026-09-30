@@ -1,0 +1,20 @@
+<!-- @dsCard group="Type" viewport="700x210" name="Scale" subtitle="The rendered ramp, 12 → 60px" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Scale</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div style="display:flex;flex-direction:column;gap:3px">
+  <div class="row"><span style="font-size:0.75rem;line-height:1.15;color:var(--neutral-200)">Aa</span><span class="meta">--text-xs · 0.75rem</span></div>
+  <div class="row"><span style="font-size:0.875rem;line-height:1.15;color:var(--neutral-200)">Aa</span><span class="meta">--text-sm · 0.875rem</span></div>
+  <div class="row"><span style="font-size:1rem;line-height:1.15;color:var(--neutral-200)">Aa</span><span class="meta">--text-base · 1rem</span></div>
+  <div class="row"><span style="font-size:1.125rem;line-height:1.15;color:var(--neutral-200)">Aa</span><span class="meta">--text-lg · 1.125rem</span></div>
+  <div class="row"><span style="font-size:1.25rem;line-height:1.15;color:var(--neutral-200)">Aa</span><span class="meta">--text-xl · 1.25rem</span></div>
+  <div class="row"><span style="font-size:1.5rem;line-height:1.15;color:var(--neutral-200)">Aa</span><span class="meta">--text-2xl · 1.5rem</span></div>
+  <div class="row"><span style="font-size:1.875rem;line-height:1.15;color:var(--neutral-200)">Aa</span><span class="meta">--text-3xl · 1.875rem</span></div>
+  <div class="row"><span style="font-size:2.25rem;line-height:1.15;color:var(--neutral-200)">Aa</span><span class="meta">--text-4xl · 2.25rem</span></div>
+  <div class="row"><span style="font-size:3rem;line-height:1.15;color:var(--neutral-200)">Aa</span><span class="meta">--text-5xl · 3rem</span></div>
+</div></body></html>

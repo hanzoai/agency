@@ -1,0 +1,32 @@
+import type { Attribution, Cohort } from './types';
+/**
+ * Stable anonymous id, shared by every *.hanzo.ai surface AND by every Hanzo
+ * client on the page — the npm client and the hosted tag both run the one
+ * chain in ./anon.js, so which snippet a surface loaded no longer decides who the
+ * visitor is.
+ *
+ * It lives in a first-party cookie on the registrable domain because localStorage
+ * is ORIGIN-scoped: docs, cloud and console each minted their own id for the same
+ * person, so one marketing → docs → signup → checkout journey arrived as several
+ * strangers — 463 anonymous identities carried 545 events in a week, about 1.2
+ * events each.
+ */
+export declare function anonId(): string | undefined;
+/**
+ * Current session id, rotated after SESSION_TTL_MS of inactivity.
+ *
+ * Minted at `now`, so the v7 timestamp the id carries IS the session's start
+ * instant — which is what the session rollups partition and order on. Passing the
+ * caller's clock rather than reading Date.now() again keeps the id's embedded time
+ * and the recorded `last` from disagreeing.
+ */
+export declare function sessionId(now?: number): string | undefined;
+/** Read the persisted first-touch attribution. */
+export declare function getFirstTouch(): Attribution | undefined;
+/** Persist first-touch attribution ONCE — never overwrite an existing record. */
+export declare function setFirstTouchOnce(a: Attribution): Attribution;
+/** Read persisted cohort dimensions. */
+export declare function getCohort(): Cohort | undefined;
+/** Merge + persist cohort dimensions (signupWeek set once). */
+export declare function mergeCohort(patch: Cohort): Cohort;
+//# sourceMappingURL=storage.d.ts.map

@@ -1,0 +1,20 @@
+/** redactCredentialParams removes the VALUE of any query parameter whose NAME
+ *  says it carries a credential, leaving the name so the URL still reads. */
+export declare function redactCredentialParams(s: string): string;
+/** redactSecrets removes known secret shapes. Always applied. */
+export declare function redactSecrets(s: string): string;
+/** scrubPII masks emails and IPs. Applied unless PII capture is enabled. */
+export declare function scrubPII(s: string): string;
+/** Longest free-text field this module will scrub. Every pattern here is a regex
+ *  run synchronously on the main thread, and the input is attacker-influenced —
+ *  `throw new Error(await res.text())` against an HTML error page is a one-line
+ *  way to hand us 128KB. Bounding the INPUT bounds the work regardless of which
+ *  pattern is pathological. 8KB is far beyond any real error message. */
+export declare const MAX_SCRUB_LEN = 8192;
+/** truncate caps a string at MAX_SCRUB_LEN, marking that it was cut so a reader
+ *  never mistakes a truncated message for the whole one. */
+export declare function truncate(s: string, max?: number): string;
+/** scrubText applies the redaction policy to a free-text field. Input is capped
+ *  first: unbounded text is a denial-of-service surface, not just a size problem. */
+export declare function scrubText(s: string | undefined, capturePII?: boolean): string;
+//# sourceMappingURL=scrub.d.ts.map

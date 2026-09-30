@@ -1,0 +1,30 @@
+<!-- @dsCard group="Brand" viewport="700x180" name="Iconography" subtitle="lucide-react 0.462.0, default stroke, four sizes" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Iconography</title><link rel="stylesheet" href="../styles.css">
+<script src="https://unpkg.com/lucide@0.462.0/dist/umd/lucide.js"></script>
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--neutral-300)}
+.set{display:flex;flex-wrap:wrap;gap:20px;align-items:center}.i{display:flex;flex-direction:column;align-items:center;gap:7px;width:64px}
+.n{font-size:9px;font-family:var(--font-mono);color:var(--neutral-600)}
+.meta{margin-top:16px;font-size:10px;font-family:var(--font-mono);color:var(--neutral-600)}
+[data-lucide]{stroke:currentColor}</style></head><body>
+<div class="set">
+  <div class="i"><i data-lucide="arrow-right" style="width:22px;height:22px"></i><span class="n">arrow-right</span></div>
+  <div class="i"><i data-lucide="arrow-up-right" style="width:22px;height:22px"></i><span class="n">arrow-up-right</span></div>
+  <div class="i"><i data-lucide="terminal" style="width:22px;height:22px"></i><span class="n">terminal</span></div>
+  <div class="i"><i data-lucide="code" style="width:22px;height:22px"></i><span class="n">code</span></div>
+  <div class="i"><i data-lucide="file-text" style="width:22px;height:22px"></i><span class="n">file-text</span></div>
+  <div class="i"><i data-lucide="settings" style="width:22px;height:22px"></i><span class="n">settings</span></div>
+  <div class="i"><i data-lucide="user-check" style="width:22px;height:22px"></i><span class="n">user-check</span></div>
+  <div class="i"><i data-lucide="shield-check" style="width:22px;height:22px"></i><span class="n">shield-check</span></div>
+  <div class="i"><i data-lucide="lock" style="width:22px;height:22px"></i><span class="n">lock</span></div>
+  <div class="i"><i data-lucide="key-round" style="width:22px;height:22px"></i><span class="n">key-round</span></div>
+  <div class="i"><i data-lucide="cloud" style="width:22px;height:22px"></i><span class="n">cloud</span></div>
+  <div class="i"><i data-lucide="database" style="width:22px;height:22px"></i><span class="n">database</span></div>
+  <div class="i"><i data-lucide="bot" style="width:22px;height:22px"></i><span class="n">bot</span></div>
+  <div class="i"><i data-lucide="boxes" style="width:22px;height:22px"></i><span class="n">boxes</span></div>
+  <div class="i"><i data-lucide="message-square" style="width:22px;height:22px"></i><span class="n">message-square</span></div>
+  <div class="i"><i data-lucide="search" style="width:22px;height:22px"></i><span class="n">search</span></div>
+  <div class="i"><i data-lucide="chevron-down" style="width:22px;height:22px"></i><span class="n">chevron-down</span></div>
+  <div class="i"><i data-lucide="zap" style="width:22px;height:22px"></i><span class="n">zap</span></div>
+</div>
+<div class="meta">sizes 12 inline · 16 CTA · 24 card eyebrow · 40 section accent — stroke stays default, colour inherits</div>
+<script>lucide.createIcons()</script></body></html>

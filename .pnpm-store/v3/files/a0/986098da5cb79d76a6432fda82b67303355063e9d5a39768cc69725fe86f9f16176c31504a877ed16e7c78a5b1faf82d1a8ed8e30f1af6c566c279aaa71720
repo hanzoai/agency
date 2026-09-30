@@ -1,0 +1,33 @@
+import { WaitlistEntry } from './client';
+import { SharePlatformId, ShareTarget } from './Share';
+export interface WaitlistStatusProps {
+    /** The entry to render. Server is the source of truth; this is just the view. */
+    entry: WaitlistEntry;
+    /** Waitlist slug — needed for share + invite POSTs. */
+    waitlist: string;
+    /** Base server URL. Defaults to current origin. */
+    baseUrl?: string;
+    /** Override the "You're on the list" headline. */
+    title?: string;
+    /** Override the subtitle line under the rank. */
+    subtitle?: (entry: WaitlistEntry) => string;
+    /** Hide the share grid. */
+    hideShare?: boolean;
+    /** Hide the invite-friends panel. */
+    hideInvite?: boolean;
+    /** Hide the points score block. */
+    hidePoints?: boolean;
+    /** Restrict / reorder share platforms. */
+    shareTargets?: Array<SharePlatformId | ShareTarget>;
+    /**
+     * Called whenever the user earns points locally (share click, invite send)
+     * so consumers can keep external caches in sync. Receives the updated entry.
+     */
+    onEntryChange?: (next: WaitlistEntry) => void;
+}
+/**
+ * Presentational gamified post-join view: rank, points breakdown, share grid,
+ * invite panel. State-light by design — pass it an entry, render the entry,
+ * notify the caller on local point gains. No network on mount, no localStorage.
+ */
+export declare function WaitlistStatus(props: WaitlistStatusProps): import("react").JSX.Element;

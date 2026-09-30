@@ -1,0 +1,14 @@
+<!-- @dsCard group="Type" viewport="700x200" name="Body & lead" subtitle="Lead 18px, body 14px, caption 12px" -->
+<!doctype html><html class="dark"><head><meta charset="utf-8"><title>Body type</title><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:16px 20px;background:#000;font-family:var(--font-sans);color:var(--foreground)}
+.g{display:flex;gap:10px;flex-wrap:wrap}.sw{flex:1;min-width:64px}.chip{height:56px;border-radius:8px;border:1px solid var(--white-10)}
+.n{margin-top:6px;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--neutral-300);font-family:var(--font-mono)}
+.v{font-size:9px;color:var(--neutral-600);font-family:var(--font-mono)}
+.row{display:flex;align-items:baseline;gap:14px}.mono{font-family:var(--font-mono)}
+.meta{font-size:10px;color:var(--neutral-600);font-family:var(--font-mono);white-space:nowrap}
+</style></head><body>
+<div style="display:flex;flex-direction:column;gap:12px;max-width:62ch">
+  <div><p style="font-size:var(--text-lg);color:var(--neutral-300);line-height:var(--leading-relaxed)">Build, deploy, and govern AI agents with unified access to models, tools, memory, and audit logs.</p><span class="meta">lead · 18px / relaxed · neutral-300</span></div>
+  <div><p style="font-size:var(--text-sm);color:var(--text-helper);line-height:var(--leading-sm)">Every request is scoped to the caller's org. A teammate in your org sees the row; other orgs cannot.</p><span class="meta">body · 14px · --text-helper</span></div>
+  <div><p style="font-size:var(--text-xs);color:var(--text-helper)">Pay-as-you-go. No minimums.</p><span class="meta">caption · 12px</span></div>
+</div></body></html>

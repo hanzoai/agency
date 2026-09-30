@@ -1,0 +1,14 @@
+import type { Attribution } from './types';
+/** parseAttribution reads UTM params + ref/refCode from a query string and pairs
+ *  them with the referrer. `search` is a location.search value ("?utm_source=…"). */
+export declare function parseAttribution(search: string, referrer: string): Attribution;
+/** deriveChannel classifies the visit: paid | referral | social | organic | direct. */
+export declare function deriveChannel(a: Attribution): string;
+/** hostOf extracts a bare lowercase host from a URL; "" when unparseable. */
+export declare function hostOf(raw?: string): string;
+/** hasAttribution reports whether anything was captured (so we don't persist an
+ *  empty first-touch that would shadow a later real one). */
+export declare function hasAttribution(a: Attribution): boolean;
+/** isoWeek returns the ISO-8601 week label, e.g. "2026-W28". */
+export declare function isoWeek(d: Date): string;
+//# sourceMappingURL=attribution.d.ts.map

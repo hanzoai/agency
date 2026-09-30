@@ -1,0 +1,51 @@
+"use strict";
+/**
+ * @hanzo/events — the canonical event schema.
+ *
+ * Which events exist, what each one means, and what it carries. This is the
+ * vocabulary; @hanzo/event is the client that sends one.
+ *
+ * Plural and singular split along the thing they describe: many events are
+ * defined here, one event is sent by a call there. The client depends on this
+ * package and re-exports EVENTS, so a surface can keep importing either — but
+ * there is only one definition, here.
+ *
+ * The catalog also ships as `catalog.json` beside the built output, because the
+ * ingest door is Go and cannot import TypeScript. One source, two readers.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.RESERVED = exports.NAMES = exports.eventsOf = exports.PRODUCTS = exports.FUNNELS = exports.SCHEMA = exports.EXCEPTION = exports.PAGEVIEW = exports.EVENTS = void 0;
+exports.isKnown = isKnown;
+exports.specFor = specFor;
+var names_js_1 = require("./names.cjs");
+Object.defineProperty(exports, "EVENTS", { enumerable: true, get: function () { return names_js_1.EVENTS; } });
+Object.defineProperty(exports, "PAGEVIEW", { enumerable: true, get: function () { return names_js_1.PAGEVIEW; } });
+Object.defineProperty(exports, "EXCEPTION", { enumerable: true, get: function () { return names_js_1.EXCEPTION; } });
+var schema_js_1 = require("./schema.cjs");
+Object.defineProperty(exports, "SCHEMA", { enumerable: true, get: function () { return schema_js_1.SCHEMA; } });
+var funnels_js_1 = require("./funnels.cjs");
+Object.defineProperty(exports, "FUNNELS", { enumerable: true, get: function () { return funnels_js_1.FUNNELS; } });
+Object.defineProperty(exports, "PRODUCTS", { enumerable: true, get: function () { return funnels_js_1.PRODUCTS; } });
+Object.defineProperty(exports, "eventsOf", { enumerable: true, get: function () { return funnels_js_1.eventsOf; } });
+const names_js_2 = require("./names.cjs");
+const schema_js_2 = require("./schema.cjs");
+/** Every event name in the vocabulary, as it travels on the wire. */
+exports.NAMES = Object.freeze(Object.values(names_js_2.EVENTS));
+/** The two reserved names: a pageview and a captured exception. */
+exports.RESERVED = Object.freeze([names_js_2.PAGEVIEW, names_js_2.EXCEPTION]);
+/**
+ * Is this a name the vocabulary knows?
+ *
+ * The ingest door RECORDS an unknown event rather than refusing it, and flags
+ * it. Refusing would mean a surface shipping a new event before the catalog
+ * does loses the data outright, and the data is the thing you cannot recover;
+ * a flag you can act on later. So this answers a question about the catalog,
+ * never about whether to accept.
+ */
+function isKnown(name) {
+    return name in schema_js_2.SCHEMA || exports.RESERVED.includes(name);
+}
+/** What an event means and carries, or undefined if it is not in the catalog. */
+function specFor(name) {
+    return schema_js_2.SCHEMA[name];
+}

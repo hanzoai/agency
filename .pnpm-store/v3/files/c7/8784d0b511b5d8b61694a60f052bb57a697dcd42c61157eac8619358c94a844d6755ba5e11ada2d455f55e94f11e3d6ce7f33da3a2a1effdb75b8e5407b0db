@@ -1,0 +1,50 @@
+import type { ExceptionEntry, ExceptionProperties, SentryLevel } from './types';
+/**
+ * digest is a stable 32-hex-char (128-bit) content hash, computed synchronously.
+ *
+ * Grouping keys are needed on the capture path, which is synchronous and may be
+ * running inside an unload handler — SubtleCrypto is async and unavailable on
+ * insecure origins, so it cannot be used here. This is FNV-1a run over four seeds
+ * and concatenated. It is a GROUPING key, never a security boundary: it is not
+ * collision-resistant against a chosen-input adversary, and nothing authorizes or
+ * authenticates on it. The product treats the value as opaque.
+ */
+export declare function digest(s: string): string;
+/**
+ * exceptionEntry builds the single `$exception_list` entry for a throwable.
+ *
+ * One entry, not a chain: `Error.cause` chaining is a distinct fact with its own
+ * ordering rules, and emitting it wrongly is worse than not emitting it.
+ */
+export declare function exceptionEntry(err: unknown, opts: {
+    handled: boolean;
+    id: string;
+}): ExceptionEntry;
+/**
+ * fingerprint is the issue grouping key.
+ *
+ * Keyed on exception type plus each in-app frame's function and source — the same
+ * pieces the server-side grouper records ("Exception Type", "Resolved function
+ * name", "Source file name"). Deliberately NOT the message: `Loading chunk 3324
+ * failed` and `Loading chunk 998 failed` are one bug, and grouping on message is
+ * precisely the mistake that made every distinct error string its own event name.
+ *
+ * Falls back to the type alone when no in-app frame survived, which keeps
+ * stackless errors (`Script error.`, cross-origin) in one issue instead of
+ * scattering them.
+ */
+export declare function fingerprint(entry: ExceptionEntry): string;
+/**
+ * exceptionProperties builds the full `$exception_*` property bag for one captured
+ * throwable — everything Error Tracking reads off the event.
+ *
+ * The denormalized arrays are ordered like `frames`: last element is the throw
+ * site, which is the element the issue list indexes at -1 for its source/function
+ * columns.
+ */
+export declare function exceptionProperties(err: unknown, opts: {
+    handled: boolean;
+    id: string;
+    level?: SentryLevel;
+}): ExceptionProperties;
+//# sourceMappingURL=exception.d.ts.map

@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, type ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
-import { createAnalytics, readConsent, startTags } from '@hanzo/event'
-import { AnalyticsProvider, useConsent, usePageview } from '@hanzo/event/react'
+import { createAnalytics, startTags } from '@hanzo/event'
+import { AnalyticsProvider, usePageview } from '@hanzo/event/react'
 
 /** The ONE Hanzo telemetry front door — POST api.hanzo.ai/v1/event. Cloud fans the
  *  single batched stream out to the web (analytics), product (insights) and error
@@ -26,11 +26,10 @@ const CONFIG = { product: 'agency', host: HOST, ingestKey: KEY }
 /** The sites one visit can cross; GA4 keeps it one session across them. */
 const DOMAINS = ['hanzo.agency', 'hanzo.ai', 'hanzo.id', 'pay.hanzo.ai', 'cal.hanzo.ai']
 
-/** The stream's client as consent stands now. Plain modules capture too (checkout
- *  helpers are not components and cannot call a hook); asking here returns the
- *  same instance the provider holds, so there is never a second client with its
- *  own session id, and a capture made before Analytics is allowed sends nothing. */
-export const analytics = () => createAnalytics({ ...CONFIG, enabled: readConsent().analytics })
+/** The stream's client. Plain modules capture too (checkout helpers are not
+ *  components and cannot call a hook); asking here returns the same instance the
+ *  provider holds, so there is never a second client with its own session id. */
+export const analytics = () => createAnalytics(CONFIG)
 
 const Banner = lazy(() => import('./banner'))
 
@@ -49,14 +48,13 @@ function Tags() {
 /** Telemetry root, the docs.hanzo.ai pattern. Renders INSIDE the router —
  *  <Pageview> reads the router's location, one pageview per route change on a
  *  client-routed SPA. The provider covers the initial load, registers auto error
- *  capture and flushes on unload. The stream runs while the visitor allows
- *  analytics, and <Banner> (@hanzo/ui's Consent, loaded beside the page rather
- *  than ahead of it) is the one banner that asks. Global Privacy Control and Do
- *  Not Track read as a refusal. */
+ *  capture and flushes on unload. The stream is first party and runs for every
+ *  visitor; consent gates the third parties alone (startTags), and <Banner>
+ *  (@hanzo/ui's Consent, loaded beside the page rather than ahead of it) is the
+ *  one banner that asks. Global Privacy Control and Do Not Track refuse them. */
 export function Analytics({ children }: { children: ReactNode }) {
-  const consent = useConsent()
   return (
-    <AnalyticsProvider config={{ ...CONFIG, enabled: consent.analytics }}>
+    <AnalyticsProvider config={CONFIG}>
       <Tags />
       <Pageview />
       {children}

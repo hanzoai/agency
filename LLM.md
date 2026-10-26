@@ -20,7 +20,7 @@ the workflow holds only the hanzoai org's `KMS_CLIENT_ID`/`KMS_CLIENT_SECRET`.
 
 Telemetry is `@hanzo/event` (`src/analytics.tsx`, mounted inside the router in
 `src/App.tsx`), the docs.hanzo.ai pattern: the stream posts to
-`api.hanzo.ai/v1/event` under project `agency`'s publishable key, `startTags`
+`api.hanzo.ai/v1/event` for every visitor (first party) under project `agency`'s publishable key, `startTags`
 loads GA4 and the Meta pixel from cloud's tag set for that key
 (`GET /v1/project/tags`) once the visitor consents, and `src/banner.tsx` is
 `@hanzo/ui/consent` under its own `GuiProvider`, loaded lazily. No tag id lives in

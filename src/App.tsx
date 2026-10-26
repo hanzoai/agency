@@ -39,8 +39,8 @@ function Away({ to }: { to: string }) {
 }
 
 // Scroll position, and nothing else. Counting the navigation is <Analytics>'s
-// job, and GA4's own history listener's (index.html) — a page_view sent from here
-// would count every route twice.
+// job, and GA4's own history listener's (loaded by startTags) — a page_view sent
+// from here would count every route twice.
 function ScrollToTop() {
   const { pathname } = useLocation();
 

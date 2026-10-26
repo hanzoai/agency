@@ -18,14 +18,17 @@ old shared bucket keys could. Deletion rides the manifest: the grant permits
 writes only, so cloud prunes the prefix against `keys`. The deploy key is in KMS;
 the workflow holds only the hanzoai org's `KMS_CLIENT_ID`/`KMS_CLIENT_SECRET`.
 
-Telemetry is `@hanzo/event` (`src/analytics.tsx`, mounted inside the router in `src/App.tsx`) posting to `api.hanzo.ai/v1/event`. One
-client for pageviews, events and errors: no Meta Pixel, no Plausible, no
-separate error SDK.
-
-GA4 is hanzo.agency's own stream, stated once in `hanzo.yml`
-(`analytics.googleAnalyticsId`); `vite.config.ts` writes it into `index.html`'s
-`%GA%`. The head configures it inline and fetches gtag.js after `load`. GA4's
-history listener counts route changes, so no component sends `page_view`.
+Telemetry is `@hanzo/event` (`src/analytics.tsx`, mounted inside the router in
+`src/App.tsx`), the docs.hanzo.ai pattern: the stream posts to
+`api.hanzo.ai/v1/event` under project `agency`'s publishable key, `startTags`
+loads GA4 and the Meta pixel from cloud's tag set for that key
+(`GET /v1/project/tags`) once the visitor consents, and `src/banner.tsx` is
+`@hanzo/ui/consent` under its own `GuiProvider`, loaded lazily. No tag id lives in
+this repo. GA4's history listener counts route changes, so no component sends
+`page_view`. Plain modules capture through `analytics()`, which returns the
+provider's client. gui is react-native-web on the browser, so `vite.config.ts`
+aliases `react-native` and prefers `.web.*`; `package.json` overrides keep one gui
+and one event client.
 
 ## Project Structure
 - `/src`: Main source code

@@ -49,12 +49,13 @@ export function loginUrl(plan: Plan): string {
  * rather than waiting on pagehide as the page is torn down.
  */
 export function depart(plan: Plan): void {
-  analytics.capture(EVENTS.CHECKOUT_STARTED, { plan: plan.slug });
-  analytics.flush(true);
+  const stream = analytics();
+  stream.capture(EVENTS.CHECKOUT_STARTED, { plan: plan.slug });
+  stream.flush(true);
 }
 
 /** A plan button was pressed: the buyer chose `plan` and leaves for its checkout. */
 export function choose(plan: Plan): void {
-  analytics.capture(EVENTS.PLAN_CLICKED, { plan: plan.slug });
+  analytics().capture(EVENTS.PLAN_CLICKED, { plan: plan.slug });
   depart(plan);
 }

@@ -45,5 +45,4 @@ calendar:
   bookingUrl: https://calendar.app.google/z1YsZQrqR4s6jQqD8
 
 analytics:
-  googleAnalyticsId: G-YL5C91SRDW
   insightsUrl: https://api.hanzo.ai/v1/event

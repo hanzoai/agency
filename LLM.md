@@ -22,7 +22,7 @@ Telemetry is `@hanzo/event` (`src/analytics.tsx`, mounted inside the router in
 `src/App.tsx`), the docs.hanzo.ai pattern: the stream posts to
 `api.hanzo.ai/v1/event` for every visitor (first party) under project `agency`'s publishable key, `startTags`
 loads GA4 and the Meta pixel from cloud's tag set for that key
-(`GET /v1/project/tags`) under cloud's rule for the visitor's region (@hanzo/event 0.3.63:
+(`GET /v1/project/tags`) under cloud's rule for the visitor's region (@hanzo/event 0.3.66:
 at once in the US, on consent in the EU), and `src/banner.tsx` is
 `@hanzo/ui/consent` under its own `GuiProvider`, loaded lazily. No tag id lives in
 this repo. GA4's history listener counts route changes, so no component sends

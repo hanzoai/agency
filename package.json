@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@hanzo/design": "^0.5.21",
-    "@hanzo/event": "0.3.63",
+    "@hanzo/event": "0.3.66",
     "@hanzo/gui": "8.3.5",
     "@hanzo/logo": "^1.0.26",
     "@hanzo/ui": "8.29.14",
@@ -63,7 +63,7 @@
       "minimatch@>=9.0.0 <9.0.6": ">=9.0.6",
       "rollup@>=4.0.0 <4.59.0": ">=4.59.0",
       "esbuild@<=0.24.2": ">=0.25.0",
-      "@hanzo/event": "0.3.63",
+      "@hanzo/event": "0.3.66",
       "@hanzo/gui": "8.3.5",
       "@hanzogui/animations-css": "8.3.5",
       "@hanzogui/config": "8.3.5",

@@ -3,7 +3,7 @@
 // apart again.
 export const contact = {
   entity: 'Hanzo AI, Inc.',
-  address: ['995 Market St', 'San Francisco, CA 94103'],
+  address: ['1 Ferry Building', 'San Francisco, CA 94105'],
   // hanzo.agency publishes no MX record, so mail to an @hanzo.agency address
   // bounces. This is the address hanzo.ai/contact publishes.
   email: 'hello@hanzo.ai',
